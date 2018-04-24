@@ -1,0 +1,464 @@
+<!Doctype html>
+<html>
+<!--[if IE 9]><html lang="en" class="ie ie9"><![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css'>
+    <link href='/assets/css/app.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div class='body-wrapper'>
+        <main>
+            <header class="main-header main-header-md js-header" style="">
+            </header>
+        </main>
+        <section class='main-container home-page'>
+
+            <div class="content-box">
+              <div class="row position-relative">
+                <div class="overlay-wrapper">
+                </div>
+                <div class="col-xs-24">
+
+                <div class="main-block">
+
+                    <!--error-message-box-->
+                    <div class="row xs-ml-0 xs-mr-0">
+                      <div class="alert alert-danger xs-mt-10">
+                          <span class="alert-message">Sample error message.</span>
+                      </div>
+                    </div>
+
+                    <!-- header block start-->
+                    <div class="row xs-ml-0 xs-mr-0">
+                        <div class="col-xs-24 xs-pl-0">
+                            <h2 class='page-title xs-pl-0'>welcome, Gina!</h2>
+                        </div>
+                    </div>
+
+                    <!-- notification and carousel block start-->
+                    <div class="row md-ml-0 md-mr-0">
+                            <div class="main-fluid-block">
+                                <div class="notification-container">
+                                    <div class="notification-inner-block">
+                                        <div class="heading-block md-pt-10">
+                                            <span class="sub-heading fluid-text">notifications</span>
+                                        </div>
+
+                                        <!-- notification component block start-->
+                                        <div class="notification-height-reserve">
+                                            <div class="notify-component xs-pt-10 xs-pl-5">
+
+                                                <!-- need attention component block-->
+                                                <div class="notify-attention-block xs-pt-5">
+                                                    <div class="row xs-ml-0 xs-mr-0">
+                                                        <div class="col-xs-3 col-xs-offset-1 notification-icon">
+                                                            <span class="fa fa-truck fa-flip-horizontal warningTxt"></span>
+                                                            <span class="badge badge_error order-details-badge">4</span>
+                                                        </div>
+                                                        <div class="col-xs-20 notification-text md-pl-15 lg-pl-5 xs-pl-10">
+                                                            <span class="order-notification-heading">These orders need your attention:</span>
+                                                            <ul class="order-notification-list">
+                                                                <li>
+                                                                    <span class="hidden-1100">Location 8330114, </span><a class="" href="#">Order date Aug 8 </a>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="hidden-1100">Location 9834724, </span><a class="" href="#">Order date Aug 5 </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- invoice component block-->
+                                                <div class="notify-invoice-block xs-pt-5">
+                                                    <div class="row xs-ml-0 xs-mr-0">
+                                                        <div class="col-xs-3 col-xs-offset-1 notification-icon">
+                                                            <span class="fa fa-file-text-o warningTxt"></span>
+                                                            <span class="badge badge_success order-details-badge">3</span>
+                                                        </div>
+                                                        <div class="col-xs-20 notification-text md-pl-15 lg-pl-5 xs-pl-10">
+                                                            <ul class="order-notification-list xs-mt-5">
+                                                                <li>
+                                                                    New <a class="" href="#">Invoice Documents</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- system outage component block-->
+                                                <div class="notify-system-block xs-pt-5">
+                                                    <div class="row xs-ml-0 xs-mr-0">
+                                                        <div class="col-xs-3 col-xs-offset-1 notification-icon">
+                                                            <span class="fa fa-info-circle warningTxt"></span>
+                                                            <span class="badge"></span>
+                                                        </div>
+                                                        <div class="col-xs-20 notification-text md-pl-15 lg-pl-5 xs-pl-10">
+                                                            <ul class="order-notification-list xs-mt-5">
+                                                                <li>
+                                                                    System outage 08/27/2016. <a href="#">Read more</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- notification component block end-->
+                                        <!-- order lubricants component block start-->
+
+                                        <div class="order-lub-component">
+                                            <div class="heading-block md-pt-10 xs-pb-10">
+                                                <span class="sub-heading">order lubricants</span>
+                                            </div>
+                                            <form method="GET" action="/orderLubricants" id="chevronOrderForm">
+                                                <div class="row xs-ml-0 xs-mr-0">
+                                                    <label class="col-xs-5 col-md-7 col-md-offset-0 col-lg-5 col-lg-offset-1 col-xs-offset-1 location xs-pl-0 md-pl-5">
+                                                        <strong>Location</strong>
+                                                    </label>
+                                                    <div class="col-xs-18 col-md-17 col-lg-18  md-mb-10 lg-mb-0">
+                                                        <select id="quick-order-location" title="Select Location" class="selectpicker" data-single-option="true" data-live-search="true">
+
+                                                            <option value="loc1" selected="selected">8330114, DISMACOR S.A. BARBOSA, K 10 NRO 20  11, BARBOSA, Colombia</option>
+                                                            <option value="loc2">DISMACOR S.A. BARRANQUILLA, CL 45 NRO 33 - 40, BARRANQUILLA, Colombia</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <input name="shipToAddress" type="hidden" id="shipToAddress" value="" />
+                                                <div class="row xs-ml-0 xs-mr-0">
+                                                    <div class="col-xs-5 col-md-7 col-md-offset-0 col-lg-5 col-lg-offset-1 col-xs-offset-1 location xs-pl-0 md-pl-5">
+                                                        <strong>Type</strong>
+                                                    </div>
+
+                                                    <div class="col-xs-18 col-md-17 col-lg-18">
+                                                      <div class="radio type-radio-block xs-mt-0 xs-mb-0" id="orders">
+                                                              <input type="radio" id="shipmentRadio1" name="shipmentType" checked="checked" value="PACKAGE" />
+                                                              <label for="shipmentRadio1">Packaged Goods </label>
+
+                                                              <input type="radio" id="shipmentRadio2" name="shipmentType" value="BULK" />
+                                                              <label for="shipmentRadio2">Bulk </label>
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row xs-ml-0 xs-mr-0 xs-mt-10">
+                                                    <button tabindex="-1" type="submit" class="btn btn-primary col-xs-22 col-xs-offset-1" id="displayButton" data-toggle="tooltip" data-placement="top" title="Please specify a location and a shipment type">Load Product Catalog</button>
+                                                </div>
+                                            </form>
+                                            <!-- <div class="alert alert-danger">
+                                                  <span class="alert-message">
+                                                        You have an active Cart
+                                                  </span>
+                                            </div>
+                                            <div class="row xs-ml-0 xs-mr-0 xs-mt-10">
+                                                <div class="col-xs-22 col-xs-offset-1">
+                                                    You currently have Lubricants Products in your Cart.<br>
+                                                    <a href="cart">Go to your Cart</a> to review these items, edit your Cart or submit an order.
+                                                </div>
+                                            </div>
+                                            <div class="row xs-ml-0 xs-mr-0 xs-mt-10">
+                                                <button tabindex="-1" type="button" id="displayButton" onclick="location.href='/sf/businessPoint_LA/en/USD/cart'" class="btn btn-primary col-xs-22 col-xs-offset-1" data-original-title="" title="">
+                                                View Cart</button>
+                                            </div> -->
+                                        </div>
+                                        <!-- order lubricants component block end-->
+                                    </div>
+                                </div>
+
+                                <div class="carousal-container">
+                                    <div id="cbp-carousel-component" class="carousel slide" data-ride="carousel" data-interval="15000">
+                                        <!-- Indicators -->
+                                        <ol class="carousel-indicators">
+                                            <span class="pauseBtn"></span>
+                                            <li data-target="#cbp-carousel-component" data-slide-to="0" class="active"></li>
+                                            <li data-target="#cbp-carousel-component" data-slide-to="1"></li>
+                                            <li data-target="#cbp-carousel-component" data-slide-to="2"></li>
+                                            <li data-target="#cbp-carousel-component" data-slide-to="3"></li>
+                                            <li data-target="#cbp-carousel-component" data-slide-to="4"></li>
+                                            <li data-target="#cbp-carousel-component" data-slide-to="5"></li>
+                                        </ol>
+
+                                        <!-- Wrapper for slides -->
+                                        <div class="carousel-inner">
+                                            <div class="item">
+                                                <div>
+                                                    <img style="background-image: url(http://themixwtc.com/wp-content/uploads/Studio-Four-4.png)">
+                                                    <div class="carousel-caption">
+                                                        <h3 class="title" data-title='Sample Title Lorem ipsum dolor sit amet, consectetuer adipiscing elit'></h3>
+                                                        <p class="description" data-desc='Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus'>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div>
+                                                    <img style="background-image: url(http://themixwtc.com/wp-content/uploads/Studio-Four-4.png)">
+                                                    <div class="carousel-caption">
+                                                        <h3 class="title" data-title='ABC'></h3>
+                                                        <p class="description" data-desc='DEF'>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div>
+                                                    <img style="background-image: url(http://www.homedesign.com.sg/images/a-guide-on-how-to-renovate-a-studio-apartment.jpg)">
+                                                </div>
+                                            </div>
+
+                                            <div class="item">
+                                                <div class="data-text">
+                                                    <img style="background-image: url(http://yourbrandpartner.com/wp-content/uploads/2016/04/30_2.jpg)">
+                                                    <div class="carousel-caption">
+                                                        <h3 class="title" data-title='1.5 Million miles archived Using Delo 400 Engine Oil. 1.5 Million miles archived Using Delo 400 Engine Oil. 1.5 Million miles archived Using Delo 400 Engine Oil. 1.5 Million miles archived Using Delo 400 Engine Oil'></h3>
+                                                        <p class="description" data-desc='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniame ipsum dolor sit amet ad minim veniame sed do eius. <a href="#">Delo can help your business go further.</a>'>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="data-video" data-asset-id="1234">
+                                                    <span class="video-icon fa"></span>
+                                                    <img style="background-image: url(http://studiofourmedia.com/wp-content/uploads/bfi_thumb/Old-Classroom-m2wr1ellj59egocju83bm0rat9ay7pby8ffbfhx4j0.jpg)">
+                                                    <div class="carousel-caption">
+                                                        <h3 class="title" data-title='Operating in the Yukon Without Equipments Failure Operating in the Yukon Without Equipments Failure. Operating in the Yukon'></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="data-text">
+                                                    <img style="background-image: url(http://yourbrandpartner.com/wp-content/uploads/2016/04/30_2.jpg)">
+                                                    <div class="carousel-caption">
+                                                        <h3 class="title" data-title='hi'></h3>
+                                                        <p class="description" data-desc='hello'>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Controls -->
+                                        <a class="left carousel-control" href="#cbp-carousel-component" role="button" data-slide="prev">
+                                            <span class="fa fa-chevron-left" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="right carousel-control" href="#cbp-carousel-component" role="button" data-slide="next">
+                                            <span class="fa fa-chevron-right" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                    </div>
+
+                    <!-- header block end-->
+
+                    <!-- notification and carousel block end-->
+                </div>
+                <!-- text-img reuse block-3 start-->
+                <div class="block-3 md-pt-20">
+                    <div class="flexbox-container md-ml-0 md-mr-0">
+                        <div class="wcm-component-styling-2 flexbox-1-column">
+                                <div class="top-asset-block">
+                                    <div class="asset-block">
+                                        <img src="http://www.dtimanagement.com/assets/components/phpthumbof/cache/home_placeholder.4fb2774662125d5db3d64796547c81301.jpg" class="img-responsive" alt="" />
+                                    </div>
+
+                                    <div class="text-block">
+                                        <div class="date-text">
+                                            March 10th, 2016
+                                        </div>
+                                        <div class="sub-heading">
+                                            Headline
+                                        </div>
+                                        <div class="component-body-text">
+                                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua . Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum
+                                                <br>
+                                                <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua . Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum
+                                            </p>
+                                            <button class="btn btn-primary">Descriptive Page Link</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- text-img reuse block-3 start-->
+
+                <!-- text-img reuse block-1 start-->
+                <div class="block-1 md-pt-20">
+                    <div class="flexbox-container md-ml-0 md-mr-0">
+                        <div class="wcm-component-styling-2 flexbox-2-column flexbox-md-1-column">
+                                <div class="left-50-asset-block">
+                                    <div class="asset-block">
+                                        <img src="http://bodyworks.com/wp-content/themes/silver-quantum/images/bodyworks_cats.jpg" class="img-responsive" alt="" />
+                                    </div>
+
+                                    <div class="text-block">
+                                        <div class="date-text">
+                                            March 10th, 2016
+                                        </div>
+                                        <div class="sub-heading">
+                                            Headline
+                                        </div>
+                                        <div class="component-body-text">
+                                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua . Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum
+                                                <br>
+                                                <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua . Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum
+                                            </p>
+                                            <button class="btn btn-primary">Descriptive Page Link</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="wcm-component-styling-2 flexbox-2-column flexbox-md-1-column">
+                                <div class="left-30-asset-block">
+                                    <div class="asset-block">
+                                        <img src="http://www.wallpaperswidefree.com/images/Beautiful-black-European-horse-hd-wallpapers.jpg" class="img-responsive" alt="" />
+                                    </div>
+
+                                    <div class="text-block">
+                                        <div class="date-text">
+                                            March 10th, 2016
+                                        </div>
+                                        <div class="sub-heading">
+                                            Headline
+                                        </div>
+                                        <div class="component-body-text">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua . Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum
+                                                <br>
+                                                <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua . Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua . Excepteur sint occaecat cupidatat non proident, sunt
+                                                in culpa qui officia deserunt mollit anim id est laborum
+                                            </p>
+                                            <button class="btn btn-primary">Descriptive Page Link</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- text-img reuse block-1 end-->
+
+                <!-- flex-box block-2  start-->
+                <div class="block-2 md-pt-20">
+                  <div class="flexbox-container md-ml-0 md-mr-0">
+                        <div class="wcm-component-styling-2 flexbox-3-column flexbox-md-1-column">
+                                <div class="top-asset-block">
+                                    <div class="asset-block">
+                                        <img src="http://www.pettipsdaily.com/wp-content/uploads/sites/1076/2015/08/16-Mother-dog-sitting-with-her-puppies-600x4125-600x350.jpg" class="img-responsive" alt="" />
+                                    </div>
+
+                                    <div class="text-block">
+                                        <div class="date-text">
+                                            March 10th, 2016
+                                        </div>
+                                        <div class="sub-heading">
+                                            Headline
+                                        </div>
+                                        <div class="component-body-text">
+                                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua . Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum
+                                                <br>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua . Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum
+                                                <br>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua . Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum
+                                                <br>
+                                                <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua . Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum
+                                            </p>
+                                            <button class="btn btn-primary">Descriptive Page Link</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="wcm-component-styling-2 flexbox-3-column flexbox-md-1-column">
+                                <div class="right-30-asset-block">
+                                    <div class="asset-block">
+                                        <img src="http://www.wallpaperswidefree.com/images/Beautiful-black-European-horse-hd-wallpapers.jpg" class="img-responsive" alt="" />
+                                    </div>
+
+                                    <div class="text-block">
+                                        <div class="date-text">
+                                            March 10th, 2016
+                                        </div>
+                                        <div class="sub-heading">
+                                            Headline
+                                        </div>
+                                        <div class="component-body-text">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua . Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum
+                                                <br>
+                                                <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua . Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum
+                                                <br>
+                                                <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua .
+                                            </p>
+                                            <button class="btn btn-primary">Descriptive Page Link</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="wcm-component-styling-2 flexbox-3-column flexbox-md-1-column">
+                                <div class="top-asset-block">
+                                    <div class="asset-block">
+                                        <img src="http://www.pettipsdaily.com/wp-content/uploads/sites/1076/2015/08/16-Mother-dog-sitting-with-her-puppies-600x4125-600x350.jpg" class="img-responsive" alt="" />
+                                    </div>
+
+                                    <div class="text-block">
+                                        <div class="date-text">
+                                            March 10th, 2016
+                                        </div>
+                                        <div class="sub-heading">
+                                            Headline
+                                        </div>
+                                        <div class="component-body-text">
+                                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua . Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum
+                                                <br>
+                                                <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua . Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum
+                                            </p>
+                                            <button class="btn btn-primary">Descriptive Page Link</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- flex-box block-2  end-->
+                </div>
+              </div>
+            </div>
+
+        </section>
+    </div>
+    <script type="text/javascript">
+        var cbp = {
+            "staticBasePath": "/"
+        }
+    </script>
+    <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+    <script src="/assets/js/requirejs.js"></script>
+    <script src="/assets/js/require_config.js"></script>
+    <script src="/assets/js/matchMediaPolyfill.js"></script>
+    <script src="/app/components/header/header.js"></script>
+    <script src="/app/components/headerFooter/headerFooter.js"></script>
+    <script src="home-page.js"></script>
+    <footer id="footer" class="js-footer">
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+.footer {
+    color: #fff;
+    font-family: @font-family-footer;
+    font-size: 11px;
+    background-color: @gray-darker;
+    .text-center {
+        padding: 26px 0;
+        > div {
+            margin-right: 6px;
+            display: inline;
+        }
+        ul {
+            display: inline;
+            margin: 0;
+            padding: 0;
+            li:nth-child(even) {
+                border-right: 1px solid @gray-dark;
+            }
+            li {
+                display: inline;
+                margin: 0 3px;
+                a {
+                    color: #fff;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+@media (max-width: @screen-sm-max) {
+    .footer .text-center {
+        > div {
+            display: block;
+        }
+        ul {
+            padding-top: 10px;
+            display: block;
+        }
+    }
+}

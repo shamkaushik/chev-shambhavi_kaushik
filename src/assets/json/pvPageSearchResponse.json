@@ -1,0 +1,1276 @@
+{
+    "totalVolume": "189,002.55",
+    "soldShipToBlock": "79012201, DISMACOR S.A.,",
+    "soldShipToNormal": "K 16 NRO 20-56, Colombia",
+    "purchasedVolDataList": [
+        {
+            "productCode": "233946PGC",
+            "productDescription": "CHV BRIGHTCUT AH METLWKG F",
+            "packageCode": "5G18",
+            "volume": 15.5,
+            "displayVolume": "15.5"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        },
+        {
+            "productCode": "227811DGC",
+            "productDescription": "CHV DELO 50/50 ELC B",
+            "packageCode": "55/2",
+            "volume": 3.1,
+            "displayVolume": "3.1"
+        }
+    ],
+    "resultCount": 10,
+    "multipleSoldTo": false
+}

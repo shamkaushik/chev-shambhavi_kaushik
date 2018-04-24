@@ -1,0 +1,54 @@
+{
+    "soldShipToBlock": "7901220, DISMACOR S.A., ",
+    "soldShipToNormal": "K 16 NRO 20-56, Colombia",
+    "currency": "USD",
+    "eftSearchDataList": [{
+      "eftNoticeNumber":"226710253",
+      "noticeDate":"03-12-2016",
+      "accountNumber":"0450245835",
+      "settlementDate":"13-02-2016",
+      "total": 1239237.0,
+      "downloaded": true,
+      "printed": false,
+      "displayTotal": "12.392.370"
+    },{
+      "eftNoticeNumber":"213710333",
+      "noticeDate":"17-12-2016",
+      "accountNumber":"0450245835",
+      "settlementDate":"01-09-2016",
+      "total": -7819237.0,
+      "downloaded": false,
+      "printed": false,
+      "displayTotal": "-78.192.370"
+    },{
+      "eftNoticeNumber":"456710207",
+      "noticeDate":"10-11-2016",
+      "accountNumber":"0450245835",
+      "settlementDate":"10-08-2016",
+      "total": 1923237.0,
+      "downloaded": true,
+      "printed": true,
+      "displayTotal": "19.232.370"
+    },{
+      "eftNoticeNumber":"678710245",
+      "noticeDate":"16-11-2016",
+      "accountNumber":"0450245835",
+      "settlementDate":"03-04-2016",
+      "total": -2349237.0,
+      "downloaded": false,
+      "printed": false,
+      "displayTotal": "-23.492.370"
+    },{
+      "eftNoticeNumber":"226710253",
+      "noticeDate":"12-10-2016",
+      "accountNumber":"0450245835",
+      "settlementDate":"19-05-2016",
+      "total": -1239237.0,
+      "downloaded": false,
+      "printed": true,
+      "displayTotal": "-12.392.370"
+    }],
+    "resultCount": 5,
+    "multipleSoldTo": false,
+    "sort": null
+}

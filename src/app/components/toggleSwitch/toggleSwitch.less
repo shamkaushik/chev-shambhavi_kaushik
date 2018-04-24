@@ -1,0 +1,25 @@
+.toggleSwitch{
+  .displayBlock{
+    display: block;
+  }
+  .btn-group{
+    .btn{
+      padding: 6px 20px;
+      margin-left: 0;
+    }
+    .btn-default{
+      //only single occurance so not defined as variable
+      background: #EAEBED;
+      color: #BBB;
+      &:hover{
+        background: @gray-light;
+        color: @gray-base;
+      }
+    }
+    .btn-primary{
+      &:hover{
+        background: @brand-primary-blue;
+      }
+    }
+  }
+}

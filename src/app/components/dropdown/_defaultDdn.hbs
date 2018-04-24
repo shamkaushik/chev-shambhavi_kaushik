@@ -1,0 +1,52 @@
+{{#if label}}
+  <label for= {{name}} class="{{labelClass}}"> {{label}}</label>
+{{/if}}
+<select class= "selectpicker {{display}}"
+        {{#if multiple}}
+          multiple
+          data-max-options= "{{maxAllowed}}"
+        {{/if}}
+
+        {{#if searchable}}
+          data-live-search= "true"
+        {{/if}}
+
+        {{#if showOptions}}
+          data-size= "{{showOptions}}"
+        {{/if}}
+
+        {{#if selectAll}}
+          data-actions-box= "{{selectAll}}"
+        {{/if}}
+
+        {{#if selectAllText}}
+          data-select-all-text= "{{selectAllText}}"
+        {{/if}}
+
+        {{#if deselectAllText}}
+          data-deselect-all-text = {{deselectAllText}}
+        {{/if}}
+
+        {{#if singleOption}}
+          data-single-option= "true"
+        {{/if}}
+
+        {{#if noTitleAttr}}
+          data-no-title-attr = "{{noTitleAttr}}"
+        {{/if}}
+
+        {{#if multipleSeparator}}
+          data-multiple-separator = "{{multipleSeparator}}"
+        {{/if}}
+        
+        {{#if showSelectAllAsLabel}}
+          data-show-select-all-as-label = "{{showSelectAllAsLabel}}"
+        {{/if}}
+
+        title = "{{title}}"
+        name = "{{name}}"
+        id = "{{name}}" >
+    {{#each options}}
+        <option {{#if this.disabled}}data-customtitle="{{this.tooltip}}"{{/if}} value= "{{this.key}}" {{#if this.custom}}data-content="{{this.custom}}"{{/if}}{{#if this.disabled}}disabled{{/if}}{{#if this.customobj}}data-customobj="{{this.customobj}}"{{/if}}>{{this.value}}</option>
+    {{/each}}
+</select>

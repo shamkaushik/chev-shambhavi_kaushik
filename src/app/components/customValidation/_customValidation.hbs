@@ -1,0 +1,5 @@
+<ul class="validation-errors-list">
+    {{#each messages}}
+	   <li class="validation-message {{#if_eq rule 'tiHiCheckValidation'}}js-ti-hi-message{{/if_eq}}">{{message}}</li>
+    {{/each}}
+</ul>

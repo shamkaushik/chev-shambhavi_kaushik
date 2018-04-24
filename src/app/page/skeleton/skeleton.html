@@ -1,0 +1,70 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css'>
+    <link href='/assets/css/app.css' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class='body-wrapper'>
+      <main>
+          <header class="main-header main-header-md js-header" style="">
+          </header>
+      </main>
+      <section class='main-container'>
+        <div class="content-box">
+          <div class="row">
+              <div class="col-xs-24"><h2 class='page-title'>Sample Title</h2></div>
+          </div>
+          <div class='row xs-m-0 position-relative'>
+            <div class="overlay-wrapper" style="display:none;">
+            </div>
+            <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center'>
+              <div class='search-content'>
+                <span class='fa fa-sliders'></span>
+              </div>
+            </div>
+            <div class='col-md-5 left-pane hidden-md search'>
+              <div class='search-content'>
+                <div class='sub-heading hidden-sm hidden-xs'>
+                  Search
+                  <span class='fa fa-close visible-md-inline'></span>
+                </div>
+                <div class='sub-heading hidden-lg hidden-md toggle-search-mobile'>
+                  <span class='fa fa-sliders'></span> Search
+                  <span class='fa fa-chevron-down pull-right'></span>
+                </div>
+                <div class='row search-form'>
+                  <div class='col-xs-24'>
+                    Left Panel Content
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='col-md-23 col-lg-19 right-pane'>
+              <div class='top-summary'>
+                Right top summary section
+              </div>
+              <div class='bottom-detail' style="background-color:#e7ffd0; min-height:466px;">
+                Right bottom detail section
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script type="text/javascript">
+        var cbp = {
+            "staticBasePath": "/"
+        }
+    </script>
+    <script src="/assets/js/requirejs.js"></script>
+    <script src="/assets/js/require_config.js"></script>
+    <script src="/app/components/header/header.js"></script>
+    <script src="/app/components/headerFooter/headerFooter.js"></script>
+    <footer id="footer" class="js-footer">
+    </footer>
+  </body>
+</html>

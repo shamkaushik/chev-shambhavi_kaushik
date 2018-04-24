@@ -1,0 +1,128 @@
+{
+    "shipmentType": "PACKAGE",
+    "poAddress": null,
+    "requestedDeliveryDate": null,
+    "deliveryInstructions": "1200-1050 West Pender Street",
+    "shipToAddress": "0000470SH",
+    "soldTo": "0000470SP",
+    "cbpSoldToDetails": {
+        "soldTo": null,
+        "shipTos": []
+    },
+    "cbpShipToDto": null,
+    "orderNumber": null,
+    "warehouse": "DLPD",
+    "warehouseData": {
+        "code": "DLPD",
+        "address": {
+            "id": "8863263490071",
+            "title": null,
+            "titleCode": null,
+            "firstName": null,
+            "lastName": null,
+            "companyName": null,
+            "line1": ",ChevronTexaco Global Lubricants,Port Arthur Lubricants Plant,4899,END OF WEST 7TH STREET",
+            "line2": null,
+            "town": "PORT ARTHUR",
+            "region": {
+                "isocode": "US-TX",
+                "isocodeShort": "TX",
+                "countryIso": "US",
+                "name": "Texas"
+            },
+            "postalCode": "77640",
+            "phone": null,
+            "email": null,
+            "country": {
+                "isocode": "US",
+                "name": "United States of America"
+            },
+            "shippingAddress": false,
+            "billingAddress": false,
+            "defaultAddress": false,
+            "visibleInAddressBook": true,
+            "formattedAddress": ",ChevronTexaco Global Lubricants,Port Arthur Lubricants Plant,4899,END OF WEST 7TH STREET, Texas, PORT ARTHUR, 77640",
+            "editable": false,
+            "fax": null
+        },
+        "isDefault": null,
+        "name": "PORT ARTHUR TX LUB CHEVRON"
+    },
+    "modeOfTransport": "TRUCK",
+    "isCardLock": false,
+    "futureDateLimit": null,
+    "availableModeOfTransportation": [
+        "TRUCK",
+        "RAIL"
+    ],
+    "shipToWarehouseMap": {
+        "0000470": [
+            {
+                "code": "3602",
+                "address": {
+                    "id": "8863333023767",
+                    "title": null,
+                    "titleCode": null,
+                    "firstName": "JAI",
+                    "lastName": "SUNDRIYAL",
+                    "companyName": null,
+                    "line1": null,
+                    "line2": null,
+                    "town": null,
+                    "region": null,
+                    "postalCode": "46565",
+                    "phone": null,
+                    "email": "testnewsandbox@cbp.com",
+                    "country": {
+                        "isocode": "US",
+                        "name": "United States of America"
+                    },
+                    "shippingAddress": false,
+                    "billingAddress": false,
+                    "defaultAddress": false,
+                    "visibleInAddressBook": true,
+                    "formattedAddress": "46565",
+                    "editable": false,
+                    "fax": null
+                },
+                "isDefault": true,
+                "name": null
+            }
+        ]
+    },
+    "isIntercompany": false,
+    "sourceShipTo": null,
+    "contractNo": null,
+    "customerOrderNo": null,
+    "deliveryContactName": "Vancouver",
+    "deliveryContactNote": null,
+    "deliveryContactPhoneNumber": "V6E 3T4",
+    "isMSACustomer": false,
+    "shipToList": [],
+    "cbpSoldToDto": {
+        "uid": "0000470SP",
+        "name": "CHEVRON CANADA LIMITED",
+        "name2": "ATTN: ACCOUNTS PAYABLE",
+        "streetName": "1200-1050 West Pender Street",
+        "streetNumber": "",
+        "town": "Vancouver",
+        "state": "British Columbia",
+        "country": "Canada",
+        "postalCode": "V6E 3T4",
+        "lineOfBusiness": "LOB0007",
+        "industryCode": "00086",
+        "displayName": "CHEVRON CANADA LIMITED, ATTN: ACCOUNTS PAYABLE, 1200-1050 West Pender Street, Vancouver, ",
+        "displayUid": "0000470",
+        "displayAddress": ", Chevron Canada Limited, Attn: Accounts Payable, 1200-1050 West Pender Street, Vancouver, British Columbia",
+        "marketerType": false
+    },
+    "deliveryMethod": null,
+    "isPickup": false,
+    "isMultiBuybackShipTos": false,
+    "purchOrderDate": null,
+    "mandatoryHeaderNotes": true,
+    "cardLock": false,
+    "naregion": true,
+    "intercompany": false,
+    "msacustomer": false
+}

@@ -1,0 +1,78 @@
+{
+
+    "eftDetailDataList": [
+        {
+            "invoiceNumber": "1609658951",
+            "referenceDate": "13-06-2016",
+            "originalDoc": "2090234541",
+            "altReference": "0209658951",
+            "description": "Short Description goes here",
+            "deliveryAccount":"0209658951",
+            "total":"-192,784.00"
+        }, {
+              "invoiceNumber": "2090234541",
+              "referenceDate": "13-06-2016",
+              "originalDoc": "1423658792",
+              "altReference": "0209658951",
+              "description": "Short Description goes here",
+              "deliveryAccount":"0209658951",
+              "total":"-137,774.00"
+        }, {
+              "invoiceNumber": "0920658951",
+              "referenceDate": "13-06-2016",
+              "originalDoc": "2090234541",
+              "altReference": "0109023455",
+              "description": "Short Description goes here",
+              "deliveryAccount":"2345671856",
+              "total":"-122,264.00"
+        }, {
+              "invoiceNumber": "1239023455",
+              "referenceDate": "13-06-2016",
+              "originalDoc": "0209653459",
+              "altReference": "1609658951",
+              "description": "Short Description goes here",
+              "deliveryAccount":"0987654321",
+              "total":"132,934.00"
+        }, {
+              "invoiceNumber": "0134723455",
+              "referenceDate": "13-06-2016",
+              "originalDoc": "1209953459",
+              "altReference": "3209658951",
+              "description": "Short Description goes here",
+              "deliveryAccount":"1234567890",
+              "total":"132,934.00"
+        }, {
+              "invoiceNumber": "8999023455",
+              "referenceDate": "13-06-2016",
+              "originalDoc": "9202353459",
+              "altReference": "2209658951",
+              "description": "Short Description goes here",
+              "deliveryAccount":"7667658951",
+              "total":"132,934.00"
+        }, {
+              "invoiceNumber": "3309023455",
+              "referenceDate": "13-06-2016",
+              "originalDoc": "0119653459",
+              "altReference": "1609658951",
+              "description": "Short Description goes here",
+              "deliveryAccount":"3409658951",
+              "total":"132,934.00"
+        }, {
+          "invoiceNumber": "1209653459",
+          "referenceDate": "13-06-2016",
+          "originalDoc": "0209653459",
+          "altReference": "0209658951",
+          "description": "Short Description goes here",
+          "deliveryAccount":"3409653451",
+          "total":"292,784.00"
+        },{
+          "invoiceNumber": "8809653459",
+          "referenceDate": "13-06-2016",
+          "originalDoc": "0212653459",
+          "altReference": "0129658951",
+          "description": "Short Description goes here",
+          "deliveryAccount":"0209652451",
+          "total":"292,784.00"
+        }
+    ],
+}

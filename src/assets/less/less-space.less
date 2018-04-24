@@ -1,0 +1,91 @@
+//====================================
+//              FOR LOOP             =
+//====================================
+.for(@i, @n) {
+    .-each(@i)
+}
+.for(@n) when (isnumber(@n)) {
+    .for(1, @n)
+}
+.for(@i, @n) when not (@i =@n) {
+    .for((@i + (@n - @i) / abs(@n - @i)), @n);
+}
+//--------  End of for loop  ---------//
+//=========================================
+//              FOR EACH LOOP             =
+//=========================================
+.for(@array) when (default()) {
+    .for-impl_(length(@array))
+}
+.for-impl_(@i) when (@i > 1) {
+    .for-impl_((@i - 1))
+}
+.for-impl_(@i) when (@i > 0) {
+    .-each(extract(@array, @i))
+}
+//--------  End of for each loop  ---------//
+///////////////
+// variables //
+///////////////
+@screen-xs-min: 0;
+@screen-sm: 768px;
+@screen-md: 1024px;
+@screen-lg: 1200px;
+@screen-xl: 1600px;
+@values-array: 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75;
+// global
+@media (min-width: @screen-xs-min) {
+    .make-space(@prefix: xs);
+}
+// mobile
+@media (min-width: @screen-sm) {
+    .make-space(@prefix: sm);
+}
+// tablet
+@media (min-width: @screen-md) {
+    .make-space(@prefix: md);
+}
+// desktop
+@media (min-width: @screen-lg) {
+    .make-space(@prefix: lg);
+}
+// large screens
+@media (min-width: @screen-xl) {
+    .make-space(@prefix: xl);
+}
+// init functions
+.make-space(@prefix) {
+    .for(@values-array);
+    .-each(@value) {
+        .@{prefix}-p-@{value} {
+            padding: ~"@{value}px" !important;
+        }
+        .@{prefix}-pt-@{value} {
+            padding-top: ~"@{value}px" !important;
+        }
+        .@{prefix}-pl-@{value} {
+            padding-left: ~"@{value}px" !important;
+        }
+        .@{prefix}-pr-@{value} {
+            padding-right: ~"@{value}px" !important;
+        }
+        .@{prefix}-pb-@{value} {
+            padding-bottom: ~"@{value}px" !important;
+        }
+        .@{prefix}-m-@{value} {
+            margin: ~"@{value}px" !important;
+        }
+        .@{prefix}-mt-@{value} {
+            margin-top: ~"@{value}px" !important;
+        }
+        .@{prefix}-ml-@{value} {
+            margin-left: ~"@{value}px" !important;
+        }
+        .@{prefix}-mr-@{value} {
+            margin-right: ~"@{value}px" !important;
+        }
+        .@{prefix}-mb-@{value} {
+            margin-bottom: ~"@{value}px" !important;
+        }
+    }
+}

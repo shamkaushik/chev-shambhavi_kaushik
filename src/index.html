@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Style Guide</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="assets/css/app.css" rel="stylesheet" type="text/css">
+    <style media="screen">
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="body-wrapper">
+        <main>
+            <header class="main-header main-header-md js-header" style="">
+            </header>
+        </main>
+        <section class="main-container js-main-container">
+            <div class="content-box">
+                <h2 class="page-title">Style guide</h2>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-24 col-sm-8">
+                        <div class="list-group">
+                            <h3><span class="list-group-item list-group-item-success">Fuels NA Pages</span></h3>
+                            <a href="/app/page/home-page/home-page.html" target="_blank" class="list-group-item">Home Page</a>
+                            <a href="/app/page/report-1099/report-1099.html" target="_blank" class="list-group-item">1099 Report</a>
+                        </div>
+                    </div>
+                    
+                </div>
+                <hr>
+                   
+                <div class="row" id="buttons">
+                    <h3>Buttons</h3>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-24">
+                            <button class="btn btn-primary">Primary</button>
+                            <button class="btn btn-default">Default</button>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    <h3>alert messages</h3>
+                    <div class="row">
+                        <div class="alert alert-info">
+                            <span class="alert-message">Sample info message.</span>
+                        </div>
+                        <div class="alert alert-warning">
+                            <span class="alert-message">Sample warning message.</span>
+                        </div>
+                        <div class="alert alert-success">
+                            <span class="alert-message">Sample success message.</span>
+                        </div>
+                        <div class="alert alert-danger">
+                            <span class="alert-message">Sample error/warning message.</span>
+                        </div>
+                        <div class="alert alert-success">
+                            <span class="alert-message">Multiple success message.</span>
+                            <span class="alert-message">Multiple success message Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    <h3>Calendar & Time Picker</h3>
+                    <div class="row">
+                        <div class="col-xs-24 col-sm-8 js-calendar-range">
+                        </div>
+                        <div class="col-xs-24 col-sm-8">
+                            <label for="">Single Date Selector</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="singleDatePicker" value="">
+                            </div>
+                        </div>
+                        <div class="col-xs-24 col-sm-8">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="from-input">From Time</label>
+                                    <input type="text" placeholder="hh:mm am/pm" name="name" class="form-control" id="from-input" value="">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="to-input">To Time</label>
+                                    <input type="text" placeholder="hh:mm am/pm" name="name" class="form-control" id="to-input" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    <h3>TextArea</h3>
+                    <div class="row">
+                        <div class="col-xs-24" id="js-textArea">
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    <h3>Dropdowns</h3>
+                    <div class="row">
+                        <div class="col-xs-8 js-defaultDdn">
+                        </div>
+                        <div class="col-xs-8 js-multipleSelectDdn">
+                        </div>
+                        <div class="col-xs-8 js-searchableDdn">
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    <h3>Toggle Switch</h3>
+                    <div class="row">
+                        <div class="col-xs-12 xs-mt-10">
+                            <div id="toggle"></div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div id="toggle2"></div>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    <h3>Data Table</h3>
+                    <div class="row tableContainer xs-mt-15">
+                        <div class='col-xs-24 bottom-detail js-bottom-detail'>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    <h3>Tooltip</h3>
+                    <div class="row xs-mt-15">
+                        <span class="xs-ml-75" data-toggle="tooltip" data-placement="top" title="Maximum weight per order:31000 kg">Hover here</span>
+                    </div>
+                    <br>
+                    <hr>
+                    <h3>Custom Validation Plugin</h3>
+                    <div class="row xs-mt-15">
+                        <div>
+                            <label>Minimum check validation with custom error message</label>
+                            <input type="text" class="form-control js-sample-input" data-validate-mincheck="10" data-validate-mincheck-message="Min quantity should be {0}" />
+                        </div>
+                        <br>
+                        <div>
+                            <label>Multiple of a number validation with custom error message</label>
+                            <input type="text" class="form-control js-sample-input" data-validate-multicheck="10" data-validate-multicheck-message="Quantity Should be multiple of {0}" />
+                        </div>
+                        <br>
+                        <div>
+                            <label>Mincheck & Multiple validation with defualt plugin error message (no custom error message supplied)</label>
+                            <input type="text" class="form-control js-sample-input" data-validate-multicheck="10" data-validate-mincheck="25" />
+                        </div>
+                        <br>
+                        <div>
+                            <label>Mincheck & Multiple validation with error container for error message</label>
+                            <input type="text" class="form-control js-sample-input" data-validate-multicheck="10" data-validate-mincheck="25" data-validate-error-container="#error-container" />
+                            <div id="error-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script type="text/javascript">
+            var cbp = {
+                "staticBasePath": "/",
+                "indexPage": {
+                    "globalVars": {
+                        "sortBy": "Sort by",
+                        "prdctNameAZ": "Product Name, A-Z",
+                        "prdctNameZA": "Product Name Z-A",
+                        "prdctCodeAsc": "Product Code Ascending",
+                        "prdctCodeDesc": "Product Code Descending",
+                        "purchaseVolume": "Purchased Volume",
+                        "printReport": "Print Report",
+                        "productsFound": "{0} Products found",
+                        "code": "Code",
+                        "product": "Product",
+                        "package": "Package",
+                        "volume": "Volume (Gal)",
+                        "indexPostURL": "/assets/json/tableDetailView.json",
+                        "method": "GET",
+                        "tableLocales": {
+                            "loadingMessage": "Loading, please wait...",
+                            "paginationSwitch": "Hide/Show pagination",
+                        }
+                    }
+                }
+            }
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="index-style-guide.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+    </div>
+</body>
+
+</html>

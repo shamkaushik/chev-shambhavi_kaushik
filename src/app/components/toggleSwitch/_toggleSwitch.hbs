@@ -1,0 +1,15 @@
+{{#if LabelBlock}}
+    <label class="displayBlock">{{label}}</label>
+{{else}}
+    <label class="xs-mr-5">{{label}}</label>
+{{/if}}
+<div class="btn-group {{cssClass}}" data-toggle-name= "{{name}}" data-toggle="buttons-radio">
+    {{#each options}}
+        {{#if this.default}}
+            <button type="button" value={{this.value}} data-toggle="button" class="btn btn-primary">{{label}}</button>
+        {{else}}
+            <button type="button" value={{this.value}} data-toggle="button" class="btn btn-default">{{label}}</button>
+        {{/if}}
+    {{/each}}
+</div>
+<input type="hidden" name="{{name}}" value="default">

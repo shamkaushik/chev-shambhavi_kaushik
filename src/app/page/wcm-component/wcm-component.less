@@ -1,0 +1,251 @@
+//defining top image 100 - 100 ratio bottom text block
+.top-asset-block {
+    width:100%;
+    clear: both;
+    *zoom: 1;
+    &::after {
+        clear: both;
+        content: "";
+        display: table;
+    }
+    &::before {
+        content: "";
+        display: table;
+    }
+    .asset-block {
+        width: 100%;
+        padding-bottom: 15px;
+        position: relative;
+    }
+    .text-block {
+        width: 100%;
+        .date-text {
+            font-size: @font-size-base - 3;
+            padding-bottom: 5px;
+        }
+        .sub-heading {
+            padding-bottom: 5px;
+            color: @gray-darker;
+        }
+        .component-body-text {
+            padding-bottom: 5px;
+            font-size: 13px;
+        }
+    }
+}
+//defining left image 50 - 50 ratio
+.left-50-asset-block {
+    width:100%;
+     clear: both;
+    *zoom: 1;
+    &::after {
+        clear: both;
+        content: "";
+        display: table;
+    }
+    &::before {
+        content: "";
+        display: table;
+    }
+    .asset-block {
+        float: left;
+        width: 50%;
+        position: relative;
+    }
+    .text-block {
+        float: right;
+        width: 50%;
+        padding-left: 15px;
+        .date-text {
+            font-size: @font-size-base - 3;
+            padding-bottom: 5px;
+        }
+        .sub-heading {
+            padding-bottom: 5px;
+            color: @gray-darker;
+        }
+        .component-body-text {
+            padding-bottom: 5px;
+            font-size: 13px;
+        }
+    }
+}
+//defining right image 50 - 50 ratio
+.right-50-asset-block {
+    width:100%;
+     clear: both;
+    *zoom: 1;
+    &::after {
+        clear: both;
+        content: "";
+        display: table;
+    }
+    &::before {
+        content: "";
+        display: table;
+    }
+    .asset-block {
+        float: right;
+        width: 50%;
+        position: relative;
+    }
+    .text-block {
+        float: left;
+        width: 50%;
+        padding-left: 15px;
+        .date-text {
+            font-size: @font-size-base - 3;
+            padding-bottom: 5px;
+        }
+        .sub-heading {
+            padding-bottom: 5px;
+            color: @gray-darker;
+        }
+        .component-body-text {
+            padding-bottom: 5px;
+            font-size: 13px;
+        }
+    }
+}
+//defining right image 30 - 70 ratio
+.right-30-asset-block {
+    width:100%;
+     clear: both;
+    *zoom: 1;
+    &::after {
+        clear: both;
+        content: "";
+        display: table;
+    }
+    &::before {
+        content: "";
+        display: table;
+    }
+    .asset-block {
+        float: right;
+        width: 30%;
+        position: relative;
+    }
+    .text-block {
+        float: left;
+        width: 70%;
+        padding-right: 15px;
+        .date-text {
+            font-size: @font-size-base - 3;
+            padding-bottom: 5px;
+        }
+        .sub-heading {
+            padding-bottom: 5px;
+            color: @gray-darker;
+        }
+        .component-body-text {
+            padding-bottom: 5px;
+            font-size: 13px;
+        }
+    }
+}
+//defining left image 30 - 70 ratio
+.left-30-asset-block {
+    width:100%;
+     clear: both;
+    *zoom: 1;
+    &::after {
+        clear: both;
+        content: "";
+        display: table;
+    }
+    &::before {
+        content: "";
+        display: table;
+    }
+    .asset-block {
+        float: left;
+        width: 30%;
+        position: relative;
+    }
+    .text-block {
+        float: right;
+        width: 70%;
+        padding-left: 15px;
+        .date-text {
+            font-size: @font-size-base - 3;
+            padding-bottom: 5px;
+        }
+        .sub-heading {
+            padding-bottom: 5px;
+            color: @gray-darker;
+        }
+        .component-body-text {
+            padding-bottom: 5px;
+            font-size: 13px;
+        }
+    }
+}
+//defining if there is no asset block
+.no-asset-block {
+    .asset-block {
+        display: none !important;
+    }
+    .text-block {
+        width: 100% !important;
+    }
+}
+.video-icon {
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    left: 50%;
+    background: #0066B2;
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    cursor: pointer;
+    z-index: 11;
+    margin-left: -40px;
+    &::before {
+        font-family: FontAwesome;
+        content: "\f04b";
+        color: #fff;
+        font-size: 55px;
+        position: absolute;
+        top: 12px;
+        left: 25px;
+    }
+}
+//mobile media query to stack image top and text below
+@media only screen and (max-width: @screen-xs) {
+    .left-30-asset-block,
+    .left-50-asset-block,
+    .left-asset-block,
+    .right-30-asset-block,
+    .right-50-asset-block,
+    .right-asset-block,
+    .top-asset-block {
+        display: table;
+        width: 100%;
+    }
+    .asset-block {
+        display: table-header-group;
+        width: 100% !important;
+    }
+    .text-block {
+        display: table-footer-group;
+        width: 100% !important;
+        padding: 15px 0 !important;
+        .date-text {
+            font-size: @font-size-base - 3;
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
+        .sub-heading {
+            padding-bottom: 5px;
+            color: @gray-darker;
+        }
+        .component-body-text {
+            font-size: 13px;
+        }
+    }
+    .no-asset-block {
+        width: 100%;
+    }
+}

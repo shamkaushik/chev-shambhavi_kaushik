@@ -1,0 +1,55 @@
+{
+    "assetsDetailsInJsonFormat": [{
+        "assetId": "5efa16ce046b3d008cfe19fcb7bbbd20b60bfbbb",
+        "assetName": null,
+        "publishingDate": "Wed Aug 10 22:00:00 PDT 2016",
+        "subCategory": "test",
+        "contentPath": null,
+        "assetDescription": "description",
+        "assetTitle": "First Asset",
+        "lastModifiedDate": null,
+        "newUntilDate": null,
+        "url": "/ImConvServlet/imconv/5efa16ce046b3d008cfe19fcb7bbbd20b60bfbbboriginal/?use=banner&assetDescr=Americas Products CBP2.0.pptx",
+        "contentType": null,
+        "new": true
+    }, {
+        "assetId": "veffds",
+        "assetName": null,
+        "publishingDate": "Wed Aug 10 22:06",
+        "subCategory": "test",
+        "contentPath": null,
+        "assetDescription": "description",
+        "assetTitle": "Second Asset",
+        "lastModifiedDate": null,
+        "newUntilDate": null,
+        "url": "/ImConvServlet/imconv/5efa16ce046b3d008cfe19fcb7bbbd20b60bfbbboriginal/?use=banner&assetDescr=Americas Products CBP2.0.pptx",
+        "contentType": null,
+        "new": false
+    }, {
+        "assetId": "8403e661c659ab832932de399853ff5d6fae0b66",
+        "assetName": null,
+        "publishingDate": "Wed Aug 10 22:00:00 PDT 2016",
+        "subCategory": "Video",
+        "contentPath": null,
+        "assetDescription": null,
+        "assetTitle": "Video Test by Sam",
+        "lastModifiedDate": null,
+        "newUntilDate": null,
+        "url": "/ImConvServlet/imconv/8403e661c659ab832932de399853ff5d6fae0b66original/?use=banner&assetDescr=Wildlife.wmv",
+        "contentType": "AT_Video",
+        "new": true
+    }, {
+        "assetId": "cca12a9c67f43f0d9a75cf8f6ff05e3411673e7d",
+        "assetName": null,
+        "publishingDate": "Tue Aug 09 22:00:00 PDT 2016",
+        "subCategory": "Test PPT",
+        "contentPath": null,
+        "assetDescription": null,
+        "assetTitle": "Test PPT Raja",
+        "lastModifiedDate": null,
+        "newUntilDate": null,
+        "url": "/ImConvServlet/imconv/cca12a9c67f43f0d9a75cf8f6ff05e3411673e7doriginal/?use=banner&assetDescr=Accessing the Chevron Network.pptx",
+        "contentType": null,
+        "new": false
+    }]
+}

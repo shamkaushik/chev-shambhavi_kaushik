@@ -1,0 +1,311 @@
+@import "carousal.less";
+.home-page {
+    .content-box {
+        max-width: 1200px;
+        margin: 0 auto;
+        .notification-height-reserve {
+            min-height: 160px;
+        }
+        .page-title {
+            text-transform: none;
+        }
+        .sub-heading {
+            font-weight: normal;
+            color: @brand-primary !important;
+        }
+        .wcm-component-styling {
+            background: @gray-lighter;
+            border-radius: 4px;
+            padding: 15px 15px 20px;
+        }
+        .overlay-wrapper::before {
+          top: 40vh;
+        }
+    }
+}
+@media (min-width: @screen-md) {
+    .main-fluid-block {
+        height: auto;
+        max-width: 1156px;
+        display: table;
+    }
+    h2 {
+        margin: 0;
+    }
+    .fluid-text {
+        padding: 0 10px;
+    }
+    .text-ul {
+        padding: 5px 0 0 25px;
+    }
+    .notification-inner-block {
+        background: @brand-blue-summary;
+        padding-bottom: 5px;
+        max-width: 366px;
+    }
+    .notification-container {
+        display: table-cell;
+        vertical-align: top;
+        background: #fff;
+        padding: 0 20px 0 0;
+        width: 100%;
+        .notification-inner-block {
+            min-height: 375px;
+            .bootstrap-select {
+                button.dropdown-toggle {
+                    position: absolute;
+                    top: -11px;
+                }
+            }
+            .bootstrap-select.btn-group {
+                .dropdown-menu {
+                    margin-top: 21px;
+                }
+            }
+        }
+    }
+    .carousal-container {
+        display: table-cell;
+        border-radius: 4px;
+    }
+}
+@media (max-width: 1100px) {
+    .hidden-1100 {
+        display: none;
+    }
+}
+
+@media (min-width:@screen-xs-min) and (max-width: @screen-sm-max) {
+    .main-fluid-block {
+        display: table;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .notification-container {
+        background: @brand-blue-summary;
+        width: 100%;
+        padding: 10px 15px;
+        margin-bottom: 20px;
+        .bootstrap-select {
+            button.dropdown-toggle {
+                position: absolute;
+            }
+            select.mobile-device{
+                position: relative !important;
+                padding: 7px 24px 7px 10px !important;
+            }
+        }
+    }
+    .notification-inner-block {
+        background: @brand-blue-summary;
+        min-height: 375px;
+        width: 100%;
+    }
+    .carousal-container {
+        display: table-footer-group;
+        width: 100%;
+        min-height: 350px;
+        background: #f2f2f2;
+        padding-top: 20px;
+        border-radius: 4px;
+    }
+}
+
+// Component CSS styling for notification
+.notify-component {
+    // common CSS
+    .warningTxt {
+        color: @gray-darker;
+        font-size: 25px;
+    }
+    .badge {
+        font-family: "Gotham";
+        font-size: 12px;
+        position: absolute;
+        top: -6px;
+        left: -4px;
+        padding: 2px 5px;
+        border-radius: 50%;
+        font-weight: normal;
+        &_error {
+            background-color: @brand-danger;
+        }
+        &_success {
+            background-color: @brand-success;
+        }
+    }
+    // attention block
+    .notify-attention-block {
+        .order-notification-list {
+            padding-left: 0;
+            li {
+                list-style-type: none;
+                margin-left: 0;
+                padding-left: 0;
+                a {
+                    color: @brand-danger;
+                }
+            }
+        }
+    }
+    // invoice block
+    .notify-invoice-block {
+        .order-notification-list {
+            padding-left: 0;
+            li {
+                list-style-type: none;
+                margin-left: 0;
+                padding-left: 0;
+                a {
+                    color: @brand-primary-blue;
+                    &:hover {
+                        color: @brand-primary-blue-light;
+                    }
+                }
+            }
+        }
+    }
+    // system block
+    .notify-system-block {
+        .order-notification-list {
+            padding-left: 0;
+            li {
+                list-style-type: none;
+                margin-left: 0;
+                padding-left: 0;
+                a {
+                    color: @brand-primary-blue;
+                    &:hover {
+                        color: @brand-primary-blue-light;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//css for order lubricant
+.order-lub-component {
+    margin: 10px;
+    .type-radio-block {
+        label {
+            font-weight: normal;
+            margin-top: 5px;
+            margin-right: 10px;
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+    .location {
+        line-height: 30px;
+    }
+}
+
+@media (min-width:1025px) and (max-width: 1100px) {
+   .order-lub-component {
+      .type-radio-block {
+          label {
+              margin-left: 0 !important;
+          }
+      }
+    }
+}
+
+@media (min-width: @screen-md) {
+  .order-lub-component {
+    .type-radio-block {
+        label {
+            font-weight: normal;
+            margin-top: 5px;
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+  }
+}
+
+@media (max-width: @screen-sm-max) {
+  .flexbox-container {
+    display: block !important;
+    .wcm-component-styling-2 {
+      &.flexbox-md-1-column {
+        width: 100% !important;
+      }
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.flexbox-container {
+  background: #fff;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  .wcm-component-styling-2 {
+    min-height: 200px;
+    margin-right: 20px;
+    background: #f2f2f2;
+    border-radius: 4px;
+    padding: 15px 15px 20px;
+    &.flexbox-3-column {
+      width: 33.33333%;
+    }
+    &.flexbox-2-column {
+      width: 50%;
+    }
+    &.flexbox-1-column {
+      width: 100%;
+    }
+    &:empty
+    {
+    display:none;
+    }
+  }
+}
+
+.flexbox-container {
+   .wcm-component-styling-2:last-child {
+    margin-right: 0px;
+  }
+}
+
+
+
+ // IE9 CSS
+ .ie9 .flexbox-container {
+  display: table;
+  table-layout: fixed;
+    width: 100%;
+    .wcm-component-styling-2 {
+     display: table-cell;
+     vertical-align: top;
+     border-left: 20px solid #ffffff;
+     &:first-child {
+       border-left: 0px solid transparent;
+     }
+   }
+  }
+
+@media screen and (max-width:@screen-sm-max) and (min-resolution: .001dpcm) {
+  // IE9 CSS media query
+  .flexbox-container {
+    display: block !important;
+    table-layout: auto !important;
+    .wcm-component-styling-2 {
+        width: 100% !important;
+        display: block !important;
+        border-left: 0px solid transparent !important;
+      }
+      margin-bottom: 20px;
+    }
+}
+
+@media (min-width:1024px) and (max-width: 1050px) {
+    .home-page{
+        .carousel {
+            width: 750px;
+        }
+    }
+}

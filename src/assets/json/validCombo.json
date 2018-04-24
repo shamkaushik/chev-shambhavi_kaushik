@@ -1,0 +1,16 @@
+{
+  "validCombo": false,
+  "overMaxWeight": null,
+  "overMaxVolume": null,
+  "messageList": [{
+    "type": "E",
+    "message": "LHCC Date for Order# 0235608208 falls in the past."
+  },{
+    "type": "W",
+    "message": "Warning !! LHCC Date for Order# 0235608208 falls in the past."
+  },{
+    "type": "S",
+    "message": "Success !! LHCC Date for Order# 0235608208 falls in the past."
+  }],
+  "maxLoadDate": "11-14-2016"
+}

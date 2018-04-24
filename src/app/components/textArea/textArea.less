@@ -1,0 +1,21 @@
+textarea{
+  resize: none;
+}
+.remain-char{
+  color: @gray-dark;
+  position: relative;
+  top: 5px;
+
+  &.error{
+    padding-left: 20px;
+    color: @brand-danger;
+    &::before{
+      content: "\f071";
+      font-family: 'FontAwesome';
+      font-size: 14px;
+      position: absolute;
+      left: 0;
+      top: -2px;
+    }
+  }
+}

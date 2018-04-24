@@ -1,0 +1,6 @@
+{
+	"fieldName": "poAddress",
+	"ex_msg": "PO Number is not validated",
+	"ex_ltext": "ABCD",
+	"ex_rc": 2
+}

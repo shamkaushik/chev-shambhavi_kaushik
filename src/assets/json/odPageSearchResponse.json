@@ -1,0 +1,96 @@
+{
+    "cbpOrderDetailsHeaderData": {
+        "estDeliveryOn": "09-06-2016",
+        "orderCreatedBy": " Divya Gupta ",
+        "orderCreatedOn": "09-06-2016  04:27 AM",
+        "orderNumber": "0234301286",
+        "orderStatus": " ",
+        "orderTotal": " 718,301,000.00 COP",
+        "auditData": ["Order created by Divya Gupta at09-06-2016 04:27 AM", "PST"],
+        "orderCreatedDetailsMap": {
+            "textid": "0002",
+            "textline": "Order created by Divya Gupta at09-06-2016 04:27 AM"
+        },
+        "modifyOrder": "NO"
+    },
+    "cbpOrderDetailsShipToData": {
+        "shipToID": "0007933464",
+        "shipToAddress": "DISMACOR S.A. BARBOSA",
+        "shipToCity": "BARBOSA",
+        "shipToCountry": "COLOMBIA",
+        "shipToStreet": "K 10 NRO 20  11",
+        "shipToPostalCode": "68077"
+    },
+    "cbpOrderDetailsSoldToData": {
+        "soldToID": "0007901220",
+        "soldToAddress": "DISMACOR S.A.",
+        "soldToCity": "BUCARAMANGA",
+        "soldToCountry": "COLOMBIA",
+        "soldToStreet": "K 16 NRO 20-56",
+        "soldToPostalCode": "68001"
+    },
+    "cbpOrderDetailDataGridDataMap": {
+        "": [{
+            "code": "743262DGC",
+            "invoiceNumber": "905959935",
+            "Pkg": "55/208DR ES",
+            "price": " 608,791,500.00",
+            "product": "CHV AGRATEX M (55/208DR ES)",
+            "qty": "500",
+            "status": "Awaiting approval",
+            "totalInLineItem": " 706,198,140.00",
+            "vat": " 97,406,640.00",
+            "unit": "DR",
+            "estDeliveryDate": "09-06-2016",
+            "itemNumber": "000020",
+            "unitPrice": " 1,217,583.00"
+        }, {
+            "code": "743262922",
+            "invoiceNumber": "905959935",
+            "Pkg": "BULK DELIVERY FROM IBCS",
+            "price": " 10,433,500.00",
+            "product": "CHV AGRATEX M (BULK)",
+            "qty": "500",
+            "status": "Awaiting approval",
+            "totalInLineItem": " 12,102,860.00",
+            "vat": " 1,669,360.00",
+            "unit": "GA",
+            "estDeliveryDate": "09-06-2016",
+            "itemNumber": "000010",
+            "unitPrice": " 20,867.00"
+        }]
+    },
+    "cbpOrderDetailDataGridData": [{
+        "code": "FROMJSON",
+        "invoiceNumber": "",
+        "Pkg": "55/208DR ES",
+        "price": " 608,791,500.00",
+        "product": "CHV AGRATEX M (55/208DR ES)",
+        "qty": "500",
+        "status": "Awaiting approval",
+        "totalInLineItem": " 706,198,140.00",
+        "vat": " 97,406,640.00",
+        "unit": "DR",
+        "estDeliveryDate": "09-06-2016",
+        "itemNumber": "000020",
+        "unitPrice": " 1,217,583.00"
+    }, {
+        "code": "FROMJSON",
+        "invoiceNumber": "",
+        "Pkg": "BULK DELIVERY FROM IBCS",
+        "price": " 10,433,500.00",
+        "product": "CHV AGRATEX M (BULK)",
+        "qty": "500",
+        "status": "Awaiting approval",
+        "totalInLineItem": " 12,102,860.00",
+        "vat": " 1,669,360.00",
+        "unit": "GA",
+        "estDeliveryDate": "09-06-2016",
+        "itemNumber": "000010",
+        "unitPrice": " 20,867.00"
+    }],
+    "shipmentType": "PACKAGE",
+    "poNumber": "",
+    "deliveryInstructions": "",
+    "requestedDeliveryDate": "09-06-2016"
+}

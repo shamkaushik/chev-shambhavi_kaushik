@@ -1,0 +1,52 @@
+{
+	"shipToNumber": "",
+	"shipToAddress": null,
+	"msaDeliveryRequestDataList": [{
+		"estimatedDelivery": null,
+		"actualDeliveryDate": "10-11-2016",
+		"status": "Processed",
+		"marketerReceipt": "121221212121",
+		"deliveryReceipt": "0000001000",
+		"poNumber": null,
+		"order": null,
+		"orderDate": "10-11-2016",
+		"msaOrderType" : "DR",
+		"customerName": {
+			"customerNumber": "8340236",
+			"customerName": "8340236, CADILLAC ASPHALT JV, CLARKSTON - DIV 47, 4751, WHITE LAKE ROAD, CLARKSTON, Michigan",
+			"restrictionData": {
+				"newLineItemAllowed": true,
+				"partialUploadAllowed": true,
+				"prefillMustExist": false
+			}
+		},
+		"marketerLocation": {
+			"shipToNumber": "8255030",
+			"shipToAddress": "SHRADER TIRE & OIL, INC., BUYBACK ACCT, 2051, SYLVANIA AVE, TOLEDO, Ohio"
+		},
+		"invoice": null
+	}, {
+		"estimatedDelivery": null,
+		"actualDeliveryDate": "17-11-2016",
+		"status": "Partially Delivered",
+		"marketerReceipt": null,
+		"deliveryReceipt": "0000014000",
+		"poNumber": null,
+		"order": "0111161001",
+		"orderDate": "01-11-2016",
+		"customerName": {
+			"customerNumber": "8340236",
+			"customerName": "8340236, CADILLAC ASPHALT JV, CLARKSTON - DIV 47, 4751, WHITE LAKE ROAD, CLARKSTON, Michigan",
+			"restrictionData": {
+				"newLineItemAllowed": true,
+				"partialUploadAllowed": true,
+				"prefillMustExist": false
+			}
+		},
+		"marketerLocation": {
+			"shipToNumber": "8255030",
+			"shipToAddress": "SHRADER TIRE & OIL, INC., BUYBACK ACCT, 2051, SYLVANIA AVE, TOLEDO, Ohio"
+		},
+		"invoice": null
+	}]
+}

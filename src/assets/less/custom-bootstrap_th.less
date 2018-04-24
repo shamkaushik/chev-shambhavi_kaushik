@@ -1,0 +1,285 @@
+// @import "../../../node_modules/bootstrap/less/bootstrap.less";
+
+
+
+// Core variables and mixins
+@import "../../../node_modules/bootstrap/less/variables.less";
+@import "custom-variables_th.less";
+@import "../../../node_modules/font-awesome/less/font-awesome.less";
+@import "../../../node_modules/bootstrap/less/mixins.less";
+
+// Reset and dependencies
+@import "../../../node_modules/bootstrap/less/normalize.less";
+//@import "../../../node_modules/bootstrap/less/print.less";
+
+// Core CSS
+@import "../../../node_modules/bootstrap/less/scaffolding.less";
+@import "../../../node_modules/bootstrap/less/type.less";
+@import "../../../node_modules/bootstrap/less/code.less";
+@import "../../../node_modules/bootstrap/less/grid.less";
+@import "../../../node_modules/bootstrap/less/tables.less";
+@import "../../../node_modules/bootstrap/less/forms.less";
+@import "../../../node_modules/bootstrap/less/buttons.less";
+
+// Components
+@import "../../../node_modules/bootstrap/less/component-animations.less";
+@import "../../../node_modules/bootstrap/less/dropdowns.less";
+@import "../../../node_modules/bootstrap/less/button-groups.less";
+@import "../../../node_modules/bootstrap/less/input-groups.less";
+@import "../../../node_modules/bootstrap/less/navs.less";
+@import "../../../node_modules/bootstrap/less/navbar.less";
+//@import "../../../node_modules/bootstrap/less/breadcrumbs.less";
+@import "../../../node_modules/bootstrap/less/pagination.less";
+@import "../../../node_modules/bootstrap/less/pager.less";
+@import "../../../node_modules/bootstrap/less/labels.less";
+@import "../../../node_modules/bootstrap/less/badges.less";
+//@import "../../../node_modules/bootstrap/less/jumbotron.less";
+//@import "../../../node_modules/bootstrap/less/thumbnails.less";
+@import "../../../node_modules/bootstrap/less/alerts.less";
+//@import "../../../node_modules/bootstrap/less/progress-bars.less";
+@import "../../../node_modules/bootstrap/less/media.less";
+@import "../../../node_modules/bootstrap/less/list-group.less";
+//@import "../../../node_modules/bootstrap/less/panels.less";
+@import "../../../node_modules/bootstrap/less/responsive-embed.less";
+//@import "../../../node_modules/bootstrap/less/wells.less";
+@import "../../../node_modules/bootstrap/less/close.less";
+
+// Components w/ JavaScript
+@import "../../../node_modules/bootstrap/less/modals.less";
+@import "../../../node_modules/bootstrap/less/tooltip.less";
+@import "../../../node_modules/bootstrap/less/popovers.less";
+@import "../../../node_modules/bootstrap/less/carousel.less";
+
+// Utility classes
+@import "../../../node_modules/bootstrap/less/utilities.less";
+@import "../../../node_modules/bootstrap/less/responsive-utilities.less";
+
+
+//Global bootstrap over-rides
+label {
+    font-weight: bold;
+}
+a {
+    text-decoration: underline;
+}
+p{
+  margin: 0 0 .5em 0;
+}
+.btn {
+    font-family: @font-family-sans-serif;
+    padding: 12px 20px;
+    border: 0;
+    &.btn-default {
+        &:hover {
+            background: @gray-lighter;
+        }
+        &:active {
+            background: @gray;
+            outline: 0;
+            box-shadow: inset 0 3px 3px rgba(0,0,0, 0.3);
+        }
+        &:focus {
+            background: @gray;
+            outline: 0;
+        }
+        &.disabled,
+        &[disabled] {
+            background: #EAEBED;
+            color: #BBB;
+        }
+    }
+    &.btn-primary {
+        &:hover {
+            background: @brand-primary-blue-light;
+            box-shadow: none;
+        }
+        &:active {
+            background: @brand-primary-blue;
+            outline: 0;
+            box-shadow: inset 0 3px 3px rgba(0,0,0, 0.5);
+        }
+        &:focus {
+            background: @brand-primary-blue;
+            outline: 0;
+        }
+        &.disabled,
+        &[disabled] {
+            background: @brand-primary-blue-lighter;
+            color: #4C93C9; //Only single occurance assured from designer so keeping it as value
+        }
+    }
+    &.btn-info {
+        padding: 10px;
+        text-decoration: none;
+        font-family: @font-family-sans-serif;
+        &:active,
+        &:focus,
+        &:hover {
+            background: lighten(@gray, 5%);
+        }
+    }
+}
+//global form overrides
+.form-control {
+    padding: 7px 10px;
+}
+input[type="checkbox"],
+input[type="radio"] {
+    margin: 0 \9 0 0;
+    line-height: normal;
+
+    &.disabled,&[disabled]{
+        color: @gray;
+    }
+}
+.checkbox label,
+.radio label {
+    padding-left: 0;
+}
+.checkbox,
+.radio {
+    input{
+        display: none;
+        + label {
+            &:before {
+                font-family: FontAwesome;
+                display: inline-block;
+                letter-spacing: 10px;
+                font-size: 15px;
+            }
+        }
+        &:checked {
+            + label {
+                &:before {
+                    letter-spacing: 8px;
+                }
+            }
+        }
+    }
+    input[type=checkbox] {
+        + label {
+            &:before {
+                content: "\f096";
+            }
+        }
+        &:checked {
+            + label {
+                &:before {
+                    content: "\f046";
+                    color: @brand-primary;
+                }
+            }
+        }
+        &.disabled,&[disabled]{
+            + label {
+                &:before {
+                    color: @gray;
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
+    input[type=radio] {
+        + label {
+            &:before {
+                content: "\f10c";
+            }
+        }
+        &:checked {
+            + label {
+                &:before {
+                    letter-spacing: 10px;
+                    content: "\f192";
+                }
+            }
+        }
+        &.disabled,&[disabled]{
+            + label {
+                &:before {
+                    color: @gray;
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
+}
+// Global Alert overrides
+.alert {
+    border-radius: 0;
+    border: 0;
+    padding: 15px 20px 15px 20px;
+    position: relative;
+    overflow: auto;
+    margin-bottom: 5px;
+    //using below class for generic use of Div/Span for error msg. Global style for error message
+    .alert-position-fix {
+        div,
+        span {
+            padding-left: 50px;
+            position: relative;
+            margin-bottom: 15px;
+            text-align: left;
+            &::before {
+                font-family: 'FontAwesome';
+                font-size: 30px;
+                position: absolute;
+                left: 0;
+                top: -6px;
+            }
+        }
+        span {
+            display: block;
+        }
+    }
+    &.alert-success {
+        .alert-position-fix;
+        .alert-message {
+            &::before {
+                content: "\f058";
+            }
+        }
+    }
+    &.alert-danger {
+        .alert-position-fix;
+        .alert-message {
+            &::before {
+                content: "\f071";
+            }
+        }
+    }
+    &.alert-info {
+        .alert-position-fix;
+        .alert-message {
+            &::before {
+                content: "\f05a";
+                color: #0066B2;
+            }
+        }
+    }
+    &.alert-warning {
+        .alert-position-fix;
+        .alert-message {
+            &::before {
+                content: "\f071";
+                // color: @gray-darker;
+            }
+        }
+    }
+}
+// Global Helper classes
+.position-relative {
+    position: relative;
+    min-height: 400px;
+}
+
+@media (max-width: 1407px) and (min-width: @screen-md) {
+    .fixed-5Char{
+        padding-left: 0 !important;
+        padding-right: 2px !important;
+    }
+}
+@media (max-width: @screen-sm-max) and (min-width: @screen-sm) {
+    .fixed-5Char{
+        width: 63px !important;
+    }
+}
