@@ -1,0 +1,165 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/app.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div class='body-wrapper'>
+      <main>
+          <header class="main-header main-header-md js-header">
+          </header>
+      </main>
+        <section class='main-container'>
+            <div class="content-box oh-page">
+                <div class="row">
+                    <div class="col-sm-24">
+                        <h2 class='page-title'>1099 report</h2>
+                    </div>
+                </div>
+
+                <div class='row xs-m-0 position-relative'>
+                    <div class="overlay-wrapper">
+                    </div>
+                    <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center'>
+                        <div class='search-content'>
+                            <span class='fa fa-sliders'></span>
+                        </div>
+                    </div>
+                    <div class='col-md-5 left-pane hidden-md search'>
+                        <div class='search-content'>
+                            <div class='sub-heading hidden-sm hidden-xs'>
+                                search
+                                <span class='fa fa-close visible-md-inline'></span>
+                            </div>
+                            <div class='sub-heading hidden-lg hidden-md toggle-search-mobile'>
+                                <span class='fa fa-sliders'></span> search
+                                <span class='fa fa-chevron-down pull-right'></span>
+                            </div>
+                            <div class='search-form xs-mt-10'>
+                              <form class="js-search-form">
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-23 col-lg-19 right-pane'>
+                       <div class="js-bottom-detail">
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+            var cbp = {
+                "staticBasePath": "/",
+                "report1099Page": {
+                    "locationDropDown": {
+                        "options": [],
+                        "label": "Sold-To",
+                        "name": "locationSelectDdn",
+                        "title": "Select",
+                        "showOptions": 10,
+                        "singleOption": true
+                    },
+                    "shipToDropDown": {
+                        "options": [],
+                        "label": "Ship-To",
+                        "title": "All",
+                        "name": "shipToSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": false
+                    },
+                    "dateRange": {
+                        "maxMonth": 18,
+                        "currentDate": "05-12-2016",
+                        "format": "DD-MM-YYYY",
+                        "defaultDateCount": 2,
+                        "today" : "Today",
+                        "yesterday" : "Yesterday",
+                        "last7Days" : "Last 7 Days",
+                        "last30Days" : "Last 30 Days",
+                        "thisMonth" : "This Month",
+                        "lastMonth" : "Last Month",
+                        "customRange" : "Custom Range",
+                        "cancel" : "Cancel",
+                        "apply" : "Apply",
+                        "iconClass": "fa fa-calendar pull-right",
+                        "id": "calendar"
+                    },
+                    "globalUrl": {
+                        "shipToURL": "/assets/json/shipToResponse.json",
+                        "ohPostURL": "/assets/json/ohPageSearchResponse.json",
+                        "orderHistoryFormURL" : "/assets/json/ohLocationResponse.json", //"${request.getContextPath()}/getWarehouseData",
+                        "method" : "GET"
+                        // "method" : "POST"
+                    },
+                    "globalVars": {
+                        "vat": "VAT",
+                        "tax":"Tax",
+                        "gst":"GST",
+                        "searchTxt": "Search",
+                        "allLocation": "All",
+                        "fromAndTo": "{0} to {1}",
+                        "sortBy": "Sort by",
+                        "ordersFound": "{0} Order(s) found",
+                        "cancelOrder": "Order {0} has been cancelled",
+                        "orderNumber": "Order #",
+                        "poNumber": "Customer PO #",
+                        "print": "Print",
+                        //Order history table columns name
+                        "docDate": "Order Date",
+                        "OrderId": "Order #",
+                        "locationName": "Ship To",
+                        "customerPO": "Customer PO #",
+                        "volume": "Total",
+                        "vat": "VAT",
+                        "statusId": "Status",
+                        "gstId": "GST",
+
+                        "selectDdn": {
+                            "noneSelectedText": "Nothing selected",
+                            "noneResultsText": "No results for {0}",
+                            "selectAllText": "Select All",
+                            "deselectAllText": "Deselect All",
+                            "itemSelected": "{0} item selected",
+                            "itemSelected1": "{0} items selected",
+                            "limitReached": "Limit reached ({n} item max)",
+                            "limitReached1": "Limit reached ({n} items max)",
+                            "groupLimit": "Group limit reached ({n} item max)",
+                            "groupLimit1": "Group limit reached ({n} items max)"
+                        },
+                        "tableLocales": {
+                            "loadingMessage": "Loading, please wait...",
+                            "recordsPerPage": "{0} rows per page",
+                            "showingRows": "Showing {0} to {1} of {2} rows",
+                            "search": "Search",
+                            "noMatches": "No products found. Please change your date range and location",
+                            "paginationSwitch": "Hide/Show pagination",
+                            "refresh": "Refresh",
+                            "toggle": "Toggle",
+                            "columns": "Columns",
+                            "allRows": "All"
+                        },
+                        "noResult" : "Select a Location and click search to load the order history",
+                        "noMatches" : "No products found. Please change your date range and location"
+                    }
+                }
+            }
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="report-1099.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+    </div>
+</body>
+
+</html>
