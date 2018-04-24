@@ -392,6 +392,7 @@ require(["modernizr",
 
 
                 loadingDynamicHbsTemplates();
+                console.log("cbp.eftSearchPage.eftSearchResponse >>>",cbp.eftSearchPage.eftSearchResponse);
                 populatingTable(cbp.eftSearchPage.eftSearchResponse.eftSearchDataList,cbp.eftSearchPage.eftSearchResponse.eftSearchDataListMapping);
                 leftPaneExpandCollapse.resetSearchFormHeight();
             }
@@ -797,7 +798,7 @@ require(["modernizr",
             cbp.eftSearchPage.showDebitCredit = false;
         }
 
-        cbp.eftSearchPage.dateRange.startDate = moment().subtract(15,'days');
+        cbp.eftSearchPage.dateRange.startDate = moment().subtract(7,'days');
         cbp.eftSearchPage.dateRange.endDate = moment();
 
         if (allEftFlow === "true") {
