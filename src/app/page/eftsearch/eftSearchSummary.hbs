@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-xs-24">
+        <span class="sub-heading">{{globalVars.eftSummary}}</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-24">
+        <div class="row xs-mt-10">
+            <div class="col-md-8 col-xs-24 md-pb-0 xs-pb-10">
+                <span>
+                    <strong>{{globalVars.account}}</strong>
+                </span>
+                <br/>
+                <span>{{eftSearchResponse.soldShipToBlock}}
+                {{eftSearchResponse.soldShipToNormal}}</span>
+            </div>
+            <div class="col-md-8 col-xs-24 md-pb-0 xs-pb-10">
+                <span>
+                    <strong>{{globalVars.dateRange}}</strong>
+                </span>
+                <br/>
+                {{globalVars.summaryfromAndToVar}}
+            </div>
+            <div class="col-md-8 col-xs-24 md-pb-0 xs-pb-10">
+                <span>
+                    <strong>{{globalVars.eftNoticeNumberHash}}</strong>
+                </span>
+                <br/>
+                {{eftSearchResponse.eftNumber}}
+            </div>
+        </div>
+    </div>
+<!-- <div class="col-xs-11">
+    <div class="row xs-mt-10">
+        <div class="xs-mt-15 visible-xs"></div>
+        <div class="col-md-17 col-sm-15 col-xs-7 text-right">
+        <label class="xs-pr-10">{{globalVars.debits}}</label>
+        </div>
+        <div class="col-md-7 col-sm-9 col-xs-17 text-right">
+          {{#if showDebitCredit}}
+              <span>{{eftSearchResponse.debits}} {{eftSearchResponse.currency}}</span>
+          {{/if}}
+        </div>
+    </div>
+    <div class="row xs-mt-5">
+        <div class="col-md-17 col-sm-15 col-xs-7 text-right">
+          <label class="xs-pr-10 {{#text-red}}{{eftSearchResponse.credits}}{{/text-red}}">{{globalVars.credits}}</label>
+        </div>
+        <div class="col-md-7 col-sm-9 col-xs-17 text-right">
+            {{#if showDebitCredit}}
+             <span>{{#text-danger}}{{eftSearchResponse.credits}} {{eftSearchResponse.currency}}{{/text-danger}}</span>
+            {{/if}}
+        </div>
+    </div>
+</div> -->
+</div>
