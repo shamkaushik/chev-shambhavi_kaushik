@@ -55,27 +55,69 @@ require(["modernizr",
 
         var getTableColumns = function(){
             return [{
-                field: 'id',
-                title: 'Item ID'
+                field: 'site',
+                title: 'Site',
+                class: 'site-name',
+                footerFormatter: function(){
+                    return "<span><strong>Total</strong></span>";
+                }
             }, {
-                field: 'name',
-                title: 'Item Name'
+                field: 'm1',
+                title: 'January',
+                class: 'text-right',
+                footerFormatter: function(){
+                    return "<span><strong>2,258,109.13</strong></span>";
+                }
+            },{
+                field: 'm2',
+                title: 'February',
+                class: 'text-right',
+                footerFormatter: function(){
+                    return "<span><strong>2,258,109.13</strong></span>";
+                }
+            },{
+                field: 'm3',
+                title: 'March',
+                class: 'text-right',
+                footerFormatter: function(){
+                    return "<span><strong>2,258,109.13</strong></span>";
+                }
             }, {
-                field: 'price',
-                title: 'Item Price'
+                field: 'yeartodate',
+                title: 'Year To Date (USD)',
+                class: 'text-right',
+                footerFormatter: function(){
+                    return "<span><strong>12,258,109.13</strong></span>";
+                }
             }];
         };
 
         var getTableData = function(){
             return [{
-                id: 1,
-                name: 'Item 1',
-                price: '$1'
+                site: '3017501 Redwood Oil Co. 7761 Old Redwood Highway',
+                m1: '276,737.46',
+                m2: '159,986.59',
+                m3: '2,621,118.72',
+                yeartodate: '477,528.78'
             }, {
-                id: 2,
-                name: 'Item 2',
-                price: '$2'
-            }];
+                site: '3016754 Redwood Oil Co. 50 Professional CRT #100',
+                m1: '276,737.46',
+                m2: '159,986.59',
+                m3: '2,621,118.72',
+                yeartodate: '477,528.78'
+            },{
+                site: '3017501 Redwood Oil Co. 7761 Old Redwood Highway',
+                m1: '276,737.46',
+                m2: '159,986.59',
+                m3: '2,621,118.72',
+                yeartodate: '477,528.78'
+            },{
+                site: '3016754 Redwood Oil Co. 50 Professional CRT #100',
+                m1: '276,737.46',
+                m2: '159,986.59',
+                m3: '2,621,118.72',
+                yeartodate: '477,528.78'
+            },];
         };
 
         var populatingTable = function(tablecol, tabledata){
@@ -88,8 +130,16 @@ require(["modernizr",
                 responsiveBreakPoint: 768,
                 responsiveClass: "bootstrap-table-cardview",
                 undefinedText: "",
+                showFooter: true,
                 columns: tablecol,
                 data: tabledata
+            });
+
+            $('.fixed-table-footer .table').bootstrapTable({
+                responsive: true,
+                responsiveBreakPoint: 768,
+                responsiveClass: "bootstrap-table-cardview",
+                undefinedText: "",
             });
 
         }
@@ -106,5 +156,6 @@ require(["modernizr",
 
     $(document).ready(function() {
         report1099page.init();
+        leftPaneExpandCollapse.init();
     });
 });
