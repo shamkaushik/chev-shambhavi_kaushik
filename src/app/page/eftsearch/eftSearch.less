@@ -1,7 +1,23 @@
 .eftSearch-page {
-		.page-title {
-				text-transform: none;
+	.page-title {
+			text-transform: none;
+	}
+	.no-records-found{
+		.alert{
+			padding:0px 5px 0px 5px;
+			background: none;
+			margin-bottom: 0px;
+			.alert-message{
+				padding-left: 30px;
+				margin: 1px;
+				overflow: hidden;
+				&:before{
+					padding:3px;
+					font-size: 15px;
+				}
+			}
 		}
+	}
 	.fixed-table-container{
 		tbody{
 			.selected td{

@@ -3,7 +3,8 @@
     "currency": "USD",
     "fromDate": "22-03-2015",
     "toDate": "29-08-2016",
-    "eftSearchDataList": [{
+    "eftSearchDataList" : [],
+    "eftSearchDataListA": [{
       "eftNoticeNumber":"226710253",
       "noticeDate":"03-12-2016",
       "accountNumber":"0450245835",
