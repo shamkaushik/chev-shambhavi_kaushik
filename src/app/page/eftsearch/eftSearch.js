@@ -199,6 +199,9 @@ require(["modernizr",
                 $(config.printStatusDdn).val('notPrinted').selectpicker('refresh');
             }
 
+            populatingCalendarComponent();
+            bindEvents();
+
             if (localStorage.getItem("eftObj") === undefined || localStorage.getItem("eftObj") === null) {
                 triggerAjaxRequest();
             } else {
@@ -217,10 +220,6 @@ require(["modernizr",
                 $(config.searchButton).removeAttr("disabled");
                 triggerAjaxRequest();
             }
-
-
-            populatingCalendarComponent();
-            bindEvents();
         };
 
         var loadingInitialHbsTemplates = function () {
@@ -323,26 +322,16 @@ require(["modernizr",
             postData.downloadStatus = $(config.downloadStatusDdn).val();
             postData.printStatus = $(config.printStatusDdn).val();
 
-            /* start DSLEC-120*/
-            if($(config.eftNoticeNumber).val() != "" || 
-               $(config.invoiceNumber).val()   != "" ) 
-            {
-               	var backDate = moment().subtract(cbp.eftSearchPage.dateRange.backDatedRange, 'month');
-            	    backDate = backDate.format(cbp.eftSearchPage.dateRange.format);
-            	var curDate  = moment();
-            	    curDate  = curDate.format(cbp.eftSearchPage.dateRange.format);
-            	    postData.fromDate = backDate;
-                    postData.toDate   = curDate;
-            }
-            else 
-            {
-            	 postData.startDate = startDate;
-                 postData.endDate = endDate;
-            }
 
-            ($("#eftSearchToggle input[type='hidden']").val() == 1 || $("#eftSearchToggle input[type='hidden']").val()=="default") ? 
+            console.log("Start Date & End Date >>>",startDate, endDate);
+            postData.fromDate = startDate;
+            postData.toDate   = endDate;
+
+            if($.trim($(config.searchInputEft).val()).length!=0){
+                ($("#eftSearchToggle input[type='hidden']").val() == 1 || $("#eftSearchToggle input[type='hidden']").val()=="default") ? 
         		postData['noticeNumber'] = $(config.searchInputEft).val() 
-        		: postData['invoiceNumber'] = $(config.searchInputEft).val();
+        		: postData['invoiceNumber'] = $(config.searchInputEft).val();   
+            }
 
             /* end DSLEC-120*/
             
