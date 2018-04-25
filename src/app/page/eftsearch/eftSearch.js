@@ -642,6 +642,7 @@ require(["modernizr",
             if (eftSearchDataList === null || eftSearchDataList === undefined) {
                 eftSearchDataList = [];
             }
+            
             $(config.sortByDdn).val("eftNoticeNumber-desc").selectpicker('refresh');
 
             $('#table').bootstrapTable({
