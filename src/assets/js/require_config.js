@@ -59,6 +59,10 @@ requirejs.config({
         "jquery-ui": {
             deps: ["jquery"],
             exports: "jqueryUI"
+        },
+        "common": {
+            deps: ["jquery"],
+            exports: "common"
         }
     },
     paths: {
@@ -74,6 +78,9 @@ requirejs.config({
         "parsley": "assets/js/min/parsley.min",
         "enquire": "assets/js/enquire.min",
         "hoverIntent": "assets/js/min/jqueryHoverIntent.min",
+
+        // common
+        "common": "assets/js/min/common.min",
 
         // Components JS file paths
         "bootstrap-table": "app/components/table/bootstrap-table.min",

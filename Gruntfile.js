@@ -3,7 +3,7 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     lesslint:{
-      src: ['src/assets/less/*.less','!src/assets/less/custom-bootstrap.less', '!src/assets/less/custom-bootstrap_th.less', '!src/assets/less/custom-paymetric.less', '!src/assets/less/fonts.less', '!src/assets/less/less-space.less']
+      src: ['src/assets/less/*.less','!src/assets/less/custom-bootstrap.less', '!src/assets/less/custom-bootstrap_th.less', '!src/assets/less/fonts.less', '!src/assets/less/less-space.less']
     },
     jshint: { // configure the task
       // lint your project's client code
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
         files: {
           "build/assets/css/app.css": "src/assets/less/app.less",
           "build/assets/css/app_th.css": "src/assets/less/app_th.less",
-          "build/assets/css/custom-paymetric.css": "src/assets/less/custom-paymetric.less",
+          //"build/assets/css/custom-paymetric.css": "src/assets/less/custom-paymetric.less",
           // "build/assets/css/custom-bootstrap.css": "src/assets/less/custom-bootstrap.less",
           // "build/assets/css/custom-bootstrap_th.css": "src/assets/less/custom-bootstrap_th.less"
         }
