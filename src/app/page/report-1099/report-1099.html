@@ -18,7 +18,7 @@
             <div class="content-box oh-page">
                 <div class="row">
                     <div class="col-sm-24">
-                        <h2 class='page-title'>1099 report</h2><i class="fa fa-meetup" aria-hidden="true"></i>
+                        <h2 class='page-title'>1099 report</h2>
                     </div>
                 </div>
 
@@ -55,22 +55,46 @@
         </section>
 
         <script type="text/javascript">
+
+            var accountList = [
+                {
+                    "accountNumber": "1234567",
+                    "accountAddress": "3017501 Redwood Oil Co. 7761 Old Redwood Highway"
+                },
+                {
+                    "accountNumber": "98765432",
+                    "accountAddress": "3016754 Redwood Oil Co. 50 Professional CRT #100"
+                }
+            ];
+
+            var yearList = ['2018', '2017', '2016', '2015'];
+
+            var qrtList = ['Q1', 'Q2', 'Q3', 'Q4'];
+
             var cbp = {
                 "staticBasePath": "/",
                 "report1099Page": {
-                    "locationDropDown": {
-                        "options": [],
-                        "label": "Sold-To",
-                        "name": "locationSelectDdn",
-                        "title": "Select",
-                        "showOptions": 10,
-                        "singleOption": true
-                    },
-                    "shipToDropDown": {
-                        "options": [],
-                        "label": "Ship-To",
+                    "accountDropDown": {
+                        "options": accountList,
+                        "label": "Account",
+                        "name": "accountSelectDdn",
                         "title": "All",
-                        "name": "shipToSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": false
+                    },
+                    "yearDropDown": {
+                        "options": yearList,
+                        "label": "Year",
+                        "title": "Year",
+                        "name": "yearSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": false
+                    },
+                    "qtrDropDown": {
+                        "options": qrtList,
+                        "label": "Quarter",
+                        "title": "Quarter",
+                        "name": "qtrSelectDdn",
                         "showOptions": 10,
                         "singleOption": false
                     },
