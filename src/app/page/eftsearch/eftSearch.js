@@ -659,7 +659,7 @@ require(["modernizr",
                 onCheck: function (row, $element) {
 
                     // enable button
-                    selectedEFTs.push(row.eftNoticeNumberId);
+                    selectedEFTs.push(row.eftNoticeNumber);
                     enablePrintDownloadButtons();
                 },
                 onCheckAll: function (rows) {
@@ -668,7 +668,7 @@ require(["modernizr",
                     var len = rows.length;
 
                     for (var i = 0; i < len; i++) {
-                        selectedEFTs.push(rows[i].eftNoticeNumberId);
+                        selectedEFTs.push(rows[i].eftNoticeNumber);
                     }
 
                     if (rows.length) {
@@ -677,7 +677,7 @@ require(["modernizr",
                 },
                 onUncheck: function (row, $element) {
                     // write logic..as not sure if all unselected
-                    var index = selectedEFTs.indexOf(row.eftNoticeNumberId);
+                    var index = selectedEFTs.indexOf(row.eftNoticeNumber);
 
                     if (index > -1) {
                         selectedEFTs.splice(index, 1);
