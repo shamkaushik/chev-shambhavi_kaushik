@@ -1,0 +1,58 @@
+//PV page styles
+.page-stationreport{
+    .sub-heading {
+		color: #009dd9;;
+		font-size: 15px;
+		font-family: Gotham, "Helvetica Neue", Helvetica, Roboto, Arial, serif;
+		font-weight: normal;
+    }
+    
+    .bootstrap-table .table.table-no-bordered.table-striped { 
+        tbody {
+             tr:nth-of-type(4) {
+             background-color: #dbdcdd;
+             font-weight:bold;
+            }
+            tr:nth-of-type(8) {
+                background-color: #dbdcdd;
+                font-weight:bold;
+            }
+           tr:nth-of-type(9) {
+                background-color: #dbdcdd;
+                font-weight:bold;
+            }
+            tr:nth-of-type(10) {
+                background-color: #dbdcdd;
+                font-weight:bold;
+            }
+        }
+    }
+    .bootstrap-table-cardview .table.table-no-bordered > tbody > tr > td > div:nth-of-type(4) {
+        background-color: #dbdcdd !important;
+    }
+  
+
+}  
+
+   
+
+// Page specific PRINT styles
+@media print {
+
+    body{
+        background: none;
+    }
+    .page-stationreport{
+        
+        .page-title{
+            margin-left:0!important;
+        }
+        .bottom-detail .row:first-child{
+            margin-left: 0!important;
+        }
+        .asc .fa, .dsc .fa{
+            display: none;
+        }
+    }
+}
+
