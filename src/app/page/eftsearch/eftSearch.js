@@ -200,7 +200,7 @@ require(["modernizr",
             }
 
             if (localStorage.getItem("eftObj") === undefined || localStorage.getItem("eftObj") === null) {
-                populatingTable(cbp.eftSearchPage.eftSearchResponse.eftSearchDataList,cbp.eftSearchPage.eftSearchResponse.eftSearchDataListMapping);
+                triggerAjaxRequest();
             } else {
                 var eftObj = JSON.parse(localStorage.getItem("eftObj"));
                 cbp.eftSearchPage.dateRange.startDate = moment(eftObj.startDate);
@@ -319,17 +319,6 @@ require(["modernizr",
 
             var postData = {};
             postData.account = $(config.accountDdn).val();
-            /* start DSLEC-8*/
-            if($(config.eftNoticeNumber).length > 0)
-            {
-            	postData.noticeNumber = $(config.eftNoticeNumber).val().trim(); 
-                $(config.eftNoticeNumber).val(postData.noticeNumber); 
-            }
-            if($(config.invoiceNumber).length > 0)
-            {
-	            postData.invoiceNumber = $(config.invoiceNumber).val().trim();
-	            $(config.invoiceNumber).val(postData.invoiceNumber); 
-            }
             /* end DSLEC-8*/
             postData.downloadStatus = $(config.downloadStatusDdn).val();
             postData.printStatus = $(config.printStatusDdn).val();
@@ -350,6 +339,11 @@ require(["modernizr",
             	 postData.startDate = startDate;
                  postData.endDate = endDate;
             }
+
+            ($("#eftSearchToggle input[type='hidden']").val() == 1 || $("#eftSearchToggle input[type='hidden']").val()=="default") ? 
+        		postData['noticeNumber'] = $(config.searchInputEft).val() 
+        		: postData['invoiceNumber'] = $(config.searchInputEft).val();
+
             /* end DSLEC-120*/
             
             if ($(config.accountDdn).val() != 'all') {
@@ -510,7 +504,7 @@ require(["modernizr",
             });
 
             $(document).on('click',config.eftSearchToggle+' button',function(){
-            	$(config.searchInputUSerAccount).val('');
+            	$(config.searchInputEft).val('');
                 if($(this).val()==1){
                     $(config.searchInputEft).attr('placeholder','EFT Notice #');
                 }else if($(this).val()==2){
