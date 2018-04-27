@@ -1,13 +1,14 @@
-<div class="row">
-    <div class="col-xs-24">
-        <span class="sub-heading">{{globalVars.volSummary}}</span>
+<div class="xs-mt-0 row js-volume-summary" style="background-color: #EBF8FE">
+<div class="row hiddenvolume">
+    <div class="col-xs-24 xs-ml-10">
+        <span class="sub-heading">{{globalVars.reportSummary}}</span>
     </div>
 </div>
 
-<div class="row xs-mt-10">
-        <div class="col-md-24 col-xs-24">
+{{!-- <div class="row xs-mt-10  "> --}}
+        <div class="col-md-24 col-xs-24 xs-mt-15">
            
-        <div class="col-md-6 col-xs-12">
+        <div class="col-md-8 col-xs-8">
             
             <label>{{globalVars.soldTo}}</label>  
              
@@ -15,19 +16,20 @@
              
             
         </div>
-        <div class="col-md-8 col-xs-24">
+        <div class="col-md-8 col-xs-8">
             
             <label>{{globalVars.site}}</label>  
              
              <p class="xs-mt-0">{{srSearchResponse.site}}</p>
             
         </div>
-        <div class="col-md-8 col-xs-9">
+        <div class="col-md-8 col-xs-8">
             
                 <label>{{globalVars.programYear}}</label>
-                 <p class="xs-mt-0">{{srSearchResponse.site}}</p>
+                 <p class="xs-mt-0">{{srSearchResponse.programYear}}</p>
            
         </div>
 </div>
+
 </div>
  
