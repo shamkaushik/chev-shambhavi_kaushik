@@ -1,0 +1,40 @@
+{
+	"dateRangeVal": "2/18/18 - 2/24/18",
+	"avgDailyHoursVal": "12:41",
+	"siteOperatingDataList": [{
+		"siteId": "936710253",
+		"average": "12.41",
+		"day1": "08:05",
+		"day2": "14.33",
+		"day3": "12.27",
+		"day4": "15.23",
+		"day5": "15.23",
+		"site": "3016754 Redwood Oil Co. 50 Professional CRT #100",
+		"day6": "15.23",
+		"day7": "12.41"
+	},
+	{
+		"siteId": "936710254",
+		"average": "12.12",
+		"day1": "09:24",
+		"day2": "08:27",
+		"day3": "12.27",
+		"day4": "15.23",
+		"day5": "15.23",
+		"site": "3016754 Redwood Oil Co. 50 Professional CRT #100",
+		"day6": "15.23",
+		"day7": "12.41"
+	},
+	{
+		"siteId": "936710255",
+		"average": "12.10",
+		"day1": "08:05",
+		"day2": "14.33",
+		"day3": "12.27",
+		"day4": "15.23",
+		"day5": "15.23",
+		"site": "3016754 Redwood Oil Co. 50 Professional CRT #100",
+		"day6": "15.23",
+		"day7": "12.41"
+	}]
+}
