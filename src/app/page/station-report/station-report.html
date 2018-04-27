@@ -15,50 +15,52 @@
           <header class="main-header main-header-md js-header" style="">
           </header>
       </main>
-        <section class='main-container'>
-            <div class="content-box page-stationreport">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h2 class='page-title'>Station report card</h2>
+      <section class='main-container'>
+        <div class="content-box page-stationreport">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class='page-title'>Station report card</h2>
+                </div>
+            </div>
+            <div class='row xs-m-0 position-relative'>
+                <div class="overlay-wrapper">
+                </div>
+                <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center hidden-print'>
+                    <div class='search-content'>
+                        <span class='fa fa-sliders'></span>
                     </div>
                 </div>
-                <div class='row xs-m-0 position-relative'>
-                    <div class="overlay-wrapper">
-                    </div>
-                    <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center hidden-print'>
-                        <div class='search-content'>
-                            <span class='fa fa-sliders'></span>
+                <div class='col-md-5 left-pane hidden-md search hidden-print'>
+                    <div class='search-content'>
+                        <div class='sub-heading hidden-sm hidden-xs'>
+                            Search
+                            <span class='fa fa-close visible-md-inline'></span>
+                        </div>
+                        <div class='sub-heading-thin hidden-lg hidden-md toggle-search-mobile'>
+                            <span class='fa fa-sliders'></span> Search
+                            <span class='fa fa-chevron-down pull-right'></span>
+                        </div>
+                        <div class='search-form xs-mt-10 js-search-form'>
                         </div>
                     </div>
-                    <div class='col-md-5 left-pane hidden-md search hidden-print'>
-                        <div class='search-content'>
-                            <div class='sub-heading hidden-sm hidden-xs'>
-                                Search
-                                <span class='fa fa-close visible-md-inline'></span>
-                            </div>
-                            <div class='sub-heading-thin hidden-lg hidden-md toggle-search-mobile'>
-                                <span class='fa fa-sliders'></span> Search
-                                <span class='fa fa-chevron-down pull-right'></span>
-                            </div>
-                            <div class='search-form xs-mt-10 js-search-form'>
-                            </div>
-                        </div>
+                </div>
+                <div class='col-md-23 col-lg-19 right-pane'>
+                    <div class='top-summary js-volume-summary'>
                     </div>
-                    <div class='col-md-23 col-lg-19 right-pane'>
-                        <div class='top-summary js-volume-summary'>
-                        </div>
-                        <div class='bottom-detail js-bottom-detail'>
-                        </div>
+                    <div class='bottom-detail js-bottom-detail'>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+        
         <script type="text/javascript">
          var srSearchResponse = {
                 "totalVolume": "3,189,002.55",
                 
                 "soldShipToNormal": "All",
                 "site":"All",
+                "programYear":"2018",
                 "purchasedVolDataList": [
                     {
                         "report": "Consumer Card Sales",
@@ -224,13 +226,14 @@
                         "method" : "GET"
                     },
                     "globalVars": {
-                       
+                        "disclaimerBold":"Disclaimer: ",
+                        "disclaimerText": "Card Sales and Fees are based on Station Credit Card Turn-Ins.",
                         "allTb":"All",
                         "currentYear":"2018",
                         "searchTxt": "Search",
                         "allLocation" : "All Locations",
                         "prdctName": "Product name",
-                        "volSummary": "volume summary",
+                        "reportSummary": "station report card",
                         "ttlPurchaseVolume": "Total Purchased Volume",
                         "programYear":"Program Year",
                         "site": "Site",
@@ -245,7 +248,8 @@
                         "purchaseVolume": "Purchased Volume",
                         "dateRange": "Date Range",
                         "volDetail": "volume detail",
-                        "printReport": "Print Report",
+                        "printReport": "Print",
+                        "downloadReport":"Download",
                         "productsFound": "{0} Products found",
                         "report": "Report",
                         "quarterOne":"Q1",
