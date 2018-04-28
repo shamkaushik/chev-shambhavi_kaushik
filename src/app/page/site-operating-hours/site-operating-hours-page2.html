@@ -1,0 +1,151 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css' />
+    <link href='/assets/css/app.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <div class='body-wrapper'>
+        <main>
+            <header class="main-header main-header-md js-header" style="">
+            </header>
+        </main>
+        <section class='main-container'>
+            <div class="content-box siteoperatinghoursdetail-page">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class='page-title'>site operating hours</h2>
+                    </div>
+                </div>
+                <div class='row xs-m-0'>
+                    <!-- <div class="overlay-wrapper">
+                    </div> -->
+                    <div class='col-md-5 left-pane search'>
+                        <div class='search-content'>
+                            <div class='search-form xs-mt-10 js-search-form show'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-23 col-lg-19 right-pane'>
+                        <div class='top-summary js-siteoperating-summary'>
+                        </div>
+                        <div class='bottom-detail js-bottom-detail'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <form id="siteOperatingForm" method="POST" action="/sf/siteOperating/downloadsiteOperating">
+            <input name="selectedSiteOperating" id="selectedSiteOperating" type="hidden">
+        </form>
+
+        <script type="text/javascript">
+            var inASMSession = "false";
+
+            var siteOperatingDetailResponse = {
+                "soldTo":{
+                    "uid": "7933464",
+                    "displayName": "7933464,DISMACOR S.A. BARBOSA, K 10 NRO 20  11, BARBOSA, Colombia",
+                },
+                "site":{
+                    "displayName":"11111111 - Julieta Tenoria, Friendly Motorist Center, 2722, Taft Avenue, Pasay City, Philippines",
+                    "uid":"8140832"
+                },
+                "siteOperatingSearchList": {
+                    "date": "3/18/18",
+                    "workingHours": "08:05",
+                    "firstTransaction": "09:17",
+                    "lastTransaction": "17:22",
+                },
+
+                "siteOperatingDataList": [{
+                    "date": "3/19/18",
+                    "workingHours": "14:33",
+                    "firstTransaction": "03:58",
+                    "lastTransaction": "17:22",
+                },
+                {
+                    "date": "3/20/18",
+                    "workingHours": "09:17",
+                    "firstTransaction": "09:17",
+                    "lastTransaction": "17:22",
+                },
+                {
+                    "date": "3/21/18",
+                    "workingHours": "14:33",
+                    "firstTransaction": "09:58",
+                    "lastTransaction": "17:22",
+                }],
+            };
+
+            var maxResults = 500;
+
+            var cbp = {
+                "staticBasePath": "/",
+                "siteOperatingPage": {
+                    "globalUrl": {
+                        "siteOperatingPostURL": "/assets/json/siteOperating.json",
+                        "siteURL": "/assets/json/siteResponse.json",
+                        "method": "GET",
+                        "siteOperatingearch":  "/assets/json/siteOperatingSearchResult.json",
+                        "siteOperatingSummaryURL": "/assets/json/siteOperatingSummaryURL.json",
+                        "siteOperatingPrintURL":  "sf/siteOperating/printsiteOperating",
+                        "siteOperatingDownloadURL":  "sf/siteOperating/downloadsiteOperating",
+                    },
+                    "globalVars": {
+                        "siteOperatingHours": "site operating hours",
+                        "avgDailyHoursVal": "06:59",
+                        "soldTo": "Sold To",
+                        "sitetb": "Site",
+                        "avgDailyHours": "Avg Daily Hours of Operation",
+                        "download": "Download",
+                        "print": "Print",
+                        "back": "Back",
+                        "sortBy": "Sort by",
+                        "workingHoursSortAsc": "Working Hours, Ascending",
+                        "workingHoursSortDesc": "Working Hours, Descending",
+                        "firstTransactionSortAsc": "First Transaction, Ascending",
+                        "firstTransactionSortDesc": "First Transaction, Descending",
+                        "lastTransactionSortAsc": "Last Transaction, Ascending",
+                        "lastTransactionSortDesc": "Last Transaction, Descending",
+                        "dateSortAsc": "Date, Ascending",
+                        "dateSortDesc": "Date, Descending",
+                        "datetb" : "Date",
+                        "workingHourstb" : "Working Hours",
+                        "firstTransactiontb" : "First Transaction",
+                        "lastTransactiontb" : "Last Transaction",
+                        "tableLocales": {
+                            "loadingMessage": "Loading, please wait...",
+                            "recordsPerPage": "{0} rows per page",
+                            "showingRows": "Showing {0} to {1} of {2} rows",
+                            "search": "Search",
+                            "noMatches": "No site operating hours found. Please change your search",
+                            "paginationSwitch": "Hide/Show pagination",
+                            "refresh": "Refresh",
+                            "toggle": "Toggle",
+                            "columns": "Columns",
+                            "allRows": "All"
+                        }
+                    }
+                }
+            }
+
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="site-operating-hours-page2.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+    </div>
+</body>
+
+</html>

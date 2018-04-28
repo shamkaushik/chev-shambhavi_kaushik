@@ -1,0 +1,190 @@
+.siteoperatinghours-page {
+	.wordbreak{
+		word-wrap:break-word;
+	}
+	.fixed-table-body{
+		.card-view{
+			.title{
+				min-width: 40%;
+			}
+			.value {
+				width: 59%;
+			}	  
+		}
+	}	  
+	.fixed-table-container{
+		tbody{
+			.selected td{
+			background-color: transparent;
+			}
+			tr.bg-danger{
+				background-color: #F7E8E9 !important;
+			}
+		}
+		thead{
+			tr{
+				background-color: @brand-primary;
+			}
+		}
+		.bootstrap-table {.table.table-no-bordered{
+			tbody {
+				tr {
+				   //  td
+				   // { white-space: normal;}
+				   td:nth-child(4){
+						white-space: nowrap;
+				   }
+				   td{
+					   .iconsPrintDownload, .iconsInvoicePrint{
+						   cursor: pointer;
+						   font-size: 14px;
+						   color: @brand-primary-blue;
+					   }
+					   .fa-check-square-o{
+						   color:@brand-primary;
+					   }
+					   .success-icon{
+						   color:@brand-success;
+					   }
+				   }
+		   }
+		   }
+	   }
+	   }
+	}
+	.js-shipToDdn{
+		.btn-group.bootstrap-select.displayInline{
+			width:100%!important;
+		}
+	}
+	.search-content {
+		.em-10 {
+			width: 10em;
+		}
+		.em-13, .js-downloadStatus-ddn .btn, .js-printStatus-ddn .btn {
+			width: 13em;
+		}
+		#ordercalendar {
+			width: 180px;
+		}
+	}
+	.bottom-detail {
+			.invoiceFound{
+				padding-top: 6px;
+				text-align: right;
+			}
+	}
+	.right-pane{
+		.top-summary{
+			    min-height:0;
+		}
+	}
+	.print-summary {
+		margin: 35px 20px 20px 20px;
+		background-color: #EBF8FE;
+	}
+	.note-data {
+		padding-left: 5px;
+		margin-top: 10px;
+	}
+	.note-data-val {
+		padding-left: 25px;
+		margin-top: 30px;
+	}
+	.sub-heading-thin{
+		color: #009dd9;
+    font-size: 15px;
+    font-family: Gotham, "Helvetica Neue", Helvetica, Roboto, Arial, serif;
+    font-weight: normal;
+	}
+	.pricenoticesFound{
+		color:grey;
+		font-size: 12px;
+	}
+	
+	.bootstrap-table {.table.table-no-bordered{
+		 tbody {
+			 tr {
+				//  td
+				// { white-space: normal;}
+				td:nth-child(4){
+					 white-space: nowrap;
+				}
+				td{
+					.iconsPrintDownload, .iconsInvoicePrint{
+						cursor: pointer;
+						font-size: 14px;
+						color: @brand-primary-blue;
+					}
+					.fa-check-square-o{
+						color:@brand-primary;
+					}
+					.success-icon{
+						color:@brand-success;
+					}
+				}
+		}
+		}
+	}
+	}
+}
+
+
+@media (max-width: @screen-sm-max) {
+	.siteoperatinghours-page {
+		.bottom-detail {
+			.invoiceFound{
+	      text-align: left;
+			}
+			.tableContainer {
+				min-height: 100px;
+			}
+		}
+	}
+}
+
+.one{
+	order:2;
+}
+.two{
+	order:1;
+}
+
+@media (max-width: @screen-sm){
+    .siteoperatinghours-page {
+        .pricenoticesFound{
+            display: block;
+        }
+    }
+}
+
+@media print {
+	.table{
+		.numberIcon{
+			.fa { 
+				display:none;
+			}
+		}
+	}
+	.nav-bottom {
+		position: relative;
+		min-height: 0;
+		height: auto;
+		left: auto;
+	}
+	.navbar-brand.navbar-left {
+		margin-left: 10px;
+	}
+	.navbar-brand.navbar-right {
+		float: right;
+		margin-right: 10px;
+	}
+	#table thead , tr{
+		-webkit-print-color-adjust: exact; 
+	}
+	#table th *, #table tr * {
+		white-space: normal;
+		text-overflow: initial;
+		overflow: none;
+	}
+}
