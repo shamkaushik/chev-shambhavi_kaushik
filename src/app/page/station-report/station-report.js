@@ -73,35 +73,35 @@
             var compiledreportSummary = Handlebars.compile(_reportSummaryHBS);
             var compiledBottomDetail = Handlebars.compile(_bottomDetailHBS);
         
-            var purchaseVolume = (function () {
+            var stationReport = (function () {
                 var startDate, endDate;
         
-                var srtByDdn = {
-                    "options": [{
-                        key: "productDescription-asc",
-                        value: cbp.srPage.globalVars.prdctNameAZ
-                    }, {
-                        key: "productDescription-desc",
-                        value: cbp.srPage.globalVars.prdctNameZA
-                    }, {
-                        key: "productCode-asc",
-                        value: cbp.srPage.globalVars.prdctCodeAsc
-                    }, {
-                        key: "productCode-desc",
-                        value: cbp.srPage.globalVars.prdctCodeDesc
-                    }, {
-                        key: "volume-asc",
-                        value: cbp.srPage.globalVars.purchaseVolumeAsc
-                    },
-                    {
-                        key: "volume-desc",
-                        value: cbp.srPage.globalVars.purchaseVolumeDesc
-                    }],
-                    label: cbp.srPage.globalVars.sortBy,
-                    labelClass: "xs-mr-5",
-                    name: "sortByDdn",
-                    display: "displayInline"
-                };
+                // var srtByDdn = {
+                //     "options": [{
+                //         key: "productDescription-asc",
+                //         value: cbp.srPage.globalVars.prdctNameAZ
+                //     }, {
+                //         key: "productDescription-desc",
+                //         value: cbp.srPage.globalVars.prdctNameZA
+                //     }, {
+                //         key: "productCode-asc",
+                //         value: cbp.srPage.globalVars.prdctCodeAsc
+                //     }, {
+                //         key: "productCode-desc",
+                //         value: cbp.srPage.globalVars.prdctCodeDesc
+                //     }, {
+                //         key: "volume-asc",
+                //         value: cbp.srPage.globalVars.purchaseVolumeAsc
+                //     },
+                //     {
+                //         key: "volume-desc",
+                //         value: cbp.srPage.globalVars.purchaseVolumeDesc
+                //     }],
+                //     label: cbp.srPage.globalVars.sortBy,
+                //     labelClass: "xs-mr-5",
+                //     name: "sortByDdn",
+                //     display: "displayInline"
+                // };
         
                 var config = {
                     locationDdnContainer: ".js-location-ddn",
@@ -158,10 +158,10 @@
                 // 	var dateScale = [];
                 // 	var dateLabel = [];
                     
-                // 	for (i=0; i<cbp.srPage.srSearchResponse.purchasedVolDataList.length; i++) 
-                // 		for(x=0;x<cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails.length; x++) {
-                // 			var dateString = cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails[x].invoiceCreationDate;
-                // 			if (account == cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails[x].shipTo && dateLabel.indexOf(dateString)<0) {	
+                // 	for (i=0; i<cbp.srPage.srSearchResponse.stationReportDataList.length; i++) 
+                // 		for(x=0;x<cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails.length; x++) {
+                // 			var dateString = cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[x].invoiceCreationDate;
+                // 			if (account == cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[x].shipTo && dateLabel.indexOf(dateString)<0) {	
                 // 				var formattedDateString = formatDate(dateString);
                 // 				dateLabel[dateLabel.length] = dateString;
                 // 				dateScale[dateScale.length] = new Date(formattedDateString);
@@ -212,22 +212,22 @@
                 // var getDatasets = function(account, invoiceDates) {
                 // 	var contentSet = [];
                     
-                // 	for (var i=0; i<cbp.srPage.srSearchResponse.purchasedVolDataList.length; i++) {
+                // 	for (var i=0; i<cbp.srPage.srSearchResponse.stationReportDataList.length; i++) {
                 // 		var data = [];
                 // 		var hasSeries = false;
-                // 		for(var j=0; j<cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails.length; j++) {	
-                // 			if (account == cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails[j].shipTo) {
+                // 		for(var j=0; j<cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails.length; j++) {	
+                // 			if (account == cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[j].shipTo) {
                 // 				hasSeries = true;
-                // 				var invDate = formatDate(cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails[j].invoiceCreationDate);
+                // 				var invDate = formatDate(cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[j].invoiceCreationDate);
                 // 				var x = xValue(invDate, invoiceDates);
-                // 				var y = cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails[j].productVolume;
+                // 				var y = cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[j].productVolume;
                 // 				if (!data[x]) data[x]=0;
                 // 				data[x] += y;
                 // 			}
                 // 		}
                 // 		if (hasSeries) {
                 // 			var node = {
-                // 				label: cbp.srPage.srSearchResponse.purchasedVolDataList[i].productDescription,
+                // 				label: cbp.srPage.srSearchResponse.stationReportDataList[i].productDescription,
                 // 				backgroundColor: Color(cbpPVColors[i % cbpPVColors.length]).alpha(0.3).rgbaString(), 
                 // 				borderColor: Color(cbpPVColors[i % cbpPVColors.length]).rgbaString(), 
                 // 				borderWidth: 2,
@@ -289,11 +289,11 @@
                 
                 // var getValidShipTos = function() {
                 // 	var shipTos = [];
-                // 	if (cbp.srPage.srSearchResponse.purchasedVolDataList && cbp.srPage.srSearchResponse.purchasedVolDataList.length > 0)
-                // 		for (var i=0; i<cbp.srPage.srSearchResponse.purchasedVolDataList.length; i++) 
-                // 			for(var j=0; j<cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails.length; j++) 	
-                // 				if (shipTos.indexOf(cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails[j].shipTo) < 0) 
-                // 					shipTos[shipTos.length] = cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails[j].shipTo;
+                // 	if (cbp.srPage.srSearchResponse.stationReportDataList && cbp.srPage.srSearchResponse.stationReportDataList.length > 0)
+                // 		for (var i=0; i<cbp.srPage.srSearchResponse.stationReportDataList.length; i++) 
+                // 			for(var j=0; j<cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails.length; j++) 	
+                // 				if (shipTos.indexOf(cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[j].shipTo) < 0) 
+                // 					shipTos[shipTos.length] = cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[j].shipTo;
                 // 	return shipTos;
                 // };
                 
@@ -350,7 +350,7 @@
                     $(config.shipToDdn).selectpicker('refresh');
 
                     // populatingShipTo($(config.locationDdn).val());
-                    populatingTable(cbp.srPage.srSearchResponse.purchasedVolDataList);
+                    populatingTable(cbp.srPage.srSearchResponse.stationReportDataList);
                     bindEvents();
                 };
                 
@@ -391,7 +391,7 @@
                 var loadingDynamicHbsTemplates = function () {
                     $(config.volSummaryContainer).html(compiledreportSummary(cbp.srPage));
                     $(config.searchDetailContainer).html(compiledBottomDetail(cbp.srPage));
-                    $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
+                    // $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
                     $(config.sortByDdnContainer).find(config.dropDownCommon).selectpicker('refresh');
                     enableMobileDefaultDropDown();
                 };
@@ -596,7 +596,7 @@
                             $(config.chartBtn).addClass("disabled");
                         }
                       //  setAccountOptions();
-                        populatingTable(cbp.srPage.srSearchResponse.purchasedVolDataList);
+                        populatingTable(cbp.srPage.srSearchResponse.stationReportDataList);
                         leftPaneExpandCollapse.resetSearchFormHeight();
                     }
         
@@ -618,10 +618,10 @@
         
                 };
         
-                var populatingTable = function (purchasedVolDataList) {
+                var populatingTable = function (stationReportDataList) {
         
-                    if (purchasedVolDataList === null || purchasedVolDataList === undefined) {
-                        purchasedVolDataList = [];
+                    if (stationReportDataList === null || stationReportDataList === undefined) {
+                        stationReportDataList = [];
                     }
                     $(config.sortByDdn).val("productCode-asc").selectpicker('refresh');
                     // $(config.sortByDdn).selectpicker('refresh');
@@ -693,7 +693,7 @@
                          },
 
                     ],
-                        data: purchasedVolDataList
+                        data: stationReportDataList
                     });
         
                 };
@@ -768,8 +768,8 @@
                     cbp.srPage.globalVars.productsFoundVar = cbp.srPage.globalVars.productsFound.replace("{0}", srSearchResponse.resultCount);
                 }
         
-                if (srSearchResponse.purchasedVolDataList === undefined) {
-                    cbp.srPage.srSearchResponse.purchasedVolDataList = [];
+                if (srSearchResponse.stationReportDataList === undefined) {
+                    cbp.srPage.srSearchResponse.stationReportDataList = [];
                 }
         
                 // cbp.srPage.dateRange.startDate = moment().subtract(7, 'days');
@@ -777,7 +777,7 @@
         
                 // cbp.srPage.globalVars.fromAndToVar = cbp.srPage.globalVars.fromAndTo.replace("{0}", cbp.srPage.dateRange.startDate.format(cbp.srPage.dateRange.format)).replace("{1}", cbp.srPage.dateRange.endDate.format(cbp.srPage.dateRange.format));
         
-                purchaseVolume.init();
+                stationReport.init();
                 enableMobileDefaultDropDown();
         
             });
