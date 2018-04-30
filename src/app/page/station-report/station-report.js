@@ -62,46 +62,46 @@
             "text!app/components/calendar/_calendar.hbs",
             "text!app/components/dropdown/_defaultDdn.hbs",
             "text!app/page/station-report/searchForm.hbs",
-            "text!app/page/station-report/volumeSummary.hbs",
+            "text!app/page/station-report/reportSummary.hbs",
             "text!app/page/station-report/bottomDetail.hbs"
-        ], function (modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable,/* Chart,*/ _calendarHBS, _defaultDdnHBS, _searchFormHBS, _volumeSummaryHBS, _bottomDetailHBS) {
+        ], function (modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable,/* Chart,*/ _calendarHBS, _defaultDdnHBS, _searchFormHBS, _reportSummaryHBS, _bottomDetailHBS) {
         
             //Compiling HBS templates
             var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
             var compiledsearchDate = Handlebars.compile(_calendarHBS);
             var compiledsearchForm = Handlebars.compile(_searchFormHBS);
-            var compiledvolumeSummary = Handlebars.compile(_volumeSummaryHBS);
+            var compiledreportSummary = Handlebars.compile(_reportSummaryHBS);
             var compiledBottomDetail = Handlebars.compile(_bottomDetailHBS);
         
-            var purchaseVolume = (function () {
+            var stationReport = (function () {
                 var startDate, endDate;
         
-                var srtByDdn = {
-                    "options": [{
-                        key: "productDescription-asc",
-                        value: cbp.srPage.globalVars.prdctNameAZ
-                    }, {
-                        key: "productDescription-desc",
-                        value: cbp.srPage.globalVars.prdctNameZA
-                    }, {
-                        key: "productCode-asc",
-                        value: cbp.srPage.globalVars.prdctCodeAsc
-                    }, {
-                        key: "productCode-desc",
-                        value: cbp.srPage.globalVars.prdctCodeDesc
-                    }, {
-                        key: "volume-asc",
-                        value: cbp.srPage.globalVars.purchaseVolumeAsc
-                    },
-                    {
-                        key: "volume-desc",
-                        value: cbp.srPage.globalVars.purchaseVolumeDesc
-                    }],
-                    label: cbp.srPage.globalVars.sortBy,
-                    labelClass: "xs-mr-5",
-                    name: "sortByDdn",
-                    display: "displayInline"
-                };
+                // var srtByDdn = {
+                //     "options": [{
+                //         key: "productDescription-asc",
+                //         value: cbp.srPage.globalVars.prdctNameAZ
+                //     }, {
+                //         key: "productDescription-desc",
+                //         value: cbp.srPage.globalVars.prdctNameZA
+                //     }, {
+                //         key: "productCode-asc",
+                //         value: cbp.srPage.globalVars.prdctCodeAsc
+                //     }, {
+                //         key: "productCode-desc",
+                //         value: cbp.srPage.globalVars.prdctCodeDesc
+                //     }, {
+                //         key: "volume-asc",
+                //         value: cbp.srPage.globalVars.purchaseVolumeAsc
+                //     },
+                //     {
+                //         key: "volume-desc",
+                //         value: cbp.srPage.globalVars.purchaseVolumeDesc
+                //     }],
+                //     label: cbp.srPage.globalVars.sortBy,
+                //     labelClass: "xs-mr-5",
+                //     name: "sortByDdn",
+                //     display: "displayInline"
+                // };
         
                 var config = {
                     locationDdnContainer: ".js-location-ddn",
@@ -158,10 +158,10 @@
                 // 	var dateScale = [];
                 // 	var dateLabel = [];
                     
-                // 	for (i=0; i<cbp.srPage.srSearchResponse.purchasedVolDataList.length; i++) 
-                // 		for(x=0;x<cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails.length; x++) {
-                // 			var dateString = cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails[x].invoiceCreationDate;
-                // 			if (account == cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails[x].shipTo && dateLabel.indexOf(dateString)<0) {	
+                // 	for (i=0; i<cbp.srPage.srSearchResponse.stationReportDataList.length; i++) 
+                // 		for(x=0;x<cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails.length; x++) {
+                // 			var dateString = cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[x].invoiceCreationDate;
+                // 			if (account == cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[x].shipTo && dateLabel.indexOf(dateString)<0) {	
                 // 				var formattedDateString = formatDate(dateString);
                 // 				dateLabel[dateLabel.length] = dateString;
                 // 				dateScale[dateScale.length] = new Date(formattedDateString);
@@ -212,22 +212,22 @@
                 // var getDatasets = function(account, invoiceDates) {
                 // 	var contentSet = [];
                     
-                // 	for (var i=0; i<cbp.srPage.srSearchResponse.purchasedVolDataList.length; i++) {
+                // 	for (var i=0; i<cbp.srPage.srSearchResponse.stationReportDataList.length; i++) {
                 // 		var data = [];
                 // 		var hasSeries = false;
-                // 		for(var j=0; j<cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails.length; j++) {	
-                // 			if (account == cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails[j].shipTo) {
+                // 		for(var j=0; j<cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails.length; j++) {	
+                // 			if (account == cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[j].shipTo) {
                 // 				hasSeries = true;
-                // 				var invDate = formatDate(cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails[j].invoiceCreationDate);
+                // 				var invDate = formatDate(cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[j].invoiceCreationDate);
                 // 				var x = xValue(invDate, invoiceDates);
-                // 				var y = cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails[j].productVolume;
+                // 				var y = cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[j].productVolume;
                 // 				if (!data[x]) data[x]=0;
                 // 				data[x] += y;
                 // 			}
                 // 		}
                 // 		if (hasSeries) {
                 // 			var node = {
-                // 				label: cbp.srPage.srSearchResponse.purchasedVolDataList[i].productDescription,
+                // 				label: cbp.srPage.srSearchResponse.stationReportDataList[i].productDescription,
                 // 				backgroundColor: Color(cbpPVColors[i % cbpPVColors.length]).alpha(0.3).rgbaString(), 
                 // 				borderColor: Color(cbpPVColors[i % cbpPVColors.length]).rgbaString(), 
                 // 				borderWidth: 2,
@@ -289,11 +289,11 @@
                 
                 // var getValidShipTos = function() {
                 // 	var shipTos = [];
-                // 	if (cbp.srPage.srSearchResponse.purchasedVolDataList && cbp.srPage.srSearchResponse.purchasedVolDataList.length > 0)
-                // 		for (var i=0; i<cbp.srPage.srSearchResponse.purchasedVolDataList.length; i++) 
-                // 			for(var j=0; j<cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails.length; j++) 	
-                // 				if (shipTos.indexOf(cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails[j].shipTo) < 0) 
-                // 					shipTos[shipTos.length] = cbp.srPage.srSearchResponse.purchasedVolDataList[i].purchasedVolumeDetails[j].shipTo;
+                // 	if (cbp.srPage.srSearchResponse.stationReportDataList && cbp.srPage.srSearchResponse.stationReportDataList.length > 0)
+                // 		for (var i=0; i<cbp.srPage.srSearchResponse.stationReportDataList.length; i++) 
+                // 			for(var j=0; j<cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails.length; j++) 	
+                // 				if (shipTos.indexOf(cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[j].shipTo) < 0) 
+                // 					shipTos[shipTos.length] = cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[j].shipTo;
                 // 	return shipTos;
                 // };
                 
@@ -350,7 +350,7 @@
                     $(config.shipToDdn).selectpicker('refresh');
 
                     // populatingShipTo($(config.locationDdn).val());
-                    populatingTable(cbp.srPage.srSearchResponse.purchasedVolDataList);
+                    populatingTable(cbp.srPage.srSearchResponse.stationReportDataList);
                     bindEvents();
                 };
                 
@@ -389,9 +389,9 @@
                 };
         
                 var loadingDynamicHbsTemplates = function () {
-                    $(config.volSummaryContainer).html(compiledvolumeSummary(cbp.srPage));
+                    $(config.volSummaryContainer).html(compiledreportSummary(cbp.srPage));
                     $(config.searchDetailContainer).html(compiledBottomDetail(cbp.srPage));
-                    $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
+                    // $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
                     $(config.sortByDdnContainer).find(config.dropDownCommon).selectpicker('refresh');
                     enableMobileDefaultDropDown();
                 };
@@ -422,9 +422,14 @@
                     // });
                     
                     $(document).on("click", config.printBtn, function (e) {
+                        var summary =  compiledreportSummary(cbp.srPage);
+                        var searchForm=  compiledsearchForm(cbp.srPage);
+                        var disclaimerData = $(".disclaimerData").html();
                         var win = window.open('', '_blank', 'PopUp' + new Date().getTime() + ',width=1300,height=800');
-                        win.document.write('\n                <html>\n                    <head>\n                        <meta charset="utf-8">\n                        <meta http-equiv="X-UA-Compatible" content="IE=edge">\n                        <meta name="viewport" content="width=device-width, initial-scale=1">\n                        <link href="/fuels/_ui/build/assets/css/custom-bootstrap.css" rel="stylesheet" type="text/css"/>\n                        <link href="/fuels/_ui/build/assets/css/app.css" rel="stylesheet" type="text/css"/>\n                        <style>\n     .total-cost-class {font-weight: bold;font-size: 15px;margin-left: 10px;}       .totalCost{text-align : right;padding:5px; 0 0 15px;}             .custBody {\n                            background-color: #ffffff;\n                          }\n                        .ptint-purchase-volume-headerLbl {\n                            color: #464646;\n                            font-weight: bold;\n                            font-size: 20px;\n                            margin-left: 10px;\n                          \tpadding: 0 0 10px 0;\n                        }\n                        .nav-bottom{\n                            border-bottom: none;\n                        }\n                        .navbar-brand{\n                            padding: 30px 0 10px 0;\n                        }\n                        .fixed-table-body{\n                            height:auto !important;\n                        }\n                        .fixed-table-body{\n                       \t \theight: auto !important;\n                        }\n                        </style>\n                    </head>\n                    <body class="custBody">\n                        <div class="wrapper">\n                            <header class="main-header main-header-md js-header" style="">\n                                <div class="nav-bottom">\n                                    <nav class="main-navigation js-enquire-offcanvas-navigation" role="navigation">                                                                                                       \n                                        <div class="row">                                           \n                                            <a class="navbar-brand navbar-left" href="/index.html">\n                                                <img alt="Brand" src="/fuels/_ui/build/assets/images/logo.png">\n                                                <span>business point</span>\n                                            </a>\n                                            <a class="navbar-brand navbar-right" href="/index.html">                                                                                                                          <a class="navbar-brand navbar-right" href="/index.html">\n                                                <img alt="Brand" src="/fuels/_ui/build/assets/images/fob-color-rgb.png">                                                   \n                                             </a>\n                                        </div>                                                                                                                                                 \n                                \n                                    </nav>\n                                </div>\n                            </header>\n                            <div class="col-sm-24">\n                                <h2 class="page-title ptint-purchase-volume-headerLbl">Purchased Volume Report</h2>\n                            </div>\n                            <div class="col-sm-24 xs-mt-10">\n                                <div class="col-sm-12 pull-left"><strong>' + $(".shipToElement").html() + '</strong></div>\n  <div class="col-sm-12 Pull-right text-right"><strong>Total Purchased Volume: ' + cbp.srPage.srSearchResponse.totalVolume + ' ' + cbp.srPage.globalVars.gal + '</strong></div>                              <div class="col-sm-12 Pull-right text-right"><strong>Date: ' + $(".dateElement").html() + '</strong></div>\n                            </div>\n                            <div class="col-sm-24">\n                                ' + $(".tableContainer").html() + '\n     <div class="row xs-mb-10"></div>                       </div>\n                            \n                            <br>\n                        </div>\n                    </body>\n                </html>\n                ');
-                        win.document.close();
+                        win.document.write('\n                <html>\n                    <head>\n                        <meta charset="utf-8">\n                        <meta http-equiv="X-UA-Compatible" content="IE=edge">\n                        <meta name="viewport" content="width=device-width, initial-scale=1">\n                        <link href="/assets/css/custom-bootstrap.css" rel="stylesheet" type="text/css"/>\n                        <link href="/assets/css/app.css" rel="stylesheet" type="text/css"/>\n                        <style>\n   .js-volume-summary{max-width:98%;margin-top:20px !important; margin-left:20px;} xs-mt-15{margin-top:0px!important;} .disclaimer{margin-left: 20px;}.hiddenvolume{display:none;} .bootstrap-table{margin-left:18px; margin-bottom: 15 px; margin-top:15px;} .total-cost-class {font-weight: bold;font-size: 15px;margin-left: 10px;}       .totalCost{text-align : right;padding:5px; 0 0 15px;}             .custBody {\n                            background-color: #ffffff;\n                          }\n                        .station-report-headerLbl {\n                            color: #009dd9;\n                            font-weight: bold;\n                            font-size: 20px;\n                            margin-left: 20px;\n                          \tpadding: 0 0 10px 0;\n                        }\n          .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(4) {font-weight:bold;  background-color: #dbdcdd;}           .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(8) {font-weight:bold;  background-color: #dbdcdd;}   .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(9) {font-weight:bold;  background-color: #dbdcdd;}  .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(10) {font-weight:bold;  background-color: #dbdcdd;}    .nav-bottom{\n                            border-bottom: none;\n                        }\n                        .navbar-brand{\n                            padding: 30px 0 10px 0;\n                        }\n  .fixed-table-container{padding-bottom:20px !important;}                      .fixed-table-body{\n                            height:auto !important;\n                        }\n                        .fixed-table-body{\n                       \t \theight: auto !important;\n                        }\n                        </style>\n                    </head>\n                    <body class="custBody">\n                        <div class="wrapper">\n                            <header class="main-header main-header-md js-header" style="">\n                                <div class="nav-bottom">\n                                    <nav class="main-navigation js-enquire-offcanvas-navigation" role="navigation">                                                                                                       \n                                        <div class="row">                                           \n                                            <a class="navbar-brand navbar-left" href="/index.html">\n                                                <img alt="Brand" src="/assets/images/logo.png">\n                                                <span>business point</span>\n                                            </a>\n                                            <a class="navbar-brand navbar-right" href="/index.html">                                                                                                                          <a class="navbar-brand navbar-right" href="/index.html">\n                                                <img alt="Brand" src="/assets/images/fob-color-rgb.png">                                                   \n                                             </a>\n                                        </div>                                                                                                                                                 \n                                \n                                    </nav>\n                                </div>\n                            </header>\n                            <div class="col-sm-24">\n                                <h2 class="page-title station-report-headerLbl">station report card</h2>\n                            </div>\n                                                                           \n                            <br>\n                        </div>\n                    </body>\n                </html>\n                ');
+                        win.document.write(summary);
+                        win.document.write($(".tableContainer").html());
+                        win.document.write('<div class="disclaimerData">'+ disclaimerData +'</div>');
                     });
         
                     var valueOnSubmit = '.js-search-form input' + ","  +
@@ -591,7 +596,7 @@
                             $(config.chartBtn).addClass("disabled");
                         }
                       //  setAccountOptions();
-                        populatingTable(cbp.srPage.srSearchResponse.purchasedVolDataList);
+                        populatingTable(cbp.srPage.srSearchResponse.stationReportDataList);
                         leftPaneExpandCollapse.resetSearchFormHeight();
                     }
         
@@ -613,10 +618,10 @@
         
                 };
         
-                var populatingTable = function (purchasedVolDataList) {
+                var populatingTable = function (stationReportDataList) {
         
-                    if (purchasedVolDataList === null || purchasedVolDataList === undefined) {
-                        purchasedVolDataList = [];
+                    if (stationReportDataList === null || stationReportDataList === undefined) {
+                        stationReportDataList = [];
                     }
                     $(config.sortByDdn).val("productCode-asc").selectpicker('refresh');
                     // $(config.sortByDdn).selectpicker('refresh');
@@ -641,7 +646,7 @@
                             class: 'numberIcon text-wrap',
                             cellStyle: 'xs-pl-10',
                             
-                            width : '20%'
+                            width : '30%'
                         }, {
                             field: 'quarterOne',
                             title: cbp.srPage.globalVars.quarterOne + ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')'),
@@ -688,7 +693,7 @@
                          },
 
                     ],
-                        data: purchasedVolDataList
+                        data: stationReportDataList
                     });
         
                 };
@@ -763,8 +768,8 @@
                     cbp.srPage.globalVars.productsFoundVar = cbp.srPage.globalVars.productsFound.replace("{0}", srSearchResponse.resultCount);
                 }
         
-                if (srSearchResponse.purchasedVolDataList === undefined) {
-                    cbp.srPage.srSearchResponse.purchasedVolDataList = [];
+                if (srSearchResponse.stationReportDataList === undefined) {
+                    cbp.srPage.srSearchResponse.stationReportDataList = [];
                 }
         
                 // cbp.srPage.dateRange.startDate = moment().subtract(7, 'days');
@@ -772,7 +777,7 @@
         
                 // cbp.srPage.globalVars.fromAndToVar = cbp.srPage.globalVars.fromAndTo.replace("{0}", cbp.srPage.dateRange.startDate.format(cbp.srPage.dateRange.format)).replace("{1}", cbp.srPage.dateRange.endDate.format(cbp.srPage.dateRange.format));
         
-                purchaseVolume.init();
+                stationReport.init();
                 enableMobileDefaultDropDown();
         
             });

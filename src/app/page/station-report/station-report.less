@@ -7,6 +7,7 @@
 		font-weight: normal;
     }
     
+    
     .bootstrap-table .table.table-no-bordered.table-striped { 
         tbody {
              tr:nth-of-type(4) {
@@ -17,27 +18,90 @@
                 background-color: #dbdcdd;
                 font-weight:bold;
             }
+            @media (min-width: 481px){
            tr:nth-of-type(9) {
                 background-color: #dbdcdd;
                 font-weight:bold;
             }
+        }
             tr:nth-of-type(10) {
                 background-color: #dbdcdd;
                 font-weight:bold;
             }
         }
     }
-    .bootstrap-table-cardview .table.table-no-bordered > tbody > tr > td > div:nth-of-type(4) {
-        background-color: #dbdcdd !important;
+    .bootstrap-table-cardview .table.table-no-bordered > tbody > tr:nth-of-type(4) > td > div:first-child{
+         background-color: #dbdcdd !important; 
+         color:#383838;
+        
     }
+    .bootstrap-table-cardview .table.table-no-bordered > tbody > tr:nth-of-type(8) > td > div:first-child{
+        background-color: #dbdcdd !important; 
+        color:#383838;
+      
+   }
+   .bootstrap-table-cardview .table.table-no-bordered > tbody > tr:nth-of-type(9) > td > div:first-child{
+    background-color: #dbdcdd !important; 
+    font-weight:bold;
+    color:#383838;
+}
+
+
+.bootstrap-table-cardview .table.table-no-bordered > tbody > tr:nth-of-type(10) > td > div:first-child{
+    background-color: #dbdcdd !important; 
+    color:#383838;
   
+}
+   .bootstrap-table-cardview .table.table-no-bordered > tbody > tr > td > div:first-child .title{
+    display:none;
+   
+}
+  
+.fixed-table-body .card-view .value {
+    width: 60%;
+}
+.fixed-table-body .card-view .title {
+   
+    min-width: 40%;
+}
 
 }  
 
-   
+
+
 
 // Page specific PRINT styles
 @media print {
+    .nav-bottom {
+        position: relative;
+        min-height: 0;
+        height: auto;
+        left: auto;
+        -webkit-box-shadow: none !important;
+        -moz-box-shadow: none !important ;
+        box-shadow: none !important;
+    }
+   
+  
+   
+    .navbar-brand.navbar-left {
+        margin-left: 10px;
+    }
+    .navbar-brand.navbar-right {
+        float: right;
+        margin-right: 10px;
+    }
+    #table thead , tr{
+        -webkit-print-color-adjust: exact; 
+    }
+    #table th *, #table tr * {
+        white-space: normal;
+        text-overflow: initial;
+        overflow: none;
+    }
+    .js-volume-summary{
+        -webkit-print-color-adjust: exact;
+    }
 
     body{
         background: none;
@@ -45,14 +109,14 @@
     .page-stationreport{
         
         .page-title{
-            margin-left:0!important;
+            margin-left:100!important;
         }
-        .bottom-detail .row:first-child{
-            margin-left: 0!important;
-        }
+        
         .asc .fa, .dsc .fa{
             display: none;
         }
+        
+       
     }
 }
 
