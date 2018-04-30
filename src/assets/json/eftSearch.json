@@ -1,7 +1,9 @@
 {
-    "soldShipToBlock": "7901220, DISMACOR S.A., ",
-    "soldShipToNormal": "K 16 NRO 20-56, Colombia",
+    "payer" : "7901220, DISMACOR S.A. K 16 NRO 20-56, BUCARAMANGA, Colombia",
     "currency": "USD",
+    "fromDate": "22-03-2015",
+    "toDate": "29-08-2016",
+    "eftSearchDataListA" : [],
     "eftSearchDataList": [{
       "eftNoticeNumber":"226710253",
       "noticeDate":"03-12-2016",
@@ -48,7 +50,17 @@
       "printed": true,
       "displayTotal": "-12.392.370"
     }],
+    "eftSearchDataListMapping" : {
+      "status" : "EFT_EFTSTATUS_COLOUMN",
+      "checkbox" : "EFT_EFTCHECKBOX_COLOUMN",
+      "eftNoticeNumber":"EFT_EFTNO_COLOUMN",
+      "noticeDate":"EFT_EFTDATE_COLOUMN",
+      "accountNumber":"EFT_EFTACCOUNTNUMBER_COLOUMN",
+      "settlementDate":"EFT_EFTSETTLEMENTDATE_COLOUMN",
+      "total": "EFT_EFTTOTAL_COLOUMN",
+      "eftNoticeNumberId": "EFT_EFTNOTICENO_COLOUMN",
+      "displayTotal": "EFT_EFTDISPLAYTOTAL_COLOUMN"
+    },
     "resultCount": 5,
-    "multipleSoldTo": false,
     "sort": null
 }

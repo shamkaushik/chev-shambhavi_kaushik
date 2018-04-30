@@ -1,0 +1,279 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css' />
+    <link href='/assets/css/app.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <div class='body-wrapper'>
+        <main>
+            <header class="main-header main-header-md js-header" style="">
+            </header>
+        </main>
+        <section class='main-container'>
+            <div class="content-box eftSearch-page">
+                <div class="row">
+                    <div class="col-sm-24">
+                        <h2 class='page-title'>electronic funds transfer</h2>
+                    </div>
+                </div>
+                <div class='row xs-m-0 position-relative'>
+                    <div class="overlay-wrapper">
+                    </div>
+                    <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center'>
+                        <div class='search-content'>
+                            <span class='fa fa-sliders'></span>
+                        </div>
+                    </div>
+                    <div class='col-md-5 left-pane hidden-md search'>
+                        <div class='search-content'>
+                            <div class='sub-heading hidden-sm hidden-xs'>
+                                Search
+                                <span class='fa fa-close visible-md-inline'></span>
+                            </div>
+                            <div class='sub-heading hidden-lg hidden-md toggle-search-mobile'>
+                                <span class='fa fa-sliders'></span> Search
+                                <span class='fa fa-chevron-down pull-right'></span>
+                            </div>
+                            <div class='search-form xs-mt-10 js-search-form'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-23 col-lg-19 right-pane'>
+                        <div class='top-summary js-eftSearch-summary'>
+                        </div>
+                        <div class='bottom-detail js-bottom-detail'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <input type="hidden" id="contextPath" value="/sf/businessPoint/en/USD">
+        <input type="hidden" id="isInternalUser" value="false">
+        <form id="eftDetailsForm" action="/app/page/order-details/order-details.html" method="get" target="_blank">
+            <input type="hidden" name="eftNoticeNumberId" id="eftNoticeNumberId">
+        </form>
+        <!-- form for invoice pdf -->
+        <form id="eftSearchPDFForm" action="/eftSearch/eftSearchPDF" method="post" target="_blank">
+            <input type="hidden" name="eftNoticeNumberId" id="eftNoticeNumberId">
+            <input type="hidden" name="eftPrint" id="eftPrint">
+        </form>
+
+        <form id="eftForm" method="POST" action="/sf/eftSearch/eftCSV">
+            <input name="selectedEFTs" id="selectedEFTs" type="hidden">
+        </form>
+
+        <form id="eftNoticeForm" action="${request.getContextPath()}/EftDetails/results" method="POST">
+           <input type="hidden" name="eftNoticeid" id="eftNoticeid" />
+        </form>
+
+        <script type="text/javascript">
+            var inASMSession = "false";
+
+            var internalUser = false;
+
+            var allEftFlow = "false"; //invoicesAttention
+
+            var eftSearchResponse = {
+                "fromDate": "22-03-2015",
+                "toDate": "29-08-2016",
+                "currency": "USD",
+                "payer" : "7901220, DISMACOR S.A. K 16 NRO 20-56, BUCARAMANGA, Colombia",
+                "eftSearchDataList": [{
+                    "eftNoticeNumber":"936710253",
+                    "noticeDate":"02-12-2016",
+                    "accountNumber":"7901220, DISMACOR S.A., K 16 NRO 20-56, BUCARAMANGA, Colombia",
+                    "settlementDate":"13-06-2016",
+                    "total": -8919237.0,
+                    "eftNoticeNumberId": "936710253",
+                    "downloaded": true,
+                    "printed": false,
+                    "displayTotal": "-8.919.237"
+                }],
+                "eftSearchDataListMapping" : {
+                    "status" : "EFT_EFTSTATUS_COLOUMN",
+                    "checkbox" : "EFT_EFTCHECKBOX_COLOUMN",
+                    "eftNoticeNumber":"EFT_EFTNO_COLOUMN",
+                    "noticeDate":"EFT_EFTDATE_COLOUMN",
+                    "accountNumber":"EFT_EFTACCOUNTNUMBER_COLOUMN",
+                    "settlementDate":"EFT_EFTSETTLEMENTDATE_COLOUMN",
+                    "total": "EFT_EFTTOTAL_COLOUMN",
+                    "eftNoticeNumberId": "EFT_EFTNOTICENO_COLOUMN",
+                    "displayTotal": "EFT_EFTDISPLAYTOTAL_COLOUMN"
+                },
+                "resultCount": 1,
+                "multipleSoldTo": false,
+                "sort": null
+            };
+
+            var maxResults = 500;
+
+            var accountDropdown = [{
+                "accountNumber": "0676334614",
+                "accountAddress": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "accountNumber": "0912234461",
+                "accountAddress": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "accountNumber": "0176224612",
+                "accountAddress": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "accountNumber": "0116134113",
+                "accountAddress": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }];
+            
+            var downloadStatusDropdownOptions = [{
+                key: "all",
+                value: "All"
+            }, {
+                key: "notDownloaded",
+                value: "Not Downloaded"
+            }, {
+                key: "downloaded",
+                value: "Downloaded"
+            }];
+
+            var printStatusDropdownOptions = [{
+                key: "all",
+                value: "All"
+            }, {
+                key: "notPrinted",
+                value: "Not Printed"
+            }, {
+                key: "printed",
+                value: "Printed"
+            }];
+
+            var maxResultText = '<div>{0} EFTs matching your search were found in the system.</div>' +
+                '<div>Please refine your search to return less than 500 results.</div><br>' +
+                '<div><b>Suggestions:</b></div>' +
+                '<ul>' +
+                '<li>Enter additional search criteria.</li>' +
+                '<li>Select a shorter date range.</li>' +
+                '</ul>';
+
+            var cbp = {
+                "staticBasePath": "/",
+                "eftSearchPage": {
+                    "accountDropdown": {
+                        "options": [],
+                        "label": "Account",
+                        "title": "",
+                        "name": "accountSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": true
+                    },
+                    "downloadStatusDropdown": {
+                        "options": downloadStatusDropdownOptions,
+                        "label": "Download Status",
+                        "title": "",
+                        "name": "downloadStatus",
+                        "showOptions": 3
+                    },
+                    "printStatusDropdown": {
+                        "options": printStatusDropdownOptions,
+                        "label": "Print Status",
+                        "title": "",
+                        "name": "printStatus",
+                        "showOptions": 3
+                    },
+                    "dateRange": {
+                        "maxMonth": 18,
+                        "format": "DD-MM-YYYY",
+                        "today": "Today",
+                        "yesterday": "Yesterday",
+                        "last7Days": "Last 7 Days",
+                        "last30Days": "Last 30 Days",
+                        "thisMonth": "This Month",
+                        "lastMonth": "Last Month",
+                        "customRange": "Custom Range",
+                        "cancel": "Cancel",
+                        "apply": "Apply",
+                        "iconClass": "fa fa-calendar pull-right",
+                        "id": "calendar"
+                    },
+                    "globalUrl": {
+                        "eftSearchPostURL": "/assets/json/eftSearch.json",
+                        "method": "GET"
+                    },
+                    "globalVars": {
+                        "searchTxt": "Search",
+                        "allAccount": "All",
+                        "eftNoticeNumber": "EFT Notice Number",
+                        "eftNoticeNumberHash": "EFT Notice #",
+                        "invoiceNumber": "Invoice Number",
+                        "fromAndTo": "{0} to {1}",
+                        "summaryfromAndTo": "{0} to {1}",
+                        "sortBy": "Sort by",
+                        "dateRange": "Date Range",
+                        "eftSummary": "electronic fund transfer summary",
+                        "downloadSelected": "Download Report",
+                        "printSelected": "Print Report",
+                        "eftsFound": "{0} result(s) found",
+                        "statustb": "Status",
+                        "eftNoticeNumbertb": "EFT Notice #",
+                        "noticeDatetb": "Notice Date",
+                        "accountNumbertb": "Account",
+                        "settlementDatetb": "Settlement Date",
+                        "totaltb": "Notice Total",
+                        "eftNoticeNumberAsc":"EFT Notice Number, Ascending",
+                        "eftNoticeNumberDesc":"EFT Notice Number, Descending",
+                        "noticeDateAsc": "Notice Date, Newest to Oldest",
+                        "noticeDateDesc": "Notice Date, Oldest to Newest",
+                        "accountNumberAsc": "Account Number, Ascending",
+                        "accountNumberDesc": "Account Number, Descending",
+                        "settlementDateAsc": "Settlement Date, Newest to Oldest",
+                        "settlementDateDesc": "Settlement Date, Oldest to Newest",
+                        "totalAsc": "Total, Ascending",
+                        "totalDesc": "Total, Descending",
+                        "soldTo": "Sold To:",
+                        "account" : "Account",
+                        "shipTo": "Ship To:",
+                        "noMatches": "No EFTS found. Please change your search",
+                        "noMatchesMaxResults": maxResultText,
+                        "selectDdn": {
+                            "noneSelectedText": "Nothing selected",
+                            "noneResultsText": "No results for {0}",
+                            "selectAllText": "Select All",
+                            "deselectAllText": "Deselect All",
+                            "itemSelected": "{0} item selected",
+                            "itemSelected1": "{0} items selected",
+                            "limitReached": "Limit reached ({n} item max)",
+                            "limitReached1": "Limit reached ({n} items max)",
+                            "groupLimit": "Group limit reached ({n} item max)",
+                            "groupLimit1": "Group limit reached ({n} items max)"
+                        },
+                        "tableLocales": {
+                            "loadingMessage": "Loading, please wait...",
+                            "recordsPerPage": "{0} rows per page",
+                            "showingRows": "Showing {0} to {1} of {2} rows",
+                            "search": "Search",
+                            "noMatches": "<div class='alert alert-danger'><span class='alert-message'>No EFTs found. Please change your search</span></div>",
+                            "paginationSwitch": "Hide/Show pagination",
+                            "refresh": "Refresh",
+                            "toggle": "Toggle",
+                            "columns": "Columns",
+                            "allRows": "All"
+                        }
+                    }
+                }
+            }
+
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="eftSearch.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+    </div>
+</body>
+
+</html>
