@@ -198,7 +198,7 @@ require(["modernizr",
         if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
             var xhOffest = $('.notification-container .notification-inner-block').offset().top;
             var xh = $('.notification-container .notification-inner-block').height();
-            var xhLength = $.trim($('.notification-height-reserve #parent .child').text()).length;
+            var xhLength = $.trim($('.notify-invoice-block.child').text()).length;
             var mlLength = $('.menu-wrapper ul.menu li').length;
             var htForMEnuWarpper = '';            
             if(xhLength<=0){
@@ -213,14 +213,7 @@ require(["modernizr",
                     $('.carousel .carousel-inner .item').css('height','73em');
                     htForMEnuWarpper = Math.floor(xhOffest/16)+Math.floor(xh/16)+5;
                 }
-
-                if($('.notification-height-reserve #parent .child').length<=1){
-                    $('.carousel .carousel-inner .item').css('height','63em');
-                    htForMEnuWarpper = Math.floor(xhOffest/16)+Math.floor(xh/16);
-                    $('.notification-container #parent').css('height','95px');
-                }else{
-                    $('.notification-container #parent').css('height','135px');
-                }
+                $('.notification-container #parent').css('height','135px');
                 $('.banner-container .menu-wrapper').css('top',htForMEnuWarpper+'em');
             }
         }
