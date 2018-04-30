@@ -30,6 +30,17 @@ require(["modernizr",
             qtrDdnContainer: ".js-qtr-ddn"
         };
 
+        var populateAccountDropdown = function(){
+            var options = [];
+            for (var i = 0; i < accountList.length; i++) {
+                var obj = {};
+                obj["key"] = accountList[i].accountNumber;
+                obj["value"] = accountList[i].accountAddress;
+                options.push(obj);
+            }
+            cbp.report1099Page.accountDropDown["options"] = options;
+        }
+
         var loadingInitialHbsTemplates = function() {
             //Appending handlebar templates to HTML
             $(config.searchFormContainer).html(compiledsearchForm(cbp.report1099Page));
@@ -134,17 +145,10 @@ require(["modernizr",
                 columns: tablecol,
                 data: tabledata
             });
-
-            $('.fixed-table-footer .table').bootstrapTable({
-                responsive: true,
-                responsiveBreakPoint: 768,
-                responsiveClass: "bootstrap-table-cardview",
-                undefinedText: "",
-            });
-
         }
 
         var init = function() {
+            populateAccountDropdown();
             loadingInitialHbsTemplates();
             populatingTable(getTableColumns(), getTableData());
         };

@@ -56,26 +56,41 @@
 
         <script type="text/javascript">
 
-            var accountList = [
-                {
+            var accountList = [{
                     "accountNumber": "1234567",
                     "accountAddress": "3017501 Redwood Oil Co. 7761 Old Redwood Highway"
-                },
-                {
+                },{
                     "accountNumber": "98765432",
                     "accountAddress": "3016754 Redwood Oil Co. 50 Professional CRT #100"
                 }
             ];
 
-            var yearList = ['2018', '2017', '2016', '2015'];
+           
+            var yearList = [{
+                    "key": "2018",
+                    "value": "2018"
+                },{
+                    "key": "2017",
+                    "value": "2017"
+                },{"key": "2016",
+                    "value": "2016"
+                }
+            ];
 
-            var qrtList = ['Q1', 'Q2', 'Q3', 'Q4'];
+            var qrtList = [{
+                    "key": "q1",
+                    "value": "Q1"
+                },{
+                    "key": "q2",
+                    "value": "Q2"
+                }
+            ];
 
             var cbp = {
                 "staticBasePath": "/",
                 "report1099Page": {
                     "accountDropDown": {
-                        "options": accountList,
+                        "options": [],
                         "label": "Account",
                         "name": "accountSelectDdn",
                         "title": "All",
@@ -85,7 +100,7 @@
                     "yearDropDown": {
                         "options": yearList,
                         "label": "Year",
-                        "title": "Year",
+                        //"title": "Year",
                         "name": "yearSelectDdn",
                         "showOptions": 10,
                         "singleOption": false
@@ -93,7 +108,7 @@
                     "qtrDropDown": {
                         "options": qrtList,
                         "label": "Quarter",
-                        "title": "Quarter",
+                        //"title": "Quarter",
                         "name": "qtrSelectDdn",
                         "showOptions": 10,
                         "singleOption": false
