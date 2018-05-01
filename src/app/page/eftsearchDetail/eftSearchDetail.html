@@ -78,50 +78,122 @@
 
             var allEftFlow = "false"; //invoicesAttention
 
-            var eftSearchResponse = {
-                "eftNumberDetail" : "157860909090",
-                "noticeDatetb": "12/10/2017",
-                "settlementDatetb": "12/10/2017",
-                "totaltb": "551,79 USD",
-                "eftSearchDetailDataList": [{
-                    // "eftNoticeNumber":"936710253",
-                    // "noticeDate":"02-12-2016",
-                    // "accountNumber":"0310245854",
-                    // "settlementDate":"13-06-2016",
-                    // "total": -8919237.0,
-                    // "eftNoticeNumberId": "936710253",
-                    // "downloaded": true,
-                    // "printed": true,
-                    // "displayTotal": "-8.919.237"
-                    "documentNumber" : "1234567890",
-                    "referenceDate" : "03/03/2018",
-                    "originalDoc" : "12345",
-                    "referenceNumber" : "WB123456",
-                    "descriptionText" :  "Credit Crad turn-ins",
-                    "deliveryAccount" : "1300096",
-                    "totalTbSD" :  "2658970"
-                },{
-                    // "eftNoticeNumber":"936710253",
-                    // "noticeDate":"02-12-2016",
-                    // "accountNumber":"0310245854",
-                    // "settlementDate":"13-06-2016",
-                    // "total": -8919237.0,
-                    // "eftNoticeNumberId": "936710253",
-                    // "downloaded": true,
-                    // "printed": true,
-                    // "displayTotal": "-8.919.237"
-                    "documentNumber" : "1234567891",
-                    "referenceDate" : "03/03/2018",
-                    "originalDoc" : "12345",
-                    "referenceNumber" : "WB123456",
-                    "descriptionText" :  "Credit Crad turn-ins 2",
-                    "deliveryAccount" : "1300096",
-                    "totalTbSD" :  "2658970"
-                }],
-                "resultCount": 1,
-                "multipleSoldTo": false,
-                "sort": null,
-                "currency" : "USD"
+            var eftDetailResponse = {
+                "eftDetailsData": {
+                    "eftNoticeNumber": "14183188",
+                    "noticeDate": "26-04-2018",
+                    "settlementDate": "27-04-2018",
+                    "accountAddress": "8106818 - Hanson Quarry Products (premix) Sdn, W501 Level 5, West Tower, Wisma Consplant 1 2 Jln Ss 16/4, MY",
+                    "currency": "USD",
+                    "eftNoticeUid": "141831880426201820180061"
+                },
+                "eftSummaryData": {
+                    "accountNumber": "8106818",
+                    "accountName": "8106818 - Hanson Quarry Products (premix) Sdn, W501 Level 5, West Tower, Wisma Consplant 1 2 Jln Ss 16/4, MY",
+                    "noticeTotal": "19.507,16"
+                },
+                "eftDetailDataList": [
+                    {
+                        "invoiceNumber": "650889101",
+                        "referenceDate": "17-04-2018",
+                        "originalDoc": "",
+                        "altReference": "",
+                        "description": "FUEL",
+                        "deliveryAccount": "5514003",
+                        "total": "16972.26",
+                        "displayTotal": "16.972,26"
+                    },
+                    {
+                        "invoiceNumber": "8201003939",
+                        "referenceDate": "26-04-2018",
+                        "originalDoc": "",
+                        "altReference": "",
+                        "description": "DEBIT CARD FEES",
+                        "deliveryAccount": "",
+                        "total": "285.13",
+                        "displayTotal": "285,13"
+                    },
+                    {
+                        "invoiceNumber": "650885516",
+                        "referenceDate": "17-04-2018",
+                        "originalDoc": "",
+                        "altReference": "",
+                        "description": "FUEL",
+                        "deliveryAccount": "5514003",
+                        "total": "22766.00",
+                        "displayTotal": "22.766,00"
+                    },
+                    {
+                        "invoiceNumber": "650885170",
+                        "referenceDate": "17-04-2018",
+                        "originalDoc": "",
+                        "altReference": "",
+                        "description": "FUEL",
+                        "deliveryAccount": "5514003",
+                        "total": "23019.05",
+                        "displayTotal": "23.019,05"
+                    },
+                    {
+                        "invoiceNumber": "8201003939",
+                        "referenceDate": "26-04-2018",
+                        "originalDoc": "",
+                        "altReference": "",
+                        "description": "CREDIT CARD TURN-IN",
+                        "deliveryAccount": "",
+                        "total": "-64788.79",
+                        "displayTotal": "-64.788,79"
+                    },
+                    {
+                        "invoiceNumber": "650889102",
+                        "referenceDate": "17-04-2018",
+                        "originalDoc": "",
+                        "altReference": "",
+                        "description": "FUEL",
+                        "deliveryAccount": "8316960",
+                        "total": "2133.12",
+                        "displayTotal": "2.133,12"
+                    },
+                    {
+                        "invoiceNumber": "650886667",
+                        "referenceDate": "17-04-2018",
+                        "originalDoc": "",
+                        "altReference": "",
+                        "description": "FUEL",
+                        "deliveryAccount": "6792720",
+                        "total": "17994.41",
+                        "displayTotal": "17.994,41"
+                    },
+                    {
+                        "invoiceNumber": "714971998",
+                        "referenceDate": "17-04-2018",
+                        "originalDoc": "",
+                        "altReference": "",
+                        "description": "CR ADJ",
+                        "deliveryAccount": "8296920",
+                        "total": "-100.00",
+                        "displayTotal": "-100,00"
+                    },
+                    {
+                        "invoiceNumber": "714971997",
+                        "referenceDate": "17-04-2018",
+                        "originalDoc": "",
+                        "altReference": "",
+                        "description": "CR ADJ",
+                        "deliveryAccount": "8296920",
+                        "total": "-40.00",
+                        "displayTotal": "-40,00"
+                    },
+                    {
+                        "invoiceNumber": "8201003939",
+                        "referenceDate": "26-04-2018",
+                        "originalDoc": "",
+                        "altReference": "",
+                        "description": "CREDIT/BANK CARD FEES",
+                        "deliveryAccount": "",
+                        "total": "1265.98",
+                        "displayTotal": "1.265,98"
+                    }
+                ]
             };
 
             var maxResults = 500;
@@ -163,7 +235,7 @@
 
             var cbp = {
                 "staticBasePath": "/",
-                "eftSearchPage": {
+                "eftDetailPage": {
                     "accountDropdown": {
                         "options": [],
                         "label": "Account",

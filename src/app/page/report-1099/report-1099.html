@@ -14,68 +14,83 @@
           <header class="main-header main-header-md js-header">
           </header>
       </main>
-        <section class='main-container'>
-            <div class="content-box oh-page">
-                <div class="row">
-                    <div class="col-sm-24">
-                        <h2 class='page-title'>1099 report</h2>
+    <section class='main-container'>
+        <div class="content-box report-1099-page">
+            <div class="row">
+                <div class="col-sm-24">
+                    <h2 class='page-title'>1099 report</h2>
+                </div>
+            </div>
+
+            <div class='row xs-m-0 position-relative'>
+                <div class="overlay-wrapper">
+                </div>
+                <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center'>
+                    <div class='search-content'>
+                        <span class='fa fa-sliders'></span>
                     </div>
                 </div>
-
-                <div class='row xs-m-0 position-relative'>
-                    <div class="overlay-wrapper">
-                    </div>
-                    <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center'>
-                        <div class='search-content'>
-                            <span class='fa fa-sliders'></span>
+                <div class='col-md-5 left-pane hidden-md search'>
+                    <div class='search-content'>
+                        <div class='sub-heading hidden-sm hidden-xs'>
+                            search
+                            <span class='fa fa-close visible-md-inline'></span>
+                        </div>
+                        <div class='sub-heading hidden-lg hidden-md toggle-search-mobile'>
+                            <span class='fa fa-sliders'></span> search
+                            <span class='fa fa-chevron-down pull-right'></span>
+                        </div>
+                        <div class='search-form xs-mt-10'>
+                            <form class="js-search-form">
+                            </form>
                         </div>
                     </div>
-                    <div class='col-md-5 left-pane hidden-md search'>
-                        <div class='search-content'>
-                            <div class='sub-heading hidden-sm hidden-xs'>
-                                search
-                                <span class='fa fa-close visible-md-inline'></span>
-                            </div>
-                            <div class='sub-heading hidden-lg hidden-md toggle-search-mobile'>
-                                <span class='fa fa-sliders'></span> search
-                                <span class='fa fa-chevron-down pull-right'></span>
-                            </div>
-                            <div class='search-form xs-mt-10'>
-                              <form class="js-search-form">
-                              </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class='col-md-23 col-lg-19 right-pane'>
-                       <div class="js-bottom-detail">
-                       </div>
+                </div>
+                <div class='col-md-23 col-lg-19 right-pane'>
+                    <div class="js-bottom-detail">
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
         <script type="text/javascript">
 
-            var accountList = [
-                {
+            var accountList = [{
                     "accountNumber": "1234567",
                     "accountAddress": "3017501 Redwood Oil Co. 7761 Old Redwood Highway"
-                },
-                {
+                },{
                     "accountNumber": "98765432",
                     "accountAddress": "3016754 Redwood Oil Co. 50 Professional CRT #100"
                 }
             ];
 
-            var yearList = ['2018', '2017', '2016', '2015'];
+           
+            var yearList = [{
+                    "key": "2018",
+                    "value": "2018"
+                },{
+                    "key": "2017",
+                    "value": "2017"
+                },{"key": "2016",
+                    "value": "2016"
+                }
+            ];
 
-            var qrtList = ['Q1', 'Q2', 'Q3', 'Q4'];
+            var qrtList = [{
+                    "key": "q1",
+                    "value": "Q1"
+                },{
+                    "key": "q2",
+                    "value": "Q2"
+                }
+            ];
 
             var cbp = {
                 "staticBasePath": "/",
                 "report1099Page": {
                     "accountDropDown": {
-                        "options": accountList,
+                        "options": [],
                         "label": "Account",
                         "name": "accountSelectDdn",
                         "title": "All",
@@ -85,7 +100,7 @@
                     "yearDropDown": {
                         "options": yearList,
                         "label": "Year",
-                        "title": "Year",
+                        //"title": "Year",
                         "name": "yearSelectDdn",
                         "showOptions": 10,
                         "singleOption": false
@@ -93,7 +108,7 @@
                     "qtrDropDown": {
                         "options": qrtList,
                         "label": "Quarter",
-                        "title": "Quarter",
+                        //"title": "Quarter",
                         "name": "qtrSelectDdn",
                         "showOptions": 10,
                         "singleOption": false

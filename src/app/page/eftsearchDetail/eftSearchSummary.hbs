@@ -11,28 +11,28 @@
                     <strong>{{globalVars.eftNumberDetail}}</strong>
                 </span>
                 <br/>
-                <span>{{eftSearchResponse.eftNumberDetail}}</span>
+                <span>{{eftDetailResponse.eftDetailsData.eftNoticeNumber}}</span>
             </div>
             <div class="col-md-5 col-xs-24 md-pb-0 xs-pb-10">
                 <span>
                     <strong>{{globalVars.noticeDatetb}}</strong>
                 </span>
                 <br/>
-                {{eftSearchResponse.noticeDatetb}}
+                {{eftDetailResponse.eftDetailsData.noticeDate}}
             </div>
             <div class="col-md-5 col-xs-24 md-pb-0 xs-pb-10">
                 <span>
                     <strong>{{globalVars.settlementDatetb}}</strong>
                 </span>
                 <br/>
-                {{eftSearchResponse.settlementDatetb}}
+                {{eftDetailResponse.eftDetailsData.settlementDate}}
             </div>
             <div class="col-md-5 col-xs-24 md-pb-0 xs-pb-10">
                 <span>
-                    <strong>{{globalVars.totaltb}}</strong>
+                    <strong>{{globalVars.totalTbSD}}({{eftDetailResponse.eftDetailsData.currency}})</strong>
                 </span>
                 <br/>
-                {{eftSearchResponse.totaltb}}
+                {{eftDetailResponse.eftSummaryData.noticeTotal}}
             </div>
         </div>
     </div>
