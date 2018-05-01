@@ -644,9 +644,9 @@ require(["modernizr",
                             formatter: function LinkFormatter(value, row, index) {
                                 var total;
                                 if (value >= '0') {
-                                    total = row.total;
+                                    total = row.displayTotal;
                                 } else {
-                                    total = "<span class='text-danger'>" + row.total + "</span>";
+                                    total = "<span class='text-danger'>" + row.displayTotal + "</span>";
                                 }
             
                                 return total;
