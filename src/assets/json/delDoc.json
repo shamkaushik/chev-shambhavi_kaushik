@@ -1,0 +1,70 @@
+ {
+              
+                "currency": "USD",
+                "delDocColumnMapping": {
+                    "delDocId": "test",
+                    "delDocDate": "dfhj",
+                    "total": "yfleuir",
+                    "checkbox": "ejuje",
+                    "shipTo": "test",
+                    "billOfLading": "rfhuf",
+                    "status": "dbshj",
+                    "invoiceId":"tyrui"
+                },
+
+                "delDocList": [{
+                    "delDocId": "936710253",
+                    "invoiceId": "936710253",
+                    "delDocDate": "30/10/2015",
+                    "delDocTime":"14:32:40",
+                    "total": 8919237.0,
+                    "displayTotal": "-8.919.237",
+                    "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
+                    "billOfLading": 75123,
+                    "salesOrderType": "ZOOR",
+                    "downloaded": true,
+                    "printed": false
+                },
+                {
+                    "delDocId": "936670263",
+                    "invoiceId": "936710253",
+                    "delDocDate": "30/10/2015",
+                    "delDocTime":"14:32:40",
+                    "total": 36928702,
+                    "displayTotal": "36.928.702",
+                    "shipTo": "7933464, DISMACOR S.A. BARBOSA, K 10 NRO 20  11, Colombia",
+                    "billOfLading": 75123,
+                    "downloaded": true,
+                    "printed": false,
+                    "salesOrderType": "ZOOR",
+                    "cbpdelDocStatus": "01"
+                },
+                {
+                    "delDocId": "936659699",
+                    "invoiceId": "936710253",
+                    "delDocDate": "30/10/2015",
+                    "delDocTime":"14:32:40",
+                    "total": 12621100,
+                    "displayTotal": "-12.621.100",
+                    "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
+                    "billOfLading": 75123,
+                    "downloaded": true,
+                    "printed": false,
+                    "salesOrderType": "ZC"
+                },
+                {
+                    "delDocId": "936659698",
+                    "invoiceId": "936710253",
+                    "delDocDate": "30/10/2015",
+                    "delDocTime":"14:32:40",
+                    "total": 5655000,
+                    "displayTotal": "-5.655.000",
+                    "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
+                    "downloaded": false,
+                    "printed": false,
+                    "salesOrderType": "ZC"
+                }],
+                "resultCount": 4,
+                "multipleSoldTo": false,
+                "sort": null
+            }
