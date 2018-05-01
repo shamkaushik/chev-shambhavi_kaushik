@@ -348,24 +348,20 @@
                     //cbp.srPage.shipToDropDown.searchable = false;
                     $(config.locationDdn).selectpicker('refresh');
                     $(config.shipToDdn).selectpicker('refresh');
-
+                   
                     // populatingShipTo($(config.locationDdn).val());
                     populatingTable(cbp.srPage.srSearchResponse.stationReportDataList);
                     bindEvents();
                 };
                 
-                // var chartBtnSelected = function () {
-                // 	document.getElementById("pvChartDiv").style.display = "block";
-                // 	var ctx = document.getElementById("pvChart").getContext("2d");
-                // 	var account = "";
-                //     account = $('#accountSelectDdn').find('option:selected').val();
-                // 	window.pvChart = new Chart(ctx, configChart(account));
-                // };
-                
-                // var closeChartBtnSelected = function () {
-                // 	document.getElementById("pvChartDiv").style.display = "none";
-                // 	window.pvChart.destroy();
-                // };
+                var setSummaryValues = function(){
+                    cbp.srPage.summary = {};
+                    cbp.srPage.summary.soldTo = $('.js-location-ddn button span').text();
+                    cbp.srPage.summary.shipTo = $('.js-shipTo-ddn button span').text();
+                    // cbp.srPage.summary.dateRange = $('.js-search-pickDateRange').find('span').text();
+                    cbp.srPage.summary.programYear = $('.js-programYear-ddn button span').text();
+                };
+        
                 
                 var loadingInitialHbsTemplates = function () {
                     //Appending handlebar templates to HTML
@@ -379,9 +375,14 @@
                     //     iconClass: cbp.srPage.dateRange.iconClass,
                     //     id: cbp.srPage.dateRange.id
                     // }));
-        
+                    cbp.srPage.summary = {};
+                    cbp.srPage.summary.soldTo = srSearchResponse.soldShipToNormal;
+                    cbp.srPage.summary.shipTo = srSearchResponse.site;
+                    // cbp.srPage.summary.dateRange = $('.js-search-pickDateRange').find('span').text();
+                    cbp.srPage.summary.programYear = srSearchResponse.programYear;
+                    
                     loadingDynamicHbsTemplates();
-        
+                    
                     //Refresh dropdown at initial dispaly after loading templates
                     $(config.dropDownCommon).selectpicker('refresh');
                     enableMobileDefaultDropDown();
@@ -426,7 +427,7 @@
                         var searchForm=  compiledsearchForm(cbp.srPage);
                         var disclaimerData = $(".disclaimerData").html();
                         var win = window.open('', '_blank', 'PopUp' + new Date().getTime() + ',width=1300,height=800');
-                        win.document.write('\n                <html>\n                    <head>\n                        <meta charset="utf-8">\n                        <meta http-equiv="X-UA-Compatible" content="IE=edge">\n                        <meta name="viewport" content="width=device-width, initial-scale=1">\n                        <link href="/assets/css/custom-bootstrap.css" rel="stylesheet" type="text/css"/>\n                        <link href="/assets/css/app.css" rel="stylesheet" type="text/css"/>\n                        <style>\n   .js-volume-summary{max-width:98%;margin-top:20px !important; margin-left:20px;} xs-mt-15{margin-top:0px!important;} .disclaimer{margin-left: 20px;}.hiddenvolume{display:none;} .bootstrap-table{margin-left:18px; margin-bottom: 15 px; margin-top:15px;} .total-cost-class {font-weight: bold;font-size: 15px;margin-left: 10px;}       .totalCost{text-align : right;padding:5px; 0 0 15px;}             .custBody {\n                            background-color: #ffffff;\n                          }\n                        .station-report-headerLbl {\n                            color: #009dd9;\n                            font-weight: bold;\n                            font-size: 20px;\n                            margin-left: 20px;\n                          \tpadding: 0 0 10px 0;\n                        }\n          .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(4) {font-weight:bold;  background-color: #dbdcdd;}           .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(8) {font-weight:bold;  background-color: #dbdcdd;}   .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(9) {font-weight:bold;  background-color: #dbdcdd;}  .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(10) {font-weight:bold;  background-color: #dbdcdd;}    .nav-bottom{\n                            border-bottom: none;\n                        }\n                        .navbar-brand{\n                            padding: 30px 0 10px 0;\n                        }\n  .fixed-table-container{padding-bottom:20px !important;}                      .fixed-table-body{\n                            height:auto !important;\n                        }\n                        .fixed-table-body{\n                       \t \theight: auto !important;\n                        }\n                        </style>\n                    </head>\n                    <body class="custBody">\n                        <div class="wrapper">\n                            <header class="main-header main-header-md js-header" style="">\n                                <div class="nav-bottom">\n                                    <nav class="main-navigation js-enquire-offcanvas-navigation" role="navigation">                                                                                                       \n                                        <div class="row">                                           \n                                            <a class="navbar-brand navbar-left" href="/index.html">\n                                                <img alt="Brand" src="/assets/images/logo.png">\n                                                <span>business point</span>\n                                            </a>\n                                            <a class="navbar-brand navbar-right" href="/index.html">                                                                                                                          <a class="navbar-brand navbar-right" href="/index.html">\n                                                <img alt="Brand" src="/assets/images/fob-color-rgb.png">                                                   \n                                             </a>\n                                        </div>                                                                                                                                                 \n                                \n                                    </nav>\n                                </div>\n                            </header>\n                            <div class="col-sm-24">\n                                <h2 class="page-title station-report-headerLbl">station report card</h2>\n                            </div>\n                                                                           \n                            <br>\n                        </div>\n                    </body>\n                </html>\n                ');
+                        win.document.write('\n                <html>\n                    <head>\n                        <meta charset="utf-8">\n                        <meta http-equiv="X-UA-Compatible" content="IE=edge">\n                        <meta name="viewport" content="width=device-width, initial-scale=1">\n                        <link href="/assets/css/custom-bootstrap.css" rel="stylesheet" type="text/css"/>\n                        <link href="/assets/css/app.css" rel="stylesheet" type="text/css"/>\n                        <style>\n   .js-volume-summary{max-width:98%;margin-top:20px !important; margin-left:20px;} xs-mt-15{margin-top:0px!important;} .disclaimer{margin-left: 20px; font-size: 16px;}.hiddenvolume{display:none;} .bootstrap-table{margin-left:18px; margin-bottom: 15 px; margin-top:15px;} .total-cost-class {font-weight: bold;font-size: 15px;margin-left: 10px;}       .totalCost{text-align : right;padding:5px; 0 0 15px;}             .custBody {\n                            background-color: #ffffff;\n                          }\n                        .station-report-headerLbl {\n                            color: #009dd9;\n                            font-weight: bold;\n                            font-size: 20px;\n                            margin-left: 20px;\n             margin-bottom: -24px;             \tpadding: 0 0 10px 0;\n                        }\n          .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(4) {font-weight:bold;  background-color: #dbdcdd;}           .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(8) {font-weight:bold;  background-color: #dbdcdd;}   .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(9) {font-weight:bold;  background-color: #dbdcdd;}  .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(10) {font-weight:bold;  background-color: #dbdcdd;}    .nav-bottom{\n                            border-bottom: none;\n                        }\n                        .navbar-brand{\n                            padding: 30px 0 10px 0;\n                        }\n  .fixed-table-container{padding-bottom:20px !important;}                      .fixed-table-body{\n                            height:auto !important;\n                        }\n                        .fixed-table-body{\n                       \t \theight: auto !important;\n                        }\n                        </style>\n                    </head>\n                    <body class="custBody">\n                        <div class="wrapper">\n                            <header class="main-header main-header-md js-header" style="">\n                                <div class="nav-bottom">\n                                    <nav class="main-navigation js-enquire-offcanvas-navigation" role="navigation">                                                                                                       \n                                        <div class="row">                                           \n                                            <a class="navbar-brand navbar-left" href="/index.html">\n                                                <img alt="Brand" src="/assets/images/logo.png">\n                                                <span>business point</span>\n                                            </a>\n                                            <a class="navbar-brand navbar-right" href="/index.html">                                                                                                                          <a class="navbar-brand navbar-right" href="/index.html">\n                                                <img alt="Brand" src="/assets/images/fob-color-rgb.png">                                                   \n                                             </a>\n                                        </div>                                                                                                                                                 \n                                \n                                    </nav>\n                                </div>\n                            </header>\n                            <div class="col-sm-24">\n                                <h2 class="page-title station-report-headerLbl">station report card</h2>\n                            </div>\n                                                                           \n                            <br>\n                        </div>\n                    </body>\n                </html>\n                ');
                         win.document.write(summary);
                         win.document.write($(".tableContainer").html());
                         win.document.write('<div class="disclaimerData">'+ disclaimerData +'</div>');
@@ -521,35 +522,37 @@
         
                 // };
 
-                var setValueForSoldToShipto = function (soldToShipTo, check) {
-                    if(check){
-                        cbp.srPage.srSearchResponse['soldShipToNormal'] = cbp.srPage.globalVars.allLocation;
-                    }
-                    else{
-                        cbp.srPage.srSearchResponse['soldShipToBlock'] = soldToShipTo.uid;
-                        cbp.srPage.srSearchResponse['soldShipToNormal'] = soldToShipTo.displayName;
-                    }            
-                };
+                // var setValueForSoldToShipto = function (soldToShipTo, check) {
+                //     if(check){
+                //         cbp.srPage.srSearchResponse['soldShipToNormal'] = cbp.srPage.globalVars.allLocation;
+                //     }
+                //     else{
+                //         cbp.srPage.srSearchResponse['soldShipToBlock'] = soldToShipTo.uid;
+                //         cbp.srPage.srSearchResponse['soldShipToNormal'] = soldToShipTo.displayName;
+                //     }            
+                // };
         
                 var triggerAjaxRequest = function () {
+                    console.log("InsideAjax");
+                    loadingDynamicHbsTemplates();
                     $(config.displaySpinner).show();
                     $(config.volSummaryContainer).hide();
                     $(config.searchDetailContainer).hide();
         
                     leftPaneExpandCollapse.hideSearchBar();
-                    var postData = {};
-                    postData.shipTo = $(config.shipToDdn).val() === null ? "null" : $(config.shipToDdn).val().toString();
-                    postData.soldTo = $(config.locationDdn).val() === null ? "null" : $(config.locationDdn).val().toString();
-                    postData.fromDate = startDate;
-                    postData.toDate = endDate;
-                    postData.productName = $(config.productName).val();
+                    // var postData = {};
+                    // postData.shipTo = $(config.shipToDdn).val() === null ? "null" : $(config.shipToDdn).val().toString();
+                    // postData.soldTo = $(config.locationDdn).val() === null ? "null" : $(config.locationDdn).val().toString();
+                    // postData.fromDate = startDate;
+                    // postData.toDate = endDate;
+                    // postData.productName = $(config.productName).val();
                     //postData.CSRFToken = CSRFToken;
         
-                    if ($(config.shipToDdn).val() != 'all') {
-                        cbp.srPage.showSoldTo = false;
-                    } else {
-                        cbp.srPage.showSoldTo = true;
-                    }
+                    // if ($(config.shipToDdn).val() != 'all') {
+                    //     cbp.srPage.showSoldTo = false;
+                    // } else {
+                    //     cbp.srPage.showSoldTo = true;
+                    // }
         
                     function successCallback(data) {
                       
@@ -562,19 +565,19 @@
         
                         // cbp.srPage.dateRange.startDate = startDate;
                         // cbp.srPage.dateRange.endDate = endDate;
-                        cbp.srPage.srSearchResponse.localizedDateFormat = data.localizedDateFormat.toUpperCase();
-                        if(data.multipleSoldTo){
-                            setValueForSoldToShipto("all", true);
-                        }
-                        else{
-                            if (data.shipTo) {
-                                setValueForSoldToShipto(data.shipTo);
-                            }
+                        // cbp.srPage.srSearchResponse.localizedDateFormat = data.localizedDateFormat.toUpperCase();
+                        // if(data.multipleSoldTo){
+                        //     setValueForSoldToShipto("all", true);
+                        // }
+                        // else{
+                        //     if (data.shipTo) {
+                        //         setValueForSoldToShipto(data.shipTo);
+                        //     }
             
-                            if (data.soldTo) {
-                                setValueForSoldToShipto(data.soldTo);
-                            }
-                        }
+                        //     if (data.soldTo) {
+                        //         setValueForSoldToShipto(data.soldTo);
+                        //     }
+                        // }
                         
         
                         // cbp.srPage.globalVars.fromAndToVar = cbp.srPage.globalVars.fromAndTo.replace("{0}", cbp.srPage.dateRange.startDate).replace("{1}", cbp.srPage.dateRange.endDate);
@@ -585,6 +588,7 @@
                         } else {
                             cbp.srPage.globalVars.productsFoundVar = cbp.srPage.globalVars.productsFound.replace("{0}", 0);
                         }
+                        setSummaryValues();
                         loadingDynamicHbsTemplates();
                         
                         //Enable buttons after loading dynamic templates
@@ -596,6 +600,7 @@
                             $(config.chartBtn).addClass("disabled");
                         }
                       //  setAccountOptions();
+                      
                         populatingTable(cbp.srPage.srSearchResponse.stationReportDataList);
                         leftPaneExpandCollapse.resetSearchFormHeight();
                     }
@@ -610,7 +615,7 @@
                     $.ajax({
                         type: cbp.srPage.globalUrl.method,
                        // 'CSRFToken':CSRFToken,
-                        data: postData,
+                        // data: postData,
                         url: cbp.srPage.globalUrl.pvPostURL,
                         success: successCallback,
                         error: errorCallback
