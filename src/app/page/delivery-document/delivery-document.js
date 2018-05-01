@@ -622,8 +622,8 @@ require(["modernizr",
                             } 
                         },{
                             field: 'total',
-                            title: cbp.delDocPage.globalVars.totaltb + (cbp.delDocPage.delDocResponse.currency === null?'':cbp.delDocPage.delDocResponse.currency),
-                            titleTooltip: cbp.delDocPage.globalVars.totaltb + (cbp.delDocPage.delDocResponse.currency === null?'':cbp.delDocPage.delDocResponse.currency),
+                            title: cbp.delDocPage.globalVars.totaltb + (cbp.delDocPage.delDocResponse.currency === null?'':' ('+cbp.delDocPage.delDocResponse.currency+')'),
+                            titleTooltip: cbp.delDocPage.globalVars.totaltb + (cbp.delDocPage.delDocResponse.currency === null?'':' ('+cbp.delDocPage.delDocResponse.currency+')'),
                             class: 'numberIcon text-nowrap',
                             sortable: true,
                             align: 'right',
