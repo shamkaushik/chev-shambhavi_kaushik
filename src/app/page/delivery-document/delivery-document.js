@@ -69,7 +69,6 @@ require(["modernizr",
             downloadBtn: ".js-downloadBtn",
             printBtn: ".js-printBtn",
             // allCheckBtn: ".js-allCheckBtn",
-            delDocTypeDdn: "#delDocTypeDdn",
             locationDdn: "#locationSelectDdn",
             shipToDdn: "#shipToSelectDdn",
             downloadStatusDdn: "#downloadStatus",
@@ -78,8 +77,6 @@ require(["modernizr",
             displaySpinner: ".overlay-wrapper",
             dropdownSelect: ".dropdown-menu .toggle-select",
             billOfLading: "#billOfLading",
-            orderNumber: "#orderNumber",
-            poNumber: "#poNumber",
             squareUnchecked: "fa-square-o",
             squareChecked: "fa-check-square-o",
             downloadIcon: ".iconsPrintDownload",
@@ -87,7 +84,7 @@ require(["modernizr",
         };
 
         var init = function () {
-        	populatingShipToOnLoad(shiptoListOnLoad);
+        	populatingShipTo(locationDropDownOptions[0].key, "all", true);
             loadingInitialHbsTemplates();
             
             populatingTable(cbp.delDocPage.delDocResponse, cbp.delDocPage.delDocResponse.delDocColumnMapping );
@@ -104,7 +101,6 @@ require(["modernizr",
                 cbp.delDocPage.delDocResponse.delDocList[$("tr[data-uniqueid='" + selectedDelDocs[i] + "']").data("index")].downloaded = true;
             }
             //$("#delDocForm").submit();
-           // selectedDelDocs.length=0;
         };
 
         var printPDFSelected = function() {
@@ -124,7 +120,6 @@ require(["modernizr",
             //$("#delDocPDFListForm").submit();
             $("#delDocPDFListForm").attr('action', currentActionURL);
             $("#delDocPDFListForm").removeAttr('target');
-            //selectedDelDocs.length=0;
         };
 
 
@@ -166,7 +161,7 @@ require(["modernizr",
         var setSummaryValues = function(){
             cbp.delDocPage.summary = {};
             cbp.delDocPage.summary.soldTo = $('.js-location-ddn button span').text();
-            cbp.delDocPage.summary.shipTo = $('.js-shipTo-ddn button span').text();
+            cbp.delDocPage.summary.shipTo = $('.js-shipTo-ddn button .filter-option').text();
             cbp.delDocPage.summary.dateRange = $('.js-search-pickDateRange').find('span').text();
         };
 
@@ -266,8 +261,6 @@ require(["modernizr",
             $.ajax({
                 type: "GET",
                 data: JSON.stringify(postData),
-                // contentType: "application/json",
-                // dataType:"json",
                 url: cbp.delDocPage.globalUrl.searchURL,
                 success: successCallback,
                 error: errorCallback
@@ -300,36 +293,36 @@ require(["modernizr",
                 key: "delDocDate-asc",
                 value: cbp.delDocPage.globalVars.delDocDateDesc
         }, { 
-                key: "location-asc",
-                value: cbp.delDocPage.globalVars.locationSortAsc
+                key: "shipTo-asc",
+                value: cbp.delDocPage.globalVars.shipToSortAsc
         }, {
-                key: "location-desc",
-                value: cbp.delDocPage.globalVars.locationSortDesc
+                key: "shipTo-desc",
+                value: cbp.delDocPage.globalVars.shipToSortDesc
         }, {
-                key: "orderId-asc",
-                value: cbp.delDocPage.globalVars.orderNumberAsc
+                key: "invoiceId-asc",
+                value: cbp.delDocPage.globalVars.invoiceIdAsc
         }, {
-                key: "orderId-desc",
-                value: cbp.delDocPage.globalVars.orderNumberDesc
+                key: "invoiceId-desc",
+                value: cbp.delDocPage.globalVars.invoiceIdDesc
         }, {
                 key: "delDocId-asc",
-                value: cbp.delDocPage.globalVars.billOfLadingAsc
+                value: cbp.delDocPage.globalVars.delDocAsc
         }, {
                 key: "delDocId-desc",
+                value: cbp.delDocPage.globalVars.delDocDesc
+        }, {
+                key: "billOfLading-asc",
+                value: cbp.delDocPage.globalVars.billOfLadingAsc
+        }, {
+                key: "billOfLading-desc",
                 value: cbp.delDocPage.globalVars.billOfLadingDesc
         }, {
-                key: "type-asc",
-                value: cbp.delDocPage.globalVars.delDocTypeAsc
-        }, {
-                key: "type-desc",
-                value: cbp.delDocPage.globalVars.delDocTypeDesc
-        }, {
                 key: "total-asc",
-                value: cbp.delDocPage.globalVars.totalAscNew
+                value: cbp.delDocPage.globalVars.totalAsc
         }, {
                 key: "total-desc",
-                value: cbp.delDocPage.globalVars.totalDescNew
-        }]
+                value: cbp.delDocPage.globalVars.totalDesc
+        }];
 
         var sortListMap = globalSortList.reduce(function (data, globalSortList) {
             data[globalSortList.key] = globalSortList;
@@ -367,53 +360,18 @@ require(["modernizr",
         return optionDropdown;
         }
 
-        var updateOptions =function(selector,shipToOptions){
-            var str = '';
-            selector.find('option').each(function(index,value){
-                str+='<option value="'+shipToOptions[index].key+'">'+shipToOptions[index].value+'</option>';
-            });
-            return str;
-        }
-
-        
-        var populatingShipToOnLoad = function(shipToList){
-            var shipToOptions = [];
-            if(shipToList.length == 1){
-                cbp.delDocPage.shipToDropDown.singleOption = true;
-                $(config.searchButton).removeAttr("disabled");
-            }else if(shipToList.length>1){
-            	var obj = {};
-            	obj["key"] = "all";
-            	obj["value"] = cbp.delDocPage.globalVars.allTb;
-            	shipToOptions.push(obj);
-            }
-                                    
-            for (var i = 0; i < shipToList.length; i++) {
-                var  obj = {};
-                obj["key"] = shipToList[i].uid;
-                obj["value"] = shipToList[i].displayName;
-                shipToOptions.push(obj);
-            }
-            cbp.delDocPage.shipToDropDown["options"] = shipToOptions;
-            cbp.delDocPage.shipToDropDown.searchable = true;
-            $(config.shipToDdnContainer).html(compiledDefaultDdn(cbp.delDocPage.shipToDropDown));
-            
-            var optionsReqd = updateOptions($(config.shipToDdn),shipToOptions);
-            
-            $(config.shipToDdn).html(optionsReqd);
-
-        };
-
-        var populatingShipTo = function(soldToId, shipToId) {
+ 
+        var populatingShipTo = function(soldToId, shipToId, pageLoadCheck) {
             $(config.displaySpinner).show();
             
             function successCallback(data) {
+                
                 $(config.displaySpinner).hide();
                 
                 var shipToOptions = [];
                 var obj = {};
                 
-                var shipTo = data.ShipToData;
+                var shipTo = data;
                
                 shipToOptions = shipTo.map(function(val,index){
                     return {
@@ -441,7 +399,10 @@ require(["modernizr",
                 if(cbp.delDocPage.shipToDropDown["options"].length > 1){
                     $(config.shipToDdn).val(shipToId).selectpicker('refresh');
                 }
-                
+                if(pageLoadCheck === true){
+                    setSummaryValues();
+                    $(config.delDocSummaryContainer).html(compiledDelDocSummary(cbp.delDocPage));
+                }
                 enableMobileDefaultDropDown();
             }
 
@@ -449,8 +410,10 @@ require(["modernizr",
                 $(config.displaySpinner).hide();
                 console.log("error");
             }
-            return $.ajax({
-                type: "POST",
+
+            $.ajax({
+               // async:false,
+                type: "GET",
                 data: {
                     'soldToNumber' : soldToId                   
                 },
@@ -523,7 +486,7 @@ require(["modernizr",
             });
 
             $(function () {
-                $('#orderNumber, #billOfLading').bind('paste input', removeAlphaChars);
+                $('#billOfLading').bind('paste input', removeAlphaChars);
             })
             
             function removeAlphaChars(e) {
@@ -606,8 +569,8 @@ require(["modernizr",
                             sortable: true
                         }, {
                             field: 'delDocDate',
-                            title: cbp.delDocPage.globalVars.pickDatetb,
-                            titleTooltip: cbp.delDocPage.globalVars.pickDatetb,
+                            title: cbp.delDocPage.globalVars.delDocDate,
+                            titleTooltip: cbp.delDocPage.globalVars.delDocDate,
                             class: 'numberIcon text-nowrap',
                             sorter: function dateSort(a, b) {
                                 a = moment(a, cbp.delDocPage.dateRange.format, true).format();
@@ -620,6 +583,9 @@ require(["modernizr",
                                     return 1;
                                 }
                                 return 0;
+                            },
+                            formatter: function(value, row, index){                               
+                              return '<strong>'+row.delDocDate+'</strong><br>'+row.delDocTime;  
                             },
                             sortable: true
                         }, {
@@ -642,35 +608,56 @@ require(["modernizr",
                                 return delDocNoVar;
                             }
                         }, {
-                            field: 'type',
-                            title: cbp.delDocPage.globalVars.docTypetb,
-                            titleTooltip: cbp.delDocPage.globalVars.docTypetb,
-                            class: 'text-nowrap',
+                            field: 'invoiceId',
+                            title: cbp.delDocPage.globalVars.invoiceId,
+                            titleTooltip: cbp.delDocPage.globalVars.invoiceId,
+                            class: 'numberIcon text-nowrap',
                             sortable: true,
-                        }, {
-                            field: 'eftNumber',
-                            title: cbp.delDocPage.globalVars.eftNumber,
-                            titleTooltip: cbp.delDocPage.globalVars.eftNumber,
-                            class: 'text-nowrap',
-                            sortable: true,
-                            visible: cbp.delDocPage.showEFT,
                             formatter: function LinkFormatter(value, row, index) {
-                                    return '<a href="javascript:void(0);" onclick="goToEftDetails(\'' + value+ '\', \'' + row.fiscalYear + '\')">' + value + '</a>';
+                                var delDocNoVar;
+                
+                                delDocNoVar = '<a href="javascript:void(0);" onclick="calldelDocPDFLink(\'' + row.invoiceId + '\')">' + row.invoiceId + '</a>';
+                                   
+                                return delDocNoVar;
+                            } 
+                        },{
+                            field: 'total',
+                            title: cbp.delDocPage.globalVars.totaltb + (cbp.delDocPage.delDocResponse.currency === null?'':cbp.delDocPage.delDocResponse.currency),
+                            titleTooltip: cbp.delDocPage.globalVars.totaltb + (cbp.delDocPage.delDocResponse.currency === null?'':cbp.delDocPage.delDocResponse.currency),
+                            class: 'numberIcon text-nowrap',
+                            sortable: true,
+                            align: 'right',
+                            sorter: function priceSort(a, b) {
+                                    if (a !== null && b !== null) {
+                                       a = parseFloat(a.replace(/[,.]+/g,""));
+                                        b = parseFloat(b.replace(/[,.]+/g,""));
+                                    }
+            
+                                    if (a < b) {
+                                        return -1;
+                                    }
+                                    if (a > b) {
+                                        return 1;
+                                    }
+                                    return 0;
+                            },
+                            formatter: function LinkFormatter(value, row, index) {
+                                var total;
+                                if (value >= '0') {
+                                    total = row.total;
+                                } else {
+                                    total = "<span class='text-danger'>" + row.total + "</span>";
+                                }
+            
+                                return total;
                             }
-                        }, {
-                            field: 'deliveryDate',
-                            title: cbp.delDocPage.globalVars.deliveryDate,
-                            titleTooltip: cbp.delDocPage.globalVars.deliveryDate,
-                            class: 'text-nowrap',
-                            visible: cbp.delDocPage.showDeliveryDate,
-                            sortable: true                    
                         }
                         ];
             var columnsListMap = columnsList.reduce(function (data, columnsList) {
             data[columnsList.field] = columnsList;
             return data;
             }, {});
-            var orderKey = ["checkbox", "status","shipTo", "delDocDate","billOfLading", "delDocId","type","orderId","total"]
+            var orderKey = ["checkbox", "status","shipTo", "delDocDate","billOfLading", "delDocId","invoiceId","total"]
           
             var requestedCol = [];
             for(var i = 0; i< orderKey.length; i++){
@@ -708,9 +695,9 @@ require(["modernizr",
             $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'delDocDate',
+                sortName: 'invoiceId',
                 uniqueId: 'delDocId',
-                //sortOrder: 'desc',
+                sortOrder: 'desc',
                 iconsPrefix: 'fa',
                 sortable: true,
                 parentContainer: ".js-bottom-detail",
@@ -723,14 +710,6 @@ require(["modernizr",
                     // enable button
                   
                     selectedDelDocs.push(row.delDocId);
-                    selectedDelDocstatus.push(row.cbpdelDocStatus);
-                 
-                    if (delDocStatusCodes.indexOf(row.cbpdelDocStatus) > -1) {
-                        delDocStatusCount = delDocStatusCount + 1;
-                    }
-                    if (delDocStatusCount > 0) {
-                        enabledelDocError = true;
-                    }
                     enablePrintDownloadButtons();
                 },
                 onCheckAll: function (rows) {
@@ -740,13 +719,6 @@ require(["modernizr",
                     var len = rows.length;
                     for (var i = 0; i < len; i++) {
                         selectedDelDocs.push(rows[i].delDocId);
-                        selectedDelDocstatus.push(rows[i].cbpdelDocStatus);
-                        if (delDocStatusCodes.indexOf(rows[i].cbpdelDocStatus) > -1) {
-                            delDocStatusCount = delDocStatusCount + 1;
-                        }
-                        if (delDocStatusCount > 0) {
-                            enabledelDocError = true;
-                        }
                     }
                     if (rows.length) {
                         enablePrintDownloadButtons();
@@ -757,34 +729,15 @@ require(["modernizr",
                     var index = selectedDelDocs.indexOf(row.delDocId);
                     if (index > -1) {
                         selectedDelDocs.splice(index, 1);
-                        selectedDelDocstatus.splice(index, 1);
                     }
                     if (!($(config.tabelRow).hasClass('selected'))) {
                         disablePrintDownloadButtons();
                     }
-
-                    if (delDocStatusCodes.indexOf(row.cbpdelDocStatus) > -1) {
-                        delDocStatusCount = delDocStatusCount - 1;
-                    }
-
-                    if (delDocStatusCount <= 0) {
-                        enabledelDocError = false;
-                        $(".js-selected-delDoc-error").addClass('hide');
-                    }
-
-                    $element.parents("tr").removeClass("bg-danger");
                 },
                 onUncheckAll: function (rows) {
                     //disable button
                     selectedDelDocs = [];
-                    selectedDelDocstatus = [];
-                    delDocStatusCount = 0;
-                    enabledelDocError = false;
-                    enableTotalError = false;
-                    $(".js-selected-delDoc-error").addClass('hide');
-                    $(".js-total-amount-error").addClass('hide');
                     disablePrintDownloadButtons();
-
                     $("#table tbody").find("tr").removeClass("bg-danger");
                 },
                 columns: generatingColumns(columnsDataList),

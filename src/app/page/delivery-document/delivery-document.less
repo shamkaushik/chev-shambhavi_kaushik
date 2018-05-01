@@ -1,5 +1,10 @@
 .delDoc-page {
 	.fixed-table-container{
+		.bs-checkbox{
+			.th-inner{
+				padding: 0 0 !important;
+			}
+		}
 		tbody{
 			.selected td{
 			background-color: transparent;
@@ -16,13 +21,13 @@
 			}
 		}
 		thead{
-			// th{
-			// 	&.bs-checkbox{
-			// 		.th-inner{
-			// 			padding-top: 18px;
-			// 		}
-			// 	}
-			// }
+			th{
+				&.bs-checkbox{
+					.th-inner{
+						//padding-top: 18px;
+					}
+				}
+			}
 			tr{
 				background-color: @brand-primary;
 				th.bs-checkbox.fa{

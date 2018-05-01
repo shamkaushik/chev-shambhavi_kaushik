@@ -55,7 +55,7 @@
         </section>
 
         <script type="text/javascript">
-            
+
             var srtByDdn = {
                 "options": [],
                 label: "Sort By",
@@ -64,122 +64,68 @@
                 display: "displayInline"
             }
 
-            var delDocStatusCodes = ["01", "02"];
-
             var delDocResponse = {
-                "fromDate": "22-03-2015",
-                "toDate": "29-08-2016",
-                "debits": "368.441.475",
-                "credits": "14.423.292",
                 "currency": "USD",
-                "soldShipTo": "All",
-                //"soldShipToBlock": "7901220, DISMACOR S.A., ",
-                //"soldShipToNormal": "K 16 NRO 20-56, BUCARAMANGA, Colombia",
-                "summary":{
-                    shipTo:"SHipTo",
-                    soldTo:"SoldTo",
-                    currency:"PHP"
-                },
-                "delDocColumnMapping":{
-                "delDocId": "test",
-                "delDocDate": "dfhj",
-                "orderId": "tftjf",
-                "total": "yfleuir",
-                "total2": null,
-                "type": "fjeij",
-                "checkbox":"ejuje",
-                "shipTo": "test",
-                "billOfLading":"rfhuf",
-                "downloaded": "",
-                "printed": false,
-                "status":"dbshj",
-                "currencyUnit1": null,
-                "currencyUnit2": null,
-                "purchaseOrderNumber": "ehfukehf",
-                "legalDocumentNumber": null,
-                "salesOrderType": null,
-                "delDocStatus": "dfhkek",
-                "payerId": null,
-                "eftNumber": null,
-                "deliveyDate": null,
-                "fiscalYear": null
+                "delDocColumnMapping": {
+                    "delDocId": "test",
+                    "delDocDate": "dfhj",
+                    "total": "yfleuir",
+                    "checkbox": "ejuje",
+                    "shipTo": "test",
+                    "billOfLading": "rfhuf",
+                    "status": "dbshj",
+                    "invoiceId":"tyrui"
                 },
 
                 "delDocList": [{
                     "delDocId": "936710253",
-                    "delDocDate": "02-12-2016",
-                    "orderId": "1",
+                    "invoiceId": "936710253",
+                    "delDocDate": "02/12/2016",
+                    "delDocTime":"14:32:40",
                     "total": -8919237.0,
                     "displayTotal": "-8.919.237",
-                    "total2": null,
-                    "displayTotal2": null,
-                    "type": "YG2", //<spring:theme code="chevron.delDoc.type.${delDoc.type}" />
                     "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
-                    "billOfLading":75123,
-                    "downloaded": true,
-                    "printed": true,
-                    "currencyUnit": "COP",
-                    "currencyUnit2": null,
-                    "purchaseOrderNumber": "NC BDP",
-                    "legalDocumentNumber": "35-2655",
+                    "billOfLading": 75123,
                     "salesOrderType": "ZOOR",
-                    "paydelDoc": "true"
+                    "downloaded": true,
+                    "printed": false,
                 },
                 {
                     "delDocId": "936670263",
-                    "delDocDate": "30-11-2015",
-                    "orderId": "2",
+                    "invoiceId": "936710253",
+                    "delDocDate": "30/11/2015",
+                    "delDocTime":"14:32:40",
                     "total": 36928702,
                     "displayTotal": "36.928.702",
-                    "total2": null,
-                    "displayTotal2": null,
-                    "type": "ZF2",
                     "shipTo": "7933464, DISMACOR S.A. BARBOSA, K 10 NRO 20  11, Colombia",
-                    "billOfLading":75123,
+                    "billOfLading": 75123,
                     "downloaded": true,
                     "printed": false,
-                    "currencyUnit": "COP",
-                    "currencyUnit2": null,
-                    "purchaseOrderNumber": "BARBOSA",
-                    "legalDocumentNumber": "35-14602",
-                    "salesOrderType": "ZOOR",
-                    "cbpdelDocStatus": "01"
-                }, 
+                    "salesOrderType": "ZOOR"
+                },
                 {
                     "delDocId": "936659699",
-                    "delDocDate": "30-10-2015",
-                    "orderId": "3",
+                    "invoiceId": "936710253",
+                    "delDocDate": "30/10/2015",
+                    "delDocTime":"14:32:40",
                     "total": -12621100,
                     "displayTotal": "-12.621.100",
-                    "total2": null,
-                    "displayTotal2": null,
-                    "type": "YSOU",
                     "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
-                    "billOfLading":75123,
+                    "billOfLading": 75123,
                     "downloaded": true,
                     "printed": false,
-                    "currencyUnit": "COP",
-                    "currencyUnit2": null,
-                    "purchaseOrderNumber": null,
-                    "legalDocumentNumber": "35-2371",
                     "salesOrderType": "ZC"
-                }, 
+                },
                 {
                     "delDocId": "936659698",
-                    "delDocDate": "30-10-2015",
-                    "orderId": "4",
+                    "invoiceId": "936710253",
+                    "delDocDate": "30/10/2015",
+                    "delDocTime":"14:32:40",
                     "total": -5655000,
                     "displayTotal": "-5.655.000",
-                    "total2": null,
-                    "displayTotal2": null,
-                    "type": "",
                     "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
                     "downloaded": false,
                     "printed": false,
-                    "currencyUnit": "COP",
-                    "currencyUnit2": null,
-                    "purchaseOrderNumber": null,
-                    "legalDocumentNumber": "35-2370",
                     "salesOrderType": "ZC"
                 }],
                 "resultCount": 4,
@@ -189,59 +135,29 @@
 
             var maxResults = 500;
 
-            var orderAvailable = true;
-            
             var shiptoListOnLoad = [{
-                "uid":"7903258",
-                "displayName":"7903258 - Embotelladora Central S.A, 24 Calle 6-01 Zona 11"
-            },{
-                "uid":"7903259",
-                "displayName":"7903259 - Embotelladora Central S.A, Embotelladora Central Zona 18"
-            },{
-                "uid":"7903260",
-                "displayName":"7903260 - Embotelladora Central S.A, Embotelladora Central Zona 11"
+                "uid": "7903258",
+                "displayName": "7903258 - Embotelladora Central S.A, 24 Calle 6-01 Zona 11"
+            }, {
+                "uid": "7903259",
+                "displayName": "7903259 - Embotelladora Central S.A, Embotelladora Central Zona 18"
+            }, {
+                "uid": "7903260",
+                "displayName": "7903260 - Embotelladora Central S.A, Embotelladora Central Zona 11"
             }];
 
             var locationDropDown = [{
-                "soldToNumber": "7933464",
-                "soldToAddress": "7933464,DISMACOR S.A. BARBOSA, K 10 NRO 20  11, BARBOSA, Colombia",
-                salesOrg: 1000
+                "uid": "7933464",
+                "displayName": "7933464,DISMACOR S.A. BARBOSA, K 10 NRO 20  11, BARBOSA, Colombia"
             }, {
-                "soldToNumber": "3436466",
-                "soldToAddress": "3436466,DISMACOR S.A. BARRANQUILLA, CL 45 NRO 33 - 40, BARRANQUILLA, Colombia",
-                salesOrg: 1000
+                "uid": "3436466",
+                "displayName": "3436466,DISMACOR S.A. BARRANQUILLA, CL 45 NRO 33 - 40, BARRANQUILLA, Colombia"
             }, {
-                "soldToNumber": "8213629",
-                "soldToAddress": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia",
-                salesOrg: 2000
+                "uid": "8213629",
+                "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
             }];
 
-          
 
-            var delDocTypeDropdownOptions = [{
-                key: "Adjustments",
-                value: "Adjustments"
-            }, {
-                key: "Cancellation",
-                value: "Cancellation"
-            }, {
-                key: "Credit",
-                value: "Credit"
-            }, {
-                key: "Debit",
-                value: "Debit"
-            }, {
-                key: "Product",
-                value: "Product"
-            }, {
-                key: "Product Return",
-                value: "Product Return"
-            }, {
-                key: "Rebate",
-                value: "Rebate"
-            }];
-
-            var delDocTypeObj = {};
 
             var downloadStatusDropdownOptions = [{
                 key: "all",
@@ -279,7 +195,7 @@
                     "locationDropDown": {
                         "options": [],
                         "label": "Sold To",
-                       // "title": "Select Location",
+                        // "title": "Select Location",
                         "title": "",
                         "name": "locationSelectDdn",
                         "showOptions": 10,
@@ -329,14 +245,14 @@
                         "method": "GET",
                     },
                     "globalVars": {
-                        "shipTo":"Ship To",
+                        "shipTo": "Ship To",
                         "searchTxt": "Search",
                         "allTb": "All",
                         "billOfLading": "Bill of Lading #",
                         "orderNumber": "Order Number",
                         "poNumber": "PO Number",
                         "delDocType": "delDoc Type",
-                      //  "paymentStatus":"Payment Status",
+                        //  "paymentStatus":"Payment Status",
                         "fromAndTo": "{0} - {1}",
                         "summaryfromAndTo": "{0} - {1}",
                         "sortBy": "Sort by",
@@ -345,28 +261,27 @@
                         "delDocsDetail": "delDocs detail",
                         "downloadSelected": "Download Selected",
                         "printSelected": "Print Selected",
-                      //  "paydelDoc": "Pay Selected",
+                        //  "paydelDoc": "Pay Selected",
                         "delDocsFound": "{0} result(s) found",
                         "statustb": "Status",
                         "locationtb": "Location",
                         "pickDatetb": "Date",
                         "orderNumbertb": "Order #",
                         "customerPOtb": "Customer PO #",
-                        "delDoctb": "delDoc #",
-                        "legaldelDoctb": "Legal delDoc #",
-                      //  "paymentStatustb": "Payment Status",
-                        "docTypetb": "Type",
+                        "delDoctb": "Delivery Doc. #",
+                        "invoiceId":"Invoice #",
                         "totaltb": "Total",
-                        "delDocDateAsc": "delDoc Date, Newest to Oldest",
-                        "delDocDateDesc": "delDoc Date, Oldest to Newest",
-                        "locationSortAsc": "Location, Ascending",
-                        "locationSortDesc": "Location, Descending",
-                        "orderNumberAsc": "Order #, Ascending",
-                        "orderNumberDesc": "Order #, Descending",
-                        "billOfLadingAsc": "delDoc #, Ascending",
-                        "billOfLadingDesc": "delDoc #, Descending",
-                        "delDocTypeAsc": "delDoc Type, Ascending",
-                        "delDocTypeDesc": "delDoc Type, Descending",
+                        "delDocDate":"Delivery date",
+                        "delDocDateAsc": "Delivery Date, Newest to Oldest",
+                        "delDocDateDesc": "Delivery Date, Oldest to Newest",
+                        "shipToSortAsc": "Ship To, Ascending",
+                        "shipToSortDesc": "Ship To, Descending",
+                        "invoiceIdAsc": "Invoice #, Ascending",
+                        "invoiceIdDesc": "Invoice #, Descending",
+                        "billOfLadingAsc": "Bill of Lading #, Ascending",
+                        "billOfLadingDesc": "Bill of Lading #, Descending",
+                        "delDocAsc": "Delivery Doc. #, Ascending",
+                        "delDocDesc": "Delivery Doc. #, Descending",
                         "totalAsc": "Total, Ascending",
                         "totalDesc": "Total, Descending",
                         "soldTo": "Sold To",
@@ -399,7 +314,7 @@
                             "toggle": "Toggle",
                             "columns": "Columns",
                             "allRows": "All"
-                        }                   
+                        }
                     }
                 }
             }
