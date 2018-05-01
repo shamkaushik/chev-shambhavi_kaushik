@@ -1,0 +1,93 @@
+{
+    "soldShipToNormal": "All",
+                "site":"All",
+                "programYear":"2018",
+                "stationReportDataList": [
+                    {
+                        "report": "Consumer Card Sales",
+                        "quarterOne": "248910.82",
+                        "quarterTwo": "248910.82",
+                        "quarterThree": "248910.82",
+                        "quarterFour": "248910.82",
+                        "yod": "248910.82"
+                    },
+                    {
+                        "report": "Commercial Card Sales",
+                        "quarterOne": "248910.82",
+                        "quarterTwo": "248910.82",
+                        "quarterThree": "248910.82",
+                        "quarterFour": "248910.82",
+                        "yod": "248910.82"
+                    },
+                    {
+                        "report": "3rd party Card Sales",
+                        "quarterOne": "248910.82",
+                        "quarterTwo": "248910.82",
+                        "quarterThree": "248910.82",
+                        "quarterFour": "248910.82",
+                        "yod": "248910.82"
+                    },
+                    {
+                        "report": "Total Credit Card Sales",
+                        "quarterOne": "1289110.82",
+                        "quarterTwo": "248910.82",
+                        "quarterThree": "248910.82",
+                        "quarterFour": "1899910.82",
+                        "yod": "123456718.82"
+                    },
+                   
+                    {
+                        "report": "Consumer Card Fees",
+                        "quarterOne": "248910.82",
+                        "quarterTwo": "248910.82",
+                        "quarterThree": "248910.82",
+                        "quarterFour": "248910.82",
+                        "yod": "248910.82"
+                    },
+                    {
+                        "report": "Commercial Card Fees",
+                        "quarterOne": "248910.82",
+                        "quarterTwo": "248910.82",
+                        "quarterThree": "248910.82",
+                        "quarterFour": "248910.82",
+                        "yod": "248910.82"
+                    },
+                    {
+                        "report": "3rd party Card Fees",
+                        "quarterOne": "248910.82",
+                        "quarterTwo": "248910.82",
+                        "quarterThree": "248910.82",
+                        "quarterFour": "248910.82",
+                        "yod": "248910.82"
+                    },
+                    {
+                        "report": "Total Credit Card Fees",
+                        "quarterOne": "1289110.82",
+                        "quarterTwo": "248910.82",
+                        "quarterThree": "248910.82",
+                        "quarterFour": "1899910.82",
+                        "yod": "123456718.82"
+                    },
+                    {
+                        "report": "Total Cost of Credit (TCC) %",
+                        "quarterOne": "1289110.82",
+                        "quarterTwo": "248910.82",
+                        "quarterThree": "248910.82",
+                        "quarterFour": "1899910.82",
+                        "yod": "123456718.82"
+                    },
+                    {
+                        "report": "Branded Card Penetration (BCP) %",
+                        "quarterOne": "1289110.82",
+                        "quarterTwo": "248910.82",
+                        "quarterThree": "248910.82",
+                        "quarterFour": "1899910.82",
+                        "yod": "123456718.82"
+                    }
+                   
+                    
+                ],
+                "resultCount": 2,
+              
+                "multipleSoldTo": true
+            }
