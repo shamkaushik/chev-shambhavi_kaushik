@@ -8,13 +8,15 @@ require(["modernizr",
     "text!app/components/dropdown/_defaultDdn.hbs",
     "text!app/page/report-1099/searchForm.hbs",
     "text!app/page/report-1099/bottomDetail.hbs",
+    "text!app/page/report-1099/reportSummary.hbs",
 
-], function(modernizr, $, bootstrap, Handlebars, bootstrapSelect, bootstrapTable, common, _defaultDdnHBS, _searchFormHBS, _bottomDetailHBS) {
+], function(modernizr, $, bootstrap, Handlebars, bootstrapSelect, bootstrapTable, common, _defaultDdnHBS, _searchFormHBS, _bottomDetailHBS, _reportSummaryHBS) {
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
     var compiledsearchForm = Handlebars.compile(_searchFormHBS);
     var compiledBottomDetail = Handlebars.compile(_bottomDetailHBS);
+    var compiledReportSummary = Handlebars.compile(_reportSummaryHBS);
 
     var report1099page = (function() {
         
@@ -27,7 +29,9 @@ require(["modernizr",
             displaySpinner: ".overlay-wrapper",
             accountDdnContainer: ".js-account-ddn",
             yearDdnContainer: ".js-year-ddn",
-            qtrDdnContainer: ".js-qtr-ddn"
+            qtrDdnContainer: ".js-qtr-ddn",
+            reportSummaryContainer: ".js-report-summary",
+            printBtn: "#printBtn"
         };
 
         var populateAccountDropdown = function(){
@@ -50,6 +54,7 @@ require(["modernizr",
 
         var loadingDynamicHbsTemplates = function() {
             $(config.searchDetailContainer).html(compiledBottomDetail(cbp.report1099Page));
+            $(config.reportSummaryContainer).html(compiledReportSummary());
             $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.accountDropDown));
             $(config.yearDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.yearDropDown));
             $(config.qtrDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.qtrDropDown));
@@ -147,10 +152,58 @@ require(["modernizr",
             });
         }
 
+        var printPreview = '<html>'+
+            '<head>'+
+                '<meta charset="utf-8">'+
+                '<meta http-equiv="X-UA-Compatible" content="IE=edge">'+
+                '<meta name="viewport" content="width=device-width, initial-scale=1">'+
+                '<link href="/assets/css/custom-bootstrap.css" rel="stylesheet" type="text/css"/>'+
+                '<link href="/assets/css/app.css" rel="stylesheet" type="text/css"/>'+
+                '<style>'+
+                    '.custBody {'+
+                    '    background-color: #ffffff;'+
+                    '}'+
+                    '.table {'+
+                    '    max-width: 98%;'+
+                    '    margin-left: 20px;'+
+                    '}'+
+                    '.nav-bottom {'+
+                    '    border-bottom: none;'+
+                    '}'+
+                '</style>'+
+            '</head>'+
+            '<body class="custBody">'+
+                '<div class="wrapper">'+
+                    '<header class="main-header main-header-md js-header" style="">'+
+                        '<div class="nav-bottom">'+
+                            '<nav class="main-navigation js-enquire-offcanvas-navigation" role="navigation">'+
+                                '<div class="row">  <a class="navbar-brand navbar-left" href="/index.html"> <img alt="Brand" src="/assets/images/logo.png">'+
+                                '<span>business point</span> </a> <a class="navbar-brand navbar-right" href="/index.html"> <img alt="Brand" src="/assets/images/fob-color-rgb.png">  </a>'+
+                                '</div>'+
+                            '</nav>'+
+                        '</div>'+
+                    '</header>'+
+                '</div>'+
+            '</body>'+
+            '</html>';
+
+        var bindEvents = function(){
+            $(document).on('click', config.printBtn, function(){
+                var printPreviewSummary = compiledReportSummary();
+                var win = window.open('', '_blank', 'PopUp' + ',width=1300,height=800');
+                win.document.write(printPreview);
+                //win.document.write('\n                <html>\n                    <head>\n                        <meta charset="utf-8">\n                        <meta http-equiv="X-UA-Compatible" content="IE=edge">\n                        <meta name="viewport" content="width=device-width, initial-scale=1">\n                        <link href="/assets/css/custom-bootstrap.css" rel="stylesheet" type="text/css"/>\n                        <link href="/assets/css/app.css" rel="stylesheet" type="text/css"/>\n                        <style>\n                         .custBody {\n                            background-color: #ffffff;\n                          }\n                        .order-history-view-headerLabel {\n                            color: #009dd9;\n                            font-weight: bold;\n                                                                                                     font-size: 20px;\n                            margin-left: 22px;\n                                                                                                     padding: 0 0 0px 0;\n                        }\n\t\t\t\t\t\t.table{\n\t\t\t\t\t\t\tmax-width:98%;\n\t\t\t\t\t\t\tmargin-left:20px;\n}\t\n.nav-bottom{\n                                                                                                     border-bottom: none;\n                                                                                      }\n                                                                                      .navbar-brand{\n                                                                                                     \n                                                                                      }\n                                                                                      .fixed-table-body{\n                                                                                                     height:auto !important;\n                                                                                      }\n                        </style>\n                    </head>\n                    <body class="custBody">\n                        <div class="wrapper">\n                            <header class="main-header main-header-md js-header" style="">\n                                <div class="nav-bottom">\n                                    <nav class="main-navigation js-enquire-offcanvas-navigation" role="navigation">\n                                                                                                                                                \n                                        <div class="row">                                            \n                                                <a class="navbar-brand navbar-left" href="/index.html">\n                                                    <img alt="Brand" src="/assets/images/logo.png">\n                                                    <span>business point</span>\n                                                </a>\n                                                                                                                                                                               <a class="navbar-brand navbar-right" href="/index.html">\n                                                    <img alt="Brand" src="/assets/images/fob-color-rgb.png">                                                    \n                                                </a>\n                                            </div>                                                                                                                                                  \n                                        \n                                    </nav>\n                                </div>\n                            </header>\n                            </div>\n                    </body>\n                </html>\n                ');
+                win.document.write(printPreviewSummary);
+                win.document.write($(".tableContainer").html());
+                win.document.close();
+            });
+        }
+
         var init = function() {
             populateAccountDropdown();
             loadingInitialHbsTemplates();
             populatingTable(getTableColumns(), getTableData());
+            bindEvents();
         };
 
         return {
