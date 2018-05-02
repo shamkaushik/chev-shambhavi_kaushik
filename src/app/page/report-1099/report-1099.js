@@ -157,46 +157,35 @@ require(["modernizr",
                 '<meta charset="utf-8">'+
                 '<meta http-equiv="X-UA-Compatible" content="IE=edge">'+
                 '<meta name="viewport" content="width=device-width, initial-scale=1">'+
-                '<link href="/assets/css/custom-bootstrap.css" rel="stylesheet" type="text/css"/>'+
                 '<link href="/assets/css/app.css" rel="stylesheet" type="text/css"/>'+
-                '<style>'+
-                    '.custBody {'+
-                    '    background-color: #ffffff;'+
-                    '}'+
-                    '.table {'+
-                    '    max-width: 98%;'+
-                    '    margin-left: 20px;'+
-                    '}'+
-                    '.nav-bottom {'+
-                    '    border-bottom: none;'+
-                    '}'+
-                '</style>'+
             '</head>'+
-            '<body class="custBody">'+
-                '<div class="wrapper">'+
-                    '<header class="main-header main-header-md js-header" style="">'+
-                        '<div class="nav-bottom">'+
-                            '<nav class="main-navigation js-enquire-offcanvas-navigation" role="navigation">'+
-                                '<div class="row">  <a class="navbar-brand navbar-left" href="/index.html"> <img alt="Brand" src="/assets/images/logo.png">'+
-                                '<span>business point</span> </a> <a class="navbar-brand navbar-right" href="/index.html"> <img alt="Brand" src="/assets/images/fob-color-rgb.png">  </a>'+
-                                '</div>'+
-                            '</nav>'+
+            '<body class="print-preview-wrapper">'+
+                '<header class="row">'+
+                    '<div class="col-xs-24">'+
+                        '<div>'+
+                            '<a class="navbar-brand pull-left" href="/index.html"> <img alt="Brand" src="/assets/images/logo.png"><span>business point</span></a>'+ 
+                            '<a class="pull-right" href="/index.html"> <img alt="Brand" src="/assets/images/fob-color-rgb.png"></a>'+
                         '</div>'+
-                    '</header>'+
-                '</div>'+
+                    '</div>'+
+                '</header>'+
             '</body>'+
             '</html>';
 
         var bindEvents = function(){
-            $(document).on('click', config.printBtn, function(){
+            
+            $(document).on('click', config.printBtn, function(e){
                 var printPreviewSummary = compiledReportSummary();
                 var win = window.open('', '_blank', 'PopUp' + ',width=1300,height=800');
                 win.document.write(printPreview);
-                //win.document.write('\n                <html>\n                    <head>\n                        <meta charset="utf-8">\n                        <meta http-equiv="X-UA-Compatible" content="IE=edge">\n                        <meta name="viewport" content="width=device-width, initial-scale=1">\n                        <link href="/assets/css/custom-bootstrap.css" rel="stylesheet" type="text/css"/>\n                        <link href="/assets/css/app.css" rel="stylesheet" type="text/css"/>\n                        <style>\n                         .custBody {\n                            background-color: #ffffff;\n                          }\n                        .order-history-view-headerLabel {\n                            color: #009dd9;\n                            font-weight: bold;\n                                                                                                     font-size: 20px;\n                            margin-left: 22px;\n                                                                                                     padding: 0 0 0px 0;\n                        }\n\t\t\t\t\t\t.table{\n\t\t\t\t\t\t\tmax-width:98%;\n\t\t\t\t\t\t\tmargin-left:20px;\n}\t\n.nav-bottom{\n                                                                                                     border-bottom: none;\n                                                                                      }\n                                                                                      .navbar-brand{\n                                                                                                     \n                                                                                      }\n                                                                                      .fixed-table-body{\n                                                                                                     height:auto !important;\n                                                                                      }\n                        </style>\n                    </head>\n                    <body class="custBody">\n                        <div class="wrapper">\n                            <header class="main-header main-header-md js-header" style="">\n                                <div class="nav-bottom">\n                                    <nav class="main-navigation js-enquire-offcanvas-navigation" role="navigation">\n                                                                                                                                                \n                                        <div class="row">                                            \n                                                <a class="navbar-brand navbar-left" href="/index.html">\n                                                    <img alt="Brand" src="/assets/images/logo.png">\n                                                    <span>business point</span>\n                                                </a>\n                                                                                                                                                                               <a class="navbar-brand navbar-right" href="/index.html">\n                                                    <img alt="Brand" src="/assets/images/fob-color-rgb.png">                                                    \n                                                </a>\n                                            </div>                                                                                                                                                  \n                                        \n                                    </nav>\n                                </div>\n                            </header>\n                            </div>\n                    </body>\n                </html>\n                ');
+                win.document.write('<p class="page-title">order details</p>');
                 win.document.write(printPreviewSummary);
                 win.document.write($(".tableContainer").html());
+                var tableElement = win.document.getElementsByClassName('bootstrap-table')[0];
+                tableElement.className = " ";
+                tableElement.className = "custom-bootstrap-table-print-wrapper";
                 win.document.close();
             });
+            
         }
 
         var init = function() {
@@ -204,6 +193,7 @@ require(["modernizr",
             loadingInitialHbsTemplates();
             populatingTable(getTableColumns(), getTableData());
             bindEvents();
+            triggerAjaxRequest();
         };
 
         return {

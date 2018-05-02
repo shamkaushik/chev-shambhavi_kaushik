@@ -10,3 +10,73 @@ that are to be used at the global level
 .input-width-144{
     width: 144px;
 }
+
+.page-title {
+    color: @brand-primary;
+    font-size: @font-size-main-heading;
+    font-family: @font-family-serif;
+    font-weight: bold;
+    text-transform: lowercase;
+    padding: 15px 0 10px 10px;
+    margin: 0;
+}
+
+.sub-heading {
+    color: @brand-primary;
+    font-size: @font-size-sub-heading;
+    font-family: @font-family-serif;
+    font-weight: bold;
+}
+
+.has-error {
+	input.form-control {
+		color: @brand-danger;
+		background: @brand-danger-light;
+	}
+	.help-block {
+		.fa {
+			margin-right: 5px;
+		}
+	}
+	.bootstrap-select {
+		button.dropdown-toggle {
+			color: @brand-danger;
+			.fa {
+				color: @brand-danger;
+			}
+		}
+	}
+}
+.no-error {
+	.help-block {
+		.fa {
+			display: none;
+		}
+	}
+}
+input::-ms-clear {
+    display: none;
+}
+
+.tooltip-inner {
+    padding: 10px;
+    font-size: 12px;
+    background-color: rgba(107, 109, 111,0.9);
+    font-family: "GothamNarrow";
+    border-radius: 2px;
+}
+.tooltip-arrow {
+    border-top-color: @gray-darker !important;
+}
+
+.print-preview-wrapper{
+    background-color: #ffffff;
+    padding: 0 15px;
+    .nav-bottom{
+        border-bottom: none;
+        margin: 0 12px;
+        .navbar-brand{
+            padding-bottom: 0;
+        }
+    }
+}

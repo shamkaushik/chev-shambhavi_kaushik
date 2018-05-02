@@ -4,6 +4,7 @@ used accross the application
 */
 
 var triggerAjaxRequest = function(data,type,url){   
+    console.log('Triggered Ajax');
     function successCallback(res){
         return res;
     }
