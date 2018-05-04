@@ -1,54 +1,6 @@
 
 
-        var optionsLocation = [];
-        var optionsYear=[];
-        for (var i = 0; i < locationDropDown.length; i++) {
-            var obj = {};
-            obj["key"] = locationDropDown[i].uid;
-            obj["value"] = locationDropDown[i].displayName;
-            optionsLocation.push(obj);
-        }
-        cbp.srPage.locationDropDown["options"] = optionsLocation;
-        cbp.srPage.locationDropDown.searchable = true;
-
-        for (var i = 0; i < programYearDropDown.length; i++) {
-            var obj = {};
-            obj["key"] = programYearDropDown[i].uid;
-            obj["value"] = programYearDropDown[i].displayName;
-            optionsYear.push(obj);
-        }
-        cbp.srPage.programYearDropDown["options"] = optionsYear;
-        cbp.srPage.programYearDropDown.searchable = true;
-        // if(programYearDropDown.length>1)
-        // {
-        //     optionsYear.unshift({key:"currentYear",value:cbp.srPage.globalVars.currentYear});
-        // }
-        
-        if(locationDropDown.length>1)
-        {
-            optionsLocation.unshift({key:"all",value:cbp.srPage.globalVars.allTb});
-        }
        
-        var options=[];
-        for (var i = 0; i < shipToDropDown.length; i++) {
-            var obj1 = {};
-            obj1["key"] = shipToDropDown[i].uid;
-            obj1["value"] = shipToDropDown[i].displayName;
-            options.push(obj1);
-        }
-        if(shipToDropDown.length>1)
-        {
-            options.unshift({key:"all",value:cbp.srPage.globalVars.allTb});
-        }
-        cbp.srPage.shipToDropDown["options"] = options;
-        cbp.srPage.shipToDropDown.searchable = true;
-        
-        function enableMobileDefaultDropDown() {
-            //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
-                $('.selectpicker').selectpicker('mobile');
-            }
-        };
         
         require(["modernizr",
             "jquery",
@@ -127,212 +79,7 @@
                     closeChartBtn: ".js-closeChart"
                 };
                 
-               // Start of Chart JS code
-                
-                /**
-                 * Function: formatDate
-                 * Summary: JavaScript method to format the date
-                 * Description: The goal of this function is to return a formatted date based the localized format of the user
-                 * @param {String} dateString (The invoice creation date).
-                 * @return {String} The formatted string based on the user localization preference.
-                 */
-                // var formatDate = function(dateString) {
-                // 	var yearIndex = cbp.srPage.srSearchResponse.localizedDateFormat.toUpperCase().indexOf("YYYY");
-                // 	var formattedDateString = dateString.substring(yearIndex,yearIndex+4) + "-";
-                // 	var monthIndex = cbp.srPage.srSearchResponse.localizedDateFormat.toUpperCase().indexOf("MM");
-                // 	formattedDateString = formattedDateString + dateString.substring(monthIndex,monthIndex+2) + "-";
-                // 	var dayIndex = cbp.srPage.srSearchResponse.localizedDateFormat.toUpperCase().indexOf("DD");
-                // 	formattedDateString = formattedDateString + dateString.substring(dayIndex,dayIndex+2);			
-                // 	//If no time is passed in, set to start of day for correct JS behavior
-                // 	return formattedDateString + "T00:00:00";
-                // };
-                
-                // /**
-                //  * Function: getInvoiceDates
-                //  * Summary: JavaScript method to return a multi-dimension array
-                //  * Description: The goal of this function is to return the invoice dates of the returned dates in a multi-deminsion array format
-                //  * @param {String} account (The select Ship To of the account).
-                //  * @return {String} A list of invoice creation dates after sorting them.
-                //  */        
-                // var getInvoiceDates = function(account){
-                // 	var dateScale = [];
-                // 	var dateLabel = [];
-                    
-                // 	for (i=0; i<cbp.srPage.srSearchResponse.stationReportDataList.length; i++) 
-                // 		for(x=0;x<cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails.length; x++) {
-                // 			var dateString = cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[x].invoiceCreationDate;
-                // 			if (account == cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[x].shipTo && dateLabel.indexOf(dateString)<0) {	
-                // 				var formattedDateString = formatDate(dateString);
-                // 				dateLabel[dateLabel.length] = dateString;
-                // 				dateScale[dateScale.length] = new Date(formattedDateString);
-                // 			}
-                // 		}
-                    
-                    
-                // 	//Sort the dates
-                // 	//For time-series bar charts need to add a day at the beginning and at the end
-                // 	if (dateScale.length >= 1) {
-                // 		if(dateScale.length != 1)
-                // 			for (var i=0;i<dateScale.length-1;i++) 
-                // 				for (var j=i+1;j<dateScale.length;j++)
-                // 					if (dateScale[i]>dateScale[j]) {
-                // 						var x = dateScale[i];
-                // 						dateScale[i] = dateScale[j];
-                // 						dateScale[j] = x;
-                // 					}
-                // 		var d = new Date (dateScale[0].toString());
-                //     	d.setDate(d.getDate() - 1);
-                //     	dateScale.unshift(d);
-                //     	d = new Date (dateScale[dateScale.length - 1].toString());
-                //     	d.setDate(d.getDate() + 1);
-                //     	dateScale.push(d);
-                // 	}
-                    
-                // 	return dateScale;
-                // };
-        
-                // //Set the colors which will appear on the chart for each of the materials
-                // var cbpPVColors = ['#0066B2','#CB1530','#009DD9','#4A7B00','#383838','#4C93C9','#6B6D6F','#8C8F93','#F7E8E9','#E5F3DF'];
-                
-                // var xValue = function(aDate, dateList) {
-                // 	var found = false;
-                // 	//Start at 0 because we added an extra day at the beginning
-                // 	var index = 0;
-                // 	var tempDate = new Date(aDate);
-                    
-                // 	while (!found) {
-                // 		index++;
-                // 		if (tempDate.toString() == dateList[index].toString()) {
-                // 			found = true;
-                // 		}
-                // 	}
-                // 	return index;
-                // };
-                
-                // var getDatasets = function(account, invoiceDates) {
-                // 	var contentSet = [];
-                    
-                // 	for (var i=0; i<cbp.srPage.srSearchResponse.stationReportDataList.length; i++) {
-                // 		var data = [];
-                // 		var hasSeries = false;
-                // 		for(var j=0; j<cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails.length; j++) {	
-                // 			if (account == cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[j].shipTo) {
-                // 				hasSeries = true;
-                // 				var invDate = formatDate(cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[j].invoiceCreationDate);
-                // 				var x = xValue(invDate, invoiceDates);
-                // 				var y = cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[j].productVolume;
-                // 				if (!data[x]) data[x]=0;
-                // 				data[x] += y;
-                // 			}
-                // 		}
-                // 		if (hasSeries) {
-                // 			var node = {
-                // 				label: cbp.srPage.srSearchResponse.stationReportDataList[i].productDescription,
-                // 				backgroundColor: Color(cbpPVColors[i % cbpPVColors.length]).alpha(0.3).rgbaString(), 
-                // 				borderColor: Color(cbpPVColors[i % cbpPVColors.length]).rgbaString(), 
-                // 				borderWidth: 2,
-                // 				data: data
-                // 			}
-                // 			contentSet[contentSet.length] = node;
-                // 		}
-                // 	}
-                    
-                // 	return contentSet;
-                // };
-                
-                // var calculateMaxThickness = function(dates) {
-                // 	var diff = (dates[dates.length-1] - dates[0] + 1)/(1000*3600*24);
-                // 	var cnSize = document.getElementsByClassName('top-summary')[0].clientWidth;
-                // 	var floor = Math.floor((cnSize/diff)*.66);
-                // 	return (floor > 50) ? 50 : floor;
-                // };
-                
-                // var configChart = function(account) {
-                // 	var invDates = getInvoiceDates(account);
-                // 	var chartSet = getDatasets(account, invDates);
-                    
-                // 	var chartConfig = {
-                // 		type: 'bar',
-                // 		data: {
-                // 			labels: invDates,
-                // 			datasets: chartSet
-                // 		},
-                // 		options: {
-                // 			scales: {
-                // 				xAxes: [{
-                // 					type: 'time',
-                // 					maxBarThickness: calculateMaxThickness(invDates),
-                // 					time: {
-                // 						unit: 'day',
-                // 						tooltipFormat: cbp.srPage.srSearchResponse.localizedDateFormat.toUpperCase()
-                // 					},
-                // 					scaleLabel: {
-                // 						display: true,
-                // 						fontStyle: 'bold',
-                // 						labelString: cbp.srPage.globalVars.xLabel
-                // 					},
-                // 					stacked: true
-                // 				}],
-                // 				yAxes: [{
-                // 					scaleLabel: {
-                // 						display: true,
-                // 						fontStyle: 'bold',
-                // 						labelString: cbp.srPage.globalVars.volume
-                // 					},
-                // 					stacked: true
-                // 				}]
-                // 			}
-                // 		}
-                // 	}
-                // 	return chartConfig;
-                // };
-                
-                // var getValidShipTos = function() {
-                // 	var shipTos = [];
-                // 	if (cbp.srPage.srSearchResponse.stationReportDataList && cbp.srPage.srSearchResponse.stationReportDataList.length > 0)
-                // 		for (var i=0; i<cbp.srPage.srSearchResponse.stationReportDataList.length; i++) 
-                // 			for(var j=0; j<cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails.length; j++) 	
-                // 				if (shipTos.indexOf(cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[j].shipTo) < 0) 
-                // 					shipTos[shipTos.length] = cbp.srPage.srSearchResponse.stationReportDataList[i].purchasedVolumeDetails[j].shipTo;
-                // 	return shipTos;
-                // };
-                
-                // var setAccountOptions = function() {
-                // 	var accOptions = [];
-                //     if (($('#shipToSelectDdn')[0].length - 1) == 1) {
-                // 		var obj = {};
-                // 		obj["key"] = $('#shipToSelectDdn')[0][1].value;
-                // 		obj["value"] = $('#shipToSelectDdn')[0][1].text;
-                // 		accOptions.push(obj);
-                // 	} else {
-                // 		var shipToVal = $('.js-shipTo-ddn button').text();
-                // 		if (shipToVal != "") {
-                // 			var shipToOptions = $('#shipToSelectDdn')[0];
-                // 			if (shipToVal.substring(0,cbp.srPage.globalVars.allLocation.length) == cbp.srPage.globalVars.allLocation) {	
-                // 				var shipTosWithPV = getValidShipTos();
-                // 				for (var i = 0; i < shipToOptions.length; i++) {
-                // 					if (shipTosWithPV.indexOf(shipToOptions[i].value) >= 0) {
-                // 						var obj = {};
-                // 						obj["key"] = shipToOptions[i].value;
-                // 						obj["value"] = shipToOptions[i].text;
-                // 						accOptions.push(obj);
-                // 					}
-                // 				}
-                // 			} else {
-                // 				var obj = {};
-                // 				obj["key"] = shipToOptions[$(config.shipToDdn)[0].selectedIndex].value;
-                // 				obj["value"] = shipToOptions[$(config.shipToDdn)[0].selectedIndex].text;
-                // 				accOptions.push(obj);
-                // 			}
-                // 		}
-                // 	}
-                // 	cbp.srPage.accDropDown["options"] = accOptions;
-                // 	cbp.srPage.accDropDown.searchable = false;
-                // 	$(config.accountDdnContainer).html(compiledDefaultDdn(cbp.srPage.accDropDown));
-                // 	$(config.accountDdn).selectpicker('refresh');
-                // };
-                
-                //End of Chart JS Code
+            
                 
                 var init = function () {
                     loadingInitialHbsTemplates();
@@ -361,7 +108,56 @@
                     // cbp.srPage.summary.dateRange = $('.js-search-pickDateRange').find('span').text();
                     cbp.srPage.summary.programYear = $('.js-programYear-ddn button span').text();
                 };
+                
+                var optionsLocation = [];
+                var optionsYear=[];
+                for (var i = 0; i < locationDropDown.length; i++) {
+                    var obj = {};
+                    obj["key"] = locationDropDown[i].uid;
+                    obj["value"] = locationDropDown[i].displayName;
+                    optionsLocation.push(obj);
+                }
+                cbp.srPage.locationDropDown["options"] = optionsLocation;
+                cbp.srPage.locationDropDown.searchable = true;
         
+                for (var i = 0; i < programYearDropDown.length; i++) {
+                    var obj = {};
+                    obj["key"] = programYearDropDown[i].uid;
+                    obj["value"] = programYearDropDown[i].displayName;
+                    optionsYear.push(obj);
+                }
+                cbp.srPage.programYearDropDown["options"] = optionsYear;
+                cbp.srPage.programYearDropDown.searchable = true;
+                // if(programYearDropDown.length>1)
+                // {
+                //     optionsYear.unshift({key:"currentYear",value:cbp.srPage.globalVars.currentYear});
+                // }
+                
+                if(locationDropDown.length>1)
+                {
+                    optionsLocation.unshift({key:"all",value:cbp.srPage.globalVars.allTb});
+                }
+               
+                var options=[];
+                for (var i = 0; i < shipToDropDown.length; i++) {
+                    var obj1 = {};
+                    obj1["key"] = shipToDropDown[i].uid;
+                    obj1["value"] = shipToDropDown[i].displayName;
+                    options.push(obj1);
+                }
+                if(shipToDropDown.length>1)
+                {
+                    options.unshift({key:"all",value:cbp.srPage.globalVars.allTb});
+                }
+                cbp.srPage.shipToDropDown["options"] = options;
+                cbp.srPage.shipToDropDown.searchable = true;
+                
+                function enableMobileDefaultDropDown() {
+                    //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
+                    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                        $('.selectpicker').selectpicker('mobile');
+                    }
+                };
                 
                 var loadingInitialHbsTemplates = function () {
                     //Appending handlebar templates to HTML
@@ -407,20 +203,7 @@
                         }
                     });
                     
-                    // $(document).on("click", config.chartBtn, function () {
-                    // 	$(config.chartBtn).addClass("disabled");
-                    // 	chartBtnSelected();
-                    // });
                     
-                    // $(document).on("click", config.closeChartBtn, function () {
-                    // 	closeChartBtnSelected();
-                    // 	$(config.chartBtn).removeClass("disabled");
-                    // });
-                    
-                    // $(document).on('change',config.accountDdn, function (e) {
-                    // 	window.pvChart.destroy();
-                    // 	chartBtnSelected();
-                    // });
                     
                     $(document).on("click", config.printBtn, function (e) {
                         var summary =  compiledreportSummary(cbp.srPage);
