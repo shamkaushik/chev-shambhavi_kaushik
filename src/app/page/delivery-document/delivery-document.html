@@ -15,6 +15,17 @@
             <header class="main-header main-header-md js-header">
             </header>
         </main>
+        <form id="delDocForm" method="POST" action="/sf/delDocs/delDocCSV">
+            <input name="selectedDelDocs" id="selectedDelDocs" type="hidden">
+        </form>
+        <form id="invoicePDFForm" action="/invoices/invoicePDF" method="post" target="_blank">
+            <input type="hidden" name="invoiceId" id="invoiceId">
+            <input type="hidden" name="invoicePrint" id="invoicePrint">
+        </form>
+        <form id="delDocPDFForm" action="/delDocs/delDocsPDF" method="post" target="_blank">
+            <input type="hidden" name="delDocId" id="delDocId">
+            <input type="hidden" name="delDocPrint" id="delDocPrint">
+        </form>
         <section class='main-container'>
             <div class="content-box delDoc-page">
                 <div class="row">
@@ -122,6 +133,7 @@
                     "delDocDate": "30/10/2015",
                     "delDocTime":"14:32:40",
                     "total": 5655000,
+                    "billOfLading": 75124,
                     "displayTotal": "5.655.000",
                     "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
                     "downloaded": false,

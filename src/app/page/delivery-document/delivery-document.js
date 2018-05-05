@@ -24,6 +24,18 @@ function enableMobileDefaultDropDown() {
     }
 };
 
+function callInvoicePDFLink(invoiceId) {
+    $('#invoicePDFForm #invoiceId').val(invoiceId);
+    $('#invoicePDFForm #invoicePrint').val('false');
+    //$('#invoicePDFForm').submit();
+}
+
+function callDelDocsPDFLink(delDocId) {
+    $('#delDocPDFForm #delDocId').val(delDocId);
+    $('#delDocPDFForm #delDocPrint').val('false');
+    //$('#invoicePDFForm').submit();
+}
+
 require(["modernizr",
     "jquery",
     "bootstrap",
@@ -603,7 +615,7 @@ require(["modernizr",
                             formatter: function LinkFormatter(value, row, index) {
                                 var delDocNoVar;
                 
-                                delDocNoVar = '<a href="javascript:void(0);" onclick="calldelDocPDFLink(\'' + row.delDocId + '\')">' + row.delDocId + '</a>';
+                                delDocNoVar = '<a href="javascript:void(0);" onclick="callDelDocPDFLink(\'' + row.delDocId + '\')">' + row.delDocId + '</a>';
                                    
                                 return delDocNoVar;
                             }
@@ -616,7 +628,7 @@ require(["modernizr",
                             formatter: function LinkFormatter(value, row, index) {
                                 var delDocNoVar;
                 
-                                delDocNoVar = '<a href="javascript:void(0);" onclick="calldelDocPDFLink(\'' + row.invoiceId + '\')">' + row.invoiceId + '</a>';
+                                delDocNoVar = '<a href="javascript:void(0);" onclick="callInvoicePDFLink(\'' + row.invoiceId + '\')">' + row.invoiceId + '</a>';
                                    
                                 return delDocNoVar;
                             } 
