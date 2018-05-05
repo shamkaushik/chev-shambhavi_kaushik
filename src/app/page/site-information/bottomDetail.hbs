@@ -1,0 +1,86 @@
+<div class = "grey-bg xs-pl-10 xs-pt-10">
+    <div class = "row sub-heading-thin">
+        <div class="col-xs-24 xs-ml-5">
+            <span class="sub-heading-thin">{{globalVars.siteDetails}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-24">
+            <div class="xs-mt-10 col-md-4 col-xs-12">
+                <label><strong>{{globalVars.brand}}</strong></label>
+                <p class="xs-mt-0">{{siteInfoResponse.siteDetails.brand}}</p>
+            </div>
+            <div class="xs-mt-10 col-md-5 col-xs-12">
+                <label><strong>{{globalVars.siteZone}}</strong></label>
+                <p class="xs-mt-0">{{siteInfoResponse.siteDetails.siteZone}}</p>
+            </div>
+             <div class="xs-mt-10 col-md-5 col-xs-12">
+                <label><strong>{{globalVars.siteStatus}}</strong></label>
+                <p class="xs-mt-0">{{siteInfoResponse.siteDetails.siteStatus}}</p>
+            </div>
+             <div class="xs-mt-10 col-md-5 col-xs-12">
+                <label><strong>{{globalVars.promoSalesArea}}</strong></label>
+                <p class="xs-mt-0">{{siteInfoResponse.siteDetails.promoSalesArea}}</p>
+            </div>
+             <div class="xs-mt-10 col-md-5 col-xs-12">
+                <label><strong>{{globalVars.buildingType}}</strong></label>
+                <p class="xs-mt-0">{{siteInfoResponse.siteDetails.buildingType}}</p>
+            </div>
+            <div class="xs-mt-10 col-md-4 col-xs-12">
+                <label><strong>{{globalVars.county}}</strong></label>
+                <p class="xs-mt-0">{{siteInfoResponse.siteDetails.county}}</p>
+            </div>
+            <div class="xs-mt-10 col-md-5 col-xs-12">
+                <label><strong>{{globalVars.siteEstOpenDate}}</strong></label>
+                <p class="xs-mt-0">{{siteInfoResponse.siteDetails.siteEstOpenDate}}</p>
+            </div>
+             <div class="xs-mt-10 col-md-5 col-xs-12">
+                <label><strong>{{globalVars.franchises}}</strong></label>
+                <p class="xs-mt-0">{{siteInfoResponse.siteDetails.franchises}}</p>
+            </div>
+             <div class="xs-mt-10 col-md-5 col-xs-12">
+                <label><strong>{{globalVars.franEstOpenDate}}</strong></label>
+                <p class="xs-mt-0">{{siteInfoResponse.siteDetails.franEstOpenDate}}</p>
+            </div>
+        </div>
+    </div>
+    <div class = "row sub-heading-thin">
+        <div class="col-xs-24 xs-ml-5">
+            <span class="sub-heading-thin">{{globalVars.mailPreferences}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-24">
+            <div class="xs-mt-10 xs-mr-10 col-md-7 col-xs-24">
+                <label><strong>{{globalVars.phyAddress}}</strong></label>
+                <p class="xs-mt-0">{{siteInfoResponse.mailPreferences.phyAddress}}</p>
+            </div>
+            <div class="xs-mt-10 col-md-5 col-xs-24">
+                <label><strong>{{globalVars.attention}}</strong></label>
+                <p class="xs-mt-0"><input type="text" class="col-xs-22 col-sm-10 col-md-22 input-box-style" value="{{siteInfoResponse.mailPreferences.phyAddressAttention}}"/></p>
+            </div>
+            <div class="xs-mt-10 col-md-6 col-xs-22 col-sm-10 js-carrierPreference-ddn">
+            </div>
+        </div>
+        <div class="col-xs-24">
+             <div class="xs-mt-10 xs-mr-10 col-md-7 col-xs-24">
+                <label><strong>{{globalVars.altAddress}}</strong></label>
+                <p class="xs-mt-0">{{siteInfoResponse.mailPreferences.altAddress}}</p>
+            </div>
+             <div class="xs-mt-10 col-md-5 col-xs-24">
+                <label><strong>{{globalVars.attention}}</strong></label>
+                <p class="xs-mt-0"><input type="text" class="col-xs-22 col-sm-10 col-md-22 input-box-style" value="{{siteInfoResponse.mailPreferences.altAddressAttention}}"/></p>
+            </div>
+            <div class="xs-mt-10 col-md-6 col-xs-22 col-sm-10 js-carrierPreference-ddn">
+            </div>
+        </div>
+        <div class="col-xs-24 xs-ml-5 xs-mt-10 form-group">
+            <span><strong>{{globalVars.note}}:</strong> {{globalVars.privateCarrierText}}</span>
+        </div>
+    </div>
+</div>
+<div class = "row xs-mt-15">
+    <div class = "col-xs-24">
+        <button class="btn btn-primary pull-right saveBtn" disabled="disabled">{{globalVars.saveBtn}}</button>
+    </div>     
+</div>

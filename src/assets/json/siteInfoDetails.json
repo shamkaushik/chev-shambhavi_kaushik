@@ -1,0 +1,28 @@
+{
+                "accountDisplay": {
+                    "uid": "8213629",
+                    "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
+                },
+                "siteDisplay": {
+                    "uid": "8213629",
+                    "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
+                },
+                "siteDetails":{
+                    "brand":"Chevron",
+                    "siteZone":"4A",
+                    "siteStatus":"Open",
+                    "promoSalesArea":"-",
+                    "buildingType":"Self-Service Station",
+                    "county":"Humboldt",
+                    "siteEstOpenDate":"-",
+                    "franchises":"No",
+                    "franEstOpenDate":"-"         
+                },
+                "mailPreferences":{
+                    "phyAddress":"7903258 - Embotelladora Central S.A, 24 Calle 6-01 Zona 11",
+                    "altAddress":"7903258 - Embotelladora Central S.A, 24 Calle 6-01 Zona 11",
+                    "phyAddressAttention":"Attention",
+                    "altAddressAttention":"",
+                    "carrierPref":"Carrier Preference"
+                }
+            }

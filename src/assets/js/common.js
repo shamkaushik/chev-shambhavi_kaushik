@@ -13,8 +13,6 @@ var triggerAjaxRequest = function(data,type,url){
     return $.ajax({
         type: type,
         data: data,
-        contentType: "application/json",
-        dataType:"json",
         url: url,
         success: successCallback,
         error: errorCallback
