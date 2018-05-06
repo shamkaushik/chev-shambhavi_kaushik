@@ -19,10 +19,17 @@
                     "franEstOpenDate":"-"         
                 },
                 "mailPreferences":{
-                    "phyAddress":"7903258 - Embotelladora Central S.A, 24 Calle 6-01 Zona 11",
+                    "phyAddress":"7903258 - Embotelladora blah S.A, 24 Calle 6-01 Zona 11",
                     "altAddress":"7903258 - Embotelladora Central S.A, 24 Calle 6-01 Zona 11",
                     "phyAddressAttention":"Attention",
-                    "altAddressAttention":"",
-                    "carrierPref":"Carrier Preference"
+                    "altAddressAttention":""
+                },
+                "altCarrierPref":{
+                    "key":"private",
+                    "value":"Private Carrier"
+                },
+                "phyCarrierPref":{
+                    "key":"postal",
+                    "value":"Postal Carrier"
                 }
             }

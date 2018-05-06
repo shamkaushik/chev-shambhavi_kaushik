@@ -41,12 +41,19 @@ require(["modernizr",
             searchDetailContainer: ".js-bottom-detail",
             dropDownCommon: ".selectpicker",
             ordercalendar: "#calendar",
-            searchButton: "#siteInfosSearch",
+            searchButton: "#siteInfoSearch",
             accountDdn: "#accountSelectDdn",
             siteDdn: "#siteSelectDdn",
             displaySpinner: ".overlay-wrapper",
             dropdownSelect: ".dropdown-menu .toggle-select",
-            carrierPreferenceDdn:".js-carrierPreference-ddn"
+            carrierPreferenceDdnContainer:".js-carrierPreference-ddn",
+            phyAttention:"#phy-attention",
+            phyDdn:"#phy-ddn",
+            altAttention:"#alt-attention",
+            altDdn:"#alt-ddn",
+            saveBtn:".saveBtn",
+            phyCarrierPref:"#phy-ddn #carrPref",
+            altCarrierPref:"#alt-ddn #carrPref"
         };
 
         var init = function () {
@@ -57,7 +64,7 @@ require(["modernizr",
                 $(config.accountDdn).val(cbp.siteInfoPage.siteInfoResponse.accountDisplay.uid).selectpicker('refresh');
             }
             loadingDynamicHbsTemplates();          
-            //bindEvents();
+            bindEvents();
             enableMobileDefaultDropDown();
         };
 
@@ -67,21 +74,22 @@ require(["modernizr",
             $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.siteInfoPage.accountDropDown));
             $(config.siteDdnContainer).html(compiledDefaultDdn(cbp.siteInfoPage.siteDropDown));
             $(config.dropDownCommon).selectpicker('refresh');
-            
         };
 
         var loadingDynamicHbsTemplates = function(){
             $(config.searchDetailContainer).html(compiledBottomDetail(cbp.siteInfoPage));
             setSummaryValues();
             $(config.siteInfoSummaryContainer).html(compiledsiteInfoSummary(cbp.siteInfoPage));
-            $(config.carrierPreferenceDdn).html(compiledDefaultDdn(cbp.siteInfoPage.carrierPrefDropdown));
+            $(config.carrierPreferenceDdnContainer).html(compiledDefaultDdn(cbp.siteInfoPage.carrierPrefDropdown));
+            $(config.phyCarrierPref).val(cbp.siteInfoPage.siteInfoResponse.phyCarrierPref.key).selectpicker('refresh');
+            $(config.altCarrierPref).val(cbp.siteInfoPage.siteInfoResponse.altCarrierPref.key).selectpicker('refresh');
         };
 
         // var triggerAjaxRequest = function(data,type,url){   
         //     function successCallback(res){
         //         return res;
         //     }
-        //     function errorCallback(err){
+        //     function errorCallback(err){   //taking this function from common.js
         //         return err;
         //     }
         //     return $.ajax({
@@ -154,6 +162,89 @@ require(["modernizr",
             cbp.siteInfoPage.summary = {};
             cbp.siteInfoPage.summary.account = $('.js-account-ddn .btn-group .dropdown-toggle').text();
             cbp.siteInfoPage.summary.site = $('.js-site-ddn .btn-group .dropdown-toggle').text();
+        };
+
+        var getSiteDetails = function(){
+            var data = {};
+            data.account = $(config.accountDdn).val();
+            data.site = $(config.siteDdn).val();
+
+            $.when(triggerAjaxRequest(data, "GET", cbp.siteInfoPage.globalUrl.searchURL)).then(function(result){
+                cbp.siteInfoPage.siteInfoResponse = result;
+                loadingDynamicHbsTemplates();
+            });
+        }
+
+        var saveSiteDetails = function(){
+            var data = {}
+            data.account = $(config.accountDdn).val();
+            data.site = $(config.siteDdn).val();
+            data.phyAttention = $(config.phyAttention).val();
+            data.phyDdn = $(config.phyCarrierPref).val();
+            data.altAttention = $(config.altAttention).val();
+            data.altDdn = $(config.altCarrierPref).val();
+            console.log("save data", data);
+
+            $.when(triggerAjaxRequest(data, "GET", cbp.siteInfoPage.globalUrl.saveURL)).then(function(result){
+                if(typeof result === 'undefined' || result === null){
+                    return;
+                }
+                if(result.type.toLowerCase()==="s")
+                    showSuccessMessage(result.message);
+                else if(result.type.toLowerCase()==="e")
+                    showErrorMessage(result.message);
+            });
+        }
+
+        var showSuccessMessage = function(message){ 
+            $('.alertMessages').html('<div class="alert alert-success"><span class="alert-message"></span></div>');        
+            $('.alertMessages .alert-message').html(message);
+            window.scrollTo(0,0);
+        }
+
+        var showErrorMessage = function(message){
+            $('.alertMessages').html('<div class="alert alert-danger"><span class="alert-message"></span></div>');        
+            $('.alertMessages .alert-message').html(message);
+            window.scrollTo(0,0);
+        }
+
+
+        var bindEvents = function(){
+
+            var checkDdnChange =  config.phyDdn + "," + config.altDdn;
+
+            $(document).on('change', checkDdnChange, function(event){
+                if($(config.phyCarrierPref).val()!==cbp.siteInfoPage.siteInfoResponse.phyCarrierPref.key || $(config.altCarrierPref).val()!==cbp.siteInfoPage.siteInfoResponse.altCarrierPref.key )
+                    $(config.saveBtn).removeAttr('disabled');
+                else
+                    if($(config.phyAttention).val() === cbp.siteInfoPage.siteInfoResponse.mailPreferences.phyAddressAttention && $(config.altAttention).val()=== cbp.siteInfoPage.siteInfoResponse.mailPreferences.altAddressAttention )
+                        $(config.saveBtn).attr('disabled', 'disabled');
+            });
+
+            var checkInputChange = config.phyAttention + "," + config.altAttention;
+
+            $(document).on('input', checkInputChange, function(event){
+                if($(config.phyAttention).val() !== cbp.siteInfoPage.siteInfoResponse.mailPreferences.phyAddressAttention || $(config.altAttention).val() !== cbp.siteInfoPage.siteInfoResponse.mailPreferences.altAddressAttention )
+                    $(config.saveBtn).removeAttr('disabled');
+                else
+                    if($(config.phyCarrierPref).val() === cbp.siteInfoPage.siteInfoResponse.phyCarrierPref.key && $(config.altCarrierPref).val() === cbp.siteInfoPage.siteInfoResponse.altCarrierPref.key )
+                        $(config.saveBtn).attr('disabled', 'disabled');
+            });
+
+            $(document).on('click', config.searchButton, function(event){
+                getSiteDetails();
+            });
+
+            $(document).on('click', config.saveBtn, function(){
+                saveSiteDetails();
+            });
+
+            $(document).on('click', function(){
+                if($('.alertMessages').hasClass('alert'))
+                    $('.alertMessages').empty();                
+            });
+
+
         };
 
         return {
