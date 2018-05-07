@@ -1,0 +1,323 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css' />
+    <link href='/assets/css/app.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <div class='body-wrapper'>
+        <main>
+            <header class="main-header main-header-md js-header">
+            </header>
+        </main>
+        <section class='main-container'>
+            <div class="content-box delDoc-page">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class='page-title'>delivery documents</h2>
+                    </div>
+                </div>
+                <div class='row xs-m-0 position-relative'>
+                    <div class="overlay-wrapper">
+                    </div>
+                    <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center'>
+                        <div class='search-content'>
+                            <span class='fa fa-sliders'></span>
+                        </div>
+                    </div>
+                    <div class='col-md-5 left-pane hidden-md search'>
+                        <div class='search-content'>
+                            <div class='sub-heading-thin hidden-sm hidden-xs'>
+                                search
+                                <span class='fa fa-close visible-md-inline'></span>
+                            </div>
+                            <div class='sub-heading-thin hidden-lg hidden-md toggle-search-mobile'>
+                                <span class='fa fa-sliders'></span> Search
+                                <span class='fa fa-chevron-down pull-right'></span>
+                            </div>
+                            <div class='search-form xs-mt-10 js-search-form'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-23 col-lg-19 right-pane'>
+                        <div class='top-summary js-delDoc-summary'>
+                        </div>
+                        <div class='bottom-detail js-bottom-detail'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+
+            var srtByDdn = {
+                "options": [],
+                label: "Sort By",
+                labelClass: "xs-mr-5",
+                name: "sortByDdn",
+                display: "displayInline"
+            }
+
+            var delDocResponse = {
+                "currency": "USD",
+                "delDocColumnMapping": {
+                    "delDocId": "test",
+                    "delDocDate": "dfhj",
+                    "total": "yfleuir",
+                    "checkbox": "ejuje",
+                    "shipTo": "test",
+                    "billOfLading": "rfhuf",
+                    "status": "dbshj",
+                    "invoiceId":"tyrui"
+                },
+
+                "delDocList": [{
+                    "delDocId": "936710253",
+                    "invoiceId": "936710253",
+                    "delDocDate": "02/12/2016",
+                    "delDocTime":"14:32:40",
+                    "total": 8919237.0,
+                    "displayTotal": "8.919.237",
+                    "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
+                    "billOfLading": 75123,
+                    "salesOrderType": "ZOOR",
+                    "downloaded": true,
+                    "printed": false,
+                },
+                {
+                    "delDocId": "936670263",
+                    "invoiceId": "936710253",
+                    "delDocDate": "30/11/2015",
+                    "delDocTime":"14:32:40",
+                    "total": 36928702,
+                    "displayTotal": "36.928.702",
+                    "shipTo": "7933464, DISMACOR S.A. BARBOSA, K 10 NRO 20  11, Colombia",
+                    "billOfLading": 75123,
+                    "downloaded": true,
+                    "printed": false,
+                    "salesOrderType": "ZOOR"
+                },
+                {
+                    "delDocId": "936659699",
+                    "invoiceId": "936710253",
+                    "delDocDate": "30/10/2015",
+                    "delDocTime":"14:32:40",
+                    "total": 12621100,
+                    "displayTotal": "12.621.100",
+                    "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
+                    "billOfLading": 75123,
+                    "downloaded": true,
+                    "printed": false,
+                    "salesOrderType": "ZC"
+                },
+                {
+                    "delDocId": "936659698",
+                    "invoiceId": "936710253",
+                    "delDocDate": "30/10/2015",
+                    "delDocTime":"14:32:40",
+                    "total": 5655000,
+                    "displayTotal": "5.655.000",
+                    "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
+                    "downloaded": false,
+                    "printed": false,
+                    "salesOrderType": "ZC"
+                }],
+                "resultCount": 4,
+                "multipleSoldTo": false,
+                "sort": null
+            };
+
+            var maxResults = 500;
+
+            var shiptoListOnLoad = [{
+                "uid": "7903258",
+                "displayName": "7903258 - Embotelladora Central S.A, 24 Calle 6-01 Zona 11"
+            }, {
+                "uid": "7903259",
+                "displayName": "7903259 - Embotelladora Central S.A, Embotelladora Central Zona 18"
+            }, {
+                "uid": "7903260",
+                "displayName": "7903260 - Embotelladora Central S.A, Embotelladora Central Zona 11"
+            }];
+
+            var locationDropDown = [{
+                "uid": "7933464",
+                "displayName": "7933464,DISMACOR S.A. BARBOSA, K 10 NRO 20  11, BARBOSA, Colombia"
+            }, {
+                "uid": "3436466",
+                "displayName": "3436466,DISMACOR S.A. BARRANQUILLA, CL 45 NRO 33 - 40, BARRANQUILLA, Colombia"
+            }, {
+                "uid": "8213629",
+                "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
+            }];
+
+
+
+            var downloadStatusDropdownOptions = [{
+                key: "all",
+                value: "All"
+            }, {
+                key: "notDownloaded",
+                value: "Not Downloaded"
+            }, {
+                key: "downloaded",
+                value: "Downloaded"
+            }];
+
+            var printStatusDropdownOptions = [{
+                key: "all",
+                value: "All"
+            }, {
+                key: "notPrinted",
+                value: "Not Printed"
+            }, {
+                key: "printed",
+                value: "Printed"
+            }];
+
+            var maxResultText = '<div>{0} delDocs matching your search were found in the system.</div>' +
+                '<div>Please refine your search to return less than 500 results.</div><br>' +
+                '<div><b><spring:theme code="chevron.delDoc.noresult.suggestion"/></b></div>' +
+                '<ul>' +
+                '<li>Enter additional search criteria.</li>' +
+                '<li>Select a shorter date range.</li>' +
+                '<li>Select fewer delDoc Types.</li>' +
+                '</ul>';
+            var cbp = {
+                "staticBasePath": "/",
+                "delDocPage": {
+                    "locationDropDown": {
+                        "options": [],
+                        "label": "Sold To",
+                        // "title": "Select Location",
+                        "title": "",
+                        "name": "locationSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": true
+                    },
+                    "shipToDropDown": {
+                        "options": [],
+                        "label": "Ship To",
+                        //"title": "Select Location",
+                        "title": "",
+                        "name": "shipToSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": false
+                    },
+                    "downloadStatusDropdown": {
+                        "options": downloadStatusDropdownOptions,
+                        "label": "Download Status",
+                        "title": "",
+                        "name": "downloadStatus",
+                        "showOptions": 3
+                    },
+                    "printStatusDropdown": {
+                        "options": printStatusDropdownOptions,
+                        "label": "Print Status",
+                        "title": "",
+                        "name": "printStatus",
+                        "showOptions": 3
+                    },
+                    "dateRange": {
+                        "maxMonth": 18,
+                        "format": "DD/MM/YYYY",
+                        "today": "Today",
+                        "yesterday": "Yesterday",
+                        "last7Days": "Last 7 Days",
+                        "last30Days": "Last 30 Days",
+                        "thisMonth": "This Month",
+                        "lastMonth": "Last Month",
+                        "customRange": "Custom Range",
+                        "cancel": "Cancel",
+                        "apply": "Apply",
+                        "iconClass": "fa fa-calendar pull-right",
+                        "id": "calendar"
+                    },
+                    "globalUrl": {
+                        "searchURL": "/assets/json/delDoc.json",
+                        "shipToURL": "/assets/json/shipToResponse.json",
+                        "method": "GET",
+                    },
+                    "globalVars": {
+                        "shipTo": "Ship To",
+                        "searchTxt": "Search",
+                        "allTb": "All",
+                        "billOfLading": "Bill of Lading #",
+                        "fromAndTo": "{0} - {1}",
+                        "summaryfromAndTo": "{0} - {1}",
+                        "sortBy": "Sort by",
+                        "dateRange": "Date Range",
+                        "delDocSummary": "delivery documents summary",
+                        "delDocsDetail": "delDocs detail",
+                        "downloadSelected": "Download Selected",
+                        "printSelected": "Print Selected",
+                        "delDocsFound": "{0} result(s) found",
+                        "statustb": "Status",
+                        "pickDatetb": "Date",
+                        "delDoctb": "Delivery Doc. #",
+                        "invoiceId":"Invoice #",
+                        "totaltb": "Total",
+                        "delDocDate":"Delivery Date",
+                        "delDocDateAsc": "Delivery Date, Newest to Oldest",
+                        "delDocDateDesc": "Delivery Date, Oldest to Newest",
+                        "shipToSortAsc": "Ship To, Ascending",
+                        "shipToSortDesc": "Ship To, Descending",
+                        "invoiceIdAsc": "Invoice #, Ascending",
+                        "invoiceIdDesc": "Invoice #, Descending",
+                        "billOfLadingAsc": "Bill of Lading #, Ascending",
+                        "billOfLadingDesc": "Bill of Lading #, Descending",
+                        "delDocAsc": "Delivery Doc. #, Ascending",
+                        "delDocDesc": "Delivery Doc. #, Descending",
+                        "totalAsc": "Total, Ascending",
+                        "totalDesc": "Total, Descending",
+                        "soldTo": "Sold To",
+                        "shipTo": "Ship To",
+                        "noMatches": "No delDocs found. Please change your search",
+                        "noMatchesMaxResults": maxResultText,
+                        "selectDdn": {
+                            "noneSelectedText": "Nothing selected",
+                            "noneResultsText": "No results for {0}",
+                            "selectAllText": "Select All",
+                            "deselectAllText": "Deselect All",
+                            "itemSelected": "{0} item selected",
+                            "itemSelected1": "{0} items selected",
+                            "limitReached": "Limit reached ({n} item max)",
+                            "limitReached1": "Limit reached ({n} items max)",
+                            "groupLimit": "Group limit reached ({n} item max)",
+                            "groupLimit1": "Group limit reached ({n} items max)"
+                        },
+                        "tableLocales": {
+                            "loadingMessage": "Loading, please wait...",
+                            "recordsPerPage": "{0} rows per page",
+                            "showingRows": "Showing {0} to {1} of {2} rows",
+                            "search": "Search",
+                            "noMatches": "No delDocs found. Please change your search",
+                            "paginationSwitch": "Hide/Show pagination",
+                            "refresh": "Refresh",
+                            "toggle": "Toggle",
+                            "columns": "Columns",
+                            "allRows": "All"
+                        }
+                    }
+                }
+            }
+
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="delivery-document.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+    </div>
+</body>
+
+</html>

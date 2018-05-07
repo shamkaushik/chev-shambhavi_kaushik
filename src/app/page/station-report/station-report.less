@@ -1,12 +1,16 @@
 //PV page styles
 .page-stationreport{
-    .sub-heading {
+    .sub-heading-thin{
 		color: #009dd9;;
 		font-size: 15px;
 		font-family: Gotham, "Helvetica Neue", Helvetica, Roboto, Arial, serif;
 		font-weight: normal;
     }
-    
+    // .btn-group > .btn:first-child {
+       
+    //     font-style: italic;
+       
+    // }
     
     .bootstrap-table .table.table-no-bordered.table-striped { 
         tbody {
@@ -72,6 +76,9 @@
 
 // Page specific PRINT styles
 @media print {
+    .disclaimer{
+        display:none;
+    }
     .nav-bottom {
         position: relative;
         min-height: 0;
