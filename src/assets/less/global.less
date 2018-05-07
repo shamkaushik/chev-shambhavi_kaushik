@@ -7,6 +7,128 @@ that are to be used at the global level
     font-weight: normal !important;
 }
 
+//for input with 144px width in left pane search form
 .input-width-144{
     width: 144px;
+}
+
+.page-title {
+    color: @brand-primary;
+    font-size: @font-size-main-heading;
+    font-family: @font-family-serif;
+    font-weight: bold;
+    text-transform: lowercase;
+    padding: 15px 0 10px 10px;
+    margin: 0;
+}
+
+.sub-heading {
+    color: @brand-primary;
+    font-size: @font-size-sub-heading;
+    font-family: @font-family-serif;
+    font-weight: bold;
+}
+
+.has-error {
+	input.form-control {
+		color: @brand-danger;
+		background: @brand-danger-light;
+	}
+	.help-block {
+		.fa {
+			margin-right: 5px;
+		}
+	}
+	.bootstrap-select {
+		button.dropdown-toggle {
+			color: @brand-danger;
+			.fa {
+				color: @brand-danger;
+			}
+		}
+	}
+}
+.no-error {
+	.help-block {
+		.fa {
+			display: none;
+		}
+	}
+}
+input::-ms-clear {
+    display: none;
+}
+
+.tooltip-inner {
+    padding: 10px;
+    font-size: 12px;
+    background-color: rgba(107, 109, 111,0.9);
+    font-family: "GothamNarrow";
+    border-radius: 2px;
+}
+.tooltip-arrow {
+    border-top-color: @gray-darker !important;
+}
+
+.print-preview-wrapper{
+    background-color: #ffffff;
+    padding: 0 15px;
+}
+
+//this class is added when user does ctrl+p from print preview
+//styling for better reading and spacing
+.custom-bootstrap-table-print-wrapper{
+	.fixed-table-container{
+		.fixed-table-body{
+			table{
+				margin-bottom: 0;
+                font-size: 12px;
+                border-bottom: 1px solid #dbdcdd;
+				thead{
+					background-color: @brand-primary;
+					tr{
+						th{
+							border: 0;
+							font-weight: normal;
+                            color: #fff;
+						}
+					}
+				}
+				tbody{
+					tr{
+						td{
+							border: 0;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media print{
+    .custom-bootstrap-table-print-wrapper{
+        .fixed-table-container{
+            .fixed-table-body{
+                overflow: hidden;
+                table{
+                    font-size: 10px;
+                    thead{
+                        tr{
+                            th{
+                                vertical-align: middle;
+                            }
+                        }
+                    }
+                    tbody{
+                        tr{
+                            td{
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
