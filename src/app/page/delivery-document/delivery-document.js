@@ -2,20 +2,7 @@ var locationDropDownOptions = [];
 var selectedDelDocs = [];
 var selectedDelDocstatus = [];
 var startDate, endDate, pastSelectableDate = 6;
-
-locationDropDownOptions = locationDropDown.map(function(val,index){
-    return {
-        key : val.uid,
-        value : val.displayName
-    };
-});
-
-if(locationDropDownOptions.length>1)
-{
-	locationDropDownOptions.unshift({key:"all",value:cbp.delDocPage.globalVars.allTb});
-}
-cbp.delDocPage.locationDropDown["options"] = locationDropDownOptions;
-cbp.delDocPage.locationDropDown.searchable = true;
+//pastSelectableDate should be coming from backend.. 6 is only a placeholder here to make the logic work.
 
 function enableMobileDefaultDropDown() {
     //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
@@ -23,6 +10,18 @@ function enableMobileDefaultDropDown() {
         $('.selectpicker').selectpicker('mobile');
     }
 };
+
+function callInvoicePDFLink(invoiceId) {
+    $('#invoicePDFForm #invoiceId').val(invoiceId);
+    $('#invoicePDFForm #invoicePrint').val('false');
+    //$('#invoicePDFForm').submit();
+}
+
+function callDelDocsPDFLink(delDocId) {
+    $('#delDocPDFForm #delDocId').val(delDocId);
+    $('#delDocPDFForm #delDocPrint').val('false');
+    //$('#invoicePDFForm').submit();
+}
 
 require(["modernizr",
     "jquery",
@@ -84,6 +83,7 @@ require(["modernizr",
         };
 
         var init = function () {
+            populatingSoldTo();
         	populatingShipTo(locationDropDownOptions[0].key, "all", true);
             loadingInitialHbsTemplates();
             
@@ -160,8 +160,8 @@ require(["modernizr",
 
         var setSummaryValues = function(){
             cbp.delDocPage.summary = {};
-            cbp.delDocPage.summary.soldTo = $('.js-location-ddn button span').text();
-            cbp.delDocPage.summary.shipTo = $('.js-shipTo-ddn button .filter-option').text();
+            cbp.delDocPage.summary.soldTo = $('.js-location-ddn .btn-group .dropdown-toggle').text();
+            cbp.delDocPage.summary.shipTo = $('.js-shipTo-ddn .btn-group .dropdown-toggle').text();
             cbp.delDocPage.summary.dateRange = $('.js-search-pickDateRange').find('span').text();
         };
 
@@ -360,7 +360,22 @@ require(["modernizr",
         return optionDropdown;
         }
 
- 
+        var populatingSoldTo = function(){
+            locationDropDownOptions = locationDropDown.map(function(val,index){
+                return {
+                    key : val.uid,
+                    value : val.displayName
+                };
+            });
+            
+            if(locationDropDownOptions.length>1)
+            {
+                locationDropDownOptions.unshift({key:"all",value:cbp.delDocPage.globalVars.allTb});
+            }
+            cbp.delDocPage.locationDropDown["options"] = locationDropDownOptions;
+            cbp.delDocPage.locationDropDown.searchable = true;
+        };
+
         var populatingShipTo = function(soldToId, shipToId, pageLoadCheck) {
             $(config.displaySpinner).show();
             
@@ -603,7 +618,7 @@ require(["modernizr",
                             formatter: function LinkFormatter(value, row, index) {
                                 var delDocNoVar;
                 
-                                delDocNoVar = '<a href="javascript:void(0);" onclick="calldelDocPDFLink(\'' + row.delDocId + '\')">' + row.delDocId + '</a>';
+                                delDocNoVar = '<a href="javascript:void(0);" onclick="callDelDocPDFLink(\'' + row.delDocId + '\')">' + row.delDocId + '</a>';
                                    
                                 return delDocNoVar;
                             }
@@ -616,7 +631,7 @@ require(["modernizr",
                             formatter: function LinkFormatter(value, row, index) {
                                 var delDocNoVar;
                 
-                                delDocNoVar = '<a href="javascript:void(0);" onclick="calldelDocPDFLink(\'' + row.invoiceId + '\')">' + row.invoiceId + '</a>';
+                                delDocNoVar = '<a href="javascript:void(0);" onclick="callInvoicePDFLink(\'' + row.invoiceId + '\')">' + row.invoiceId + '</a>';
                                    
                                 return delDocNoVar;
                             } 
@@ -627,20 +642,6 @@ require(["modernizr",
                             class: 'numberIcon text-nowrap',
                             sortable: true,
                             align: 'right',
-                            sorter: function priceSort(a, b) {
-                                    if (a !== null && b !== null) {
-                                       a = parseFloat(a.replace(/[,.]+/g,""));
-                                        b = parseFloat(b.replace(/[,.]+/g,""));
-                                    }
-            
-                                    if (a < b) {
-                                        return -1;
-                                    }
-                                    if (a > b) {
-                                        return 1;
-                                    }
-                                    return 0;
-                            },
                             formatter: function LinkFormatter(value, row, index) {
                                 var total;
                                 if (value >= '0') {
@@ -689,7 +690,7 @@ require(["modernizr",
             if (delDocsData.delDocList === null || delDocsData.delDocList === undefined) {
                 delDocsData.delDocList = [];
             }
-            $(config.sortByDdn).val("delDocDate-desc").selectpicker('refresh');
+            $(config.sortByDdn).val("invoiceId-desc").selectpicker('refresh');
 
 
             $('#table').bootstrapTable({
