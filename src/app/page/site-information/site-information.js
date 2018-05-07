@@ -183,7 +183,6 @@ require(["modernizr",
             data.phyDdn = $(config.phyCarrierPref).val();
             data.altAttention = $(config.altAttention).val();
             data.altDdn = $(config.altCarrierPref).val();
-            console.log("save data", data);
 
             $.when(triggerAjaxRequest(data, "GET", cbp.siteInfoPage.globalUrl.saveURL)).then(function(result){
                 if(typeof result === 'undefined' || result === null){
