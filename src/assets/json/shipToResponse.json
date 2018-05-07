@@ -1,13 +1,10 @@
 [{
-	"shipToNumber": "7933464",
-	"shipToAddress": "7933464,DISMACOR S.A. BARBOSA, K 10 NRO 20  11, BARBOSA, Colombia"
-}, {
-	"shipToNumber": "3436466",
-	"shipToAddress": "3436466,DISMACOR S.A. BARRANQUILLA, CL 45 NRO 33 - 40, BARRANQUILLA, Colombia"
-}, {
-	"shipToNumber": "8213629",
-	"shipToAddress": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
-}, {
-	"shipToNumber": "9313629",
-	"shipToAddress": "9313629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
-}]
+                "uid": "7903258",
+                "displayName": "7903258 - Embotelladora blah S.A, 24 Calle 6-01 Zona 11"
+            }, {
+                "uid": "7903259",
+                "displayName": "7903259 - Embotelladora blah S.A, Embotelladora Central Zona 18"
+            }, {
+                "uid": "7903260",
+                "displayName": "7903260 - Embotelladora blah S.A, Embotelladora Central Zona 11"
+            }]

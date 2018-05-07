@@ -32,8 +32,8 @@ module.exports = function(grunt) {
     less: {
       dev:{
         files: {
-          "build/assets/css/app.css": "src/assets/less/app.less",
-          "build/assets/css/app_th.css": "src/assets/less/app_th.less",
+          "build/assets/css/app-na.css": "src/assets/less/app.less",
+          //"build/assets/css/app_th.css": "src/assets/less/app_th.less",
           //"build/assets/css/custom-paymetric.css": "src/assets/less/custom-paymetric.less",
           // "build/assets/css/custom-bootstrap.css": "src/assets/less/custom-bootstrap.less",
           // "build/assets/css/custom-bootstrap_th.css": "src/assets/less/custom-bootstrap_th.less"

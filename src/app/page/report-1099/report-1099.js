@@ -8,13 +8,15 @@ require(["modernizr",
     "text!app/components/dropdown/_defaultDdn.hbs",
     "text!app/page/report-1099/searchForm.hbs",
     "text!app/page/report-1099/bottomDetail.hbs",
+    "text!app/page/report-1099/reportSummary.hbs",
 
-], function(modernizr, $, bootstrap, Handlebars, bootstrapSelect, bootstrapTable, common, _defaultDdnHBS, _searchFormHBS, _bottomDetailHBS) {
+], function(modernizr, $, bootstrap, Handlebars, bootstrapSelect, bootstrapTable, common, _defaultDdnHBS, _searchFormHBS, _bottomDetailHBS, _reportSummaryHBS) {
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
     var compiledsearchForm = Handlebars.compile(_searchFormHBS);
     var compiledBottomDetail = Handlebars.compile(_bottomDetailHBS);
+    var compiledReportSummary = Handlebars.compile(_reportSummaryHBS);
 
     var report1099page = (function() {
         
@@ -27,7 +29,9 @@ require(["modernizr",
             displaySpinner: ".overlay-wrapper",
             accountDdnContainer: ".js-account-ddn",
             yearDdnContainer: ".js-year-ddn",
-            qtrDdnContainer: ".js-qtr-ddn"
+            qtrDdnContainer: ".js-qtr-ddn",
+            reportSummaryContainer: ".js-report-summary",
+            printBtn: "#printBtn"
         };
 
         var populateAccountDropdown = function(){
@@ -50,6 +54,7 @@ require(["modernizr",
 
         var loadingDynamicHbsTemplates = function() {
             $(config.searchDetailContainer).html(compiledBottomDetail(cbp.report1099Page));
+            $(config.reportSummaryContainer).html(compiledReportSummary());
             $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.accountDropDown));
             $(config.yearDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.yearDropDown));
             $(config.qtrDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.qtrDropDown));
@@ -147,10 +152,27 @@ require(["modernizr",
             });
         }
 
+        var bindEvents = function(){
+            
+            $(document).on('click', config.printBtn, function(e){
+                var printPreviewSummary = compiledReportSummary();
+                var win = window.open('', '_blank', 'PopUp' + ',width=1300,height=800');
+                win.document.write(printPreviewTemplate);
+                win.document.write('<div class="row"><div class="col-xs-24"><p class="page-title">order details</p></div></div>');
+                win.document.write(printPreviewSummary);
+                win.document.write($(".tableContainer").html());
+                //var tableElement = win.document.getElementsByClassName('bootstrap-table')[0];
+                //tableElement.className = " ";
+                //tableElement.className = "custom-bootstrap-table-print-wrapper";
+                win.document.close();
+            });
+        }
+
         var init = function() {
             populateAccountDropdown();
             loadingInitialHbsTemplates();
             populatingTable(getTableColumns(), getTableData());
+            bindEvents();
         };
 
         return {
