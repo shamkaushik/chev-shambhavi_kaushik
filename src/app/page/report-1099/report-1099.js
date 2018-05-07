@@ -152,40 +152,20 @@ require(["modernizr",
             });
         }
 
-        var printPreview = '<html>'+
-            '<head>'+
-                '<meta charset="utf-8">'+
-                '<meta http-equiv="X-UA-Compatible" content="IE=edge">'+
-                '<meta name="viewport" content="width=device-width, initial-scale=1">'+
-                '<link href="/assets/css/app.css" rel="stylesheet" type="text/css"/>'+
-            '</head>'+
-            '<body class="print-preview-wrapper">'+
-                '<header class="row">'+
-                    '<div class="col-xs-24">'+
-                        '<div>'+
-                            '<a class="navbar-brand pull-left" href="/index.html"> <img alt="Brand" src="/assets/images/logo.png"><span>business point</span></a>'+ 
-                            '<a class="pull-right" href="/index.html"> <img alt="Brand" src="/assets/images/fob-color-rgb.png"></a>'+
-                        '</div>'+
-                    '</div>'+
-                '</header>'+
-            '</body>'+
-            '</html>';
-
         var bindEvents = function(){
             
             $(document).on('click', config.printBtn, function(e){
                 var printPreviewSummary = compiledReportSummary();
                 var win = window.open('', '_blank', 'PopUp' + ',width=1300,height=800');
-                win.document.write(printPreview);
-                win.document.write('<p class="page-title">order details</p>');
+                win.document.write(printPreviewTemplate);
+                win.document.write('<div class="row"><div class="col-xs-24"><p class="page-title">order details</p></div></div>');
                 win.document.write(printPreviewSummary);
                 win.document.write($(".tableContainer").html());
-                var tableElement = win.document.getElementsByClassName('bootstrap-table')[0];
-                tableElement.className = " ";
-                tableElement.className = "custom-bootstrap-table-print-wrapper";
+                //var tableElement = win.document.getElementsByClassName('bootstrap-table')[0];
+                //tableElement.className = " ";
+                //tableElement.className = "custom-bootstrap-table-print-wrapper";
                 win.document.close();
             });
-            
         }
 
         var init = function() {
@@ -193,7 +173,6 @@ require(["modernizr",
             loadingInitialHbsTemplates();
             populatingTable(getTableColumns(), getTableData());
             bindEvents();
-            triggerAjaxRequest();
         };
 
         return {
