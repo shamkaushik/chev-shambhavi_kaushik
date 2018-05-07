@@ -642,20 +642,6 @@ require(["modernizr",
                             class: 'numberIcon text-nowrap',
                             sortable: true,
                             align: 'right',
-                            sorter: function priceSort(a, b) {
-                                    if (a !== null && b !== null) {
-                                       a = parseFloat(a.replace(/[,.]+/g,""));
-                                        b = parseFloat(b.replace(/[,.]+/g,""));
-                                    }
-            
-                                    if (a < b) {
-                                        return -1;
-                                    }
-                                    if (a > b) {
-                                        return 1;
-                                    }
-                                    return 0;
-                            },
                             formatter: function LinkFormatter(value, row, index) {
                                 var total;
                                 if (value >= '0') {
@@ -704,7 +690,7 @@ require(["modernizr",
             if (delDocsData.delDocList === null || delDocsData.delDocList === undefined) {
                 delDocsData.delDocList = [];
             }
-            $(config.sortByDdn).val("delDocDate-desc").selectpicker('refresh');
+            $(config.sortByDdn).val("invoiceId-desc").selectpicker('refresh');
 
 
             $('#table').bootstrapTable({
