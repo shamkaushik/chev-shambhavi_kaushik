@@ -9,10 +9,9 @@
 
 <div class="row xs-mt-0 xs-ml-0 sm-mb-15">
     <div class="col-xs-8 col-md-12 xs-pl-0">
-        <button id="downloadBtn" class="btn btn-default xs-mr-15 hidden-xs hidden-sm hidden-md hidden-print"><span class="fa fa-download"></span> Download</button>
-        <button id="printBtn" class="btn btn-default xs-mr-15 hidden-xs hidden-sm hidden-md hidden-print"><span class="fa fa-print"></span> Print</button> 
-        <span class="xs-ml-0 md-ml-5 xs-mt-5 xs-mb-5 order-count-wrapper">
-            <i class="order-count">25 results found</i>
+        <button id="downloadBtn" class="btn btn-default xs-mr-15 hidden-xs hidden-sm hidden-md hidden-print"><span class="fa fa-download"></span> <span class="sm-ml-5">Download Selected</span></button>
+        <span class="xs-ml-0 md-ml-5 xs-mt-5 xs-mb-5">
+            <i class="result-count">25 results found</i>
         </span>
     </div>
     <div class="col-xs-16 col-md-12">
@@ -21,11 +20,23 @@
     </div>
 </div>
 
-<div class="tableContainer">
+<div class="tableContainer report-table">
     <div class="row xs-mb-15">
         <div class="col-xs-24">
             <table id="table"></table>
         </div>
     </div>
+</div>
+
+<div class="tableContainer visible-xs">
+    <div class="row xs-mb-15">
+        <div class="col-xs-24">
+            <table id="tableFooter"></table>
+        </div>
+    </div>
+</div>
+
+<div>
+    <p><strong>Note:</strong> Please note the download file contains all year to date payment card transaction data by facility, by month.</p>
 </div>
 

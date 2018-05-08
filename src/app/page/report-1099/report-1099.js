@@ -30,6 +30,7 @@ require(["modernizr",
             accountDdnContainer: ".js-account-ddn",
             yearDdnContainer: ".js-year-ddn",
             qtrDdnContainer: ".js-qtr-ddn",
+            dnldStatusDdnContainer: ".js-download-status-ddn",
             reportSummaryContainer: ".js-report-summary",
             printBtn: "#printBtn"
         };
@@ -58,6 +59,7 @@ require(["modernizr",
             $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.accountDropDown));
             $(config.yearDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.yearDropDown));
             $(config.qtrDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.qtrDropDown));
+            $(config.dnldStatusDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.downloadStatusDropDown));
             $(config.dropDownCommon).selectpicker('refresh');
             enableMobileDefaultDropDown();
         };
@@ -71,6 +73,28 @@ require(["modernizr",
 
         var getTableColumns = function(){
             return [{
+                field: 'checkbox',
+                checkbox: true,
+                class: '',
+                formatter:function LinkFormatter(value, row, index){
+                    //return '<input type="hidden" name="type" value="'+ row.type + "@" + row.cbpInvoiceStatus +'">';
+                    return '<input type="hidden" name="type" value="">';
+                }
+            },{
+                field: 'status',
+                title: 'Status',
+                titleTooltip: 'Status',
+                class: 'text-nowrap text-center site-status',
+                formatter: function LinkFormatter(value, row, index) {
+                    var downloadReport;
+
+                    var downloaded = "success-icon",
+                    //downloadReport = "<span class='fa fa-download xs-pr-10 " + downloaded + "' data-invoiceId='" + row.invoiceId + "'>" + "</span>";
+                    downloadReport = "<span class='fa fa-download'></span>";
+                    return downloadReport;
+                }
+            },
+                {
                 field: 'site',
                 title: 'Site',
                 class: 'site-name',
@@ -122,7 +146,7 @@ require(["modernizr",
                 m3: '2,621,118.72',
                 yeartodate: '477,528.78'
             },{
-                site: '3017501 Redwood Oil Co. 7761 Old Redwood Highway',
+                site: '3017501 Redwood Oil Co. 7761 Old Redwood Highway Redwood Oil Co. 50 Professional CRT #100 Redwood Oil Co. 50 Professional CRT #100',
                 m1: '276,737.46',
                 m2: '159,986.59',
                 m3: '2,621,118.72',
@@ -152,6 +176,48 @@ require(["modernizr",
             });
         }
 
+        var populatingTableFooter = function(){
+            $('#tableFooter').bootstrapTable({
+                classes: 'table table-no-bordered',
+                striped: true,
+                iconsPrefix: 'fa',
+                responsive: true,
+                responsiveBreakPoint: 768,
+                parentContainer: ".js-bottom-detail",
+                responsiveClass: "bootstrap-table-cardview",
+                undefinedText: "",
+                cardView: true,
+                columns: [{
+                    field: 'total',
+                    title: 'Total',
+                    class: 'site-total',
+                }, {
+                    field: 'm1',
+                    title: 'January',
+                    class: 'text-right',
+                },{
+                    field: 'm2',
+                    title: 'February',
+                    class: 'text-right',
+                },{
+                    field: 'm3',
+                    title: 'March',
+                    class: 'text-right',
+                }, {
+                    field: 'yeartodate',
+                    title: 'Year To Date (USD)',
+                    class: 'text-right',
+                }],
+                data: [{
+                    site: 'Total',
+                    m1: '276,737.46',
+                    m2: '159,986.59',
+                    m3: '2,621,118.72',
+                    yeartodate: '477,528.78'
+                }]
+            });
+        }
+
         var bindEvents = function(){
             
             $(document).on('click', config.printBtn, function(e){
@@ -172,6 +238,7 @@ require(["modernizr",
             populateAccountDropdown();
             loadingInitialHbsTemplates();
             populatingTable(getTableColumns(), getTableData());
+            populatingTableFooter();
             bindEvents();
         };
 
