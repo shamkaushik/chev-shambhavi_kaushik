@@ -207,27 +207,27 @@ require(["modernizr",
             window.scrollTo(0,0);
         }
 
+        var enableSaveButton = function(){
+            var checkChanges = $(config.phyAttention).val() !== cbp.siteInfoPage.siteInfoResponse.mailPreferences.phyAddressAttention || $(config.altAttention).val() !== cbp.siteInfoPage.siteInfoResponse.mailPreferences.altAddressAttention ||$(config.phyCarrierPref).val()!==cbp.siteInfoPage.siteInfoResponse.phyCarrierPref.key || $(config.altCarrierPref).val()!==cbp.siteInfoPage.siteInfoResponse.altCarrierPref.key;
+            if(checkChanges)
+                $(config.saveBtn).removeAttr('disabled');
+            else
+                $(config.saveBtn).attr('disabled', 'disabled'); 
+        }
+
 
         var bindEvents = function(){
 
             var checkDdnChange =  config.phyDdn + "," + config.altDdn;
 
             $(document).on('change', checkDdnChange, function(event){
-                if($(config.phyCarrierPref).val()!==cbp.siteInfoPage.siteInfoResponse.phyCarrierPref.key || $(config.altCarrierPref).val()!==cbp.siteInfoPage.siteInfoResponse.altCarrierPref.key )
-                    $(config.saveBtn).removeAttr('disabled');
-                else
-                    if($(config.phyAttention).val() === cbp.siteInfoPage.siteInfoResponse.mailPreferences.phyAddressAttention && $(config.altAttention).val()=== cbp.siteInfoPage.siteInfoResponse.mailPreferences.altAddressAttention )
-                        $(config.saveBtn).attr('disabled', 'disabled');
+                enableSaveButton()
             });
 
             var checkInputChange = config.phyAttention + "," + config.altAttention;
 
             $(document).on('input', checkInputChange, function(event){
-                if($(config.phyAttention).val() !== cbp.siteInfoPage.siteInfoResponse.mailPreferences.phyAddressAttention || $(config.altAttention).val() !== cbp.siteInfoPage.siteInfoResponse.mailPreferences.altAddressAttention )
-                    $(config.saveBtn).removeAttr('disabled');
-                else
-                    if($(config.phyCarrierPref).val() === cbp.siteInfoPage.siteInfoResponse.phyCarrierPref.key && $(config.altCarrierPref).val() === cbp.siteInfoPage.siteInfoResponse.altCarrierPref.key )
-                        $(config.saveBtn).attr('disabled', 'disabled');
+                enableSaveButton();
             });
 
             $(document).on('click', config.searchButton, function(event){
