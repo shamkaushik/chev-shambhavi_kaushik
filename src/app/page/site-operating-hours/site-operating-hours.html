@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css' />
-    <link href='/assets/css/app.css' rel='stylesheet' type='text/css' />
+    <link href='/assets/css/app-na.css' rel='stylesheet' type='text/css' />
 </head>
 
 <body>
@@ -25,29 +25,29 @@
                 <div class='row xs-m-0 position-relative'>
                     <div class="overlay-wrapper">
                     </div>
-                    <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center'>
-                        <div class='search-content'>
-                            <span class='fa fa-sliders'></span>
-                        </div>
-                    </div>
-                    <div class='col-md-5 left-pane hidden-md search'>
-                        <div class='search-content'>
-                            <div class='sub-heading-thin hidden-sm hidden-xs'>
-                                search
-                                <span class='fa fa-close visible-md-inline'></span>
+                    <div class='col-md-24 col-lg-24 right-pane'>
+                        <div class="row dateAndDownloadContainer">
+                            <div class="col-xs-24 col-md-19">
+                                <span class="col-xs-24 sub-heading-thin xs-pt-15 xs-pl-15">
+                                    site operating hours summary
+                                </span>
+                                <div class="col-xs-24 xs-pt-5 xs-pl-15">
+                                    <strong>Date Range</strong> <br/>
+                                    <span id="dateRange-container">
+
+                                    </span>
+                                </div>
                             </div>
-                            <div class='sub-heading hidden-lg hidden-md toggle-search-mobile'>
-                                <span class='fa fa-sliders'></span> Search
-                                <span class='fa fa-chevron-down pull-right'></span>
-                            </div>
-                            <div class='search-form xs-mt-10 js-search-form'>
+                            <div class="col-md-4 col-xs-24 md-mt-40 md-ml-50 xs-mt-15 xs-ml-15 btn-downloadContainer">
+                                <button class="btn btn-primary xs-mr-10 xs-mb-15">
+                                    Download
+                                </button>
                             </div>
                         </div>
-                    </div>
-                    <div class='col-md-23 col-lg-19 right-pane'>
-                        <div class='top-summary js-siteoperating-summary'>
-                        </div>
-                        <div class='bottom-detail js-bottom-detail'>
+                        <div class="col-xs-24 xs-mt-15">
+                            <strong>Note:</strong>&nbsp; This report is provided to assist you in counseling discussions with your Station Managers and Retailers regarding hours of operation. The report reflects the time of the first and last credit card transactions for each
+                            station in your network, by day, for the prior week. A summary column lists the average number of hours each site was open daily for the week. This report will help you quickly identify stations running short hours. With the
+                            exception of car washes, or sites where not allowed by law, all Chevron and Texaco locations are encouraged to be open a minimum of 16 hours per day.
                         </div>
                     </div>
                 </div>
@@ -61,111 +61,10 @@
         <script type="text/javascript">
             var inASMSession = "false";
 
-            var siteOperatingResponse = {
-                "soldsiteTO": "All",
-                "summary": {
-                    site: "Site",
-                    soldTo: "SoldTo"
-                },
-                "siteOperatingSearchList": {
-                    "siteId": "test",
-                    "average": "test",
-                    "day1": "test",
-                    "day5": "test",
-                    "day2": "test",
-                    "site": "test",
-                    "day3": "test",
-                    "day4": "test",
-                    "day6": "test",
-                    "day7": "test"
-                },
-
-                "siteOperatingDataList": [{
-                    "siteId": "936710253",
-                    "average": "12.41",
-                    "day1": "08:05",
-                    "day2": "14.33",
-                    "day3": "12.27",
-                    "day4": "15.23",
-                    "day5": "15.23",
-                    "site": "3016754 Redwood Oil Co. 50 Professional CRT #100",
-                    "day6": "15.23",
-                    "day7": "12.41"
-                },
-                {
-                    "siteId": "936710254",
-                    "average": "12.12",
-                    "day1": "09:24",
-                    "day2": "08:27",
-                    "day3": "12.27",
-                    "day4": "15.23",
-                    "day5": "15.23",
-                    "site": "3016754 Redwood Oil Co. 50 Professional CRT #100",
-                    "day6": "15.23",
-                    "day7": "12.41"
-                },
-                {
-                    "siteId": "936710255",
-                    "average": "12.10",
-                    "day1": "08:05",
-                    "day2": "14.33",
-                    "day3": "12.27",
-                    "day4": "15.23",
-                    "day5": "15.23",
-                    "site": "3016754 Redwood Oil Co. 50 Professional CRT #100",
-                    "day6": "15.23",
-                    "day7": "12.41"
-                }],
-            };
-
             var maxResults = 500;
-
-            var accountDropDown = [
-                {
-                    "uid": "0003697",
-                    "displayName": "0003697 - Star Petroleum Refining Public, Company Limited",
-                },
-                {
-                    "uid": "0000551",
-                    "displayName": "0000551 - L5, 4sh",
-                },
-                {
-                    "uid": "0000552",
-                    "displayName": "0000552 - L6, 5sh",
-                }
-            ];
-
-            var locationDropDown = [{
-                "uid": "7933464",
-                "displayName": "7933464,DISMACOR S.A. BARBOSA, K 10 NRO 20  11, BARBOSA, Colombia",
-            }, {
-                "uid": "3436466",
-                "displayName": "3436466,DISMACOR S.A. BARRANQUILLA, CL 45 NRO 33 - 40, BARRANQUILLA, Colombia",
-            }, {
-                "uid": "8213629",
-                "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia",
-            }];
             var cbp = {
                 "staticBasePath": "/",
                 "siteOperatingPage": {
-                    "locationDropDown": {
-                        "options": [],
-                        "label": "Sold To",
-                        // "title": "Select Location",
-                        "title": "",
-                        "name": "locationSelectDdn",
-                        "showOptions": 10,
-                        "singleOption": true,
-                    },
-                    "siteDropDown": {
-                        "options": [],
-                        "label": "Site",
-                        //"title": "Select Location",
-                        "title": "",
-                        "name": "siteSelectDdn",
-                        "showOptions": 10,
-                        "singleOption": false
-                    },
                     "globalUrl": {
                         "siteOperatingPostURL": "/assets/json/siteOperating.json",
                         "siteURL": "/assets/json/siteResponse.json",
@@ -176,41 +75,9 @@
                         "siteOperatingDownloadURL":  "sf/siteOperating/downloadsiteOperating",
                     },
                     "globalVars": {
-                        "searchTxt": "Search",
-                        "allTb": "All",
-                        "siteOperatingHours": "site operating hours",
-                        "dateRangeVal": "3/18/18 - 3/24/18",
-                        "avgDailyHoursVal": "06:59",
-                        "soldTo": "Sold To",
-                        "sitetb": "Site",
-                        "dateRange": "Date Range",
-                        "avgDailyHours": "Avg Daily Hours of Operation",
-                        "download": "Download",
-                        "print": "Print",
-                        "sortBy": "Sort by",
-                        "averageSortAsc": "Average, Ascending",
-                        "averageSortDesc": "Average, Descending",
-                        "siteSortAsc": "Site, Ascending",
-                        "siteSortDesc": "Site, Descending",
-                        "day1tb" : "3/18/18",
-                        "day2tb" : "3/19/18",
-                        "day3tb" : "3/20/18",
-                        "day4tb" : "3/21/18",
-                        "day5tb" : "3/22/18",
-                        "day6tb" : "3/23/18",
-                        "day7db" : "3/24/18",
-                        "averagetb" : "Average",
-                        "tableLocales": {
-                            "loadingMessage": "Loading, please wait...",
-                            "recordsPerPage": "{0} rows per page",
-                            "showingRows": "Showing {0} to {1} of {2} rows",
-                            "search": "Search",
-                            "noMatches": "No site operating hours found. Please change your search",
-                            "paginationSwitch": "Hide/Show pagination",
-                            "refresh": "Refresh",
-                            "toggle": "Toggle",
-                            "columns": "Columns",
-                            "allRows": "All"
+                        "formANDToRange" : "",
+                        "dateRange" : {
+                            "format" : "MM/DD/YYYY"
                         }
                     }
                 }
