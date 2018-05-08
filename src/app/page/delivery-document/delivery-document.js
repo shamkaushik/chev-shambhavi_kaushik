@@ -1,28 +1,3 @@
-var locationDropDownOptions = [];
-var selectedDelDocs = [];
-var selectedDelDocstatus = [];
-var startDate, endDate, pastSelectableDate = 6;
-//pastSelectableDate should be coming from backend.. 6 is only a placeholder here to make the logic work.
-
-function enableMobileDefaultDropDown() {
-    //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
-        $('.selectpicker').selectpicker('mobile');
-    }
-};
-
-function callInvoicePDFLink(invoiceId) {
-    $('#invoicePDFForm #invoiceId').val(invoiceId);
-    $('#invoicePDFForm #invoicePrint').val('false');
-    //$('#invoicePDFForm').submit();
-}
-
-function callDelDocsPDFLink(delDocId) {
-    $('#delDocPDFForm #delDocId').val(delDocId);
-    $('#delDocPDFForm #delDocPrint').val('false');
-    //$('#invoicePDFForm').submit();
-}
-
 require(["modernizr",
     "jquery",
     "bootstrap",
@@ -82,6 +57,11 @@ require(["modernizr",
             printIcon: ".iconsdelDocPrint"
         };
 
+        var locationDropDownOptions = [];
+        var selectedDelDocs = [];
+        var selectedDelDocstatus = [];
+        var startDate, endDate;
+    
         var init = function () {
             populatingSoldTo();
         	populatingShipTo(locationDropDownOptions[0].key, "all", true);
@@ -92,6 +72,26 @@ require(["modernizr",
             bindEvents();
             enableMobileDefaultDropDown();
         };
+
+       
+        var enableMobileDefaultDropDown = function() {
+            //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                $('.selectpicker').selectpicker('mobile');
+            }
+        };
+
+        var callInvoicePDFLink = function(invoiceId) {
+            $('#invoicePDFForm #invoiceId').val(invoiceId);
+            $('#invoicePDFForm #invoicePrint').val('false');
+            //$('#invoicePDFForm').submit();
+        }
+
+        var callDelDocsPDFLink = function(delDocId) {
+            $('#delDocPDFForm #delDocId').val(delDocId);
+            $('#delDocPDFForm #delDocPrint').val('false');
+            //$('#delDocPDFForm').submit();
+        }
         
         var downloadBtnSelected = function() {
             $('#delDocForm #selectedDelDocs').val(selectedDelDocs.toString());
@@ -816,7 +816,7 @@ require(["modernizr",
         $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
         
         leftPaneExpandCollapse.init();
-        cbp.delDocPage.showSoldTo = true;
+
         cbp.delDocPage.delDocResponse = delDocResponse;
         if (delDocResponse.resultCount === undefined || delDocResponse.resultCount === null) {
             cbp.delDocPage.delDocResponse.resultCount = 0;
@@ -835,7 +835,6 @@ require(["modernizr",
         cbp.delDocPage.globalVars.summaryfromAndToVar = cbp.delDocPage.globalVars.summaryfromAndTo.replace("{0}", cbp.delDocPage.dateRange.startDate.format(cbp.delDocPage.dateRange.format)).replace("{1}", cbp.delDocPage.dateRange.endDate.format(cbp.delDocPage.dateRange.format));
 
         delDocPage.init();
-        enableMobileDefaultDropDown();
 
     });
 
