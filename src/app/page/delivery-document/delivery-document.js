@@ -25,7 +25,7 @@ require(["modernizr",
 
         var config = {
             locationDdnContainer: ".js-location-ddn",
-            shipToDdnContainer: ".js-shipTo-ddn",
+            accountDdnContainer: ".js-account-ddn",
             delDocSummaryContainer: ".js-delDoc-summary",
             delDocsTypeContainer: ".js-delDocsType-ddn",
             downloadStatusContainer: ".js-downloadStatus-ddn",
@@ -44,7 +44,7 @@ require(["modernizr",
             printBtn: ".js-printBtn",
             // allCheckBtn: ".js-allCheckBtn",
             locationDdn: "#locationSelectDdn",
-            shipToDdn: "#shipToSelectDdn",
+            accountDdn: "#accountSelectDdn",
             downloadStatusDdn: "#downloadStatus",
             printStatusDdn: "#printStatus",
             sortByDdn: "#sortByDdn",
@@ -64,7 +64,7 @@ require(["modernizr",
     
         var init = function () {
             populatingSoldTo();
-        	populatingShipTo(locationDropDownOptions[0].key, "all", true);
+        	populatingAccount(locationDropDownOptions[0].key, "all", true);
             loadingInitialHbsTemplates();
             
             populatingTable(cbp.delDocPage.delDocResponse, cbp.delDocPage.delDocResponse.delDocColumnMapping );
@@ -127,7 +127,7 @@ require(["modernizr",
             //Appending handlebar templates to HTML
             $(config.searchFormContainer).html(compiledsearchForm(cbp.delDocPage));
             $(config.locationDdnContainer).html(compiledDefaultDdn(cbp.delDocPage.locationDropDown));
-            $(config.shipToDdnContainer).html(compiledDefaultDdn(cbp.delDocPage.shipToDropDown));
+            $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.delDocPage.accountDropDown));
             $(config.downloadStatusContainer).html(compiledDefaultDdn(cbp.delDocPage.downloadStatusDropdown));
             $(config.delDocsTypeContainer).html(compiledDefaultDdn(cbp.delDocPage.delDocTypeDropdown));
             $(config.printStatusContainer).html(compiledDefaultDdn(cbp.delDocPage.printStatusDropdown));
@@ -161,7 +161,7 @@ require(["modernizr",
         var setSummaryValues = function(){
             cbp.delDocPage.summary = {};
             cbp.delDocPage.summary.soldTo = $('.js-location-ddn .btn-group .dropdown-toggle').text();
-            cbp.delDocPage.summary.shipTo = $('.js-shipTo-ddn .btn-group .dropdown-toggle').text();
+            cbp.delDocPage.summary.account = $('.js-account-ddn .btn-group .dropdown-toggle').text();
             cbp.delDocPage.summary.dateRange = $('.js-search-pickDateRange').find('span').text();
         };
 
@@ -214,7 +214,7 @@ require(["modernizr",
             
             var postData = {};
             
-            postData.shipTo= $(config.shipToDdn).val();
+            postData.account= $(config.accountDdn).val();
             postData.soldTo = $(config.locationDdn).val();            
             
             if($(config.billOfLading).val()!= "")
@@ -293,11 +293,11 @@ require(["modernizr",
                 key: "delDocDate-asc",
                 value: cbp.delDocPage.globalVars.delDocDateDesc
         }, { 
-                key: "shipTo-asc",
-                value: cbp.delDocPage.globalVars.shipToSortAsc
+                key: "account-asc",
+                value: cbp.delDocPage.globalVars.accountSortAsc
         }, {
-                key: "shipTo-desc",
-                value: cbp.delDocPage.globalVars.shipToSortDesc
+                key: "account-desc",
+                value: cbp.delDocPage.globalVars.accountSortDesc
         }, {
                 key: "invoiceId-asc",
                 value: cbp.delDocPage.globalVars.invoiceIdAsc
@@ -376,43 +376,43 @@ require(["modernizr",
             cbp.delDocPage.locationDropDown.searchable = true;
         };
 
-        var populatingShipTo = function(soldToId, shipToId, pageLoadCheck) {
+        var populatingAccount = function(soldToId, accountId, pageLoadCheck) {
             $(config.displaySpinner).show();
             
             function successCallback(data) {
                 
                 $(config.displaySpinner).hide();
                 
-                var shipToOptions = [];
+                var accountOptions = [];
                 var obj = {};
                 
-                var shipTo = data;
+                var account = data;
                
-                shipToOptions = shipTo.map(function(val,index){
+                accountOptions = account.map(function(val,index){
                     return {
                         key : val['uid'],
                         value : val['displayName']
                     };
                 });
                 
-                if(shipTo.length == 1){
-                    cbp.delDocPage.shipToDropDown.singleOption = true;
-                }else if(shipTo.length >= 1){
+                if(account.length == 1){
+                    cbp.delDocPage.accountDropDown.singleOption = true;
+                }else if(account.length >= 1){
                     obj["key"] = "all";
                     obj["value"] = cbp.delDocPage.globalVars.allTb;
-                    shipToOptions.unshift(obj);
+                    accountOptions.unshift(obj);
                 }
 
                
-                cbp.delDocPage.shipToDropDown["options"] = shipToOptions;
-                cbp.delDocPage.shipToDropDown.searchable = true;
+                cbp.delDocPage.accountDropDown["options"] = accountOptions;
+                cbp.delDocPage.accountDropDown.searchable = true;
                 
-                $(config.shipToDdnContainer).html(compiledDefaultDdn(cbp.delDocPage.shipToDropDown));
+                $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.delDocPage.accountDropDown));
 
-                $(config.shipToDdn).selectpicker('refresh');
+                $(config.accountDdn).selectpicker('refresh');
                 
-                if(cbp.delDocPage.shipToDropDown["options"].length > 1){
-                    $(config.shipToDdn).val(shipToId).selectpicker('refresh');
+                if(cbp.delDocPage.accountDropDown["options"].length > 1){
+                    $(config.accountDdn).val(accountId).selectpicker('refresh');
                 }
                 if(pageLoadCheck === true){
                     setSummaryValues();
@@ -433,7 +433,7 @@ require(["modernizr",
                     'soldToNumber' : soldToId                   
                 },
                 dataType:"json",
-                url: cbp.delDocPage.globalUrl.shipToURL,
+                url: cbp.delDocPage.globalUrl.accountURL,
                 success: successCallback,
                 error: errorCallback
             });
@@ -466,10 +466,10 @@ require(["modernizr",
                 } else {
                     $(config.searchButton).attr("disabled", "disabled");
                 }
-                populatingShipTo($(config.locationDdn).val(), "all");
+                populatingAccount($(config.locationDdn).val(), "all");
           });
 
-            $(document).on('change', config.shipToDdn, function(e) {
+            $(document).on('change', config.accountDdn, function(e) {
                  if ($(this).val() !== "") {
                      $(config.searchButton).removeAttr("disabled");
                  } else {
@@ -577,9 +577,9 @@ require(["modernizr",
                                 return downloadReport + printReport;
                             }
                         }, {
-                            field: 'shipTo',
-                            title: cbp.delDocPage.globalVars.shipTo,
-                            titleTooltip: cbp.delDocPage.globalVars.shipTo,
+                            field: 'account',
+                            title: cbp.delDocPage.globalVars.account,
+                            titleTooltip: cbp.delDocPage.globalVars.account,
                             width: "40%",
                             sortable: true
                         }, {
@@ -658,7 +658,7 @@ require(["modernizr",
             data[columnsList.field] = columnsList;
             return data;
             }, {});
-            var orderKey = ["checkbox", "status","shipTo", "delDocDate","billOfLading", "delDocId","invoiceId","total"]
+            var orderKey = ["checkbox", "status","account", "delDocDate","billOfLading", "delDocId","invoiceId","total"]
           
             var requestedCol = [];
             for(var i = 0; i< orderKey.length; i++){

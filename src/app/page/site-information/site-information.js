@@ -50,7 +50,7 @@ require(["modernizr",
 
         var init = function () {
             populatingAccount();
-        	populatingSite(accountDdnOptions[0].key, true);
+        	populatingSite(cbp.siteInfoPage.siteInfoResponse.accountDisplay.uid, true);
             loadingInitialHbsTemplates();
             if(cbp.siteInfoPage.accountDropDown["options"].length > 1){
                 $(config.accountDdn).val(cbp.siteInfoPage.siteInfoResponse.accountDisplay.uid).selectpicker('refresh');
