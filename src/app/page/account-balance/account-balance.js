@@ -5,12 +5,10 @@ require(["modernizr",
     "bootstrap-table",
     "bootstrap-dialog",
     "text!app/page/account-balance/productSummary.hbs",
-    // "text!app/page/account-balance/summaryButtons.hbs",
     "text!app/page/account-balance/topSummary.hbs"
 ], function(modernizr, $, bootstrap, Handlebars, bootstrapTable, bootstrapDialog, _productSummaryHBS, _topSummaryHBS) {
     
     var compiledproductSummary = Handlebars.compile(_productSummaryHBS);
-    // var compiledsummaryButtons = Handlebars.compile(_summaryButtonsHBS);
     var compiledtopSummary = Handlebars.compile(_topSummaryHBS);
     
     var accountBalancePage = (function(){
@@ -22,7 +20,6 @@ require(["modernizr",
         var init = function(){        	
             loadingInitialHbsTemplates();
             populatingTable(cbp.accountBalancePage.CBPOrderForm);
-            bindEvents();
         }
 
         var loadingInitialHbsTemplates = function() {
@@ -36,52 +33,6 @@ require(["modernizr",
             $(config.productSummary).html(compiledproductSummary(cbp.accountBalancePage));
            
         }
-        
-    
-        
-        var showWarningMessage = function(message){ 
-            $('.alert-warning').removeClass("hide");                  
-            $('.alert-warning').append('<span class="alert-message">'+message+'</span>');        
-        }
-        
-        var showInfoMessage = function(message){ 
-            $('.alert-info').removeClass("hide");                      
-            $('.alert-info').append('<span class="alert-message">'+message+'</span>');
-        }
-        
-        var showErrorMessage = function(message){
-        	$('.alert-danger').removeClass("hide"); 
-        	$('.alert-danger').append('<span class="alert-message">'+message+'</span>'); 
-        }
-
-        
-        
-        var bindEvents = function(){
-        	$('#submitOnSummaryBtn').on('click', function(){
-        		$(config.displaySpinner).show()
-            	console.log(cbp.accountBalancePage.CBPOrderForm);
-            	// Use raw value for sending to backend as commas cause issues with the JSON marshalling
-            	if(cbp.accountBalancePage.CBPOrderForm.isComma){
-            		 cbp.accountBalancePage.rawTotal = cbp.accountBalancePage.CBPOrderForm.totalPrice.replace(/,/g,"");
-            	}
-            	else{
-            		cbp.accountBalancePage.rawTotal = cbp.accountBalancePage.CBPOrderForm.totalPrice.split('.').join('');
-            	}
-            	cbp.accountBalancePage.CBPOrderForm.totalPrice = cbp.accountBalancePage.rawTotal;
-            	
-            	var fmdata = JSON.stringify(cbp.accountBalancePage.CBPOrderForm);
-            	console.log('FmData', fmdata);
-            	$("#CBPOrderForm").attr('action', cbp.accountBalancePage.globalUrl.submitOrderURL);
-                $('#CBPOrderForm #orderFormData').val(fmdata);
-                $('#CBPOrderForm').submit();
-            });
-
-        	$(document).on("reset-view.bs.table, toggle.bs.table", "#table", function(event) {
-                event.stopPropagation();
-            });        	
-        	
-        }
-        	
                 var populatingTable = function(data){
                     $('#table').bootstrapTable({
                         classes: 'table table-no-bordered',
@@ -164,7 +115,6 @@ require(["modernizr",
         $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
         
         cbp.accountBalancePage.CBPOrderForm = CBPOrderForm;
-        cbp.accountBalancePage.isASM = isASM;
         accountBalancePage.init();
     });
 
