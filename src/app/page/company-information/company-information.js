@@ -190,8 +190,6 @@ require(["modernizr",
             data.altAttention = $(config.altAttention).val();
             data.altDdn = $(config.altCarrierPref).val();
 
-            console.log("data to send", data);
-
             $.when(triggerAjaxRequest(data, "GET", cbp.cmpnyInfoPage.globalUrl.saveURL)).then(function(result){
                 if(typeof result === 'undefined' || result === null){
                     return;
