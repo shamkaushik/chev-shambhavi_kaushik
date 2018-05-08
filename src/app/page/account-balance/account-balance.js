@@ -10,7 +10,6 @@ require(["modernizr",
     
     var compiledproductSummary = Handlebars.compile(_productSummaryHBS);
     var compiledtopSummary = Handlebars.compile(_topSummaryHBS);
-    
     var accountBalancePage = (function(){
         var config = {
             displaySpinner: ".overlay-wrapper",
@@ -21,61 +20,53 @@ require(["modernizr",
             loadingInitialHbsTemplates();
             populatingTable(cbp.accountBalancePage.CBPOrderForm);
         }
-
         var loadingInitialHbsTemplates = function() {
             loadingDynamicHbsTemplates();
             $(config.displaySpinner).hide();
         };
-
-        var loadingDynamicHbsTemplates = function(){
-            
+       var loadingDynamicHbsTemplates = function(){
             $(config.topSummary).html(compiledtopSummary(cbp.accountBalancePage));
             $(config.productSummary).html(compiledproductSummary(cbp.accountBalancePage));
-           
-        }
-                var populatingTable = function(data){
-                    $('#table').bootstrapTable({
-                        classes: 'table table-no-bordered',
-                        striped: true,
-                        sortName: 'productCode',
-                        sortOrder: 'asc',
-                        iconsPrefix: 'fa',
-                        uniqueId: 'productCode',
-                        sortable: false,
-                        responsive: false,
-                       //  responsiveBreakPoint: 767,
-                       //  responsiveClass: "bootstrap-table-cardview",
-                       //  cardView: true,
-                        parentContainer: ".js-bottom-detail",
-                        undefinedText: "",
-                        showFooter: true,
-                         columns: [{
-                            field: 'account',
-                            title: cbp.accountBalancePage.globalVars.account,
-                            titleTooltip: cbp.accountBalancePage.globalVars.account,
-                            class: 'text-wrap',
-                            width: '40%'
-                            
-                        }, 
+          }
+        var populatingTable = function(data){
+                $('#table').bootstrapTable({
+                    classes: 'table table-no-bordered',
+                    striped: true,
+                    sortName: 'productCode',
+                    sortOrder: 'asc',
+                    iconsPrefix: 'fa',
+                    uniqueId: 'productCode',
+                    sortable: false,
+                    responsive: false,
+                    parentContainer: ".js-bottom-detail",
+                    undefinedText: "",
+                    showFooter: true,
+                    columns: [{
+                        field: 'account',
+                        title: cbp.accountBalancePage.globalVars.account,
+                        titleTooltip: cbp.accountBalancePage.globalVars.account,
+                        class: 'text-wrap',
+                        width: '40%'
+                    },
                         {
-                            field: 'accountBalance',
-                            title: cbp.accountBalancePage.globalVars.accountBalance + ((cbp.accountBalancePage.CBPOrderForm.currency === "" || cbp.accountBalancePage.CBPOrderForm.currency == null) ? '' : ' (' + cbp.accountBalancePage.CBPOrderForm.currency + ')'),
-                            titleTooltip: cbp.accountBalancePage.globalVars.accountBalance,
-                            class:'text-wrap accountBalance',
-                            align: 'right',
-                            width:'30%' 
-                        },
+                        field: 'accountBalance',
+                        title: cbp.accountBalancePage.globalVars.accountBalance + ((cbp.accountBalancePage.CBPOrderForm.currency === "" || cbp.accountBalancePage.CBPOrderForm.currency == null) ? '' : ' (' + cbp.accountBalancePage.CBPOrderForm.currency + ')'),
+                        titleTooltip: cbp.accountBalancePage.globalVars.accountBalance,
+                        class:'text-wrap accountBalance',
+                        align: 'right',
+                        width:'30%' 
+                    },
                         {
                         field: '',
                         class:'hidden-xs',
                         width:'30%'
-                        }],
+                    }],
                         data: data.accountBalanceDataList
-             });
-         };
-     return {
-            init: init
-        };
+                        });
+                    };
+                return {
+                        init: init
+                    };
     })();
     
     $(document).ready(function() {
@@ -111,11 +102,8 @@ require(["modernizr",
                 return cbp.accountBalancePage.globalVars.tableLocales.allRows;
             }
         };
-
         $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
-        
         cbp.accountBalancePage.CBPOrderForm = CBPOrderForm;
         accountBalancePage.init();
     });
-
 });
