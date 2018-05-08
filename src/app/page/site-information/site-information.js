@@ -239,7 +239,7 @@ require(["modernizr",
             });
 
             $(document).on('click', function(){
-                if($('.alertMessages').hasClass('alert'))
+                if($('.alertMessages').children().hasClass('alert'))
                     $('.alertMessages').empty();                
             });
 
