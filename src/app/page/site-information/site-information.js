@@ -4,7 +4,6 @@ require(["modernizr",
     "handlebars",
     "moment",
     "calendar",
-    "common",
     "bootstrap-select",
     "bootstrap-table",
     "text!app/components/calendar/_calendar.hbs",
@@ -13,7 +12,7 @@ require(["modernizr",
     "text!app/page/site-information/siteInfoSummary.hbs",
     "text!app/page/site-information/bottomDetail.hbs"
 
-], function (modernizr, $, bootstrap, Handlebars, moment, calendar, common, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _siteInfoSummaryHBS, _bottomDetailHBS) {
+], function (modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _siteInfoSummaryHBS, _bottomDetailHBS) {
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
@@ -85,21 +84,21 @@ require(["modernizr",
             $(config.altCarrierPref).val(cbp.siteInfoPage.siteInfoResponse.altCarrierPref.key).selectpicker('refresh');
         };
 
-        // var triggerAjaxRequest = function(data,type,url){   
-        //     function successCallback(res){
-        //         return res;
-        //     }
-        //     function errorCallback(err){   //taking this function from common.js
-        //         return err;
-        //     }
-        //     return $.ajax({
-        //         type: type,
-        //         data: data,
-        //         url: url,
-        //         success: successCallback,
-        //         error: errorCallback
-        //     });
-        // };
+        var triggerAjaxRequest = function(data,type,url){   
+            function successCallback(res){
+                return res;
+            }
+            function errorCallback(err){
+                return err;
+            }
+            return $.ajax({
+                type: type,
+                data: data,
+                url: url,
+                success: successCallback,
+                error: errorCallback
+            });
+        };
 
         var populatingAccount = function(){
             accountDdnOptions = accountDropDown.map(function(val,index){
