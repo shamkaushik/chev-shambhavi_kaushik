@@ -84,7 +84,7 @@
                     "delDocDate": "dfhj",
                     "total": "yfleuir",
                     "checkbox": "ejuje",
-                    "shipTo": "test",
+                    "account": "test",
                     "billOfLading": "rfhuf",
                     "status": "dbshj",
                     "invoiceId":"tyrui"
@@ -97,7 +97,7 @@
                     "delDocTime":"14:32:40",
                     "total": 8919237.0,
                     "displayTotal": "8.919.237",
-                    "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
+                    "account": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
                     "billOfLading": 75123,
                     "salesOrderType": "ZOOR",
                     "downloaded": true,
@@ -110,7 +110,7 @@
                     "delDocTime":"14:32:40",
                     "total": 36928702,
                     "displayTotal": "36.928.702",
-                    "shipTo": "7933464, DISMACOR S.A. BARBOSA, K 10 NRO 20  11, Colombia",
+                    "account": "7933464, DISMACOR S.A. BARBOSA, K 10 NRO 20  11, Colombia",
                     "billOfLading": 75123,
                     "downloaded": true,
                     "printed": false,
@@ -123,7 +123,7 @@
                     "delDocTime":"14:32:40",
                     "total": 12621100,
                     "displayTotal": "12.621.100",
-                    "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
+                    "account": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
                     "billOfLading": 75123,
                     "downloaded": true,
                     "printed": false,
@@ -137,7 +137,7 @@
                     "total": 5655000,
                     "billOfLading": 75124,
                     "displayTotal": "5.655.000",
-                    "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
+                    "account": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
                     "downloaded": false,
                     "printed": false,
                     "salesOrderType": "ZC"
@@ -149,7 +149,7 @@
 
             var maxResults = 500;
 
-            var shiptoListOnLoad = [{
+            var accountListOnLoad = [{
                 "uid": "7903258",
                 "displayName": "7903258 - Embotelladora Central S.A, 24 Calle 6-01 Zona 11"
             }, {
@@ -215,12 +215,12 @@
                         "showOptions": 10,
                         "singleOption": true
                     },
-                    "shipToDropDown": {
+                    "accountDropDown": {
                         "options": [],
-                        "label": "Ship To",
+                        "label": "Account",
                         //"title": "Select Location",
                         "title": "",
-                        "name": "shipToSelectDdn",
+                        "name": "accountSelectDdn",
                         "showOptions": 10,
                         "singleOption": false
                     },
@@ -255,11 +255,11 @@
                     },
                     "globalUrl": {
                         "searchURL": "/assets/json/delDoc.json",
-                        "shipToURL": "/assets/json/shipToResponse.json",
+                        "accountURL": "/assets/json/accountResponse.json",
                         "method": "GET",
                     },
                     "globalVars": {
-                        "shipTo": "Ship To",
+                        "account": "Account",
                         "searchTxt": "Search",
                         "allTb": "All",
                         "billOfLading": "Bill of Lading #",
@@ -280,8 +280,8 @@
                         "delDocDate":"Delivery Date",
                         "delDocDateAsc": "Delivery Date, Newest to Oldest",
                         "delDocDateDesc": "Delivery Date, Oldest to Newest",
-                        "shipToSortAsc": "Ship To, Ascending",
-                        "shipToSortDesc": "Ship To, Descending",
+                        "accountSortAsc": "Account, Ascending",
+                        "accountSortDesc": "Account, Descending",
                         "invoiceIdAsc": "Invoice #, Ascending",
                         "invoiceIdDesc": "Invoice #, Descending",
                         "billOfLadingAsc": "Bill of Lading #, Ascending",
@@ -291,7 +291,7 @@
                         "totalAsc": "Total, Ascending",
                         "totalDesc": "Total, Descending",
                         "soldTo": "Sold To",
-                        "shipTo": "Ship To",
+                        "account": "Account",
                         "noMatches": "No delDocs found. Please change your search",
                         "noMatchesMaxResults": maxResultText,
                         "selectDdn": {
