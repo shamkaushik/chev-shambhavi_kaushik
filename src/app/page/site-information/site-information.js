@@ -4,7 +4,6 @@ require(["modernizr",
     "handlebars",
     "moment",
     "calendar",
-    "common",
     "bootstrap-select",
     "bootstrap-table",
     "text!app/components/calendar/_calendar.hbs",
@@ -13,7 +12,7 @@ require(["modernizr",
     "text!app/page/site-information/siteInfoSummary.hbs",
     "text!app/page/site-information/bottomDetail.hbs"
 
-], function (modernizr, $, bootstrap, Handlebars, moment, calendar, common, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _siteInfoSummaryHBS, _bottomDetailHBS) {
+], function (modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _siteInfoSummaryHBS, _bottomDetailHBS) {
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
@@ -85,21 +84,21 @@ require(["modernizr",
             $(config.altCarrierPref).val(cbp.siteInfoPage.siteInfoResponse.altCarrierPref.key).selectpicker('refresh');
         };
 
-        // var triggerAjaxRequest = function(data,type,url){   
-        //     function successCallback(res){
-        //         return res;
-        //     }
-        //     function errorCallback(err){   //taking this function from common.js
-        //         return err;
-        //     }
-        //     return $.ajax({
-        //         type: type,
-        //         data: data,
-        //         url: url,
-        //         success: successCallback,
-        //         error: errorCallback
-        //     });
-        // };
+        var triggerAjaxRequest = function(data,type,url){   
+            function successCallback(res){
+                return res;
+            }
+            function errorCallback(err){
+                return err;
+            }
+            return $.ajax({
+                type: type,
+                data: data,
+                url: url,
+                success: successCallback,
+                error: errorCallback
+            });
+        };
 
         var populatingAccount = function(){
             accountDdnOptions = accountDropDown.map(function(val,index){
@@ -207,27 +206,27 @@ require(["modernizr",
             window.scrollTo(0,0);
         }
 
+        var enableSaveButton = function(){
+            var checkChanges = $(config.phyAttention).val() !== cbp.siteInfoPage.siteInfoResponse.mailPreferences.phyAddressAttention || $(config.altAttention).val() !== cbp.siteInfoPage.siteInfoResponse.mailPreferences.altAddressAttention ||$(config.phyCarrierPref).val()!==cbp.siteInfoPage.siteInfoResponse.phyCarrierPref.key || $(config.altCarrierPref).val()!==cbp.siteInfoPage.siteInfoResponse.altCarrierPref.key;
+            if(checkChanges)
+                $(config.saveBtn).removeAttr('disabled');
+            else
+                $(config.saveBtn).attr('disabled', 'disabled'); 
+        }
+
 
         var bindEvents = function(){
 
             var checkDdnChange =  config.phyDdn + "," + config.altDdn;
 
             $(document).on('change', checkDdnChange, function(event){
-                if($(config.phyCarrierPref).val()!==cbp.siteInfoPage.siteInfoResponse.phyCarrierPref.key || $(config.altCarrierPref).val()!==cbp.siteInfoPage.siteInfoResponse.altCarrierPref.key )
-                    $(config.saveBtn).removeAttr('disabled');
-                else
-                    if($(config.phyAttention).val() === cbp.siteInfoPage.siteInfoResponse.mailPreferences.phyAddressAttention && $(config.altAttention).val()=== cbp.siteInfoPage.siteInfoResponse.mailPreferences.altAddressAttention )
-                        $(config.saveBtn).attr('disabled', 'disabled');
+                enableSaveButton()
             });
 
             var checkInputChange = config.phyAttention + "," + config.altAttention;
 
             $(document).on('input', checkInputChange, function(event){
-                if($(config.phyAttention).val() !== cbp.siteInfoPage.siteInfoResponse.mailPreferences.phyAddressAttention || $(config.altAttention).val() !== cbp.siteInfoPage.siteInfoResponse.mailPreferences.altAddressAttention )
-                    $(config.saveBtn).removeAttr('disabled');
-                else
-                    if($(config.phyCarrierPref).val() === cbp.siteInfoPage.siteInfoResponse.phyCarrierPref.key && $(config.altCarrierPref).val() === cbp.siteInfoPage.siteInfoResponse.altCarrierPref.key )
-                        $(config.saveBtn).attr('disabled', 'disabled');
+                enableSaveButton();
             });
 
             $(document).on('click', config.searchButton, function(event){

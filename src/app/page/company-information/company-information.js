@@ -4,7 +4,6 @@ require(["modernizr",
     "handlebars",
     "moment",
     "calendar",
-    "common",
     "bootstrap-select",
     "bootstrap-table",
     "text!app/components/calendar/_calendar.hbs",
@@ -13,7 +12,7 @@ require(["modernizr",
     "text!app/page/company-information/cmpnyInfoSummary.hbs",
     "text!app/page/company-information/bottomDetail.hbs"
 
-], function (modernizr, $, bootstrap, Handlebars, moment, calendar, common, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _cmpnyInfoSummaryHBS, _bottomDetailHBS) {
+], function (modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _cmpnyInfoSummaryHBS, _bottomDetailHBS) {
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
@@ -98,10 +97,16 @@ require(["modernizr",
             }
             else{
                 $(config.reasonChangeContainer).addClass('hide');
-                var checkChanges = $(config.phyAttention).val() !== cbp.cmpnyInfoPage.cmpnyInfoResponse.mailPreferences.phyAddressAttention || $(config.altAttention).val() !== cbp.cmpnyInfoPage.cmpnyInfoResponse.mailPreferences.altAddressAttention ||$(config.phyCarrierPref).val()!==cbp.cmpnyInfoPage.cmpnyInfoResponse.phyCarrierPref.key || $(config.altCarrierPref).val()!==cbp.cmpnyInfoPage.cmpnyInfoResponse.altCarrierPref.key;
-                if(checkChanges)
-                    $(config.saveBtn).removeAttr('disabled');
+                enableSaveButton();
             }
+        }
+
+        var enableSaveButton = function(){
+            var checkChanges = $(config.phyAttention).val() !== cbp.cmpnyInfoPage.cmpnyInfoResponse.mailPreferences.phyAddressAttention || $(config.altAttention).val() !== cbp.cmpnyInfoPage.cmpnyInfoResponse.mailPreferences.altAddressAttention ||$(config.phyCarrierPref).val()!==cbp.cmpnyInfoPage.cmpnyInfoResponse.phyCarrierPref.key || $(config.altCarrierPref).val()!==cbp.cmpnyInfoPage.cmpnyInfoResponse.altCarrierPref.key;
+            if(checkChanges)
+                $(config.saveBtn).removeAttr('disabled');
+            else if( $(config.reasonChangeContainer).hasClass('hide') && $(config.reasonChangeInput).val()==='')
+                $(config.saveBtn).attr('disabled', 'disabled'); 
         }
 
         var populatingCalendarComponent = function () {
@@ -132,21 +137,21 @@ require(["modernizr",
             }, cb);
         };
 
-        // var triggerAjaxRequest = function(data,type,url){   
-        //     function successCallback(res){
-        //         return res;
-        //     }
-        //     function errorCallback(err){   //taking this function from common.js
-        //         return err;
-        //     }
-        //     return $.ajax({
-        //         type: type,
-        //         data: data,
-        //         url: url,
-        //         success: successCallback,
-        //         error: errorCallback
-        //     });
-        // };
+        var triggerAjaxRequest = function(data,type,url){   
+            function successCallback(res){
+                return res;
+            }
+            function errorCallback(err){
+                return err;
+            }
+            return $.ajax({
+                type: type,
+                data: data,
+                url: url,
+                success: successCallback,
+                error: errorCallback
+            });
+        };
 
         var populatingCompany = function(){
             var companyDdnOptions = [];
@@ -221,12 +226,10 @@ require(["modernizr",
             $(document).on('change', checkDdnChange, function(event){
                 if($(config.reasonChangeContainer).hasClass('hide'))
                 {
-                    if($(config.phyCarrierPref).val()!==cbp.cmpnyInfoPage.cmpnyInfoResponse.phyCarrierPref.key || $(config.altCarrierPref).val()!==cbp.cmpnyInfoPage.cmpnyInfoResponse.altCarrierPref.key )
-                        $(config.saveBtn).removeAttr('disabled');
-                    else
-                        if($(config.phyAttention).val() === cbp.cmpnyInfoPage.cmpnyInfoResponse.mailPreferences.phyAddressAttention && $(config.altAttention).val()=== cbp.cmpnyInfoPage.cmpnyInfoResponse.mailPreferences.altAddressAttention )
-                            $(config.saveBtn).attr('disabled', 'disabled');
+                    enableSaveButton();
                 }
+                else if($(config.reasonChangeInput).val()!=='')
+                    enableSaveButton()
                 else
                     $(config.saveBtn).attr('disabled', 'disabled');
             });
@@ -236,14 +239,12 @@ require(["modernizr",
             $(document).on('input', checkInputChange, function(event){
                 if($(config.reasonChangeContainer).hasClass('hide'))
                 {
-                    if($(config.phyAttention).val() !== cbp.cmpnyInfoPage.cmpnyInfoResponse.mailPreferences.phyAddressAttention || $(config.altAttention).val() !== cbp.cmpnyInfoPage.cmpnyInfoResponse.mailPreferences.altAddressAttention )
-                        $(config.saveBtn).removeAttr('disabled');
-                    else
-                        if($(config.phyCarrierPref).val() === cbp.cmpnyInfoPage.cmpnyInfoResponse.phyCarrierPref.key && $(config.altCarrierPref).val() === cbp.cmpnyInfoPage.cmpnyInfoResponse.altCarrierPref.key )
-                            $(config.saveBtn).attr('disabled', 'disabled');
+                    enableSaveButton();
                 }
+                else if($(config.reasonChangeInput).val()!=='')
+                    enableSaveButton()
                 else
-                    $(config.saveBtn).attr('disabled', 'disabled');  
+                    $(config.saveBtn).attr('disabled', 'disabled'); 
             });
 
             $(document).on('input', config.reasonChangeInput, function(event){
