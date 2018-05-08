@@ -1,0 +1,68 @@
+<div class = "grey-bg xs-pl-10 xs-pt-10">
+    <div class = "row sub-heading-thin">
+        <div class="col-xs-24 xs-ml-5">
+            <span class="sub-heading-thin">{{globalVars.cmpnyDetails}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-24">
+            <div class="xs-mt-10 col-md-5 col-xs-24">
+                <div class='js-search-dateRange'>
+                </div>
+            </div>
+             <div class="xs-mt-10 xs-mr-10 col-md-5 col-xs-16 reason-change hide">
+                <label><strong>{{globalVars.reasonChange}}</strong></label>
+                 <p class="xs-mt-0"><input type="text" id="reasonChange" class="col-xs-22 col-sm-10 col-md-22 input-box-style"/></p>
+            </div>
+            <div class="col-xs-24 xs-mt-10">
+                <span><strong>{{globalVars.note}}:</strong> {{globalVars.reasonText}}</span>
+            </div>
+            <div class="xs-mt-10 xs-mr-10 col-md-6 col-xs-16">
+                <label><strong>{{globalVars.recipientName}}</strong></label>
+                <p class="xs-mt-0"><input type="text" id="recipientName" class="col-xs-22 col-sm-10 col-md-22 input-box-style" value="{{cmpnyInfoResponse.companyDetails.recipientName}}"/></p>
+            </div>
+             <div class="col-xs-24 xs-mt-10 form-group">
+                <span class="col-md-16"><strong>{{globalVars.note}}:</strong> {{globalVars.recipientNameText}}</span>
+            </div>
+        </div>
+    </div>
+    <div class = "row sub-heading-thin">
+        <div class="col-xs-24 xs-ml-5">
+            <span class="sub-heading-thin">{{globalVars.mailPreferences}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-24">
+            <div class="xs-mt-10 xs-mr-10 col-md-7 col-xs-24">
+                <label><strong>{{globalVars.phyAddress}}</strong></label>
+                <p class="xs-mt-0">{{cmpnyInfoResponse.mailPreferences.phyAddress}}</p>
+            </div>
+            <div class="xs-mt-10 col-md-5 col-xs-24">
+                <label><strong>{{globalVars.attention}}</strong></label>
+                <p class="xs-mt-0"><input type="text" id="phyAttention" class="col-xs-22 col-sm-10 col-md-22 input-box-style" value="{{cmpnyInfoResponse.mailPreferences.phyAddressAttention}}"/></p>
+            </div>
+            <div class="xs-mt-10 col-md-6 col-xs-22 col-sm-10 js-carrierPreference-ddn"  id="phyDdn">
+            </div>
+        </div>
+        <div class="col-xs-24">
+             <div class="xs-mt-10 xs-mr-10 col-md-7 col-xs-24">
+                <label><strong>{{globalVars.altAddress}}</strong></label>
+                <p class="xs-mt-0">{{cmpnyInfoResponse.mailPreferences.altAddress}}</p>
+            </div>
+             <div class="xs-mt-10 col-md-5 col-xs-24">
+                <label><strong>{{globalVars.attention}}</strong></label>
+                <p class="xs-mt-0"><input type="text" id="altAttention" class="col-xs-22 col-sm-10 col-md-22 input-box-style" value="{{cmpnyInfoResponse.mailPreferences.altAddressAttention}}"/></p>
+            </div>
+            <div class="xs-mt-10 col-md-6 col-xs-22 col-sm-10 js-carrierPreference-ddn" id="altDdn">
+            </div>
+        </div>
+        <div class="col-xs-24 xs-ml-5 xs-mt-10 form-group">
+            <span><strong>{{globalVars.note}}:</strong> {{globalVars.privateCarrierText}}</span>
+        </div>
+    </div>
+</div>
+<div class = "row xs-mt-15">
+    <div class = "col-xs-24">
+        <button class="btn btn-primary pull-right saveBtn" disabled="disabled">{{globalVars.saveBtn}}</button>
+    </div>     
+</div>
