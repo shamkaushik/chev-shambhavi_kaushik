@@ -1,0 +1,205 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css' />
+    <link href='/assets/css/app-na.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <div class='body-wrapper'>
+        <main>
+            <header class="main-header main-header-md js-header">
+            </header>
+        </main>
+        <section class='main-container'>
+            <div class="content-box accountBalance-page">
+                <div class = "row alertMessages">
+                    <div class="alert alert-warning hide ">
+                    </div>
+                    <div class="alert alert-danger hide">
+                    </div>
+                    <div class = "alert alert-info hide">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-24">
+                        <h2 class='page-title'>account balance</h2>
+                    </div>
+                </div> 
+                <div class='row xs-m-0'>
+                    <div class="overlay-wrapper"></div>
+                    <div class="right-pane">
+                        <div class="top-summary js-top-summary xs-mt-15">
+                            <!--Top Summary -->
+                        </div>
+                    </div>
+                </div>
+                <div class='row xs-m-0'>
+                    <div class="product-summary js-product-summary">
+                        <!--Top Summary -->
+                    </div>
+                </div>
+            </div>
+            <div id="tbl_show"></div>
+        </section>
+        <script type="text/javascript">
+
+            // var isDivFour = false;
+            // var isAPACRegion = true;
+
+            var isASM = false;
+
+            var tableLocales={
+                unit:'L',
+                currency:'USD'
+            }
+
+            var isASM = false;
+            
+            var CBPOrderForm = {
+                "salesOrg":"2019",
+                "currency":"USD",
+                "quantityUOM":"L",
+                "isComma":true,
+                "columnMapping":{
+                            "account":"uhdfuiweh",
+                            "accountBalance":"gyewyg"
+                        },
+                "accountBalanceDataList": [
+                    
+                    {
+                        "account": "212047 - Redwood Oil Company, Inc., 7716 Old Redwood Hwy ",
+                        "accountBalance": "0.0"
+                    },
+                    {
+                        "account": "212047 - Redwood Oil Company, Inc., 7716 Old Redwood Hwy ",
+                        "accountBalance": "16,918,900.0"
+                    },
+                    {
+                        "account": "212047 - Redwood Oil Company, Inc., 7716 Old Redwood Hwy ",
+                        "accountBalance": "24,901.96"
+                    },
+                ],
+                
+                "reportNotes":{
+                    "effectiveDate":"January 4, 2018",
+                    "effectiveTime":"02:00:10 PT"
+                },
+               
+            }
+        
+            var pageLoadData = {
+                        "estimatedDeliveryDate":"January 4, 2018",
+                        "effectiveTime":"02:00:10 PT",
+                        "columnDisplay":{
+                            "account":true,
+                            "accountBalance":true
+                           },
+                        "tableData" : [{
+                            "productCode":"393032000",
+                            "productName":"91R E10",
+                            "quantity":"22,000",
+                            "pricingDate":"02/08/2018",
+                            "totalPrice":"534,291.00",
+                            "vat":"14,291.00",
+                            },{
+                            "productCode":"393032120",
+                            "productName":"Automative Diesel Oil - B2",
+                            "quantity":"33,000",
+                            "pricingDate":"02/08/2018",
+                            "totalPrice":"534,291.00",
+                            "vat":"2,242.00"
+                            },{
+                            "productCode":"393032123",
+                            "productName":"Base Gasoline for 95R E10",
+                            "quantity":"22,000",
+                            "pricingDate":"02/08/2018",
+                            "totalPrice":"534,291.00",
+                            "vat":"291.00"
+                        }]
+                    };
+            
+            var cbp = {
+                "staticBasePath": "/",
+                "accountBalancePage": {
+                    
+                    "globalUrl": {
+                        "accountBalanceURL":"/assets/json/accountBalance.json",
+                        "invoicePostURL": "/assets/json/invoices.json",
+                        "shipToURL": "/assets/json/shipToResponse.json",
+                        "method": "GET",
+                        "payInvoiceURL" : "payInvoice"
+                    },
+                    "globalVars": {
+                        "currency":"USD",
+                        "account":"Account",
+                        "accountBalance":"Account Balance",
+                        "effectiveDate": "Effective Date",
+                        "effectiveTime": "Effective Time",
+                        "taxMessage":"Prices are inclusive of VAT/GST where applicable.",
+                        "discountMessage":"The Total Price reflected above is inclusive of discount where applicable.",
+                        "priceQuoteMessage":"The Price quoted is subject to change and all orders will be charged at the price prevailing on the date of delivery.",
+                        "soldTo":"Sold To",
+                        "shipTo":"Ship To",
+                        "estimatedDeliveryDate":"Estimated Delivery Date",
+                        "customerPONumber":"Customer PO #",
+                        "truckNumber":"Truck #",
+                        "products":"Product(s)",
+                        "total":"Total",
+                        "vat":"VAT",
+                        "netPrice":"Net Price",
+                        "cancelBtn":"Cancel",
+                        "modifyBtn":"Modify",
+                        "submitOrderBtn":"Submit Order",
+                        "orderCreateLabel": "account balance",
+                        "orderSummaryLabel": "order summary",
+                        "productSummaryLabel":"product summary",
+                        "quantity":"Quantity",
+                        "productDetails":"Product Details",
+                        "pricingDate":"Pricing Date",
+                        "totalPrice":"Total Price",			
+                        "deliveryInstructions":"Delivery Instructions",
+                        "selectDdn": {
+                            "noneSelectedText": "Nothing selected",
+                            "noneResultsText": "No results for {0}",
+                            "selectAllText": "Select All",
+                            "deselectAllText": "Deselect All",
+                            "itemSelected": "{0} item selected",
+                            "itemSelected1": "{0} items selected",
+                            "limitReached": "Limit reached ({n} item max)",
+                            "limitReached1": "Limit reached ({n} items max)",
+                            "groupLimit": "Group limit reached ({n} item max)",
+                            "groupLimit1": "Group limit reached ({n} items max)"
+                        },
+                        "tableLocales": {
+                            "loadingMessage": "Loading, please wait...",
+                            "recordsPerPage": "{0} rows per page",
+                            "showingRows": "Showing {0} to {1} of {2} rows",
+                            "search": "Search",
+                            "noMatches": "No invoices found. Please change your search",
+                            "paginationSwitch": "Hide/Show pagination",
+                            "refresh": "Refresh",
+                            "toggle": "Toggle",
+                            "columns": "Columns",
+                            "allRows": "All"
+                        },
+                    }
+                }
+            }
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="account-balance.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+    </div>
+</body>
+
+</html>
