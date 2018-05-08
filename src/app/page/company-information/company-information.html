@@ -59,14 +59,16 @@
         </section>
 
         <script type="text/javascript">
+            var pastSelectableDate = 6;
 
             var cmpnyInfoResponse = {
-                "date":"12/05/2017",
+                "companyDetails":{
+                    "date":"08/05/2018",
+                    "recipientName":"Blah Blah Sir",
+                },
                 "companyDisplay": {
                     "uid": "8213629",
                     "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
-                },
-                "companyDetails":{        
                 },
                 "mailPreferences":{
                     "phyAddress":"7903258 - Embotelladora Central S.A, 24 Calle 6-01 Zona 11",
@@ -144,9 +146,11 @@
                         "method": "GET",
                     },
                     "globalVars":{
-                        "fromAndTo": "{0} to {1}",
-                        "summaryfromAndTo": "{0} to {1}",
+                        "reasonText":"A reason is needed to change the retail service date",
+                        "recipientNameText":"The Recipient Name field represents your business name (or personal name) as it will appear engraved on your Service Award. Please ensure it is correct. ",
+                        "reasonChange":"Reason for Change",
                         "retailServiceDate":"Retail Service Date",
+                        "recipientName":"Recipient Name",
                         "saveBtn":"Save Changes",
                         "company":"Company",
                         "cmpnyDetails":"company details",

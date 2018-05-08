@@ -1,11 +1,3 @@
-function enableMobileDefaultDropDown() {
-    //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
-        $('.selectpicker').selectpicker('mobile');
-    }
-};
-var pastSelectableDate = 6;
-
 require(["modernizr",
     "jquery",
     "bootstrap",
@@ -45,13 +37,14 @@ require(["modernizr",
             displaySpinner: ".overlay-wrapper",
             dropdownSelect: ".dropdown-menu .toggle-select",
             carrierPreferenceDdnContainer:".js-carrierPreference-ddn",
-            phyAttention:"#phy-attention",
-            phyDdn:"#phy-ddn",
-            altAttention:"#alt-attention",
-            altDdn:"#alt-ddn",
+            phyAttention:"#phyAttention",
+            phyDdn:"#phyDdn",
+            altAttention:"#altAttention",
+            altDdn:"#altDdn",
             saveBtn:".saveBtn",
-            phyCarrierPref:"#phy-ddn #carrPref",
-            altCarrierPref:"#alt-ddn #carrPref"
+            phyCarrierPref:"#phyDdn #carrPref",
+            altCarrierPref:"#altDdn #carrPref",
+            reasonChange:".reason-change"
         };
 
         var init = function () {
@@ -62,7 +55,7 @@ require(["modernizr",
             }
             loadingDynamicHbsTemplates(); 
             populatingCalendarComponent();
-            $(config.ordercalendar).find('span').html(cbp.cmpnyInfoPage.cmpnyInfoResponse.date);         
+            $(config.ordercalendar).find('span').html(cbp.cmpnyInfoPage.cmpnyInfoResponse.companyDetails.date);         
             bindEvents();
             enableMobileDefaultDropDown();
             $(config.displaySpinner).hide();
@@ -73,6 +66,13 @@ require(["modernizr",
             $(config.searchFormContainer).html(compiledsearchForm(cbp.cmpnyInfoPage));
             $(config.companyDdnContainer).html(compiledDefaultDdn(cbp.cmpnyInfoPage.companyDropDown));
             $(config.dropDownCommon).selectpicker('refresh');
+        };
+
+        var enableMobileDefaultDropDown = function() {
+            //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                $('.selectpicker').selectpicker('mobile');
+            }
         };
 
         var loadingDynamicHbsTemplates = function(){
@@ -89,10 +89,18 @@ require(["modernizr",
             $(config.altCarrierPref).val(cbp.cmpnyInfoPage.cmpnyInfoResponse.altCarrierPref.key).selectpicker('refresh');
         };
 
+        var showReasonChange = function(date){
+            if(date !== cbp.cmpnyInfoPage.cmpnyInfoResponse.companyDetails.date)
+                $(config.reasonChange).removeClass('hide');
+            else
+                $(config.reasonChange).addClass('hide');
+        }
+
         var populatingCalendarComponent = function () {
             function cb(date) {
                 date = date.format(cbp.cmpnyInfoPage.dateRange.format);
                 $(config.ordercalendar).find('span').html(date);
+                showReasonChange(date);
             }
 
             $(config.ordercalendar).daterangepicker({
@@ -273,8 +281,6 @@ require(["modernizr",
 
         cmpnyInfoPage.init();
         
-        enableMobileDefaultDropDown();
-
     });
 
     

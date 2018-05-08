@@ -1,12 +1,3 @@
-var accountDdnOptions = [];
-
-function enableMobileDefaultDropDown() {
-    //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
-        $('.selectpicker').selectpicker('mobile');
-    }
-};
-
 require(["modernizr",
     "jquery",
     "bootstrap",
@@ -47,14 +38,16 @@ require(["modernizr",
             displaySpinner: ".overlay-wrapper",
             dropdownSelect: ".dropdown-menu .toggle-select",
             carrierPreferenceDdnContainer:".js-carrierPreference-ddn",
-            phyAttention:"#phy-attention",
-            phyDdn:"#phy-ddn",
-            altAttention:"#alt-attention",
-            altDdn:"#alt-ddn",
+            phyAttention:"#phyAttention",
+            phyDdn:"#phyDdn",
+            altAttention:"#altAttention",
+            altDdn:"#altDdn",
             saveBtn:".saveBtn",
-            phyCarrierPref:"#phy-ddn #carrPref",
-            altCarrierPref:"#alt-ddn #carrPref"
+            phyCarrierPref:"#phyDdn #carrPref",
+            altCarrierPref:"#altDdn #carrPref"
         };
+
+        var accountDdnOptions = [];
 
         var init = function () {
             populatingAccount();
@@ -74,6 +67,13 @@ require(["modernizr",
             $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.siteInfoPage.accountDropDown));
             $(config.siteDdnContainer).html(compiledDefaultDdn(cbp.siteInfoPage.siteDropDown));
             $(config.dropDownCommon).selectpicker('refresh');
+        };
+
+        var enableMobileDefaultDropDown = function() {
+            //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                $('.selectpicker').selectpicker('mobile');
+            }
         };
 
         var loadingDynamicHbsTemplates = function(){
@@ -285,8 +285,6 @@ require(["modernizr",
 
         siteInfoPage.init();
         
-        enableMobileDefaultDropDown();
-
     });
 
     
