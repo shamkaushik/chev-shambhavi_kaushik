@@ -1,0 +1,205 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/app-na.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <div class='body-wrapper'>
+        <main>
+            <header class="main-header main-header-md js-header">
+            </header>
+        </main>
+        <section class='main-container'>
+            <div class="content-box cmpny-info-page">
+                <div class="row alertMessages">
+                </div>
+                <div class="row">
+                    <div class="col-xs-17">
+                        <h2 class='page-title'>company information</h2>
+                    </div>
+                    <div class = "col-xs-7">
+                        <a href = "#" class = "pull-right rmc-link">RMC Inquiry</a>
+                    </div>
+                </div>
+                <div class='row xs-m-0 position-relative'>
+                    <div class="overlay-wrapper">
+                    </div>
+                    <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center'>
+                        <div class='search-content'>
+                            <span class='fa fa-sliders'></span>
+                        </div>
+                    </div>
+                    <div class='col-md-5 left-pane hidden-md search'>
+                        <div class='search-content'>
+                            <div class='sub-heading-thin hidden-sm hidden-xs'>
+                                search
+                                <span class='fa fa-close visible-md-inline'></span>
+                            </div>
+                            <div class='sub-heading-thin hidden-lg hidden-md toggle-search-mobile'>
+                                <span class='fa fa-sliders'></span> search
+                                <span class='fa fa-chevron-down pull-right'></span>
+                            </div>
+                            <div class='search-form xs-mt-10 js-search-form'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-23 col-lg-19 right-pane'>
+                        <div class='top-summary js-cmpnyInfo-summary'>
+                        </div>
+                        <div class='bottom-detail js-bottom-detail'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+            var pastSelectableDate = 6;
+
+            var cmpnyInfoResponse = {
+                "companyDetails":{
+                    "date":"08/05/2018",
+                    "recipientName":"Blah Blah Sir"
+                },
+                "companyDisplay": {
+                    "uid": "8213629",
+                    "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
+                },
+                "mailPreferences":{
+                    "phyAddress":"7903258 - Embotelladora Central S.A, 24 Calle 6-01 Zona 11",
+                    "altAddress":"7903258 - Embotelladora Central S.A, 24 Calle 6-01 Zona 11",
+                    "phyAddressAttention":"Attention",
+                    "altAddressAttention":""
+                },
+                "altCarrierPref":{
+                    "key":"private",
+                    "value":"Private Carrier"
+                },
+                "phyCarrierPref":{
+                    "key":"postal",
+                    "value":"Postal Carrier"
+                }
+            };
+
+            var companyDropDown = [{
+                "uid": "7933464",
+                "displayName": "7933464,DISMACOR S.A. BARBOSA, K 10 NRO 20  11, BARBOSA, Colombia"
+            }, {
+                "uid": "3436466",
+                "displayName": "3436466,DISMACOR S.A. BARRANQUILLA, CL 45 NRO 33 - 40, BARRANQUILLA, Colombia"
+            }, {
+                "uid": "8213629",
+                "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
+            }];
+
+            var carrierPrefDdnOptions = [{
+                key: "postal",
+                value: "Postal Carrier"
+            }, {
+                key: "private",
+                value: "Private Carrier"
+            }];
+
+
+            var cbp = {
+                "staticBasePath": "/",
+                "cmpnyInfoPage":{
+                    "companyDropDown": {
+                        "options": [],
+                        "label": "Company",
+                        //"title": "Select Account",
+                        "title": "",
+                        "name": "companySelectDdn",
+                        "showOptions": 10,
+                        "singleOption": false
+                    },
+                    "carrierPrefDropdown": {
+                        "options": carrierPrefDdnOptions,
+                        "label": "Carrier Preference",
+                        "title": "",
+                        "name": "carrPref",
+                        "showOptions": 2
+                    },
+                    "dateRange": {
+                        "maxMonth": 18,
+                        "format": "DD/MM/YYYY",
+                        "today": "Today",
+                        "yesterday": "Yesterday",
+                        "last7Days": "Last 7 Days",
+                        "last30Days": "Last 30 Days",
+                        "thisMonth": "This Month",
+                        "lastMonth": "Last Month",
+                        "customRange": "Custom Range",
+                        "cancel": "Cancel",
+                        "apply": "Apply",
+                        "iconClass": "fa fa-calendar pull-right",
+                        "id": "calendar"
+                    },
+                    "globalUrl":{
+                        "searchURL": "/assets/json/cmpnyInfoDetails.json",
+                        "saveURL":"/assets/json/saveCmpnyChanges.json",
+                        "method": "GET",
+                    },
+                    "globalVars":{
+                        "reasonText":"A reason is needed to change the retail service date",
+                        "recipientNameText":"The Recipient Name field represents your business name (or personal name) as it will appear engraved on your Service Award. Please ensure it is correct. ",
+                        "reasonChange":"Reason for Change",
+                        "retailServiceDate":"Retail Service Date",
+                        "recipientName":"Recipient Name",
+                        "saveBtn":"Save Changes",
+                        "company":"Company",
+                        "cmpnyDetails":"company details",
+                        "note":"Note",
+                        "privateCarrierText":"'Private Carrrier' cannot deliver to PO Box addresses.",
+                        "cmpnyInfoSummary":"company information summary",
+                        "mailPreferences":"mailing preferences",
+                        "phyAddress":"Physical Address",
+                        "altAddress":"Alternate Address",
+                        "attention":"Attention",
+                        "carrierPref":"Carrier Preference",
+                        "searchTxt":"Get Account Information",
+                        "selectDdn": {
+                            "noneSelectedText": "Nothing selected",
+                            "noneResultsText": "No results for {0}",
+                            "selectAllText": "Select All",
+                            "deselectAllText": "Deselect All",
+                            "itemSelected": "{0} item selected",
+                            "itemSelected1": "{0} items selected",
+                            "limitReached": "Limit reached ({n} item max)",
+                            "limitReached1": "Limit reached ({n} items max)",
+                            "groupLimit": "Group limit reached ({n} item max)",
+                            "groupLimit1": "Group limit reached ({n} items max)"
+                        },
+                        "tableLocales": {
+                            "loadingMessage": "Loading, please wait...",
+                            "recordsPerPage": "{0} rows per page",
+                            "showingRows": "Showing {0} to {1} of {2} rows",
+                            "search": "Search",
+                            "noMatches": "No delDocs found. Please change your search",
+                            "paginationSwitch": "Hide/Show pagination",
+                            "refresh": "Refresh",
+                            "toggle": "Toggle",
+                            "columns": "Columns",
+                            "allRows": "All"
+                        }
+                    }
+                }
+            };
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="company-information.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+    </div>
+</body>
+
+</html>
