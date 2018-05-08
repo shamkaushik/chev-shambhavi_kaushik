@@ -64,7 +64,7 @@ require(["modernizr",
     
         var init = function () {
             populatingSoldTo();
-        	populatingaccount(locationDropDownOptions[0].key, "all", true);
+        	populatingAccount(locationDropDownOptions[0].key, "all", true);
             loadingInitialHbsTemplates();
             
             populatingTable(cbp.delDocPage.delDocResponse, cbp.delDocPage.delDocResponse.delDocColumnMapping );
@@ -376,7 +376,7 @@ require(["modernizr",
             cbp.delDocPage.locationDropDown.searchable = true;
         };
 
-        var populatingaccount = function(soldToId, accountId, pageLoadCheck) {
+        var populatingAccount = function(soldToId, accountId, pageLoadCheck) {
             $(config.displaySpinner).show();
             
             function successCallback(data) {
@@ -466,7 +466,7 @@ require(["modernizr",
                 } else {
                     $(config.searchButton).attr("disabled", "disabled");
                 }
-                populatingaccount($(config.locationDdn).val(), "all");
+                populatingAccount($(config.locationDdn).val(), "all");
           });
 
             $(document).on('change', config.accountDdn, function(e) {
