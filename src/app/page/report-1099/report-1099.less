@@ -1,23 +1,142 @@
 
+.report-1099-page{
+    .tableContainer{
+        input[type="checkbox"] {
+            -webkit-appearance:none;
+            &:focus{
+                outline:none;
+            }
+            &:before {
+                font-family: 'FontAwesome';
+                text-align:center;
+                content: '\f096';
+                font-size: 20px;
+            }
+            &:checked{
+                &::before{
+                    font-family: 'FontAwesome';
+                    color: @brand-success;
+                    content: '\f046';
+                }
+           }
+       }
+        .fixed-table-container{
+            thead{
+                th{
+                    vertical-align: middle;
+                    &.bs-checkbox{
+                        .th-inner{
+                            padding-top: 0px;
+                            width: 24px;
+                            position: relative;
+                            input[type="checkbox"]{
+                                position: absolute;
+                                top: 3px;
+                                left: 5px;
+                            }
+                        }
+                    }
+                    &.site-name{
+                        width: 30%;
+                        padding-left: 0;
+                    }
+                    &.site-status{
+                        padding-left: 0;
+                    }
+                    &:last-child{
+                        padding-right: 5%;
+                    }
+                }
+                tr{
+                    background-color: @brand-primary;
+                    th.bs-checkbox{
+                        input[type="checkbox"]:before{
+                            color:#fff;
+                        }
+                    }
+                }
+            }
+            tbody{
+                tr{
+                    td{
+                        &.site-status{
+                            padding-left: 0;
+                            .fa-download{
+                                font-size: 14px;
+                                color: @gray-dark;
+                            }
+                        }
+                        &.site-name{
+                            padding-left: 0;
+                        }
+                        &:last-child{
+                            width: 20%;
+                            padding-right: 5%;
+                        }
+                    }
+                }
+            }
+        }
+        .fixed-table-footer{
+            tbody{
+                tr{
+                    td{
+                        background-color: @gray;
+                        .th-inner{
+                            padding-right: 12px;
+                        }
+                        &:last-child{
+                            padding-right: 20% !important;
+                        }
+                    }
+                }
+            }
+        }
+    }   
+}
 
 @media (max-width: @screen-xs-max){
     .report-1099-page{
-        .tableContainer{
-            .fixed-table-body{
-                #table{
-                    tbody{
-                        tr{
-                            td{
-                                .card-view{
-                                    &:first-child{
-                                        .title{
-                                            display: none;
-                                        }
+        .report-table{
+            .bootstrap-table-cardview{
+                .table.table-no-bordered {
+                    > tbody {
+                        > tr {
+                            > td {
+                                > div:first-child {
+                                display:none;
+                                }
+                                > div:nth-of-type(2) {
+                                display:none;
+                                }
+                                > div:nth-of-type(3) {
+                                    background-color: @brand-primary !important;
+                                    color: #ffffff;
+                                    .title{
+                                        display: none;
                                     }
                                 }
                             }
                         }
                     }
+                }
+            }
+            .fixed-table-footer{
+                display: none !important;
+            }
+        }
+        #tableFooter{
+            tbody{
+                tr{
+                   td{
+                       .card-view{
+                           &:first-child{
+                            .title{
+                                font-weight: bold;
+                            } 
+                           }
+                       }
+                   }
                 }
             }
         }
