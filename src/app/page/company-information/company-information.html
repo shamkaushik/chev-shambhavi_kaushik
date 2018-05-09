@@ -15,12 +15,12 @@
             </header>
         </main>
         <section class='main-container'>
-            <div class="content-box site-info-page">
+            <div class="content-box cmpny-info-page">
                 <div class="row alertMessages">
                 </div>
                 <div class="row">
                     <div class="col-xs-17">
-                        <h2 class='page-title'>site information</h2>
+                        <h2 class='page-title'>company information</h2>
                     </div>
                     <div class = "col-xs-7">
                         <a href = "#" class = "pull-right rmc-link">RMC Inquiry</a>
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class='col-md-23 col-lg-19 right-pane'>
-                        <div class='top-summary js-siteInfo-summary'>
+                        <div class='top-summary js-cmpnyInfo-summary'>
                         </div>
                         <div class='bottom-detail js-bottom-detail'>
                         </div>
@@ -59,26 +59,16 @@
         </section>
 
         <script type="text/javascript">
+            var pastSelectableDate = 6;
 
-            var siteInfoResponse = {
-                "accountDisplay": {
+            var cmpnyInfoResponse = {
+                "companyDetails":{
+                    "date":"08/05/2018",
+                    "recipientName":"Blah Blah Sir"
+                },
+                "companyDisplay": {
                     "uid": "8213629",
                     "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
-                },
-                "siteDisplay": {
-                    "uid": "8213629",
-                    "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
-                },
-                "siteDetails":{
-                    "brand":"Chevron",
-                    "siteZone":"4A",
-                    "siteStatus":"Open",
-                    "promoSalesArea":"-",
-                    "buildingType":"Self-Service Station",
-                    "county":"Humboldt",
-                    "siteEstOpenDate":"-",
-                    "franchises":"No",
-                    "franEstOpenDate":"-"         
                 },
                 "mailPreferences":{
                     "phyAddress":"7903258 - Embotelladora Central S.A, 24 Calle 6-01 Zona 11",
@@ -96,18 +86,7 @@
                 }
             };
 
-            var siteDropDown = [{
-                "uid": "7903258",
-                "displayName": "7903258 - Embotelladora Central S.A, 24 Calle 6-01 Zona 11"
-            }, {
-                "uid": "7903259",
-                "displayName": "7903259 - Embotelladora Central S.A, Embotelladora Central Zona 18"
-            }, {
-                "uid": "7903260",
-                "displayName": "7903260 - Embotelladora Central S.A, Embotelladora Central Zona 11"
-            }];
-
-            var accountDropDown = [{
+            var companyDropDown = [{
                 "uid": "7933464",
                 "displayName": "7933464,DISMACOR S.A. BARBOSA, K 10 NRO 20  11, BARBOSA, Colombia"
             }, {
@@ -129,22 +108,13 @@
 
             var cbp = {
                 "staticBasePath": "/",
-                "siteInfoPage":{
-                    "accountDropDown": {
+                "cmpnyInfoPage":{
+                    "companyDropDown": {
                         "options": [],
-                        "label": "Account",
+                        "label": "Company",
                         //"title": "Select Account",
                         "title": "",
-                        "name": "accountSelectDdn",
-                        "showOptions": 10,
-                        "singleOption": true
-                    },
-                    "siteDropDown": {
-                        "options": [],
-                        "label": "Site",
-                        //"title": "Select Account",
-                        "title": "",
-                        "name": "siteSelectDdn",
+                        "name": "companySelectDdn",
                         "showOptions": 10,
                         "singleOption": false
                     },
@@ -155,29 +125,38 @@
                         "name": "carrPref",
                         "showOptions": 2
                     },
+                    "dateRange": {
+                        "maxMonth": 18,
+                        "format": "DD/MM/YYYY",
+                        "today": "Today",
+                        "yesterday": "Yesterday",
+                        "last7Days": "Last 7 Days",
+                        "last30Days": "Last 30 Days",
+                        "thisMonth": "This Month",
+                        "lastMonth": "Last Month",
+                        "customRange": "Custom Range",
+                        "cancel": "Cancel",
+                        "apply": "Apply",
+                        "iconClass": "fa fa-calendar pull-right",
+                        "id": "calendar"
+                    },
                     "globalUrl":{
-                        "searchURL": "/assets/json/siteInfoDetails.json",
-                        "siteURL": "/assets/json/siteDdnResponse.json",
-                        "saveURL":"/assets/json/saveSiteChanges.json",
+                        "searchURL": "/assets/json/cmpnyInfoDetails.json",
+                        "saveURL":"/assets/json/saveCmpnyChanges.json",
                         "method": "GET",
                     },
                     "globalVars":{
+                        "reasonText":"A reason is needed to change the retail service date",
+                        "recipientNameText":"The Recipient Name field represents your business name (or personal name) as it will appear engraved on your Service Award. Please ensure it is correct. ",
+                        "reasonChange":"Reason for Change",
+                        "retailServiceDate":"Retail Service Date",
+                        "recipientName":"Recipient Name",
                         "saveBtn":"Save Changes",
-                        "siteDetails":"site details",
-                        "brand":"Brand",
+                        "company":"Company",
+                        "cmpnyDetails":"company details",
                         "note":"Note",
                         "privateCarrierText":"'Private Carrrier' cannot deliver to PO Box addresses.",
-                        "siteZone":"Site Zone",
-                        "siteStatus":"Site Status",
-                        "promoSalesArea":"Promotional Sales Area",
-                        "buildingType":"Building Type",
-                        "account":"Account",
-                        "site":"Site",
-                        "county":"County",
-                        "siteEstOpenDate":"Site Estimated Open Date",
-                        "franchises":"Franchises",
-                        "franEstOpenDate":"Franchises Estimated Open Date",
-                        "siteInfoSummary":"site information summary",
+                        "cmpnyInfoSummary":"company information summary",
                         "mailPreferences":"mailing preferences",
                         "phyAddress":"Physical Address",
                         "altAddress":"Alternate Address",
@@ -217,7 +196,7 @@
         <script src="/assets/js/require_config.js"></script>
         <script src="/app/components/header/header.js"></script>
         <script src="/app/components/headerFooter/headerFooter.js"></script>
-        <script src="site-information.js"></script>
+        <script src="company-information.js"></script>
         <footer id="footer" class="js-footer">
         </footer>
     </div>

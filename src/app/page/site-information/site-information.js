@@ -1,19 +1,9 @@
-var accountDdnOptions = [];
-
-function enableMobileDefaultDropDown() {
-    //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
-        $('.selectpicker').selectpicker('mobile');
-    }
-};
-
 require(["modernizr",
     "jquery",
     "bootstrap",
     "handlebars",
     "moment",
     "calendar",
-    "common",
     "bootstrap-select",
     "bootstrap-table",
     "text!app/components/calendar/_calendar.hbs",
@@ -22,7 +12,7 @@ require(["modernizr",
     "text!app/page/site-information/siteInfoSummary.hbs",
     "text!app/page/site-information/bottomDetail.hbs"
 
-], function (modernizr, $, bootstrap, Handlebars, moment, calendar, common, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _siteInfoSummaryHBS, _bottomDetailHBS) {
+], function (modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _siteInfoSummaryHBS, _bottomDetailHBS) {
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
@@ -47,18 +37,20 @@ require(["modernizr",
             displaySpinner: ".overlay-wrapper",
             dropdownSelect: ".dropdown-menu .toggle-select",
             carrierPreferenceDdnContainer:".js-carrierPreference-ddn",
-            phyAttention:"#phy-attention",
-            phyDdn:"#phy-ddn",
-            altAttention:"#alt-attention",
-            altDdn:"#alt-ddn",
+            phyAttention:"#phyAttention",
+            phyDdn:"#phyDdn",
+            altAttention:"#altAttention",
+            altDdn:"#altDdn",
             saveBtn:".saveBtn",
-            phyCarrierPref:"#phy-ddn #carrPref",
-            altCarrierPref:"#alt-ddn #carrPref"
+            phyCarrierPref:"#phyDdn #carrPref",
+            altCarrierPref:"#altDdn #carrPref"
         };
+
+        var accountDdnOptions = [];
 
         var init = function () {
             populatingAccount();
-        	populatingSite(accountDdnOptions[0].key, true);
+        	populatingSite(cbp.siteInfoPage.siteInfoResponse.accountDisplay.uid, true);
             loadingInitialHbsTemplates();
             if(cbp.siteInfoPage.accountDropDown["options"].length > 1){
                 $(config.accountDdn).val(cbp.siteInfoPage.siteInfoResponse.accountDisplay.uid).selectpicker('refresh');
@@ -76,6 +68,13 @@ require(["modernizr",
             $(config.dropDownCommon).selectpicker('refresh');
         };
 
+        var enableMobileDefaultDropDown = function() {
+            //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                $('.selectpicker').selectpicker('mobile');
+            }
+        };
+
         var loadingDynamicHbsTemplates = function(){
             $(config.searchDetailContainer).html(compiledBottomDetail(cbp.siteInfoPage));
             setSummaryValues();
@@ -85,21 +84,21 @@ require(["modernizr",
             $(config.altCarrierPref).val(cbp.siteInfoPage.siteInfoResponse.altCarrierPref.key).selectpicker('refresh');
         };
 
-        // var triggerAjaxRequest = function(data,type,url){   
-        //     function successCallback(res){
-        //         return res;
-        //     }
-        //     function errorCallback(err){   //taking this function from common.js
-        //         return err;
-        //     }
-        //     return $.ajax({
-        //         type: type,
-        //         data: data,
-        //         url: url,
-        //         success: successCallback,
-        //         error: errorCallback
-        //     });
-        // };
+        var triggerAjaxRequest = function(data,type,url){   
+            function successCallback(res){
+                return res;
+            }
+            function errorCallback(err){
+                return err;
+            }
+            return $.ajax({
+                type: type,
+                data: data,
+                url: url,
+                success: successCallback,
+                error: errorCallback
+            });
+        };
 
         var populatingAccount = function(){
             accountDdnOptions = accountDropDown.map(function(val,index){
@@ -183,7 +182,6 @@ require(["modernizr",
             data.phyDdn = $(config.phyCarrierPref).val();
             data.altAttention = $(config.altAttention).val();
             data.altDdn = $(config.altCarrierPref).val();
-            console.log("save data", data);
 
             $.when(triggerAjaxRequest(data, "GET", cbp.siteInfoPage.globalUrl.saveURL)).then(function(result){
                 if(typeof result === 'undefined' || result === null){
@@ -208,27 +206,27 @@ require(["modernizr",
             window.scrollTo(0,0);
         }
 
+        var enableSaveButton = function(){
+            var checkChanges = $(config.phyAttention).val() !== cbp.siteInfoPage.siteInfoResponse.mailPreferences.phyAddressAttention || $(config.altAttention).val() !== cbp.siteInfoPage.siteInfoResponse.mailPreferences.altAddressAttention ||$(config.phyCarrierPref).val()!==cbp.siteInfoPage.siteInfoResponse.phyCarrierPref.key || $(config.altCarrierPref).val()!==cbp.siteInfoPage.siteInfoResponse.altCarrierPref.key;
+            if(checkChanges)
+                $(config.saveBtn).removeAttr('disabled');
+            else
+                $(config.saveBtn).attr('disabled', 'disabled'); 
+        }
+
 
         var bindEvents = function(){
 
             var checkDdnChange =  config.phyDdn + "," + config.altDdn;
 
             $(document).on('change', checkDdnChange, function(event){
-                if($(config.phyCarrierPref).val()!==cbp.siteInfoPage.siteInfoResponse.phyCarrierPref.key || $(config.altCarrierPref).val()!==cbp.siteInfoPage.siteInfoResponse.altCarrierPref.key )
-                    $(config.saveBtn).removeAttr('disabled');
-                else
-                    if($(config.phyAttention).val() === cbp.siteInfoPage.siteInfoResponse.mailPreferences.phyAddressAttention && $(config.altAttention).val()=== cbp.siteInfoPage.siteInfoResponse.mailPreferences.altAddressAttention )
-                        $(config.saveBtn).attr('disabled', 'disabled');
+                enableSaveButton()
             });
 
             var checkInputChange = config.phyAttention + "," + config.altAttention;
 
             $(document).on('input', checkInputChange, function(event){
-                if($(config.phyAttention).val() !== cbp.siteInfoPage.siteInfoResponse.mailPreferences.phyAddressAttention || $(config.altAttention).val() !== cbp.siteInfoPage.siteInfoResponse.mailPreferences.altAddressAttention )
-                    $(config.saveBtn).removeAttr('disabled');
-                else
-                    if($(config.phyCarrierPref).val() === cbp.siteInfoPage.siteInfoResponse.phyCarrierPref.key && $(config.altCarrierPref).val() === cbp.siteInfoPage.siteInfoResponse.altCarrierPref.key )
-                        $(config.saveBtn).attr('disabled', 'disabled');
+                enableSaveButton();
             });
 
             $(document).on('click', config.searchButton, function(event){
@@ -240,7 +238,7 @@ require(["modernizr",
             });
 
             $(document).on('click', function(){
-                if($('.alertMessages').hasClass('alert'))
+                if($('.alertMessages').children().hasClass('alert'))
                     $('.alertMessages').empty();                
             });
 
@@ -286,8 +284,6 @@ require(["modernizr",
 
         siteInfoPage.init();
         
-        enableMobileDefaultDropDown();
-
     });
 
     
