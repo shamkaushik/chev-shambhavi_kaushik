@@ -1,0 +1,82 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css' />
+    <link href='/assets/css/app-na.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <div class='body-wrapper'>
+        <main>
+            <header class="main-header main-header-md js-header" style="">
+            </header>
+        </main>
+        <section class='main-container'>
+            <div class="content-box siteoperatinghours-page">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class='page-title'>RMC inquiry</h2>
+                    </div>
+                    <span class="col-xs-24 sub-heading-thin xs-pt-15 xs-pl-15">
+                        user information
+                    </span>
+                    <div class="col-md-24 col-xs-24 userinfoFormContainer">
+
+                    </div>
+                </div>
+                <div class='row xs-m-0 position-relative'>
+                    <div class="overlay-wrapper">
+                    </div>
+                    <div class='col-md-24 col-lg-24 right-pane xs-m-0 xs-p-0'>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <form id="siteOperatingForm" method="POST" action="/sf/siteOperating/downloadsiteOperating">
+            <input name="selectedSiteOperating" id="selectedSiteOperating" type="hidden">
+        </form>
+
+        <script type="text/javascript">
+            var inASMSession = "false";
+
+            var maxResults = 500;
+            var cbp = {
+                "staticBasePath": "/",
+                "rmcInqPage": {
+                    "globalUrl": {
+                        "siteOperatingPostURL": "/assets/json/siteOperating.json",
+                        "siteURL": "/assets/json/siteResponse.json",
+                        "method": "GET",
+                        "siteOperatingearch":  "/assets/json/siteOperatingSearchResult.json",
+                        "siteOperatingSummaryURL": "/assets/json/siteOperatingSummaryURL.json",
+                        "siteOperatingPrintURL":  "sf/siteOperating/printsiteOperating",
+                        "siteOperatingDownloadURL":  "sf/siteOperating/downloadsiteOperating",
+                    },
+                    "globalVars": {
+                        "formANDToRange" : "",
+                        "dateRange" : {
+                            "format" : "MM/DD/YYYY"
+                        }
+                    }
+                }
+            }
+
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="rmc-inq.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+    </div>
+</body>
+
+</html>

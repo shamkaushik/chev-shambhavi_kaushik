@@ -1,0 +1,134 @@
+.siteoperatinghours-page {
+	.fixed-table-body{
+		.card-view{
+			.title{
+				min-width: 40%;
+			}
+			.value {
+				width: 59%;
+			}	  
+		}
+	}	  
+	.fixed-table-container{
+		tbody{
+			.selected td{
+			background-color: transparent;
+			}
+			tr.bg-danger{
+				background-color: #F7E8E9 !important;
+			}
+		}
+		thead{
+			tr{
+				background-color: @brand-primary;
+			}
+		}
+	}
+	.js-shipToDdn{
+		.btn-group.bootstrap-select.displayInline{
+			width:100%!important;
+		}
+	}
+	.right-pane{
+		.top-summary{
+			    min-height:0;
+		}
+	}
+	.print-summary {
+		margin: 35px 10px 20px 20px;
+		background-color: #EBF8FE;
+		padding-left: 15px;
+	}
+	.note-data {
+		padding-left: 5px;
+		margin-top: 10px;
+	}
+	.note-data-val {
+		padding-left: 30px;
+		margin-top: 30px;
+	}
+	.sub-heading-thin{
+		color: #009dd9;
+		font-size: 15px;
+		font-family: Gotham, "Helvetica Neue", Helvetica, Roboto, Arial, serif;
+		font-weight: normal;
+	}
+
+	.dateAndDownloadContainer{
+		background-color: #ebf8fe;
+	}
+}
+
+
+@media (max-width: @screen-sm-max) {
+	.siteoperatinghours-page {
+		.bottom-detail {
+			.tableContainer {
+				min-height: 100px;
+			}
+		}
+	}
+}
+
+@media (min-width: @screen-md-max) {
+	.siteoperatinghours-page {
+		.dateAndDownloadContainer{
+			height: 90px;
+		}
+		.btn-downloadContainer{
+			text-align: right;
+			button.btn{
+				max-height:35px;
+				padding-top:9px;
+			}
+		}
+	}
+}
+
+@media print {
+	.table{
+		.numberIcon{
+			.fa { 
+				display:none;
+			}
+		}
+	}
+	.right-pane{
+		.top-summary{
+			    min-height:0;
+		}
+	}
+	.print-summary {
+		margin: 35px 20px 20px 20px;
+		background-color: #EBF8FE;
+	}
+	.note-data {
+		padding-left: 5px;
+		margin-top: 10px;
+	}
+	.note-data-val {
+		padding-left: 25px;
+		margin-top: 30px;
+	}
+	.nav-bottom {
+		position: relative;
+		min-height: 0;
+		height: auto;
+		left: auto;
+	}
+	.navbar-brand.navbar-left {
+		margin-left: 10px;
+	}
+	.navbar-brand.navbar-right {
+		float: right;
+		margin-right: 10px;
+	}
+	#table thead , tr{
+		-webkit-print-color-adjust: exact; 
+	}
+	#table th *, #table tr * {
+		white-space: normal;
+		text-overflow: initial;
+		overflow: none;
+	}
+}
