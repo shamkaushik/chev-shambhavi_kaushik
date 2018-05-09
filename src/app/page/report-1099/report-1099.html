@@ -86,6 +86,14 @@
                 }
             ];
 
+            var downloadStatusList = [{
+                    "key": "downloaded",
+                    "value": "Downloaded"
+                },{
+                    "key": "not-downloaded",
+                    "value": "Not Downloaded"
+            }];
+
             var cbp = {
                 "staticBasePath": "/",
                 "report1099Page": {
@@ -100,7 +108,7 @@
                     "yearDropDown": {
                         "options": yearList,
                         "label": "Year",
-                        //"title": "Year",
+                        "title": "All",
                         "name": "yearSelectDdn",
                         "showOptions": 10,
                         "singleOption": false
@@ -113,22 +121,13 @@
                         "showOptions": 10,
                         "singleOption": false
                     },
-                    "dateRange": {
-                        "maxMonth": 18,
-                        "currentDate": "05-12-2016",
-                        "format": "DD-MM-YYYY",
-                        "defaultDateCount": 2,
-                        "today" : "Today",
-                        "yesterday" : "Yesterday",
-                        "last7Days" : "Last 7 Days",
-                        "last30Days" : "Last 30 Days",
-                        "thisMonth" : "This Month",
-                        "lastMonth" : "Last Month",
-                        "customRange" : "Custom Range",
-                        "cancel" : "Cancel",
-                        "apply" : "Apply",
-                        "iconClass": "fa fa-calendar pull-right",
-                        "id": "calendar"
+                    "downloadStatusDropDown": {
+                        "options": downloadStatusList,
+                        "label": "Download Status",
+                        //"title": "Quarter",
+                        "name": "dnldStatusSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": false
                     },
                     "globalUrl": {
                         "shipToURL": "/assets/json/shipToResponse.json",
@@ -138,9 +137,6 @@
                         // "method" : "POST"
                     },
                     "globalVars": {
-                        "vat": "VAT",
-                        "tax":"Tax",
-                        "gst":"GST",
                         "searchTxt": "Search",
                         "allLocation": "All",
                         "fromAndTo": "{0} to {1}",

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css' />
-    <link href='/assets/css/app.css' rel='stylesheet' type='text/css' />
+    <link href='/assets/css/app-na.css' rel='stylesheet' type='text/css' />
 </head>
 
 <body>
@@ -15,6 +15,17 @@
             <header class="main-header main-header-md js-header">
             </header>
         </main>
+        <form id="delDocForm" method="POST" action="/sf/delDocs/delDocCSV">
+            <input name="selectedDelDocs" id="selectedDelDocs" type="hidden">
+        </form>
+        <form id="invoicePDFForm" action="/invoices/invoicePDF" method="post" target="_blank">
+            <input type="hidden" name="invoiceId" id="invoiceId">
+            <input type="hidden" name="invoicePrint" id="invoicePrint">
+        </form>
+        <form id="delDocPDFForm" action="/delDocs/delDocsPDF" method="post" target="_blank">
+            <input type="hidden" name="delDocId" id="delDocId">
+            <input type="hidden" name="delDocPrint" id="delDocPrint">
+        </form>
         <section class='main-container'>
             <div class="content-box delDoc-page">
                 <div class="row">
@@ -56,6 +67,8 @@
 
         <script type="text/javascript">
 
+            var pastSelectableDate = 6
+
             var srtByDdn = {
                 "options": [],
                 label: "Sort By",
@@ -71,7 +84,7 @@
                     "delDocDate": "dfhj",
                     "total": "yfleuir",
                     "checkbox": "ejuje",
-                    "shipTo": "test",
+                    "account": "test",
                     "billOfLading": "rfhuf",
                     "status": "dbshj",
                     "invoiceId":"tyrui"
@@ -84,7 +97,7 @@
                     "delDocTime":"14:32:40",
                     "total": 8919237.0,
                     "displayTotal": "8.919.237",
-                    "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
+                    "account": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
                     "billOfLading": 75123,
                     "salesOrderType": "ZOOR",
                     "downloaded": true,
@@ -97,7 +110,7 @@
                     "delDocTime":"14:32:40",
                     "total": 36928702,
                     "displayTotal": "36.928.702",
-                    "shipTo": "7933464, DISMACOR S.A. BARBOSA, K 10 NRO 20  11, Colombia",
+                    "account": "7933464, DISMACOR S.A. BARBOSA, K 10 NRO 20  11, Colombia",
                     "billOfLading": 75123,
                     "downloaded": true,
                     "printed": false,
@@ -110,7 +123,7 @@
                     "delDocTime":"14:32:40",
                     "total": 12621100,
                     "displayTotal": "12.621.100",
-                    "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
+                    "account": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
                     "billOfLading": 75123,
                     "downloaded": true,
                     "printed": false,
@@ -122,8 +135,9 @@
                     "delDocDate": "30/10/2015",
                     "delDocTime":"14:32:40",
                     "total": 5655000,
+                    "billOfLading": 75124,
                     "displayTotal": "5.655.000",
-                    "shipTo": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
+                    "account": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
                     "downloaded": false,
                     "printed": false,
                     "salesOrderType": "ZC"
@@ -134,17 +148,6 @@
             };
 
             var maxResults = 500;
-
-            var shiptoListOnLoad = [{
-                "uid": "7903258",
-                "displayName": "7903258 - Embotelladora Central S.A, 24 Calle 6-01 Zona 11"
-            }, {
-                "uid": "7903259",
-                "displayName": "7903259 - Embotelladora Central S.A, Embotelladora Central Zona 18"
-            }, {
-                "uid": "7903260",
-                "displayName": "7903260 - Embotelladora Central S.A, Embotelladora Central Zona 11"
-            }];
 
             var locationDropDown = [{
                 "uid": "7933464",
@@ -201,12 +204,12 @@
                         "showOptions": 10,
                         "singleOption": true
                     },
-                    "shipToDropDown": {
+                    "accountDropDown": {
                         "options": [],
-                        "label": "Ship To",
+                        "label": "Account",
                         //"title": "Select Location",
                         "title": "",
-                        "name": "shipToSelectDdn",
+                        "name": "accountSelectDdn",
                         "showOptions": 10,
                         "singleOption": false
                     },
@@ -241,11 +244,11 @@
                     },
                     "globalUrl": {
                         "searchURL": "/assets/json/delDoc.json",
-                        "shipToURL": "/assets/json/shipToResponse.json",
+                        "accountURL": "/assets/json/accountResponse.json",
                         "method": "GET",
                     },
                     "globalVars": {
-                        "shipTo": "Ship To",
+                        "account": "Account",
                         "searchTxt": "Search",
                         "allTb": "All",
                         "billOfLading": "Bill of Lading #",
@@ -266,8 +269,8 @@
                         "delDocDate":"Delivery Date",
                         "delDocDateAsc": "Delivery Date, Newest to Oldest",
                         "delDocDateDesc": "Delivery Date, Oldest to Newest",
-                        "shipToSortAsc": "Ship To, Ascending",
-                        "shipToSortDesc": "Ship To, Descending",
+                        "accountSortAsc": "Account, Ascending",
+                        "accountSortDesc": "Account, Descending",
                         "invoiceIdAsc": "Invoice #, Ascending",
                         "invoiceIdDesc": "Invoice #, Descending",
                         "billOfLadingAsc": "Bill of Lading #, Ascending",
@@ -277,7 +280,7 @@
                         "totalAsc": "Total, Ascending",
                         "totalDesc": "Total, Descending",
                         "soldTo": "Sold To",
-                        "shipTo": "Ship To",
+                        "account": "Account",
                         "noMatches": "No delDocs found. Please change your search",
                         "noMatchesMaxResults": maxResultText,
                         "selectDdn": {

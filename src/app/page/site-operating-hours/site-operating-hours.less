@@ -53,6 +53,10 @@
 		font-family: Gotham, "Helvetica Neue", Helvetica, Roboto, Arial, serif;
 		font-weight: normal;
 	}
+
+	.dateAndDownloadContainer{
+		background-color: #ebf8fe;
+	}
 }
 
 
@@ -61,6 +65,21 @@
 		.bottom-detail {
 			.tableContainer {
 				min-height: 100px;
+			}
+		}
+	}
+}
+
+@media (min-width: @screen-md-max) {
+	.siteoperatinghours-page {
+		.dateAndDownloadContainer{
+			height: 90px;
+		}
+		.btn-downloadContainer{
+			text-align: right;
+			button.btn{
+				max-height:35px;
+				padding-top:9px;
 			}
 		}
 	}

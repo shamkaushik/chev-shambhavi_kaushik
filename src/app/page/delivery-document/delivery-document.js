@@ -1,29 +1,3 @@
-var locationDropDownOptions = [];
-var selectedDelDocs = [];
-var selectedDelDocstatus = [];
-var startDate, endDate, pastSelectableDate = 6;
-
-locationDropDownOptions = locationDropDown.map(function(val,index){
-    return {
-        key : val.uid,
-        value : val.displayName
-    };
-});
-
-if(locationDropDownOptions.length>1)
-{
-	locationDropDownOptions.unshift({key:"all",value:cbp.delDocPage.globalVars.allTb});
-}
-cbp.delDocPage.locationDropDown["options"] = locationDropDownOptions;
-cbp.delDocPage.locationDropDown.searchable = true;
-
-function enableMobileDefaultDropDown() {
-    //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
-        $('.selectpicker').selectpicker('mobile');
-    }
-};
-
 require(["modernizr",
     "jquery",
     "bootstrap",
@@ -51,7 +25,7 @@ require(["modernizr",
 
         var config = {
             locationDdnContainer: ".js-location-ddn",
-            shipToDdnContainer: ".js-shipTo-ddn",
+            accountDdnContainer: ".js-account-ddn",
             delDocSummaryContainer: ".js-delDoc-summary",
             delDocsTypeContainer: ".js-delDocsType-ddn",
             downloadStatusContainer: ".js-downloadStatus-ddn",
@@ -70,7 +44,7 @@ require(["modernizr",
             printBtn: ".js-printBtn",
             // allCheckBtn: ".js-allCheckBtn",
             locationDdn: "#locationSelectDdn",
-            shipToDdn: "#shipToSelectDdn",
+            accountDdn: "#accountSelectDdn",
             downloadStatusDdn: "#downloadStatus",
             printStatusDdn: "#printStatus",
             sortByDdn: "#sortByDdn",
@@ -83,8 +57,14 @@ require(["modernizr",
             printIcon: ".iconsdelDocPrint"
         };
 
+        var locationDropDownOptions = [];
+        var selectedDelDocs = [];
+        var selectedDelDocstatus = [];
+        var startDate, endDate;
+    
         var init = function () {
-        	populatingShipTo(locationDropDownOptions[0].key, "all", true);
+            populatingSoldTo();
+        	populatingAccount(locationDropDownOptions[0].key, "all", true);
             loadingInitialHbsTemplates();
             
             populatingTable(cbp.delDocPage.delDocResponse, cbp.delDocPage.delDocResponse.delDocColumnMapping );
@@ -92,6 +72,26 @@ require(["modernizr",
             bindEvents();
             enableMobileDefaultDropDown();
         };
+
+       
+        var enableMobileDefaultDropDown = function() {
+            //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                $('.selectpicker').selectpicker('mobile');
+            }
+        };
+
+        var callInvoicePDFLink = function(invoiceId) {
+            $('#invoicePDFForm #invoiceId').val(invoiceId);
+            $('#invoicePDFForm #invoicePrint').val('false');
+            //$('#invoicePDFForm').submit();
+        }
+
+        var callDelDocsPDFLink = function(delDocId) {
+            $('#delDocPDFForm #delDocId').val(delDocId);
+            $('#delDocPDFForm #delDocPrint').val('false');
+            //$('#delDocPDFForm').submit();
+        }
         
         var downloadBtnSelected = function() {
             $('#delDocForm #selectedDelDocs').val(selectedDelDocs.toString());
@@ -127,7 +127,7 @@ require(["modernizr",
             //Appending handlebar templates to HTML
             $(config.searchFormContainer).html(compiledsearchForm(cbp.delDocPage));
             $(config.locationDdnContainer).html(compiledDefaultDdn(cbp.delDocPage.locationDropDown));
-            $(config.shipToDdnContainer).html(compiledDefaultDdn(cbp.delDocPage.shipToDropDown));
+            $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.delDocPage.accountDropDown));
             $(config.downloadStatusContainer).html(compiledDefaultDdn(cbp.delDocPage.downloadStatusDropdown));
             $(config.delDocsTypeContainer).html(compiledDefaultDdn(cbp.delDocPage.delDocTypeDropdown));
             $(config.printStatusContainer).html(compiledDefaultDdn(cbp.delDocPage.printStatusDropdown));
@@ -160,8 +160,8 @@ require(["modernizr",
 
         var setSummaryValues = function(){
             cbp.delDocPage.summary = {};
-            cbp.delDocPage.summary.soldTo = $('.js-location-ddn button span').text();
-            cbp.delDocPage.summary.shipTo = $('.js-shipTo-ddn button .filter-option').text();
+            cbp.delDocPage.summary.soldTo = $('.js-location-ddn .btn-group .dropdown-toggle').text();
+            cbp.delDocPage.summary.account = $('.js-account-ddn .btn-group .dropdown-toggle').text();
             cbp.delDocPage.summary.dateRange = $('.js-search-pickDateRange').find('span').text();
         };
 
@@ -214,7 +214,7 @@ require(["modernizr",
             
             var postData = {};
             
-            postData.shipTo= $(config.shipToDdn).val();
+            postData.account= $(config.accountDdn).val();
             postData.soldTo = $(config.locationDdn).val();            
             
             if($(config.billOfLading).val()!= "")
@@ -293,11 +293,11 @@ require(["modernizr",
                 key: "delDocDate-asc",
                 value: cbp.delDocPage.globalVars.delDocDateDesc
         }, { 
-                key: "shipTo-asc",
-                value: cbp.delDocPage.globalVars.shipToSortAsc
+                key: "account-asc",
+                value: cbp.delDocPage.globalVars.accountSortAsc
         }, {
-                key: "shipTo-desc",
-                value: cbp.delDocPage.globalVars.shipToSortDesc
+                key: "account-desc",
+                value: cbp.delDocPage.globalVars.accountSortDesc
         }, {
                 key: "invoiceId-asc",
                 value: cbp.delDocPage.globalVars.invoiceIdAsc
@@ -360,44 +360,59 @@ require(["modernizr",
         return optionDropdown;
         }
 
- 
-        var populatingShipTo = function(soldToId, shipToId, pageLoadCheck) {
+        var populatingSoldTo = function(){
+            locationDropDownOptions = locationDropDown.map(function(val,index){
+                return {
+                    key : val.uid,
+                    value : val.displayName
+                };
+            });
+            
+            if(locationDropDownOptions.length>1)
+            {
+                locationDropDownOptions.unshift({key:"all",value:cbp.delDocPage.globalVars.allTb});
+            }
+            cbp.delDocPage.locationDropDown["options"] = locationDropDownOptions;
+            cbp.delDocPage.locationDropDown.searchable = true;
+        };
+
+        var populatingAccount = function(soldToId, accountId, pageLoadCheck) {
             $(config.displaySpinner).show();
             
             function successCallback(data) {
                 
                 $(config.displaySpinner).hide();
                 
-                var shipToOptions = [];
+                var accountOptions = [];
                 var obj = {};
                 
-                var shipTo = data;
+                var account = data;
                
-                shipToOptions = shipTo.map(function(val,index){
+                accountOptions = account.map(function(val,index){
                     return {
                         key : val['uid'],
                         value : val['displayName']
                     };
                 });
                 
-                if(shipTo.length == 1){
-                    cbp.delDocPage.shipToDropDown.singleOption = true;
-                }else if(shipTo.length >= 1){
+                if(account.length == 1){
+                    cbp.delDocPage.accountDropDown.singleOption = true;
+                }else if(account.length >= 1){
                     obj["key"] = "all";
                     obj["value"] = cbp.delDocPage.globalVars.allTb;
-                    shipToOptions.unshift(obj);
+                    accountOptions.unshift(obj);
                 }
 
                
-                cbp.delDocPage.shipToDropDown["options"] = shipToOptions;
-                cbp.delDocPage.shipToDropDown.searchable = true;
+                cbp.delDocPage.accountDropDown["options"] = accountOptions;
+                cbp.delDocPage.accountDropDown.searchable = true;
                 
-                $(config.shipToDdnContainer).html(compiledDefaultDdn(cbp.delDocPage.shipToDropDown));
+                $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.delDocPage.accountDropDown));
 
-                $(config.shipToDdn).selectpicker('refresh');
+                $(config.accountDdn).selectpicker('refresh');
                 
-                if(cbp.delDocPage.shipToDropDown["options"].length > 1){
-                    $(config.shipToDdn).val(shipToId).selectpicker('refresh');
+                if(cbp.delDocPage.accountDropDown["options"].length > 1){
+                    $(config.accountDdn).val(accountId).selectpicker('refresh');
                 }
                 if(pageLoadCheck === true){
                     setSummaryValues();
@@ -418,7 +433,7 @@ require(["modernizr",
                     'soldToNumber' : soldToId                   
                 },
                 dataType:"json",
-                url: cbp.delDocPage.globalUrl.shipToURL,
+                url: cbp.delDocPage.globalUrl.accountURL,
                 success: successCallback,
                 error: errorCallback
             });
@@ -451,10 +466,10 @@ require(["modernizr",
                 } else {
                     $(config.searchButton).attr("disabled", "disabled");
                 }
-                populatingShipTo($(config.locationDdn).val(), "all");
+                populatingAccount($(config.locationDdn).val(), "all");
           });
 
-            $(document).on('change', config.shipToDdn, function(e) {
+            $(document).on('change', config.accountDdn, function(e) {
                  if ($(this).val() !== "") {
                      $(config.searchButton).removeAttr("disabled");
                  } else {
@@ -562,9 +577,9 @@ require(["modernizr",
                                 return downloadReport + printReport;
                             }
                         }, {
-                            field: 'shipTo',
-                            title: cbp.delDocPage.globalVars.shipTo,
-                            titleTooltip: cbp.delDocPage.globalVars.shipTo,
+                            field: 'account',
+                            title: cbp.delDocPage.globalVars.account,
+                            titleTooltip: cbp.delDocPage.globalVars.account,
                             width: "40%",
                             sortable: true
                         }, {
@@ -603,7 +618,7 @@ require(["modernizr",
                             formatter: function LinkFormatter(value, row, index) {
                                 var delDocNoVar;
                 
-                                delDocNoVar = '<a href="javascript:void(0);" onclick="calldelDocPDFLink(\'' + row.delDocId + '\')">' + row.delDocId + '</a>';
+                                delDocNoVar = '<a href="javascript:void(0);" onclick="callDelDocPDFLink(\'' + row.delDocId + '\')">' + row.delDocId + '</a>';
                                    
                                 return delDocNoVar;
                             }
@@ -616,7 +631,7 @@ require(["modernizr",
                             formatter: function LinkFormatter(value, row, index) {
                                 var delDocNoVar;
                 
-                                delDocNoVar = '<a href="javascript:void(0);" onclick="calldelDocPDFLink(\'' + row.invoiceId + '\')">' + row.invoiceId + '</a>';
+                                delDocNoVar = '<a href="javascript:void(0);" onclick="callInvoicePDFLink(\'' + row.invoiceId + '\')">' + row.invoiceId + '</a>';
                                    
                                 return delDocNoVar;
                             } 
@@ -627,20 +642,6 @@ require(["modernizr",
                             class: 'numberIcon text-nowrap',
                             sortable: true,
                             align: 'right',
-                            sorter: function priceSort(a, b) {
-                                    if (a !== null && b !== null) {
-                                       a = parseFloat(a.replace(/[,.]+/g,""));
-                                        b = parseFloat(b.replace(/[,.]+/g,""));
-                                    }
-            
-                                    if (a < b) {
-                                        return -1;
-                                    }
-                                    if (a > b) {
-                                        return 1;
-                                    }
-                                    return 0;
-                            },
                             formatter: function LinkFormatter(value, row, index) {
                                 var total;
                                 if (value >= '0') {
@@ -657,7 +658,7 @@ require(["modernizr",
             data[columnsList.field] = columnsList;
             return data;
             }, {});
-            var orderKey = ["checkbox", "status","shipTo", "delDocDate","billOfLading", "delDocId","invoiceId","total"]
+            var orderKey = ["checkbox", "status","account", "delDocDate","billOfLading", "delDocId","invoiceId","total"]
           
             var requestedCol = [];
             for(var i = 0; i< orderKey.length; i++){
@@ -689,7 +690,7 @@ require(["modernizr",
             if (delDocsData.delDocList === null || delDocsData.delDocList === undefined) {
                 delDocsData.delDocList = [];
             }
-            $(config.sortByDdn).val("delDocDate-desc").selectpicker('refresh');
+            $(config.sortByDdn).val("invoiceId-desc").selectpicker('refresh');
 
 
             $('#table').bootstrapTable({
@@ -815,7 +816,7 @@ require(["modernizr",
         $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
         
         leftPaneExpandCollapse.init();
-        cbp.delDocPage.showSoldTo = true;
+
         cbp.delDocPage.delDocResponse = delDocResponse;
         if (delDocResponse.resultCount === undefined || delDocResponse.resultCount === null) {
             cbp.delDocPage.delDocResponse.resultCount = 0;
@@ -834,7 +835,6 @@ require(["modernizr",
         cbp.delDocPage.globalVars.summaryfromAndToVar = cbp.delDocPage.globalVars.summaryfromAndTo.replace("{0}", cbp.delDocPage.dateRange.startDate.format(cbp.delDocPage.dateRange.format)).replace("{1}", cbp.delDocPage.dateRange.endDate.format(cbp.delDocPage.dateRange.format));
 
         delDocPage.init();
-        enableMobileDefaultDropDown();
 
     });
 
