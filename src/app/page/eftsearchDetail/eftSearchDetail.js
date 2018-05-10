@@ -73,7 +73,7 @@ require(["modernizr",
             display: "displayInline"
         };
 
-        
+
         var toggleSwitchConfig = {
             name: "switch",
             cssClass: "toggleForEFTSerachForm",
@@ -213,36 +213,34 @@ require(["modernizr",
             $("#eftSearchPDFForm #selectedEFTs").val(eftNoticeNumberId);
             $("#eftSearchPDFForm").submit();
         }
-        
+
         var calleftSearchPDFLink = function (eftNoticeNumberId) {
             $('#eftSearchPDFForm #eftNoticeNumberId').val(eftNoticeNumberId);
             $('#eftSearchPDFForm #eftPrint').val('false');
             $('#eftSearchPDFForm').submit();
         }
-        
+
         var goToOrderDetails = function (orderId) {
             $('#eftDetailsForm #eftNoticeNumberId').val(orderId);
             $('#eftDetailsForm #hybrisOrder').val(true);
             $('#eftDetailsForm').submit();
         }
 
-        
+
         function downloadBtnSelected() {
-            $('#eftForm #selectedEFTs').val(selectedEFTs.toString());
-            for (var i = 0; len = selectedEFTs.length, i < len; i++) {
-                $(".iconsPrintDownload[data-eftNoticeNumberId='" + selectedEFTs[i] + "']").addClass("success-icon");
-            }
+            var eftNoticeNumberId = eftDetailResponse.eftDetailsData.eftNoticeUid;
+            $('#eftForm #selectedEFTs').val(eftNoticeNumberId);
             $("#eftForm").submit();
         }
-        
+
         function printPDFSelected() {
-               var eftNoticeNumberId = eftDetailResponse.eftDetailsData.eftNoticeUid;
+            var eftNoticeNumberId = eftDetailResponse.eftDetailsData.eftNoticeUid;
             if (inASMSession !== true)
                 $(this).addClass("success-icon");
             $('#eftSearchPDFForm #selectedEFTs').val(eftNoticeNumberId);
             $("#eftSearchPDFForm").submit();
         }
-        
+
         function callInvoicePDF(invoiceId) {
             $('#invoicePDFForm #invoiceId').val(invoiceId);
             $('#invoicePDFForm #invoicePrint').val('false');
@@ -337,7 +335,7 @@ require(["modernizr",
                     $(this).addClass("success-icon");
                 calleftSearchPDF($(evnt.target).attr("data-eftNoticeNumberId"));
             });
-            
+
             var valueOnSubmit = '.js-search-form input' + "," + config.printStatusContainer + "," +
                 config.accountDdnContainer + "," +
                 config.downloadStatusContainer + "," + config.dateRangeContainer + "";
@@ -359,7 +357,7 @@ require(["modernizr",
                 var str = String.fromCharCode(e.which);
                 if (str.match(regex)) {
                     return true;
-                } 
+                }
                 e.preventDefault();
                 return false;
             });
@@ -376,7 +374,7 @@ require(["modernizr",
                     $(config.searchInputEft).attr('placeholder','Invoice #');
                 }
             });
-            
+
             $(document).on('click',config.backToEFTSearch,function(){
                 window.location.href=cbp.eftDetailPage.globalUrl.eftSearchURL;
             });
@@ -384,7 +382,7 @@ require(["modernizr",
             $(document).on("click", config.downloadBtn, function(){
                 downloadBtnSelected();
             });
-            
+
             $(document).on("click", config.printBtn, function(){
                 printPDFSelected();
             });
@@ -607,7 +605,7 @@ require(["modernizr",
         cbp.eftDetailPage.showSoldTo = true;
 
         cbp.eftDetailPage.eftDetailResponse = eftDetailResponse;
-        
+
         if (cbp.eftDetailPage.eftDetailResponse.eftDetailDataList.length > 0) {
             cbp.eftDetailPage.globalVars.eftsFoundVar = cbp.eftDetailPage.globalVars.eftsFound.replace("{0}", cbp.eftDetailPage.eftDetailResponse.eftDetailDataList.length);
         } else {
