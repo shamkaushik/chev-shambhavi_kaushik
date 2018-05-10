@@ -1,88 +1,3 @@
-var accountDropdownOptions = [], eftObj = {};
-
-var toggleSwitchConfig = {
-    name: "switch",
-    cssClass: "toggleForEFTSerachForm",
-    label: "",
-    //LabelBlock: true,
-    options: [{
-        label: "EFT Notice #",
-        value: "1",
-        default: true
-    }, {
-        label: "Invoice #",
-        value: "2"
-    }]
-};
-
-accountDropdown = [];
-accountDropdown.push({"accountNumber" : eftDetailResponse.eftSummaryData.accountNumber,"accountName" : eftDetailResponse.eftSummaryData.accountName});
-
-if (accountDropdown.length > 1) {
-    var obj = {};
-    obj["key"] = "all";
-    obj["value"] = cbp.eftDetailPage.globalVars.allAccount;
-    accountDropdownOptions.push(obj);
-}
-
-for (var i = 0; i < accountDropdown.length; i++) {
-    var obj = {};
-    obj["key"] = accountDropdown[i].accountNumber;
-    obj["value"] = accountDropdown[i].accountName;
-    accountDropdownOptions.push(obj);
-}
-
-cbp.eftDetailPage.accountDropdown["options"] = accountDropdownOptions;
-cbp.eftDetailPage.accountDropdown.searchable = true;
-
-
-function calleftSearchPDF(eftNoticeNumberId) {
-    var contextPath = $("#contextPath").val() + "/Eft/eftListPDF";
-    $("#eftSearchPDFForm").attr('action', contextPath);
-    $("#eftSearchPDFForm #selectedEFTs").val(eftNoticeNumberId);
-    $("#eftSearchPDFForm").submit();
-}
-
-function calleftSearchPDFLink(eftNoticeNumberId) {
-    $('#eftSearchPDFForm #eftNoticeNumberId').val(eftNoticeNumberId);
-    $('#eftSearchPDFForm #eftPrint').val('false');
-    $('#eftSearchPDFForm').submit();
-}
-
-function goToOrderDetails(orderId) {
-    $('#eftDetailsForm #eftNoticeNumberId').val(orderId);
-    $('#eftDetailsForm #hybrisOrder').val(true);
-    $('#eftDetailsForm').submit();
-}
-
-var selectedEFTs = [],
-    selectedProduct = [],
-    selectedEftStatus = [];
-
-function downloadBtnSelected() {
-    $('#eftForm #selectedEFTs').val(selectedEFTs.toString());
-    for (var i = 0; len = selectedEFTs.length, i < len; i++) {
-        $(".iconsPrintDownload[data-eftNoticeNumberId='" + selectedEFTs[i] + "']").addClass("success-icon");
-    }
-    $("#eftForm").submit();
-}
-
-function printPDFSelected() {
-    $('#eftForm #selectedEFTs').val(selectedEFTs.toString());
-    var contextPath = $("#contextPath").val() + "/Eft/eftListPDF";
-    var currentActionURL = $("#eftForm").attr('action');
-    $("#eftForm").attr('action', contextPath);
-    $("#eftForm").attr('target', '_blank');
-    for (var i = 0; len = selectedEFTs.length, i < len; i++) {
-        $(".iconsEftPrint[data-eftNoticeNumberId='" + selectedEFTs[i] + "']").addClass("success-icon");
-    }
-    $("#eftForm").submit();
-    $("#eftForm").attr('action', currentActionURL);
-    $("#eftForm").removeAttr('target');
-}
-
-// var disablePayError = false;
-var disableEftError = false;
 require(["modernizr",
     "jquery",
     "bootstrap",
@@ -97,6 +12,7 @@ require(["modernizr",
     "text!app/page/eftSearchDetail/searchForm.hbs",
     "text!app/page/eftSearchDetail/eftSearchSummary.hbs",
     "text!app/page/eftSearchDetail/bottomDetail.hbs"
+
     // "text!app/page/eft-detail/searchForm.hbs",
     // "text!app/page/eft-detail/eftSummary.hbs",
     // "text!app/page/eft-detail/bottomDetail.hbs"
@@ -109,28 +25,40 @@ require(["modernizr",
     var compiledsearchForm = Handlebars.compile(_searchFormHBS);
     var compiledeftSearchSummary = Handlebars.compile(_eftSearchSummaryHBS);
     var compiledBottomDetail = Handlebars.compile(_bottomDetailHBS);
-
+    var accountDropdownOptions = [], eftObj = {};
     var eftSearchPage = (function () {
         var startDate, endDate;
         var srtByDdn = {
             "options": [{
                     key: "invoiceNumber-asc",
-                    value: cbp.eftDetailPage.globalVars.eftNoticeNumberAsc
+                    value: cbp.eftDetailPage.globalVars.invoiceNumberAsc
             }, {
                     key: "invoiceNumber-desc",
-                    value: cbp.eftDetailPage.globalVars.eftNoticeNumberDesc
+                    value: cbp.eftDetailPage.globalVars.invoiceNumberDesc
             },{
-                    key: "referenceDate-desc",
-                    value: cbp.eftDetailPage.globalVars.noticeDateAsc
-            }, {
                     key: "referenceDate-asc",
-                    value: cbp.eftDetailPage.globalVars.noticeDateDesc
+                    value: cbp.eftDetailPage.globalVars.referenceDateAsc
             }, {
+                    key: "referenceDate-desc",
+                    value: cbp.eftDetailPage.globalVars.referenceDateDesc
+            },{
+                    key: "originalDoc-asc",
+                    value: cbp.eftDetailPage.globalVars.originalDocAsc
+               }, {
+                           key: "originalDoc-desc",
+                           value: cbp.eftDetailPage.globalVars.originalDocDesc
+               },{
+                           key: "altReference-asc",
+                           value: cbp.eftDetailPage.globalVars.altReferenceAsc
+               }, {
+                           key: "altReference-desc",
+                           value: cbp.eftDetailPage.globalVars.altReferenceDesc
+               },{
                     key: "deliveryAccount-asc",
-                    value: cbp.eftDetailPage.globalVars.settlementDateAsc
+                    value: cbp.eftDetailPage.globalVars.deliveryAccountAsc
             }, {
                     key: "deliveryAccount-desc",
-                    value: cbp.eftDetailPage.globalVars.settlementDateDesc
+                    value: cbp.eftDetailPage.globalVars.deliveryAccountDesc
             }, {
                     key: "total-asc",
                     value: cbp.eftDetailPage.globalVars.totalAsc
@@ -144,6 +72,42 @@ require(["modernizr",
             name: "sortByDdn",
             display: "displayInline"
         };
+
+        
+        var toggleSwitchConfig = {
+            name: "switch",
+            cssClass: "toggleForEFTSerachForm",
+            label: "",
+            //LabelBlock: true,
+            options: [{
+                label: "EFT Notice #",
+                value: "1",
+                default: true
+            }, {
+                label: "Invoice #",
+                value: "2"
+            }]
+        };
+
+        accountDropdown = [];
+        accountDropdown.push({"accountNumber" : eftDetailResponse.eftSummaryData.accountNumber,"accountName" : eftDetailResponse.eftSummaryData.accountName});
+
+        if (accountDropdown.length > 1) {
+            var obj = {};
+            obj["key"] = "all";
+            obj["value"] = cbp.eftDetailPage.globalVars.allAccount;
+            accountDropdownOptions.push(obj);
+        }
+
+        for (var i = 0; i < accountDropdown.length; i++) {
+            var obj = {};
+            obj["key"] = accountDropdown[i].accountNumber;
+            obj["value"] = accountDropdown[i].accountName;
+            accountDropdownOptions.push(obj);
+        }
+
+        cbp.eftDetailPage.accountDropdown["options"] = accountDropdownOptions;
+        cbp.eftDetailPage.accountDropdown.searchable = true;
 
         var config = {
             accountDdnContainer: ".js-account-ddn",
@@ -177,7 +141,8 @@ require(["modernizr",
             eftNoticeForm: "#eftNoticeForm",
             eftNoticeidInp: "#eftNoticeid",
             eftSearchToggle: "#eftSearchToggle",
-            searchInputEft: ".js-eftSearchPage-searchEft"
+            searchInputEft: ".js-eftSearchPage-searchEft",
+            backToEFTSearch: ".backToEFTSearch"
         };
 
         var init = function () {
@@ -193,26 +158,7 @@ require(["modernizr",
                 $(config.printStatusDdn).val('notPrinted').selectpicker('refresh');
             }
 
-            if (localStorage.getItem("eftObj") === undefined || localStorage.getItem("eftObj") === null) {
-                populatingTable(cbp.eftDetailPage.eftDetailResponse.eftDetailDataList);
-            } else {
-                var eftObj = JSON.parse(localStorage.getItem("eftObj"));
-                cbp.eftDetailPage.dateRange.startDate = moment(eftObj.startDate);
-                cbp.eftDetailPage.dateRange.endDate = moment(eftObj.endDate);
-                startDate = cbp.eftDetailPage.dateRange.startDate.format(cbp.eftDetailPage.dateRange.format);
-                endDate = cbp.eftDetailPage.dateRange.endDate.format(cbp.eftDetailPage.dateRange.format);
-                $(config.accountDdn).val(eftObj.shipTo).selectpicker('refresh');
-                $(config.eftNoticeNumber).val(eftObj.eftNoticeNumber);
-                $(config.invoiceNumber).val(eftObj.salesinvoiceNumber);
-                $(config.downloadStatusDdn).val(eftObj.downloadStatus).selectpicker('refresh');
-                $(config.printStatusDdn).val(eftObj.printStatus).selectpicker('refresh');
-
-                localStorage.removeItem("eftObj");
-                $(config.searchButton).removeAttr("disabled");
-                triggerAjaxRequest();
-            }
-
-
+            populatingTable(cbp.eftDetailPage.eftDetailResponse.eftDetailDataList);
             populatingCalendarComponent();
             bindEvents();
         };
@@ -239,7 +185,7 @@ require(["modernizr",
         };
 
         var loadingDynamicHbsTemplates = function () {
-            $(config.eftSearchSummaryContainer).html(compiledeftSearchSummary(cbp.eftDetailPage));
+           $(config.eftSearchSummaryContainer).html(compiledeftSearchSummary(cbp.eftDetailPage));
             $(config.searchDetailContainer).html(compiledBottomDetail(cbp.eftDetailPage));
             $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
             $(config.sortByDdnContainer).find(config.dropDownCommon).selectpicker('refresh');
@@ -260,6 +206,48 @@ require(["modernizr",
                 }
             });
         };
+
+        var calleftSearchPDF = function (eftNoticeNumberId) {
+            var contextPath = $("#contextPath").val() + "/Eft/eftListPDF";
+            $("#eftSearchPDFForm").attr('action', contextPath);
+            $("#eftSearchPDFForm #selectedEFTs").val(eftNoticeNumberId);
+            $("#eftSearchPDFForm").submit();
+        }
+        
+        var calleftSearchPDFLink = function (eftNoticeNumberId) {
+            $('#eftSearchPDFForm #eftNoticeNumberId').val(eftNoticeNumberId);
+            $('#eftSearchPDFForm #eftPrint').val('false');
+            $('#eftSearchPDFForm').submit();
+        }
+        
+        var goToOrderDetails = function (orderId) {
+            $('#eftDetailsForm #eftNoticeNumberId').val(orderId);
+            $('#eftDetailsForm #hybrisOrder').val(true);
+            $('#eftDetailsForm').submit();
+        }
+
+        
+        function downloadBtnSelected() {
+            $('#eftForm #selectedEFTs').val(selectedEFTs.toString());
+            for (var i = 0; len = selectedEFTs.length, i < len; i++) {
+                $(".iconsPrintDownload[data-eftNoticeNumberId='" + selectedEFTs[i] + "']").addClass("success-icon");
+            }
+            $("#eftForm").submit();
+        }
+        
+        function printPDFSelected() {
+               var eftNoticeNumberId = eftDetailResponse.eftDetailsData.eftNoticeUid;
+            if (inASMSession !== true)
+                $(this).addClass("success-icon");
+            $('#eftSearchPDFForm #selectedEFTs').val(eftNoticeNumberId);
+            $("#eftSearchPDFForm").submit();
+        }
+        
+        function callInvoicePDF(invoiceId) {
+            $('#invoicePDFForm #invoiceId').val(invoiceId);
+            $('#invoicePDFForm #invoicePrint').val('false');
+            $('#invoicePDFForm').submit();
+        }
 
         var populatingCalendarComponent = function () {
             function cb(start, end) {
@@ -303,109 +291,6 @@ require(["modernizr",
                 }
             }, cb);
         };
-        var triggerAjaxRequest = function () {
-            $(config.displaySpinner).show();
-            $(config.eftSearchSummaryContainer).hide();
-            $(config.searchDetailContainer).hide();
-
-            leftPaneExpandCollapse.hideSearchBar();
-
-            var postData = {};
-            postData.account = $(config.accountDdn).val();
-            /* start DSLEC-8*/
-            if($(config.eftNoticeNumber).length > 0)
-            {
-            	postData.noticeNumber = $(config.eftNoticeNumber).val().trim(); 
-                $(config.eftNoticeNumber).val(postData.noticeNumber); 
-            }
-            if($(config.invoiceNumber).length > 0)
-            {
-	            postData.invoiceNumber = $(config.invoiceNumber).val().trim();
-	            $(config.invoiceNumber).val(postData.invoiceNumber); 
-            }
-            /* end DSLEC-8*/
-            postData.downloadStatus = $(config.downloadStatusDdn).val();
-            postData.printStatus = $(config.printStatusDdn).val();
-
-            /* start DSLEC-120*/
-            if($(config.eftNoticeNumber).val() != "" || 
-               $(config.invoiceNumber).val()   != "" ) 
-            {
-               	var backDate = moment().subtract(cbp.eftDetailPage.dateRange.backDatedRange, 'month');
-            	    backDate = backDate.format(cbp.eftDetailPage.dateRange.format);
-            	var curDate  = moment();
-            	    curDate  = curDate.format(cbp.eftDetailPage.dateRange.format);
-            	    postData.fromDate = backDate;
-                    postData.toDate   = curDate;
-            }
-            else 
-            {
-            	 postData.startDate = startDate;
-                 postData.endDate = endDate;
-            }
-            /* end DSLEC-120*/
-            
-            if ($(config.accountDdn).val() != 'all') {
-                cbp.eftDetailPage.showSoldTo = false;
-            } else {
-                cbp.eftDetailPage.showSoldTo = true;
-            }
-
-            function successCallback(data) {
-                $(config.displaySpinner).hide();
-                $(config.searchDetailContainer).show();
-                $(config.eftSearchSummaryContainer).show();
-                cbp.eftDetailPage.eftDetailResponse = data;
-                
-                if (cbp.eftDetailPage.eftDetailResponse.resultCount === undefined || cbp.eftDetailPage.eftDetailResponse.resultCount === null) {
-                    cbp.eftDetailPage.eftDetailResponse.resultCount = 0;
-                }
-
-                if (cbp.eftDetailPage.eftDetailResponse.eftDetailDataList === undefined || cbp.eftDetailPage.eftDetailResponse.eftDetailDataList === null) {
-                    cbp.eftDetailPage.eftDetailResponse.eftDetailDataList = [];
-                }
-               
-                if (cbp.eftDetailPage.eftDetailResponse.eftDetailDataList.length > 0) {
-                    cbp.eftDetailPage.globalVars.eftsFoundVar = cbp.eftDetailPage.globalVars.eftsFound.replace("{0}", cbp.eftDetailPage.eftDetailResponse.eftDetailDataList.length);
-                } else {
-                    cbp.eftDetailPage.globalVars.eftsFoundVar = cbp.eftDetailPage.globalVars.eftsFound.replace("{0}", 0);
-                }
-                
-                cbp.eftDetailPage.dateRange.startDate = moment(startDate, cbp.eftDetailPage.dateRange.format, true);
-                cbp.eftDetailPage.dateRange.endDate = moment(endDate, cbp.eftDetailPage.dateRange.format, true);
-
-                cbp.eftDetailPage.globalVars.summaryfromAndToVar = cbp.eftDetailPage.globalVars.summaryfromAndTo.replace("{0}", cbp.eftDetailPage.dateRange.startDate.format(cbp.eftDetailPage.dateRange.format)).replace("{1}", cbp.eftDetailPage.dateRange.endDate.format(cbp.eftDetailPage.dateRange.format));
-
-                if (cbp.eftDetailPage.eftDetailResponse.resultCount > 0 && cbp.eftDetailPage.eftDetailResponse.resultCount < maxResults) {
-                    cbp.eftDetailPage.showDebitCredit = true;
-                } else {
-                    cbp.eftDetailPage.showDebitCredit = false;
-                }
-
-
-                loadingDynamicHbsTemplates();
-                populatingTable(cbp.eftDetailPage.eftDetailResponse.eftDetailDataList);
-                leftPaneExpandCollapse.resetSearchFormHeight();
-            }
-
-            function errorCallback() {
-                $(config.displaySpinner).hide();
-                $(config.searchDetailContainer).show();
-                $(config.eftSearchSummaryContainer).show();
-                console.log("error");
-            }
-
-            $.ajax({
-                type: cbp.eftDetailPage.globalUrl.method,
-                data: JSON.stringify(postData),
-                contentType:"application/json",
-                dataType:"json",
-                url: cbp.eftDetailPage.globalUrl.eftSearchPostURL,
-                success: successCallback,
-                error: errorCallback
-            });
-
-        };
 
         var downloadForm = function (eftNoticeNumberId) {
             var loc = $("#contextPath").val();
@@ -436,18 +321,7 @@ require(["modernizr",
 
             $(document).on("click", config.eftNoticeLink, function(e){
                 e.preventDefault();
-                
-                eftObj.shipTo = $("#accountSelectDdn").val();
-                eftObj.eftNoticeNumber = $("#eftNoticeNumber").val();
-                eftObj.salesinvoiceNumber = $("#invoiceNumber").val();
-                eftObj.downloadStatus = $("#downloadStatus").val();
-                eftObj.printStatus = $("#printStatus").val();
-                eftObj.startDate = startDate;
-                eftObj.endDate = endDate;
-                localStorage.setItem("eftObj", JSON.stringify(eftObj));
-                
-                $(config.eftNoticeidInp).val($(e.target).data('uid'));
-                $(config.eftNoticeForm).submit();
+                callInvoicePDF(e.target.innerText);
               });
 
             $(document).on('click', config.downloadIcon, function (evnt) {
@@ -463,13 +337,7 @@ require(["modernizr",
                     $(this).addClass("success-icon");
                 calleftSearchPDF($(evnt.target).attr("data-eftNoticeNumberId"));
             });
-
-            //Search button functionality
-            $(config.searchButton).on("click", function (e) {
-                selectedEFTs = [];
-                triggerAjaxRequest();
-            });
-
+            
             var valueOnSubmit = '.js-search-form input' + "," + config.printStatusContainer + "," +
                 config.accountDdnContainer + "," +
                 config.downloadStatusContainer + "," + config.dateRangeContainer + "";
@@ -500,13 +368,25 @@ require(["modernizr",
                 $(".search-form").addClass("show");
             });
 
-            $(document).on('click',config.eftSearchToggle+' button',function(){
-            	$(config.searchInputUSerAccount).val('');
+           $(document).on('click',config.eftSearchToggle+' button',function(){
+            $(config.searchInputUSerAccount).val('');
                 if($(this).val()==1){
                     $(config.searchInputEft).attr('placeholder','EFT Notice #');
                 }else if($(this).val()==2){
                     $(config.searchInputEft).attr('placeholder','Invoice #');
                 }
+            });
+            
+            $(document).on('click',config.backToEFTSearch,function(){
+                window.location.href=cbp.eftDetailPage.globalUrl.eftSearchURL;
+            });
+
+            $(document).on("click", config.downloadBtn, function(){
+                downloadBtnSelected();
+            });
+            
+            $(document).on("click", config.printBtn, function(){
+                printPDFSelected();
             });
         };
 
@@ -523,7 +403,7 @@ require(["modernizr",
 
             if (eftDetailDataList === null || eftDetailDataList === undefined) {
                 eftDetailDataList = [];
-            }
+           }
             $(config.sortByDdn).val("eftNoticeNumber-desc").selectpicker('refresh');
 
             $('#table').bootstrapTable({
@@ -577,10 +457,6 @@ require(["modernizr",
 
                 },
                 columns: [{
-                    field: '',
-                    checkbox: true,
-                    class: 'fa'
-                }, {
                     field: 'invoiceNumber',
                     title: cbp.eftDetailPage.globalVars.documentNumber,
                     titleTooltip: cbp.eftDetailPage.globalVars.documentNumber,
@@ -623,7 +499,7 @@ require(["modernizr",
                     title: cbp.eftDetailPage.globalVars.descriptionText,
                     titleTooltip: cbp.eftDetailPage.globalVars.descriptionText,
                     class: 'numberIcon text-nowrap col-md-5',
-                    sortable: true
+                    sortable: false
                 },{
                     field: 'deliveryAccount',
                     title: cbp.eftDetailPage.globalVars.deliveryAccount,
@@ -632,8 +508,8 @@ require(["modernizr",
                     sortable: true
                 }, {
                     field: 'total',
-                    title: cbp.eftDetailPage.globalVars.totalTbSD + " (" + cbp.eftDetailPage.eftDetailResponse.currency + ")",
-                    titleTooltip: cbp.eftDetailPage.globalVars.totalTbSD + " (" + cbp.eftDetailPage.eftDetailResponse.currency + ")",
+                    title: cbp.eftDetailPage.globalVars.totalTbSD + " (" + cbp.eftDetailPage.eftDetailResponse.eftDetailsData.currency+ ")",
+                    titleTooltip: cbp.eftDetailPage.globalVars.totalTbSD + " (" + cbp.eftDetailPage.eftDetailResponse.eftDetailsData.currency+ ")",
                     class: 'numberIcon text-nowrap',
                     sortable: true,
                     align: 'right',
