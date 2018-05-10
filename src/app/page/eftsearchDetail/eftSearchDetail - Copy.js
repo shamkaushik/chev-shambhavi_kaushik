@@ -461,7 +461,6 @@ require(["modernizr",
                     title: cbp.eftDetailPage.globalVars.documentNumber,
                     titleTooltip: cbp.eftDetailPage.globalVars.documentNumber,
                     class: 'text-nowrap',
-                    sortable: true,
                     formatter: function LinkFormatter(value, row, index) {
                         return "<a href='#' class='js-eft-NoticeNumber' data-uid='" + row.eftNoticeNumberId + "'>" + value + "</a>";
                     }

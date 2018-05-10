@@ -7,11 +7,8 @@ require(["modernizr",
     "bootstrap-select",
     "bootstrap-table",
     "text!app/components/dropdown/_defaultDdn.hbs",
-    "text!app/page/site-operating-hours/searchForms.hbs",
-    "text!app/page/site-operating-hours/topSummary.hbs",
-    "text!app/page/site-operating-hours/bottomDetails.hbs"
 
-], function (modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable, _defaultDdnHBS, _searchFormHBS, _siteOperatingSummaryHBS, _sohBottomDetailHBS) {
+], function (modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable, _defaultDdnHBS) {
 
 
     var siteOperatingPage = (function () {
