@@ -1,0 +1,41 @@
+{
+	"currency": "USD",
+	"yearToDate": "90868",
+	"resultCount": "25",
+	"header": {
+		"account": "6227166 - Redwood Oil Co. Inc, 50 Professional CTR Dr. Suite 100 Tohnert Park, Ca 94928, United States",
+		"fiscalYear": "2018",
+		"quarter": "Q2"
+	},
+	"items": [{
+			"site": "3017501 Redwood Oil Co. 7761 Old",
+			"yearToDate": "477,528.78",
+			"amountForSite": {
+				"july": "176,737.46",
+				"august": "276,737.46",
+				"september": "376,737.46"
+			}
+		},
+		{
+			"site": "3017501 Redwood Oil Co. 7761 Old",
+			"yearToDate": "1477,528.78",
+			"amountForSite": {
+				"july": "476,737.46",
+				"august": "576,737.46",
+				"september": "676,737.46"
+			}
+		}
+	],
+	"netAmountForSites": {
+		"july": "876,737.46",
+		"august": "976,737.46",
+		"september": "776,737.46"
+	},
+	"reportSearchDataListMapping" : {
+		"checkbox" : true,
+		"status" : true,
+		"site": true,
+		"months": true,
+		"yeartodate": true
+	  }
+}
