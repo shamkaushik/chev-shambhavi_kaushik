@@ -112,19 +112,23 @@
             };
 
             var maxResults = 500;
+            
+            var eftSearchCurrency = "USD";
+
+            var CSRFToken = "";
 
             var accountDropdown = [{
-                "accountNumber": "0676334614",
-                "accountAddress": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+                "uid": "0676334614",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
             }, {
-                "accountNumber": "0912234461",
-                "accountAddress": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+                "uid": "0912234461",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
             }, {
-                "accountNumber": "0176224612",
-                "accountAddress": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+                "uid": "0176224612",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
             }, {
-                "accountNumber": "0116134113",
-                "accountAddress": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+                "uid": "0116134113",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
             }];
             
             var downloadStatusDropdownOptions = [{
@@ -236,6 +240,8 @@
                         "shipTo": "Ship To:",
                         "noMatches": "No EFTS found. Please change your search",
                         "noMatchesMaxResults": maxResultText,
+                        "eftNumberSwitchLabel" : "EFT #",
+                        "invoiceNumberSwitchLabel" : "Invoice #",
                         "selectDdn": {
                             "noneSelectedText": "Nothing selected",
                             "noneResultsText": "No results for {0}",
