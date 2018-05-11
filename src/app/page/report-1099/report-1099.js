@@ -4,13 +4,12 @@ require(["modernizr",
     "handlebars",
     "bootstrap-select",
     "bootstrap-table",
-    "common",
     "text!app/components/dropdown/_defaultDdn.hbs",
     "text!app/page/report-1099/searchForm.hbs",
     "text!app/page/report-1099/bottomDetail.hbs",
     "text!app/page/report-1099/reportSummary.hbs",
 
-], function(modernizr, $, bootstrap, Handlebars, bootstrapSelect, bootstrapTable, common, _defaultDdnHBS, _searchFormHBS, _bottomDetailHBS, _reportSummaryHBS) {
+], function(modernizr, $, bootstrap, Handlebars, bootstrapSelect, bootstrapTable, _defaultDdnHBS, _searchFormHBS, _bottomDetailHBS, _reportSummaryHBS) {
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
