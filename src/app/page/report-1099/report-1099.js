@@ -127,6 +127,14 @@ require(["modernizr",
             }
         };
 
+        var getCurrency = function(){
+            var currency = "";
+            if(cbp.report1099Page.searchResponse.currency){
+                currency = " ("+cbp.report1099Page.searchResponse.currency+")";
+            }
+            return currency;
+        }
+
         var getMonthsToShow = function(){
             var monthsToShow = [];
              for(key in cbp.report1099Page.searchResponse.netAmountForSites){
@@ -153,7 +161,8 @@ require(["modernizr",
         var getTableColumns = function(){
             var columnsToShow = [];
             var monthsToShow = getMonthsToShow();
-
+            var currency = getCurrency();
+            
             //declaring table columns
             var reportTableColumns = [{
                     field: 'checkbox',
@@ -165,8 +174,8 @@ require(["modernizr",
                     }
                 },{
                     field: 'status',
-                    title: 'Status',
-                    titleTooltip: 'Status',
+                    title: cbp.report1099Page.globalVars.status,
+                    titleTooltip: cbp.report1099Page.globalVars.status,
                     class: 'text-nowrap text-center site-status',
                     formatter: function LinkFormatter(value, row, index) {
                         var downloadReport;
@@ -180,34 +189,35 @@ require(["modernizr",
                     {
                     field: 'site',
                     title: cbp.report1099Page.globalVars.site,
+                    titleTooltip: cbp.report1099Page.globalVars.site,
                     class: 'site-name',
                     footerFormatter: function(){
                         return "<span><strong>"+cbp.report1099Page.globalVars.total+"</strong></span>";
                     }
                 }, {
                     field: monthsToShow[0],
-                    title: cbp.report1099Page.globalVars[monthsToShow[0]] +" ("+cbp.report1099Page.searchResponse.currency+")",
+                    title: cbp.report1099Page.globalVars[monthsToShow[0]] +currency,
                     class: 'text-right',
                     footerFormatter: function(){
                         return "<span><strong>"+cbp.report1099Page.searchResponse.netAmountForSites[monthsToShow[0]]+"</strong></span>";
                     }
                 },{
                     field: monthsToShow[1],
-                    title: cbp.report1099Page.globalVars[monthsToShow[1]] +" ("+cbp.report1099Page.searchResponse.currency+")",
+                    title: cbp.report1099Page.globalVars[monthsToShow[1]] +currency,
                     class: 'text-right',
                     footerFormatter: function(){
                         return "<span><strong>"+cbp.report1099Page.searchResponse.netAmountForSites[monthsToShow[1]]+ "</strong></span>";
                     }
                 },{
                     field: monthsToShow[2],
-                    title: cbp.report1099Page.globalVars[monthsToShow[2]] +" ("+cbp.report1099Page.searchResponse.currency+")",
+                    title: cbp.report1099Page.globalVars[monthsToShow[2]] +currency,
                     class: 'text-right',
                     footerFormatter: function(){
                         return "<span><strong>"+cbp.report1099Page.searchResponse.netAmountForSites[monthsToShow[2]]+"</strong></span>";
                     }
                 }, {
                     field: 'yeartodate',
-                    title: cbp.report1099Page.globalVars.yeartodate +" ("+cbp.report1099Page.searchResponse.currency+")",
+                    title: cbp.report1099Page.globalVars.yeartodate +currency,
                     class: 'text-right',
                     footerFormatter: function(){
                         return "<span><strong>"+cbp.report1099Page.searchResponse.yearToDate+"</strong></span>";
@@ -215,7 +225,7 @@ require(["modernizr",
                 }];
                
             
-                for(key in cbp.report1099Page.searchResponse.reportSearchDataListMapping){
+            for(key in cbp.report1099Page.searchResponse.reportSearchDataListMapping){
                 if(cbp.report1099Page.searchResponse.reportSearchDataListMapping[key] === true){
                     columnsToShow.push(key);
                 }
@@ -251,7 +261,7 @@ require(["modernizr",
 
         var getMobileFooterTableColumns = function(){
             var mobileMonthsToShow = getMonthsToShow()
-            console.log(mobileMonthsToShow);
+            var currency = getCurrency();
 
             var mobileFooterTableColumns =  [{
                 field: 'site',
@@ -259,19 +269,19 @@ require(["modernizr",
                 class: 'site-total',
             }, {
                 field: mobileMonthsToShow[0],
-                title: cbp.report1099Page.globalVars[mobileMonthsToShow[0]] +" ("+cbp.report1099Page.searchResponse.currency+")",
+                title: cbp.report1099Page.globalVars[mobileMonthsToShow[0]] +currency,
                 class: 'text-right',
             },{
                 field: mobileMonthsToShow[1],
-                title: cbp.report1099Page.globalVars[mobileMonthsToShow[1]] +" ("+cbp.report1099Page.searchResponse.currency+")",
+                title: cbp.report1099Page.globalVars[mobileMonthsToShow[1]] +currency,
                 class: 'text-right',
             },{
                 field: mobileMonthsToShow[2],
-                title: cbp.report1099Page.globalVars[mobileMonthsToShow[2]] +" ("+cbp.report1099Page.searchResponse.currency+")",
+                title: cbp.report1099Page.globalVars[mobileMonthsToShow[2]] +currency,
                 class: 'text-right',
             }, {
                 field: 'yeartodate',
-                title: cbp.report1099Page.globalVars.yeartodate +" ("+cbp.report1099Page.searchResponse.currency+")",
+                title: cbp.report1099Page.globalVars.yeartodate +currency,
                 class: 'text-right',
             }];
 
@@ -289,8 +299,8 @@ require(["modernizr",
                 responsiveClass: "bootstrap-table-cardview",
                 undefinedText: "",
                 showFooter: true,
-                columns: tablecol,
-                data: tabledata
+                columns: getTableColumns(),
+                data: getTableData()
             });
         }
         
@@ -330,7 +340,7 @@ require(["modernizr",
                 $(config.displaySpinner).hide();
                 cbp.report1099Page.searchResponse = response;
                 $(config.reportSummaryContainer).html(compiledReportSummary(cbp.report1099Page));
-                populatingTable(getTableColumns(), getTableData());
+                populatingTable();
                 populatingMobileTableFooter();
             });
         }
