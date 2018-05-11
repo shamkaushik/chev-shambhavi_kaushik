@@ -97,6 +97,19 @@
 
 @media (max-width: @screen-xs-max){
     .report-1099-page{
+        .tableContainer{
+            .fixed-table-container{
+                tbody{
+                    tr{
+                        td{
+                            &:last-child{
+                                padding-right: 0;
+                            }
+                        }
+                    }
+                }
+            }  
+        }
         .report-table{
             .bootstrap-table-cardview{
                 .table.table-no-bordered {
@@ -133,6 +146,8 @@
                    td{
                        .card-view{
                            &:first-child{
+                               background-color: @gray !important;
+                               color: #000000;
                             .title{
                                 font-weight: bold;
                             } 
