@@ -4,6 +4,7 @@ used accross the application
 */
 
 //basic template for print preview on all pages
+/*
 const printPreviewTemplate = '<html>'+
         '<head>'+
             '<meta charset="utf-8">'+
@@ -22,8 +23,9 @@ const printPreviewTemplate = '<html>'+
             '</header>'+
         '</body>'+
     '</html>';
-
+*/
 //function to trigger ajax request
+/*
 var triggerAjaxRequest = function(data,type,url){   
     function successCallback(res){
         return res;
@@ -39,3 +41,4 @@ var triggerAjaxRequest = function(data,type,url){
         error: errorCallback
     });
 };
+*/

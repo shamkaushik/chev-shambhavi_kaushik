@@ -55,44 +55,23 @@
     </section>
 
         <script type="text/javascript">
+            var accountDropdown = [{
+                    "uid": "0676334614",
+                    "displayName": "0676334614, ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+                }, {
+                    "uid": "0912234461",
+                    "displayName": "ZXY Marketers Distribution, 123 Main Street, Anytown CA 94583 899"
+                }, {
+                    "uid": "0176224612",
+                    "displayName": "0176224612 -ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 0176224612"
+                }, {
+                    "uid": "0116134113",
+                    "displayName": "ABC Marketers Distribution, 123 Main Street, 0116134113 Anytown CA 94583"
+                }];
 
-            var accountList = [{
-                    "accountNumber": "1234567",
-                    "accountAddress": "3017501 Redwood Oil Co. 7761 Old Redwood Highway"
-                },{
-                    "accountNumber": "98765432",
-                    "accountAddress": "3016754 Redwood Oil Co. 50 Professional CRT #100"
-                }
-            ];
+            var yearDropdown = ["2018","2017"];
 
-           
-            var yearList = [{
-                    "key": "2018",
-                    "value": "2018"
-                },{
-                    "key": "2017",
-                    "value": "2017"
-                },{"key": "2016",
-                    "value": "2016"
-                }
-            ];
-
-            var qrtList = [{
-                    "key": "q1",
-                    "value": "Q1"
-                },{
-                    "key": "q2",
-                    "value": "Q2"
-                }
-            ];
-
-            var downloadStatusList = [{
-                    "key": "downloaded",
-                    "value": "Downloaded"
-                },{
-                    "key": "not-downloaded",
-                    "value": "Not Downloaded"
-            }];
+            var quarterDropdown = ["Q1", "Q2", "Q3", "Q4"];
 
             var cbp = {
                 "staticBasePath": "/",
@@ -101,88 +80,67 @@
                         "options": [],
                         "label": "Account",
                         "name": "accountSelectDdn",
-                        "title": "All",
                         "showOptions": 10,
-                        "singleOption": false
+                        "singleOption": true
                     },
                     "yearDropDown": {
-                        "options": yearList,
+                        "options": [],
                         "label": "Year",
-                        "title": "All",
                         "name": "yearSelectDdn",
                         "showOptions": 10,
-                        "singleOption": false
+                        "singleOption": true
                     },
                     "qtrDropDown": {
-                        "options": qrtList,
+                        "options": [],
                         "label": "Quarter",
-                        //"title": "Quarter",
                         "name": "qtrSelectDdn",
                         "showOptions": 10,
-                        "singleOption": false
+                        "singleOption": true
                     },
                     "downloadStatusDropDown": {
-                        "options": downloadStatusList,
+                        "options": [{
+                            key:'all',
+                            value: 'All'
+                        },{
+                            key:'downloaded',
+                            value: 'Downloaded'
+                        },{
+                            key:'notdownloaded',
+                            value: 'Not Downloaded'
+                        }],
                         "label": "Download Status",
-                        //"title": "Quarter",
                         "name": "dnldStatusSelectDdn",
                         "showOptions": 10,
                         "singleOption": false
                     },
                     "globalUrl": {
-                        "shipToURL": "/assets/json/shipToResponse.json",
-                        "ohPostURL": "/assets/json/ohPageSearchResponse.json",
-                        "orderHistoryFormURL" : "/assets/json/ohLocationResponse.json", //"${request.getContextPath()}/getWarehouseData",
-                        "method" : "GET"
-                        // "method" : "POST"
+                        "searchReportsURL": "/assets/json/1099SearchResults.json",
                     },
                     "globalVars": {
-                        "searchTxt": "Search",
-                        "allLocation": "All",
-                        "fromAndTo": "{0} to {1}",
-                        "sortBy": "Sort by",
-                        "ordersFound": "{0} Order(s) found",
-                        "cancelOrder": "Order {0} has been cancelled",
-                        "orderNumber": "Order #",
-                        "poNumber": "Customer PO #",
-                        "print": "Print",
-                        //Order history table columns name
-                        "docDate": "Order Date",
-                        "OrderId": "Order #",
-                        "locationName": "Ship To",
-                        "customerPO": "Customer PO #",
-                        "volume": "Total",
-                        "vat": "VAT",
-                        "statusId": "Status",
-                        "gstId": "GST",
-
-                        "selectDdn": {
-                            "noneSelectedText": "Nothing selected",
-                            "noneResultsText": "No results for {0}",
-                            "selectAllText": "Select All",
-                            "deselectAllText": "Deselect All",
-                            "itemSelected": "{0} item selected",
-                            "itemSelected1": "{0} items selected",
-                            "limitReached": "Limit reached ({n} item max)",
-                            "limitReached1": "Limit reached ({n} items max)",
-                            "groupLimit": "Group limit reached ({n} item max)",
-                            "groupLimit1": "Group limit reached ({n} items max)"
-                        },
-                        "tableLocales": {
-                            "loadingMessage": "Loading, please wait...",
-                            "recordsPerPage": "{0} rows per page",
-                            "showingRows": "Showing {0} to {1} of {2} rows",
-                            "search": "Search",
-                            "noMatches": "No products found. Please change your date range and location",
-                            "paginationSwitch": "Hide/Show pagination",
-                            "refresh": "Refresh",
-                            "toggle": "Toggle",
-                            "columns": "Columns",
-                            "allRows": "All"
-                        },
-                        "noResult" : "Select a Location and click search to load the order history",
-                        "noMatches" : "No products found. Please change your date range and location"
-                    }
+                        "january": "January",
+                        "february": "February",
+                        "march": "March",
+                        "april": "April",
+                        "may": "May",
+                        "june": "June",
+                        "july": "July",
+                        "august": "August",
+                        "september": "September",
+                        "october": "October",
+                        "november": "November",
+                        "december": "December",
+                        "status": "Status",
+                        "site": "Site",
+                        "yeartodate": "Year To Date",
+                        "total": "Total",
+                        "note": "Note",
+                        "notemsg": "Please note the download file contains all year to date payment card transaction data by facility, by month.",
+                        "pageTitle": "1099 report summary",
+                        "account": "Account",
+                        "year": "Year",
+                        "quarter": "Quarter"
+                    },
+                    "searchResponse": {}
                 }
             }
         </script>
@@ -196,5 +154,4 @@
         </footer>
     </div>
 </body>
-
 </html>

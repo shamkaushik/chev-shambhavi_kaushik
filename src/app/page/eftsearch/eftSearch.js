@@ -20,9 +20,9 @@ require(["modernizr",
 ], function (modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _eftSearchSummaryHBS, _bottomDetailHBS) {
 
     var accountDropdownOptions = [], eftObj = {},startDateDT = '',endDateDT = '';
-       
-    var selectedEFTs = [],selectedProduct = [],selectedEftStatus = []; 
-       
+
+    var selectedEFTs = [],selectedProduct = [],selectedEftStatus = [];
+
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
     var compiledsearchDate = Handlebars.compile(_calendarHBS);
@@ -69,8 +69,8 @@ require(["modernizr",
             labelClass: "xs-mr-5",
             name: "sortByDdn",
             display: "displayInline"
-        };  
-            
+        };
+
         var toggleSwitchConfig = {
             name: "switch",
             cssClass: "toggleForEFTSerachForm",
@@ -164,7 +164,7 @@ require(["modernizr",
                 cbp.eftSearchPage.dateRange.startDate = moment(eftObj.startDate, cbp.eftSearchPage.dateRange.format, true);
                 cbp.eftSearchPage.dateRange.endDate = moment(eftObj.endDate, cbp.eftSearchPage.dateRange.format, true);
                 $(config.accountDdn).val(eftObj.account).selectpicker('refresh');
-                
+
                 if(eftObj.eftNoticeNumber || eftObj.invoiceNumber){
                     if(eftObj.eftNoticeNumber){
                         $(config.eftSearchToggle).find('button').eq(0).trigger('click');
@@ -183,7 +183,7 @@ require(["modernizr",
                 $(config.searchButton).removeAttr("disabled");
                 triggerAjaxRequest();
             }
-            
+
             populatingCalendarComponent();
         };
 
@@ -231,7 +231,7 @@ require(["modernizr",
             });
         };
 
-        
+
         var calleftSearchPDF = function (eftNoticeNumberId) {
             $("#eftSearchPDFForm").attr('target', '_blank');
             $('#eftSearchPDFForm #selectedEFTs').val(eftNoticeNumberId);
@@ -276,7 +276,7 @@ require(["modernizr",
                 endDate = end.format(cbp.eftSearchPage.dateRange.format);
                 $(config.ordercalendar).find('span').html(cbp.eftSearchPage.globalVars.fromAndTo.replace("{0}", startDate).replace("{1}", endDate));
             }
-            
+
             function cb2(start, end) {
             console.log("Start &&& END >>>>",start,end);
                 $(config.ordercalendar).find('span').html(cbp.eftSearchPage.globalVars.fromAndTo.replace("{0}", startDate).replace("{1}", endDate));
@@ -337,13 +337,13 @@ require(["modernizr",
             postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
 
             if($.trim($(config.searchInputEft).val()).length!=0){
-                ($("#eftSearchToggle input[type='hidden']").val() == 1 || $("#eftSearchToggle input[type='hidden']").val()=="default") ? 
-                    postData['noticeNumber'] = $(config.searchInputEft).val() 
-                    : postData['invoiceNumber'] = $(config.searchInputEft).val();   
+                ($("#eftSearchToggle input[type='hidden']").val() == 1 || $("#eftSearchToggle input[type='hidden']").val()=="default") ?
+                    postData['noticeNumber'] = $(config.searchInputEft).val()
+                    : postData['invoiceNumber'] = $(config.searchInputEft).val();
             }
 
             /* end DSLEC-120*/
-            
+
             if ($(config.accountDdn).val() != 'all') {
                 cbp.eftSearchPage.showSoldTo = false;
             } else {
@@ -355,7 +355,7 @@ require(["modernizr",
                 $(config.searchDetailContainer).show();
                 $(config.eftSearchSummaryContainer).show();
                 cbp.eftSearchPage.eftSearchResponse = data;
-                
+
                 if (cbp.eftSearchPage.eftSearchResponse.resultCount === undefined || cbp.eftSearchPage.eftSearchResponse.resultCount === null) {
                     cbp.eftSearchPage.eftSearchResponse.resultCount = 0;
                 }
@@ -364,7 +364,7 @@ require(["modernizr",
                     cbp.eftSearchPage.eftSearchResponse.eftSearchDataList = [];
                 }
 
-               
+
 
                 if (cbp.eftSearchPage.eftSearchResponse.resultCount > 0) {
                     cbp.eftSearchPage.globalVars.eftsFoundVar = cbp.eftSearchPage.globalVars.eftsFound.replace("{0}", cbp.eftSearchPage.eftSearchResponse.resultCount);
@@ -411,7 +411,7 @@ require(["modernizr",
 
         var downloadForm = function (eftNoticeNumberId) {
             var loc = $("#contextPath").val();
-            var formTemplate = "<form id='downloadForm' method='POST' action='" + loc + "/Eft/eftCSV'><input type='hidden' name='selectedEFTs' value='" + eftNoticeNumberId + "'/></form>";
+            var formTemplate = "<form id='downloadForm' method='POST' action='" + loc + "/eft/eftCSV'><input type='hidden' name='selectedEFTs' value='" + eftNoticeNumberId + "'/><input name='CSRFToken' id='CSRFToken' type='hidden' value='" + CSRFToken + "'/></form>";
             $(formTemplate).appendTo("body").submit().remove();
         };
 
@@ -442,9 +442,9 @@ require(["modernizr",
                 var eftNoticeUid = $(e.target).attr('data-uid');
                 eftObj.account = $("#accountSelectDdn").val();
                 if($.trim($(config.searchInputEft).val()).length!=0){
-                    ($("#eftSearchToggle input[type='hidden']").val() == 1 || $("#eftSearchToggle input[type='hidden']").val()=="default") ? 
-                           eftObj.eftNoticeNumber = $(config.searchInputEft).val() 
-                    : eftObj.invoiceNumber = $(config.searchInputEft).val();   
+                    ($("#eftSearchToggle input[type='hidden']").val() == 1 || $("#eftSearchToggle input[type='hidden']").val()=="default") ?
+                           eftObj.eftNoticeNumber = $(config.searchInputEft).val()
+                    : eftObj.invoiceNumber = $(config.searchInputEft).val();
                 }
                eftObj.downloadStatus = $("#downloadStatus").val();
                 eftObj.printStatus = $("#printStatus").val();
@@ -498,7 +498,7 @@ require(["modernizr",
                 var str = String.fromCharCode(e.which);
                 if (str.match(regex)) {
                     return true;
-                } 
+                }
                 e.preventDefault();
                 return false;
             });
@@ -519,7 +519,7 @@ require(["modernizr",
             $(document).on("click", config.downloadBtn, function(){
                 downloadBtnSelected();
             });
-            
+
             $(document).on("click", config.printBtn, function(){
                 printPDFSelected();
             });
@@ -659,7 +659,7 @@ require(["modernizr",
             if (eftSearchDataList === null || eftSearchDataList === undefined) {
                 eftSearchDataList = [];
             }
-            
+
             $(config.sortByDdn).val("eftNoticeNumber-desc").selectpicker('refresh');
 
            $('#table').bootstrapTable({
