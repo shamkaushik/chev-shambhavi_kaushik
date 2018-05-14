@@ -374,7 +374,7 @@ require(["modernizr",
                 populatingTable();
                 populatingMobileTableFooter();
                 if(cbp.report1099Page.searchResponse.items.length<1){
-                    $('#table .fixed-table-footer').hide();
+                    $('.fixed-table-footer').hide();
                     $('#tableFooter').hide();
                 }
             });
