@@ -73,6 +73,8 @@
 
             var quarterDropdown = ["Q1", "Q2", "Q3", "Q4"];
 
+            var ten99SearchCurrency = 'USD';
+
             var cbp = {
                 "staticBasePath": "/",
                 "report1099Page": {
@@ -115,6 +117,7 @@
                     },
                     "globalUrl": {
                         "searchReportsURL": "/assets/json/1099SearchResults.json",
+                        "method": "GET"
                     },
                     "globalVars": {
                         "january": "January",
@@ -131,14 +134,15 @@
                         "december": "December",
                         "status": "Status",
                         "site": "Site",
-                        "yeartodate": "Year To Date",
+                        "yearToDate": "Year To Date",
                         "total": "Total",
                         "note": "Note",
                         "notemsg": "Please note the download file contains all year to date payment card transaction data by facility, by month.",
                         "pageTitle": "1099 report summary",
                         "account": "Account",
                         "year": "Year",
-                        "quarter": "Quarter"
+                        "quarter": "Quarter",
+                        "resultCount": "result(s) found"
                     },
                     "searchResponse": {}
                 }
