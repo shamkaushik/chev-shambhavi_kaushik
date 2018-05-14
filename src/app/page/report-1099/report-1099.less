@@ -59,11 +59,21 @@
             tbody{
                 tr{
                     td{
+                        &.bs-checkbox{
+                            input{
+                                &:before{
+                                    color: @gray-dark;
+                                }
+                            }
+                        }
                         &.site-status{
                             padding-left: 0;
                             .fa-download{
                                 font-size: 14px;
                                 color: @gray-dark;
+                                &.text-success{
+                                    color: @brand-success !important;
+                                }
                             }
                         }
                         &.site-name{
