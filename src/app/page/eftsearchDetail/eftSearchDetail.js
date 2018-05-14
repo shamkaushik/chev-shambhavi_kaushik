@@ -407,7 +407,7 @@ require(["modernizr",
             $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'eftNoticeNumber',
+                sortName: 'invoiceNumber',
                 sortOrder: 'desc',
                 iconsPrefix: 'fa',
                 sortable: true,
@@ -458,7 +458,7 @@ require(["modernizr",
                     field: 'invoiceNumber',
                     title: cbp.eftDetailPage.globalVars.documentNumber,
                     titleTooltip: cbp.eftDetailPage.globalVars.documentNumber,
-                    class: 'text-nowrap',
+                    class: 'text-nowrap numberIcon',
                     sortable: true,
                     formatter: function LinkFormatter(value, row, index) {
                         return "<a href='#' class='js-eft-NoticeNumber' data-uid='" + row.eftNoticeNumberId + "'>" + value + "</a>";
