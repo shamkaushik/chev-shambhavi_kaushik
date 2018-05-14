@@ -1,0 +1,312 @@
+.asm-page {
+	.tableAsmDetails tbody > tr:not(.detail-view) {
+		cursor: pointer;
+		font-size:12px;
+	}
+	.right-pane .bottom-detail{
+		padding-top:0px;
+		.no-records-found{
+			color: #cb1530;
+			span.alert-message{
+				overflow-y: hidden;
+			}
+		}
+	}
+	.detailsForCardView{
+		display:none;
+	}
+	.fixed-table-body {
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+	#asmSearchToggle{
+		text-align: center;
+		label{
+			margin:0px !important;
+			width: 0px !important;
+			height: 0px !important;
+		}
+	}		
+	.toggleForAsmSerachForm {
+		.btn-default{
+			background: #dbdcdd;
+			color: #383838;
+			&:hover{
+				background: #dbdcdd;
+			}
+		}
+	}
+	.fixed-table-container{
+		tbody{
+			.selected td{
+			background-color: transparent;
+			}
+			td{
+				&.bs-checkbox.fa{
+					margin-left: 10px;
+					padding-top: 5px !important;
+					font-size: 16px;
+				}
+			}
+			tr.bg-danger{
+				background-color: #F7E8E9 !important;
+			}
+		}
+		thead{
+			th{
+				&.bs-checkbox{
+					.th-inner{
+						padding-top: 18px;
+					}
+				}
+			}
+			tr{
+				background-color: @brand-primary;
+				th.bs-checkbox.fa{
+					width: 55px!important;
+					input[type="checkbox"]:before{
+						font-size: 16px;
+						color:#fff;
+					}
+				}
+			}
+		}
+	}
+	.js-shipToDdn{
+		.btn-group.bootstrap-select.displayInline{
+			width:100%!important;
+		}
+	}
+	.search-content {
+		.em-10 {
+			width: 10em;
+		}
+		.em-13, .js-downloadStatus-ddn .btn, .js-printStatus-ddn .btn {
+			width: 13em;
+		}
+		#ordercalendar {
+			width: 180px;
+		}
+		.sub-heading{
+			margin-left: 7px;
+			font-weight: normal;
+		}
+	}
+	.bottom-detail {
+			.invoiceFound{
+				padding-top: 6px;
+				text-align: right;
+			}
+	}
+	.right-pane{
+		.top-summary{
+			    min-height:0;
+		}
+		.sub-heading{
+			font-weight: normal;
+		}
+	}
+	.bootstrap-table {.table.table-no-bordered{
+		 tbody {
+			 tr {
+				//  td
+				// { white-space: normal;}
+				td:nth-child(4){
+					 white-space: nowrap;
+				}
+				td{
+					.iconsPrintDownload, .iconsInvoicePrint{
+						cursor: pointer;
+						font-size: 14px;
+						color: @brand-primary-blue;
+					}
+					.fa-check-square-o{
+						color:@brand-primary;
+					}
+					.success-icon{
+						color:@brand-success;
+					}
+				}
+		}
+		}
+	}
+	}
+	.bootstrap-table-cardview{
+		.table.table-no-bordered {
+			> tbody {
+				> tr {
+					> td {
+						// > div:nth-of-type(3) {
+						// 	background-color: @brand-primary !important;
+						// 	color: #ffffff;
+						// }
+					}
+				}
+			}
+		}
+	}
+
+	input[type="checkbox"] {
+		 -webkit-appearance:none;/* Hides the default checkbox style */
+		 &:focus{
+			 outline:none;
+		 }
+		 &:before {
+		  text-align:center;
+		  content: '\f096';
+		 }
+		 &:checked{
+			 &::before{
+				 color: @brand-primary;
+				 content: '\f046';
+			 }
+		}
+	}
+
+	.no-records-found{
+		color: #cb1530 !important;
+	}
+
+	td > .alert{
+		padding:0px !important;
+		background: none !important;
+	}
+}
+
+@media (min-width: @screen-sm-max) {
+	.asm-page {
+		.tableAsmDetails thead > tr > th:nth-child(2),
+		.tableAsmDetails tbody > tr:not(.detail-view) > td:nth-child(2) {
+			border-left: none!important;
+		}
+		.bottom-detail {
+			.invoiceFound{
+	      text-align: left;
+			}
+			.tableContainer {
+				min-height: 100px;
+			}
+		}
+	}
+}
+
+.ASM_header{
+	height: 48px !important;
+	background-color: #383838 !important;
+	border: solid 1px #979797 !important;
+	font-family: GothamNarrow, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !important;
+  }
+  
+  #_asmLogged{
+	float: right !important;
+	font-family: GothamNarrow, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !important;
+  }
+  
+  .ASM-btn-logout{
+	width: 90px !important;
+	height: 26px !important;
+	opacity: 0.82 !important;
+	border-radius: 2px !important;
+	background-color: #009dd9 !important;
+	margin-right:5px !important;
+	color:#FFFFFF !important;
+	font-family: GothamNarrow, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !important;
+	font-size:12px !important;
+	padding-bottom:0px !important;
+  }
+  
+  #stopEmulate{
+	width: 108px !important;
+	height: 26px !important;
+	opacity: 0.82 !important;
+	border-radius: 2px !important;
+	background-color: #cb1530 !important;
+	font-family: GothamNarrow, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !important;
+  }
+  
+  
+  #resetButton{
+	width: auto !important;
+	padding: 0px 5px 0px 5px; 
+	height: 14px !important;
+	font-size: 14px !important;
+	font-weight: 500 !important;
+	font-style: normal !important;
+	font-stretch: normal !important;
+	line-height: 1.29 !important;
+	letter-spacing: normal !important;
+	text-align: left !important;
+	font-family: GothamNarrow, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !important;
+  }
+  
+  .js-customer-list-btn{
+	display:none !important; 
+  }
+  
+  
+  .usAsCustomerName{
+	font-family: GothamNarrow, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !important;
+	padding: 15px 5px 0px 5px !important;
+	height: 14px !important;
+	font-size: 14px !important;
+	font-weight: normal !important;
+	font-style: normal !important;
+	font-stretch: normal !important;
+	line-height: 1.29 !important;
+	letter-spacing: normal !important;
+	text-align: left !important;	
+	color:#FFFFFF !important;
+	float:left !important;
+  }
+  
+  .ASM_timer{
+	  float:left !important;
+	  padding-top:0px !important;
+	  position:relative !important;
+	  border:0px !important;
+	  margin-top:15px !important;
+  }
+  
+  #_asmBindForm{
+	  display:none !important; 
+  }
+  
+  #_asm .ASM_header .first-top-row{
+	  border:0px !important;
+  }
+  
+  .ASM_loggedin_text{
+	  float:left !important;
+  }
+  
+  #stopEmulate{
+	  font-size:12px !important;
+  }
+  
+  
+  .ASM_logo{
+	font-family: GothamNarrow, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !important;
+	width: 225px !important;
+	height: 26px !important;
+	font-size: 20px !important;
+	font-weight: bold !important;
+	font-style: normal !important;
+	font-stretch: normal !important;
+	line-height: normal !important;
+	letter-spacing: normal !important;
+	text-align: left !important;
+  }
+
+.isASM{
+	opacity:.5;
+	pointer-events:none;
+}
+  
+  #sessionTimer{
+	  position:relative !important;
+	  left:10px !important;
+  }
+  
+
+
+
