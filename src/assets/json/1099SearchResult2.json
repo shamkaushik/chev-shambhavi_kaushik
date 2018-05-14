@@ -1,17 +1,17 @@
 {
 	"header": {
-		"account": "8245739 - Jarnail Kamboj, E Louise Avenue, US",
+		"account": "100 - Jarnail Kamboj, E Louise Avenue, US",
 		"fiscalYear": "2018",
 		"quarter": "Q1"
 	},
 	"items": [{
 		"amountForSite": {
-			"january": "263,141.17",
-			"february": "264,611.33",
-			"march": "305,904.96",
-			"april": "0.00",
-			"may": "0.00",
-			"june": "0.00",
+			"january": "0.00",
+			"february": "0.00",
+			"march": "0.00",
+			"april": "1",
+			"may": "2",
+			"june": "3",
 			"july": "0.00",
 			"august": "0.00",
 			"september": "0.00",
@@ -21,6 +21,27 @@
         },
         "siteId": "356163",
 		"site": "356163",
+		"yearToDate": "833,657.46",
+		"downloadStatus": false,
+		"status": null,
+		"checkbox": null
+	},{
+		"amountForSite": {
+			"january": "0.00",
+			"february": "0.00",
+			"march": "0.00",
+			"april": "4",
+			"may": "5",
+			"june": "6",
+			"july": "0.00",
+			"august": "0.00",
+			"september": "0.00",
+			"october": "0.00",
+			"november": "0.00",
+			"december": "0.00"
+        },
+        "siteId": "456163",
+		"site": "456163",
 		"yearToDate": "833,657.46",
 		"downloadStatus": false,
 		"status": null,
@@ -48,12 +69,12 @@
 		"checkbox": "TEN99_REPORT_SEARCH_CHECKBOX_COLUMN"
 	},
 	"netAmountForSites": {
-		"january": "263,141.17",
-		"february": "264,611.33",
-		"march": "305,904.96",
-		"april": null,
-		"may": null,
-		"june": null,
+		"january": null,
+		"february": null,
+		"march": null,
+		"april": "100",
+		"may": "200",
+		"june": "300",
 		"july": null,
 		"august": null,
 		"september": null,
@@ -61,6 +82,6 @@
 		"november": null,
 		"december": null
 	},
-	"yearToDate": "833,657.46",
-	"resultCount": "1"
+	"yearToDate": "600",
+	"resultCount": "2"
 }
