@@ -1,4 +1,4 @@
-.eftSearch-page {
+.eftSearch-page-detail {
 		.page-title {
 				text-transform: none;
 		}
@@ -101,14 +101,11 @@
 				> tr {
 					> td {
 						> div:first-child {
-						display:none;
-						}
-						> div:nth-of-type(2) {
-						display:none;
-						}
-						> div:nth-of-type(3) {
 							background-color: @brand-primary !important;
-							color: #ffffff;
+							color: #ffffff !important;
+							a{
+								color:#FFFFFF !important;
+							}
 						}
 					}
 				}
@@ -161,5 +158,14 @@
 	.borderEFTToogle{
 		border-top: 1px solid #DCDDDE;
 		border-bottom: 1px solid #DCDDDE;
+	}
+	
+	@media (min-width: @screen-md-max) {
+		.bottom-detail {
+			.eftFound{
+				position: relative;
+				left:-65px;
+			}
+		}
 	}
 }
