@@ -20,9 +20,9 @@
 			"december": "12"
         },
         "siteId": "956163",
-		"site": "956163",
-		"yearToDate": "1833,657.46",
-		"downloadStatus": false,
+		"site": "956163- ABC",
+		"yearToDate": "657.46",
+		"downloadStatus": true,
 		"status": null,
 		"checkbox": null
 	},{
@@ -41,8 +41,8 @@
 			"december": "15"
         },
         "siteId": "856163",
-		"site": "856163",
-		"yearToDate": "1633,657.46",
+		"site": "856163 - BCA",
+		"yearToDate": "57.46",
 		"downloadStatus": false,
 		"status": null,
 		"checkbox": null
