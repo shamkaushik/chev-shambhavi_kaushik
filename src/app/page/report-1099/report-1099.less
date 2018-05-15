@@ -74,6 +74,9 @@
                                 &.text-success{
                                     color: @brand-success !important;
                                 }
+                                &:hover{
+                                    cursor: pointer;
+                                }
                             }
                         }
                         &.site-name{
@@ -96,7 +99,10 @@
                             padding-right: 12px;
                         }
                         &:last-child{
-                            padding-right: 20% !important;
+                            //padding-right: 20% !important;
+                            .th-inner{
+                                padding-right: 25% !important;
+                            }
                         }
                     }
                 }
