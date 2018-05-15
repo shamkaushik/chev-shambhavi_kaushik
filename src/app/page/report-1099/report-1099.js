@@ -38,7 +38,8 @@ require(["modernizr",
             quarterDdn: "#qtrSelectDdn",
             downloadStatusDdn: "#dnldStatusSelectDdn",
             searchBtn: "#searchBtn",
-            downloadBtn: '#downloadBtn'
+            downloadBtn: '#downloadBtn',
+            downloadIcon: ".report-download-icon"
         };
 
         var triggerAjaxRequest = function(data,type,url){   
@@ -161,7 +162,7 @@ require(["modernizr",
                     checkbox: true,
                     class: '',
                     formatter: function(value, row, index){
-                        return '<input type="hidden" class="userCheckedCheckbox" name="userChecked" value="'+ row.site +'">';
+                        return '<input type="hidden" class="userCheckedCheckbox" name="userChecked" value="'+ row.siteId +'">';
                     }
                 },{
                     field: 'status',
@@ -171,9 +172,9 @@ require(["modernizr",
                     formatter: function(value, row, index) {
                         var downloadReport;
                         if(row.downloadStatus){
-                            downloadReport = "<span class='fa fa-download text-success'></span>";
+                            downloadReport = "<span class='fa fa-download text-success report-download-icon' data-siteid='"+ row.siteId +"'></span>";
                         } else{
-                            downloadReport = "<span class='fa fa-download'></span>";
+                            downloadReport = "<span class='fa fa-download report-download-icon' data-siteid='"+ row.siteId +"'></span>";
                         }
                         return downloadReport;
                     }
@@ -182,6 +183,7 @@ require(["modernizr",
                     field: 'site',
                     title: cbp.report1099Page.globalVars.site,
                     titleTooltip: cbp.report1099Page.globalVars.site,
+                    sortable: true,
                     class: 'site-name',
                     footerFormatter: function(){
                         return "<span><strong>"+cbp.report1099Page.globalVars.total+"</strong></span>";
@@ -378,30 +380,32 @@ require(["modernizr",
             });
         }
 
+        var downloadReport = function(report){
+            if($(config.accountDdn).val()){
+                var downloadAccount = $(config.accountDdn).val();
+            }
+            if($(config.yearDdn).val()){
+                var downloadYear = $(config.yearDdn).val();
+            }
+            console.log(report);
+            $("#downloadReportForm #account").val(downloadAccount);
+            $("#downloadReportForm #year").val(downloadYear);
+            $("#downloadReportForm #sites").val(report);
+            $("#downloadReportForm").submit();
+        }
+
         var bindEvents = function(){
             $(document).on('click', config.searchBtn, function(e){
                 cbp.report1099Page.globalUrl.searchReportsURL = "/assets/json/1099SearchResult2.json";
                 search();
             });
             $(document).on('click', config.downloadBtn, function(e){
-                //var downloadData = {};
-                if($(config.accountDdn).val()){
-                    var downloadAccount = $(config.accountDdn).val();
-                }
-                if($(config.yearDdn).val()){
-                    var downloadYear = $(config.yearDdn).val();
-                }
-                //downloadData.selected = selectedRow;
-                /*
-                $.when(triggerAjaxRequest(downloadData, cbp.report1099Page.globalUrl.method, cbp.report1099Page.globalUrl.downloadReportsURL)).then(function(response){
-                    return true;
-                });
-                */
-                //$("#downloadReportForm #selectedReport").val(JSON.stringify(downloadData));
-                $("#downloadReportForm #account").val(downloadAccount);
-                $("#downloadReportForm #year").val(downloadYear);
-                $("#downloadReportForm #sites").val(selectedRow);
-                $("#downloadReportForm").submit();
+                downloadReport(selectedRow);
+            });
+            $(document).on('click', config.downloadIcon, function(e){
+
+                var selectedReportId = e.target.getAttribute('data-siteid');
+                downloadReport([selectedReportId]);
             });
             
             /*
