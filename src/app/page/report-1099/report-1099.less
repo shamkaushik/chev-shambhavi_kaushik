@@ -27,6 +27,7 @@
                     &.bs-checkbox{
                         .th-inner{
                             padding-top: 0px;
+                            padding-bottom: 7px;
                             width: 24px;
                             position: relative;
                             input[type="checkbox"]{
@@ -74,6 +75,9 @@
                                 &.text-success{
                                     color: @brand-success !important;
                                 }
+                                &:hover{
+                                    cursor: pointer;
+                                }
                             }
                         }
                         &.site-name{
@@ -96,7 +100,10 @@
                             padding-right: 12px;
                         }
                         &:last-child{
-                            padding-right: 20% !important;
+                            //padding-right: 20% !important;
+                            .th-inner{
+                                padding-right: 25% !important;
+                            }
                         }
                     }
                 }
