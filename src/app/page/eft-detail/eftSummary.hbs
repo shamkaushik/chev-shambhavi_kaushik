@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-xs-24 col-md-19 bg-summary md-mr-15">
+        <div class="row">
+            <div class="col-xs-24">
+                <span class="sub-heading">{{globalVars.eftSummary}}</span>
+            </div>
+        </div>
+        <div class="row xs-mt-10">
+            <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
+                <span>
+                    <strong>{{globalVars.detailSoldtoLabel}}</strong>
+                </span>
+                <br/>
+                <span id="eftDetailSoldTo">{{eftDetailResponse.eftSummaryData.soldTo}}</span>
+            </div>
+            <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
+                <span>
+                    <strong>{{globalVars.eftNumberDetail}}</strong>
+                </span>
+                <br/>
+                <span id="eftSearchNoticeNumber">{{eftDetailResponse.eftDetailsData.eftNoticeNumber}}</span>
+            </div>
+            <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
+                <span>
+                    <strong>{{globalVars.noticeDatetb}}</strong>
+                </span>
+                <br/>
+                <span id="eftSearchNoticeDate">{{eftDetailResponse.eftDetailsData.noticeDate}}</span>
+            </div>
+            <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
+                <span>
+                    <strong>{{globalVars.settlementDatetb}}</strong>
+                </span>
+                <br/>
+                <span id="eftSearchSettlementDate">{{eftDetailResponse.eftDetailsData.settlementDate}}</span>
+            </div>
+            <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
+                <span>
+                    <strong>{{globalVars.totalTbSD}}({{eftDetailResponse.eftDetailsData.currency}})</strong>
+                </span>
+                <br/>
+                <span id="eftSearchNoticeTotal">{{eftDetailResponse.eftSummaryData.noticeTotal}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-24 col-md-4 bg-summary ccTurinsLink">
+        {{"View Credit Card Turn-Ins"}}
+        <a href="">View Credit Card Turn-Ins</a>
+    </div>
+</div>

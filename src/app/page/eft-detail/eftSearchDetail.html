@@ -25,25 +25,7 @@
                 <div class='row xs-m-0 position-relative'>
                     <div class="overlay-wrapper">
                     </div>
-                    <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center'>
-                        <div class='search-content'>
-                            <span class='fa fa-sliders'></span>
-                        </div>
-                    </div>
-                    <div class='col-md-5 left-pane hidden-md search'>
-                        <div class='search-content'>
-                            <div class='sub-heading hidden-sm hidden-xs'>
-                                <span class='fa fa-close visible-md-inline'></span>
-                            </div>
-                            <div class='sub-heading hidden-lg hidden-md toggle-search-mobile'>
-                                <span class='fa fa-sliders'></span> Search
-                                <span class='fa fa-chevron-down pull-right'></span>
-                            </div>
-                            <div class='search-form xs-mt-10 js-search-form'>
-                            </div>
-                        </div>
-                    </div>
-                    <div class='col-md-23 col-lg-19 right-pane'>
+                    <div class='col-md-24 col-lg-24 right-pane'>
                         <div class='top-summary js-eftSearch-summary'>
                         </div>
                         <div class='bottom-detail js-bottom-detail'>
@@ -88,6 +70,7 @@
                     "eftNoticeUid": "141831880426201820180061"
                 },
                 "eftSummaryData": {
+                    "soldTo": "Sold to data, Address", //Added for new detail page changes
                     "accountNumber": "8106818",
                     "accountName": "8106818 - Hanson Quarry Products (premix) Sdn, W501 Level 5, West Tower, Wisma Consplant 1 2 Jln Ss 16/4, MY",
                     "noticeTotal": "19.507,16"
@@ -287,7 +270,7 @@
                         "summaryfromAndTo": "{0} to {1}",
                         "sortBy": "Sort by",
                         "dateRange": "Date Range",
-                        "eftSummary": "electronic fund transfer summary",
+                        "eftSummary": "electronic fund transfer detail", //Added for new detail page changes
                         "downloadSelected": "Download",
                         "printSelected": "Print",
                         "eftsFound": "{0} result(s) found",
@@ -303,6 +286,9 @@
                         "accountNumberDesc": "Account Number, Descending",
                         "settlementDateAsc": "Settlement Date, Newest to Oldest",
                         "settlementDateDesc": "Settlement Date, Oldest to Newest",
+                        "invoiceNumberAsc" : "Document #,Ascending",
+                        "invoiceNumberDesc" : "Document #,Descending",
+                        "referenceDateAsc" : "Reference Date, Ascending",
                         "totalAsc": "Total, Ascending",
                         "totalDesc": "Total, Descending",
                         "soldTo": "Sold To:",
@@ -311,6 +297,7 @@
                         "noMatches": "No invoices found. Please change your search",
                         "noMatchesMaxResults": maxResultText,
                         /*Labels for Search Detail*/
+                        "detailSoldtoLabel" : "Sold To", //Added for new detail page changes
                         "eftNumberDetail" : "EFT #",
                         "noticeDatetb": "Notice Date",
                         "settlementDatetb": "Settlement Date",

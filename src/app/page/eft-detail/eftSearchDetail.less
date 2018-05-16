@@ -60,9 +60,14 @@
 	.right-pane{
 		.top-summary{
 			min-height:0;
+			background: none;
 		}
 		.sub-heading{
 			font-weight: normal;
+		}
+		.bg-summary{
+			background-color: #EBF8FE;
+			padding: 15px 10px;
 		}
 	}
 	.left-pane{
@@ -175,12 +180,18 @@
 	}
 }
 
-@media (min-width: @screen-md-max) {
+@media (min-width: @screen-md-min) {
 	.eftSearch-page-detail{
 		.bottom-detail {
 			.eftFound{
 				position: relative;
 				left:-85px;
+			}
+		}
+		.bg-summary{
+			height: 94px;
+			&.ccTurinsLink{
+				width:19%;
 			}
 		}
 	}
