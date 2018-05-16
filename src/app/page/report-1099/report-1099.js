@@ -403,9 +403,9 @@ require(["modernizr",
                 downloadReport(selectedRow);
             });
             $(document).on('click', config.downloadIcon, function(e){
-
                 var selectedReportId = e.target.getAttribute('data-siteid');
-                downloadReport([selectedReportId]);
+                //downloadReport([selectedReportId]);
+                $(this).addClass('text-success');
             });
             
             /*
