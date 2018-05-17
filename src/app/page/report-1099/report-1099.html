@@ -52,6 +52,11 @@
                 </div>
             </div>
         </div>
+        <form id="downloadReportForm" method="POST" action="">
+            <input type="hidden" name="selectedReport" id="account">
+            <input type="hidden" name="selectedReport" id="year">
+            <input type="hidden" name="selectedReport" id="sites">
+        </form>
     </section>
 
         <script type="text/javascript">
@@ -72,6 +77,8 @@
             var yearDropdown = ["2018","2017"];
 
             var quarterDropdown = ["Q1", "Q2", "Q3", "Q4"];
+
+            var selectedQuarter = "Q2";
 
             var ten99SearchCurrency = 'USD';
 
@@ -117,6 +124,7 @@
                     },
                     "globalUrl": {
                         "searchReportsURL": "/assets/json/1099SearchResults.json",
+                        "downloadReportsURL": "/assets/json/1099downloadResults.json",
                         "method": "GET"
                     },
                     "globalVars": {

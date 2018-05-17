@@ -38,7 +38,8 @@ require(["modernizr",
             quarterDdn: "#qtrSelectDdn",
             downloadStatusDdn: "#dnldStatusSelectDdn",
             searchBtn: "#searchBtn",
-            downloadBtn: '#downloadBtn'
+            downloadBtn: '#downloadBtn',
+            downloadIcon: ".report-download-icon"
         };
 
         var triggerAjaxRequest = function(data,type,url){   
@@ -93,17 +94,7 @@ require(["modernizr",
                 }
             });
             cbp.report1099Page.qtrDropDown["options"] = options;
-        }
-
-        var populatedownloadDropDown = function(){
-            var options = [];
-            options = quarterDropdown.map(function(val, index){
-                return {
-                    key: val,
-                    value: val
-                }
-            });
-            cbp.report1099Page.qtrDropDown["options"] = options;
+            cbp.report1099Page.qtrDropDown.title = selectedQuarter;
         }
 
         var loadingInitialHbsTemplates = function() {
@@ -146,8 +137,10 @@ require(["modernizr",
             cbp.report1099Page.searchResponse.items.map(function(val, index){
                 var dataRow =  {
                     site: val.site,
-                    yeartodate: val.yearToDate,
-                    status: val.status
+                    yearToDate: val.yearToDate,
+                    status: val.status,
+                    downloadStatus: val.downloadStatus,
+                    siteId: val.siteId
                 }
                 for (var key in val.amountForSite) {
                     dataRow[key] = val.amountForSite[key];
@@ -169,7 +162,7 @@ require(["modernizr",
                     checkbox: true,
                     class: '',
                     formatter: function(value, row, index){
-                        return '<input type="hidden" class="userCheckedCheckbox" name="userChecked" value="'+ row.site +'">';
+                        return '<input type="hidden" class="userCheckedCheckbox" name="userChecked" value="'+ row.siteId +'">';
                     }
                 },{
                     field: 'status',
@@ -178,10 +171,10 @@ require(["modernizr",
                     class: 'text-nowrap text-center site-status',
                     formatter: function(value, row, index) {
                         var downloadReport;
-                        if(row.status){
-                            downloadReport = "<span class='fa fa-download text-success'></span>";
+                        if(row.downloadStatus){
+                            downloadReport = "<span class='fa fa-download text-success report-download-icon' data-siteid='"+ row.siteId +"'></span>";
                         } else{
-                            downloadReport = "<span class='fa fa-download'></span>";
+                            downloadReport = "<span class='fa fa-download report-download-icon' data-siteid='"+ row.siteId +"'></span>";
                         }
                         return downloadReport;
                     }
@@ -190,6 +183,7 @@ require(["modernizr",
                     field: 'site',
                     title: cbp.report1099Page.globalVars.site,
                     titleTooltip: cbp.report1099Page.globalVars.site,
+                    sortable: true,
                     class: 'site-name',
                     footerFormatter: function(){
                         return "<span><strong>"+cbp.report1099Page.globalVars.total+"</strong></span>";
@@ -216,7 +210,7 @@ require(["modernizr",
                         return "<span><strong>"+cbp.report1099Page.searchResponse.netAmountForSites[monthsToShow[2]]+"</strong></span>";
                     }
                 }, {
-                    field: 'yeartodate',
+                    field: 'yearToDate',
                     title: cbp.report1099Page.globalVars.yearToDate +currency,
                     class: 'text-right',
                     footerFormatter: function(){
@@ -295,6 +289,8 @@ require(["modernizr",
                 striped: true,
                 iconsPrefix: 'fa',
                 uniqueId: 'site',
+                sortName: 'site',
+                sortOrder: 'asc',
                 parentContainer: ".js-bottom-detail",
                 responsive: true,
                 responsiveBreakPoint: 768,
@@ -304,21 +300,21 @@ require(["modernizr",
                 columns: getTableColumns(),
                 data: getTableData(),
                 onCheck: function(row,$element){
-                    selectedRow.push(row.site);
+                    selectedRow.push(row.siteId);
                 },
                 onCheckAll: function(row){
                     selectedRow = [];
                     for(var i=0;i<row.length;i++){
-                        selectedRow.push(row[i].site);
+                        selectedRow.push(row[i].siteId);
                     }
                 },
                 onUncheck: function(row,$element){
-                    var siteIndex = selectedRow.indexOf(row.site);
+                    var siteIndex = selectedRow.indexOf(row.siteId);
                     if (siteIndex !== -1) selectedRow.splice(siteIndex, 1);
                 },
                 onUncheckAll: function(row){
                     for(var i=0;i<row.length;i++){
-                        var siteIndex = selectedRow.indexOf(row[i].site);
+                        var siteIndex = selectedRow.indexOf(row[i].siteId);
                         if (siteIndex !== -1) selectedRow.splice(siteIndex, 1);
                     }
                 },
@@ -326,10 +322,6 @@ require(["modernizr",
                     for(var i=0;i<selectedRow.length; i++){
                         $("input[value="+ selectedRow[i] +"]").attr("checked","checked");
                     }
-                    /*
-                    for(var i=0;i<selectedRow.length; i++){
-                        //console.log(selectedRow[i]);
-                    }*/
                 },
             });
         }
@@ -356,12 +348,20 @@ require(["modernizr",
             if($(config.accountDdn).val()){
                 postData.account = $(config.accountDdn).val();
             }
+
             if($(config.yearDdn).val()){
                 postData.year = $(config.yearDdn).val();
             }
+
+            /*
             if($(config.quarterDdn).val()){
                 postData.quarter = $(config.quarterDdn).val();
-            }
+            } else{
+                postData.quarter = cbp.report1099Page.searchResponse.header.quarter;
+            }*/
+
+            $(config.quarterDdn).val() ? postData.quarter = $(config.quarterDdn).val() : postData.quarter = selectedQuarter; 
+
             if($(config.downloadStatusDdn).val()){
                 postData.downloadStatus = $(config.downloadStatusDdn).val();
             }
@@ -374,21 +374,38 @@ require(["modernizr",
                 populatingTable();
                 populatingMobileTableFooter();
                 if(cbp.report1099Page.searchResponse.items.length<1){
-                    $('#table .fixed-table-footer').hide();
+                    $('.fixed-table-footer').hide();
                     $('#tableFooter').hide();
                 }
             });
         }
 
+        var downloadReport = function(report){
+            if($(config.accountDdn).val()){
+                var downloadAccount = $(config.accountDdn).val();
+            }
+            if($(config.yearDdn).val()){
+                var downloadYear = $(config.yearDdn).val();
+            }
+            console.log(report);
+            $("#downloadReportForm #account").val(downloadAccount);
+            $("#downloadReportForm #year").val(downloadYear);
+            $("#downloadReportForm #sites").val(report);
+            $("#downloadReportForm").submit();
+        }
+
         var bindEvents = function(){
             $(document).on('click', config.searchBtn, function(e){
-                cbp.report1099Page.globalUrl.searchReportsURL = "/assets/json/1099SearchResult3.json";
+                cbp.report1099Page.globalUrl.searchReportsURL = "/assets/json/1099SearchResult2.json";
                 search();
             });
             $(document).on('click', config.downloadBtn, function(e){
-                if(selectedRow.length>0){
-                    console.log(selectedRow);
-                }
+                downloadReport(selectedRow);
+            });
+            $(document).on('click', config.downloadIcon, function(e){
+                var selectedReportId = e.target.getAttribute('data-siteid');
+                //downloadReport([selectedReportId]);
+                $(this).addClass('text-success');
             });
             
             /*

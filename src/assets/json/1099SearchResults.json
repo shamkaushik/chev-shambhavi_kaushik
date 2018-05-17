@@ -6,6 +6,27 @@
 	},
 	"items": [{
 		"amountForSite": {
+			"january": "141.17",
+			"february": "611.33",
+			"march": "904.96",
+			"april": "0.00",
+			"may": "0.00",
+			"june": "0.00",
+			"july": "0.00",
+			"august": "0.00",
+			"september": "0.00",
+			"october": "0.00",
+			"november": "0.00",
+			"december": "0.00"
+        },
+        "siteId": "956163",
+		"site": "956163 - XYZ",
+		"yearToDate": "1833,657.46",
+		"downloadStatus": true,
+		"status": null,
+		"checkbox": null
+	},{
+		"amountForSite": {
 			"january": "263,141.17",
 			"february": "264,611.33",
 			"march": "305,904.96",
@@ -20,9 +41,30 @@
 			"december": "0.00"
         },
         "siteId": "356163",
-		"site": "356163",
+		"site": "356163 - XYZ",
 		"yearToDate": "833,657.46",
 		"downloadStatus": false,
+		"status": null,
+		"checkbox": null
+	},{
+		"amountForSite": {
+			"january": "63,141.17",
+			"february": "764,611.33",
+			"march": "1305,904.96",
+			"april": "0.00",
+			"may": "0.00",
+			"june": "0.00",
+			"july": "0.00",
+			"august": "0.00",
+			"september": "0.00",
+			"october": "0.00",
+			"november": "0.00",
+			"december": "0.00"
+        },
+        "siteId": "456163",
+		"site": "456163 - XYZ",
+		"yearToDate": "833,657.46",
+		"downloadStatus": true,
 		"status": null,
 		"checkbox": null
 	}],
@@ -62,5 +104,5 @@
 		"december": null
 	},
 	"yearToDate": "833,657.46",
-	"resultCount": "1"
+	"resultCount": "2"
 }
