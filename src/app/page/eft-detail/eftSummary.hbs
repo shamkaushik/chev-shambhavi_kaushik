@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-xs-24 col-md-19 bg-summary topSummaryLeftSection">
+        <div class="row">
+            <div class="col-xs-24">
+                <span class="sub-heading">{{globalVars.eftSummary}}</span>
+            </div>
+        </div>
+        <div class="row xs-mt-10">
+            <div class="col-md-6 col-xs-24 md-pb-0 xs-pb-10 md-mr-10">
+                <span>
+                    <strong>{{globalVars.detailSoldtoLabel}}</strong>
+                </span>
+                <br/>
+                <span id="eftDetailSoldTo">{{eftDetailResponse.eftSummaryData.soldTo}}</span>
+            </div>
+            <div class="col-md-6 col-xs-24 md-pb-0 xs-pb-10 md-mr-10">
+                <span>
+                    <strong>{{globalVars.accountCaptionForSummary}}</strong>
+                </span>
+                <br/>
+                <span id="eftSearchAccountNumber">{{eftDetailResponse.eftSummaryData.accountName}}</span>
+            </div>
+            <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
+                <span>
+                    <strong>{{globalVars.noticeDatetb}}</strong>
+                </span>
+                <br/>
+                <span id="eftSearchNoticeDate">{{eftDetailResponse.eftDetailsData.noticeDate}}</span>
+            </div>
+            <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10 md-mr-10">
+                <span>
+                    <strong>{{globalVars.settlementDatetb}}</strong>
+                </span>
+                <br/>
+                <span id="eftSearchSettlementDate">{{eftDetailResponse.eftDetailsData.settlementDate}}</span>
+            </div>
+            <div class="col-md-5 col-xs-24 md-pb-0 xs-pb-10 text-right">
+                <span>
+                    <strong>{{globalVars.noticeTotal}}({{eftDetailResponse.eftDetailsData.currency}}):</strong>
+                </span>
+                <span id="eftSearchNoticeTotal">{{eftDetailResponse.eftSummaryData.noticeTotal}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-24 col-md-4 bg-summary ccTurinsLink md-mt-0 xs-mt-15">
+        {{"View Credit Card Turn-Ins"}}
+        <a href="">View Credit Card Turn-Ins</a>
+    </div>
+</div>
