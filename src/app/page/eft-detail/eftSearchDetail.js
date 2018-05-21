@@ -142,7 +142,9 @@ require(["modernizr",
             eftNoticeidInp: "#eftNoticeid",
             eftSearchToggle: "#eftSearchToggle",
             searchInputEft: ".js-eftSearchPage-searchEft",
-            backToEFTSearch: ".backToEFTSearch"
+            backToEFTSearch: ".backToEFTSearch",
+            topSummaryLeftSection: ".topSummaryLeftSection",
+            ccTurinsLink: ".ccTurinsLink"
         };
 
         var init = function () {
@@ -161,6 +163,21 @@ require(["modernizr",
             populatingTable(cbp.eftDetailPage.eftDetailResponse.eftDetailDataList);
             populatingCalendarComponent();
             bindEvents();
+            setHeightForCCTurnIns();
+        };
+
+        var setHeightForCCTurnIns = function(){
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                $(config.ccTurinsLink).css({
+                    "height" : "50px",
+                    "line-height": "22px"
+                });
+            }else{
+                $(config.ccTurinsLink).css({
+                    "height" : $(config.topSummaryLeftSection).innerHeight(),
+                    "line-height" : parseInt($(config.topSummaryLeftSection).innerHeight()/12)-2
+                });
+            }
         };
 
         var loadingInitialHbsTemplates = function () {
@@ -278,7 +295,7 @@ require(["modernizr",
                 "maxDate": moment(),
                 'applyClass': 'btn-primary',
                 locale: {
-                    format: cbp.eftDetailPage.dateRange.format,
+                    format: cbp.eftDetailPage.dateRange.format, 
                     separator: ' - ',
                     applyLabel: cbp.eftDetailPage.dateRange.apply,
                     cancelLabel: cbp.eftDetailPage.dateRange.cancel,
@@ -386,6 +403,10 @@ require(["modernizr",
             
             $(document).on("click", config.printBtn, function(){
                 printPDFSelected();
+            });
+
+            $(window).resize(function(){
+                setHeightForCCTurnIns();
             });
         };
 
