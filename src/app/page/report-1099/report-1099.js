@@ -159,7 +159,8 @@ require(["modernizr",
         };
 
         var replaceZeroDash = function(checkValue){
-            if(checkValue === "0" || checkValue === "0.00")
+            var num = parseFloat(checkValue);
+            if(!num)
                 return '-';
             else
                 return checkValue;
