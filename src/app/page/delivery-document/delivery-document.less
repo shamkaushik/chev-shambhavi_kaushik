@@ -40,9 +40,22 @@
 			}
 		}
 	}
+	.delDocFound{
+		font-style:italic;
+		font-size:12px; 
+		color:#999999;
+	}
 	.js-accountDdn{
 		.btn-group.bootstrap-select.displayInline{
 			width:100%!important;
+		}
+	}
+	@media (max-width: @screen-xs) {
+		.js-sortbyDdn.form-group {
+			float: right !important;
+			.bootstrap-select {
+				width: auto !important;
+			}
 		}
 	}
 	.sub-heading-thin {

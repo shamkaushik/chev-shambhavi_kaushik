@@ -1,0 +1,45 @@
+{
+	"header": {
+		"account": "100 - Jarnail Kamboj, E Louise Avenue, US",
+		"fiscalYear": "2018",
+		"quarter": "Q1"
+	},
+	"items": [],
+	"reportSearchDataListMapping": {
+		"amountForSite": {
+			"january": null,
+			"february": null,
+			"march": null,
+			"april": null,
+			"may": null,
+			"june": null,
+			"july": null,
+			"august": null,
+			"september": null,
+			"october": null,
+			"november": null,
+			"december": null
+		},
+		"site": "TEN99_REPORT_SEARCH_SITE_COLUMN",
+		"yearToDate": "TEN99_REPORT_SEARCH_YEAR_TO_DATE_COLUMN",
+		"downloadStatus": null,
+		"status": "TEN99_REPORT_SEARCH_STATUS_COLUMN",
+		"checkbox": "TEN99_REPORT_SEARCH_CHECKBOX_COLUMN"
+	},
+	"netAmountForSites": {
+		"january": null,
+		"february": null,
+		"march": null,
+		"april": null,
+		"may": null,
+		"june": null,
+		"july": null,
+		"august": null,
+		"september": null,
+		"october": null,
+		"november": null,
+		"december": null
+	},
+	"yearToDate": null,
+	"resultCount": "0"
+}

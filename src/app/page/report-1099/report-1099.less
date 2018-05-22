@@ -27,6 +27,7 @@
                     &.bs-checkbox{
                         .th-inner{
                             padding-top: 0px;
+                            padding-bottom: 7px;
                             width: 24px;
                             position: relative;
                             input[type="checkbox"]{
@@ -59,11 +60,24 @@
             tbody{
                 tr{
                     td{
+                        &.bs-checkbox{
+                            input{
+                                &:before{
+                                    color: @gray-dark;
+                                }
+                            }
+                        }
                         &.site-status{
                             padding-left: 0;
                             .fa-download{
                                 font-size: 14px;
                                 color: @gray-dark;
+                                &.text-success{
+                                    color: @brand-success !important;
+                                }
+                                &:hover{
+                                    cursor: pointer;
+                                }
                             }
                         }
                         &.site-name{
@@ -86,7 +100,10 @@
                             padding-right: 12px;
                         }
                         &:last-child{
-                            padding-right: 20% !important;
+                            //padding-right: 20% !important;
+                            .th-inner{
+                                padding-right: 25% !important;
+                            }
                         }
                     }
                 }
@@ -97,6 +114,19 @@
 
 @media (max-width: @screen-xs-max){
     .report-1099-page{
+        .tableContainer{
+            .fixed-table-container{
+                tbody{
+                    tr{
+                        td{
+                            &:last-child{
+                                padding-right: 0;
+                            }
+                        }
+                    }
+                }
+            }  
+        }
         .report-table{
             .bootstrap-table-cardview{
                 .table.table-no-bordered {
@@ -112,8 +142,10 @@
                                 > div:nth-of-type(3) {
                                     background-color: @brand-primary !important;
                                     color: #ffffff;
-                                    .title{
-                                        display: none;
+                                }
+                                .card-view{
+                                    .value{
+                                        padding-left: 20px;
                                     }
                                 }
                             }
@@ -131,9 +163,37 @@
                    td{
                        .card-view{
                            &:first-child{
+                               background-color: @gray !important;
+                               color: #000000;
                             .title{
                                 font-weight: bold;
                             } 
+                           }
+                           .value{
+                                font-weight: bold;
+                                padding-left: 20px;
+                           }
+                       }
+                   }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: @screen-xs){
+    .report-1099-page{
+        .bootstrap-table{
+            tbody{
+                tr{
+                   td{
+                       .card-view{
+                           .title{
+                               width: 50%;
+                           }
+                           .value{
+                                padding-left: 0px;
+                                width: 50%;
                            }
                        }
                    }

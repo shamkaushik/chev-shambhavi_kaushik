@@ -1,0 +1,232 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css' />
+    <link href='/assets/css/app-na.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <div class='body-wrapper'>
+        <main>
+            <header class="main-header main-header-md js-header" style="">
+            </header>
+        </main>
+        <section class='main-container'>
+            <div class="content-box asm-page">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class='page-title'>assisted service mode</h2>
+                    </div>
+                </div>
+                <div class='row xs-m-0 position-relative'>
+                    <div class="overlay-wrapper">
+                    </div>
+                    <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center'>
+                        <div class='search-content'>
+                            <span class='fa fa-sliders'></span>
+                        </div>
+                    </div>
+                    <div class='col-md-5 left-pane hidden-md search'>
+                        <div class='search-content'>
+                            <div class='sub-heading hidden-sm hidden-xs'>
+                                search
+                                <span class='fa fa-close visible-md-inline'></span>
+                            </div>
+                            <div class='sub-heading hidden-lg hidden-md toggle-search-mobile'>
+                                <span class='fa fa-sliders'></span> search
+                                <span class='fa fa-chevron-down pull-right'></span>
+                            </div>
+                            <div class='search-form xs-mt-10 js-search-form'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-23 col-lg-19 right-pane'>
+                        <div class="row">
+                            <div class="col-md-3 pull-right text-right xs-mb-10"> <!-- pull-right -->
+                                <button class="btn btn-primary">Exit ASM</button>
+                            </div>
+                        </div>
+                        <div class="showErrorMessages">
+                            <div class="alert alert-danger js-card-error hide">
+                                <span class="alert-message">You do not have a credit card on file. Please go to <a href="http://localhost:9000/app/page/manage-card/manage-card.html">Manage Credit Card(s)</a> to add a card to your account.</span>
+                            </div>
+                            <div class="alert alert-danger js-card-expired-error hide">
+                                <span class="alert-message">Your credit card on file has expired. Please go to<a href="http://localhost:9000/app/page/manage-card/manage-card.html">Manage Credit Card(s)</a> to add a card to your account.</span>
+                            </div>
+                            <div class="alert alert-danger js-selected-product-error hide">
+                                <span class="alert-message">Please select only Product, Credit Memo, Debit Demo or Product Return invoices for payment.</span>
+                            </div>
+                            <div class="alert alert-danger js-selected-invoice-error hide">
+                                <span class="alert-message">Invoices that are processing or paid by credit card cannot be selected for payment. Please review your selection.</span>
+                            </div>
+                            <div class="alert alert-danger js-total-amount-error hide">
+                                <span class="alert-message">Total Invoice Amount should be greater than zero.</span>
+                            </div>
+                            <div class="alert alert-danger hide">
+                                <span class="alert-message">You have been redirected to this page beacuse you clicked on the browser back or refresh button for security reasons.</span>
+                            </div>
+                        </div>
+                        <div class='top-summary js-resultsCount-summary' style="margin-top:10px; background-color:#FFFFFF; padding: 15px 0px 0px 10px;">
+                        </div>
+                        <div class='bottom-detail js-bottom-detail'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- <input type="hidden" id="isPaymentFlow" value="false"> -->
+        <input type="hidden" id="contextPath" value="/sf/businessPoint/en/USD">
+        <input type="hidden" id="isInternalUser" value="false">
+        <form id="orderDetailsForm" action="/app/page/order-details/order-details.html" method="post" target="_blank">
+            <input type="hidden" name="orderId" id="orderId">
+            <div></div>
+        </form>
+        <!-- form for invoice pdf -->
+        <form id="invoicePDFForm" action="/invoices/invoicePDF" method="post" target="_blank">
+            <input type="hidden" name="invoiceId" id="invoiceId">
+            <input type="hidden" name="invoicePrint" id="invoicePrint">
+        </form>
+
+        <form id="invoiceForm" method="POST" action="/sf/invoices/invoiceCSV">
+            <input name="selectedInvoices" id="selectedInvoices" type="hidden">
+        </form>
+
+        <form id="paymentForm" method="GET" action="/app/page/payment-summary/payment-summary.html">
+            <input name="selectedInvoices" id="selectedInvoices" type="hidden">
+        </form>
+
+        <script type="text/javascript">
+        var asmDataResponseA = {
+            "asmDataList": {
+                "customers" : []
+            }
+        };
+        var asmDataResponse = {
+                "fromDate": "22-03-2015",
+                "toDate": "29-08-2016",
+                "debits": "368.441.475",
+                "credits": "-14.423.292",
+                "currency": "USD",
+                "soldShipToBlock": "7901220, DISMACOR S.A., ",
+                "soldShipToNormal": "K 16 NRO 20-56, BUCARAMANGA, Colombia",
+                "asmDataList": {
+                    "customers" : []
+                },
+                "resultCount": 1,
+                "multipleSoldTo": false,
+                "sort": null
+            };
+            var cbp = {
+                "staticBasePath": "/",
+                "asmPage": {
+                    "businessRegionDropdown": {
+                        "options": [{'key':'Test','value':'Test'},{'key':'Test-1','value':'Test-1'}],
+                        "label": "Business Region",
+                        "title": "",
+                        "name": "businessRegion",
+                        "showOptions": 3
+                    },
+                    "businessTypeDropdown": {
+                        "options": [{'key':'Test','value':'Test'}],
+                        "label": "Business Type",
+                        "title": "",
+                        "name": "businessType",
+                        "showOptions": 3
+                    },
+                    "businessUnitDropdown": {
+                        "options": [{'key':'Test','value':'Test'}],
+                        "label": "Business Unit",
+                        "title": "",
+                        "name": "businessUnit",
+                        "showOptions": 3
+                    },
+                    "permissionsDropdown": {
+                        "options": [{'key':'Test','value':'Test'}],
+                        "label": "Permissions",
+                        "title": "",
+                        "name": "permissions",
+                        "showOptions": 3
+                    },
+                    "dateRange": {
+                        "maxMonth": 18,
+                        "format": "DD-MM-YYYY",
+                        "today": "Today",
+                        "yesterday": "Yesterday",
+                        "last7Days": "Last 7 Days",
+                        "last30Days": "Last 30 Days",
+                        "thisMonth": "This Month",
+                        "lastMonth": "Last Month",
+                        "customRange": "Custom Range",
+                        "cancel": "Cancel",
+                        "apply": "Apply",
+                        "iconClass": "fa fa-calendar pull-right",
+                        "id": "calendar"
+                    },
+                    "globalUrl": {
+                        "invoicePostURL": "/assets/json/invoices.json",
+                        "shipToURL": "/assets/json/shipToResponse.json",
+                        "method": "GET",
+                        "payInvoiceURL" : "payInvoice",
+                        "recentlyUsedListAsm" : "/assets/json/recentlyUsedList.json",
+                        "searchasmList" : "/assets/json/searchasmList.json"
+                    },
+                    "globalVars": {
+                        "searchTxt": "Search",
+                        "advancedSearchCaption" : "Advanced Search",
+                        "userId": "User ID",
+                        "fullName": "Full Name",
+                        "companyName": "Company Name",
+                        "accountNumber": "Account #",
+                        "siteName": "Site",
+                        "businessType": "Business Type",
+                        "businessUnit": "Business Unit",
+                        "permissions": "Permissions",
+                        //"customerPO":"Customer PO",
+                        "noMatches": "No search results found. Please change your search",
+                        "noMatchesMaxResults": "",
+                        "resultsCount" : "Showing {0} results",
+                        "selectDdn": {
+                            "noneSelectedText": "Nothing selected",
+                            "noneResultsText": "No results for {0}",
+                            "selectAllText": "Select All",
+                            "deselectAllText": "Deselect All",
+                            "itemSelected": "{0} item selected",
+                            "itemSelected1": "{0} items selected",
+                            "limitReached": "Limit reached ({n} item max)",
+                            "limitReached1": "Limit reached ({n} items max)",
+                            "groupLimit": "Group limit reached ({n} item max)",
+                            "groupLimit1": "Group limit reached ({n} items max)"
+                        },
+                        "tableLocales": {
+                            "loadingMessage": "Loading, please wait...",
+                            "recordsPerPage": "{0} rows per page",
+                            "showingRows": "Showing {0} to {1} of {2} rows",
+                            "search": "Search",
+                            "noMatches": "<div class='alert alert-danger'><span class='alert-message'>No Results found. Please change your search</span></div>",
+                            "paginationSwitch": "Hide/Show pagination",
+                            "refresh": "Refresh",
+                            "toggle": "Toggle",
+                            "columns": "Columns",
+                            "allRows": "All"
+                        }
+                    }
+                }
+            }
+
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="asm.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -16,41 +16,23 @@
             </header>
         </main>
         <section class='main-container'>
-            <div class="content-box siteoperatinghours-page">
+            <div class="content-box rmcInq-page">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h2 class='page-title'>site operating hours</h2>
+                        <h2 class='page-title'>RMC inquiry</h2>
+                    </div>
+                    <span class="col-xs-24 sub-heading-thin xs-pt-15 xs-pl-15">
+                        user information
+                    </span>
+                    <div class="col-md-24 col-xs-24 userinfoFormContainer">
+
                     </div>
                 </div>
                 <div class='row xs-m-0 position-relative'>
                     <div class="overlay-wrapper">
                     </div>
                     <div class='col-md-24 col-lg-24 right-pane xs-m-0 xs-p-0'>
-                        <div class="row dateAndDownloadContainer">
-                            <div class="col-xs-24 col-md-19">
-                                <span class="col-xs-24 sub-heading-thin xs-pt-15 xs-pl-15">
-                                    site operating hours summary
-                                </span>
-                                <div class="col-xs-24 xs-mt-10 xs-pl-15">
-                                    <strong>Date Range</strong> <br/>
-                                    <span id="dateRange-container">
-                                        05/03/2018 - 05/10/2018
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-xs-24 md-mt-40 md-ml-50 xs-mt-15 xs-ml-15 btn-downloadContainer">
-                                <button class="btn btn-primary xs-mr-10 xs-mb-15 btn-download">
-                                    Download
-                                </button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-24 xs-mt-15 xs-m-0 xs-p-0">
-                                <strong>Note:</strong>&nbsp; This report is provided to assist you in counseling discussions with your Station Managers and Retailers regarding hours of operation. The report reflects the time of the first and last credit card transactions for each
-                                station in your network, by day, for the prior week. A summary column lists the average number of hours each site was open daily for the week. This report will help you quickly identify stations running short hours. With the
-                                exception of car washes, or sites where not allowed by law, all Chevron and Texaco locations are encouraged to be open a minimum of 16 hours per day.
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -66,7 +48,7 @@
             var maxResults = 500;
             var cbp = {
                 "staticBasePath": "/",
-                "siteOperatingPage": {
+                "rmcInqPage": {
                     "globalUrl": {
                         "siteOperatingPostURL": "/assets/json/siteOperating.json",
                         "siteURL": "/assets/json/siteResponse.json",
@@ -80,7 +62,13 @@
                         "formANDToRange" : "",
                         "dateRange" : {
                             "format" : "MM/DD/YYYY"
-                        }
+                        },
+                        "userID" : "User ID",
+                        "fname" : "First Name",
+                        "lname" : "Last Name",
+                        "userEmail" : "E-mail",
+                        "altEmail" : "Alternate E-mail Address",
+                        "userPhone" : "Phone No."
                     }
                 }
             }
@@ -91,7 +79,7 @@
         <script src="/assets/js/require_config.js"></script>
         <script src="/app/components/header/header.js"></script>
         <script src="/app/components/headerFooter/headerFooter.js"></script>
-        <script src="site-operating-hours.js"></script>
+        <script src="rmc-inq.js"></script>
         <footer id="footer" class="js-footer">
         </footer>
     </div>

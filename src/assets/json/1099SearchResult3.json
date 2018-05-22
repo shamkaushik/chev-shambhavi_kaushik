@@ -1,0 +1,87 @@
+{
+	"header": {
+		"account": "200 - Jarnail Kamboj, E Louise Avenue, US",
+		"fiscalYear": "2017",
+		"quarter": "Q2"
+	},
+	"items": [{
+		"amountForSite": {
+			"january": "0.00",
+			"february": "0.00",
+			"march": "0.00",
+			"april": "0.00",
+			"may": "0.00",
+			"june": "0.00",
+			"july": "0.00",
+			"august": "0.00",
+			"september": "0.00",
+			"october": "10",
+			"november": "11",
+			"december": "12"
+        },
+        "siteId": "956163",
+		"site": "956163- ABC",
+		"yearToDate": "657.46",
+		"downloadStatus": true,
+		"status": null,
+		"checkbox": null
+	},{
+		"amountForSite": {
+			"january": "0.00",
+			"february": "0.00",
+			"march": "0.00",
+			"april": "4",
+			"may": "5",
+			"june": "6",
+			"july": "0.00",
+			"august": "0.00",
+			"september": "0.00",
+			"october": "13",
+			"november": "14",
+			"december": "15"
+        },
+        "siteId": "856163",
+		"site": "856163 - BCA",
+		"yearToDate": "57.46",
+		"downloadStatus": false,
+		"status": null,
+		"checkbox": null
+	}],
+	"reportSearchDataListMapping": {
+		"amountForSite": {
+			"january": null,
+			"february": null,
+			"march": null,
+			"april": null,
+			"may": null,
+			"june": null,
+			"july": null,
+			"august": null,
+			"september": null,
+			"october": null,
+			"november": null,
+			"december": null
+		},
+		"site": "TEN99_REPORT_SEARCH_SITE_COLUMN",
+		"yearToDate": "TEN99_REPORT_SEARCH_YEAR_TO_DATE_COLUMN",
+		"downloadStatus": null,
+		"status": "TEN99_REPORT_SEARCH_STATUS_COLUMN",
+		"checkbox": "TEN99_REPORT_SEARCH_CHECKBOX_COLUMN"
+	},
+	"netAmountForSites": {
+		"january": null,
+		"february": null,
+		"march": null,
+		"april": null,
+		"may": null,
+		"june": null,
+		"july": null,
+		"august": null,
+		"september": null,
+		"october": 900,
+		"november": 800,
+		"december": 700
+	},
+	"yearToDate": "2400",
+	"resultCount": "2"
+}

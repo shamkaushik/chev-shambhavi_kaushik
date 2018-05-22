@@ -4,21 +4,22 @@
     </div>
 </div> --}}
 <div class="row xs-mt-5 xs-pl-4 xs-ml-1 hidden-print">
-      <div class="col-md-16" style="margin-top:-4px;">
-        <a class="btn btn-info xs-mr-10 js-downloadBtn hidden-xs disabled xs-mb-10" data-name="delDocs_batch_download" href="javascript:void(0);">
-        <i class="fa fa-download xs-pr-5 hidden-xs" aria-hidden="true"></i> {{globalVars.downloadSelected}}</a>
-        <a class="btn btn-info xs-mr-10 js-printBtn hidden-xs disabled xs-mb-10" href="javascript:void(0);">
-        <i class="fa fa-print xs-pr-5 hidden-xs" aria-hidden="true"></i> {{globalVars.printSelected}}</a>       
-            <span class="xs-ml-0 delDocFound" style="font-style:italic; font-size:12px; color:#999999;">{{globalVars.delDocsFoundVar}}</span>
-      </div>
-      <div class="col-md-8 col-xs-24">
-        <div class="row">          
-          <div class="col-xs-24">
-            <div class="js-sortbyDdn form-group pull-right">
+    <div class="col-md-7 hidden-xs hidden-sm" style="margin-top:-4px;">
+        <a class="btn btn-info xs-mr-10 js-downloadBtn disabled xs-mb-10" data-name="delDocs_batch_download" href="javascript:void(0);">
+        <i class="fa fa-download xs-pr-5" aria-hidden="true"></i> {{globalVars.downloadSelected}}</a>
+        <a class="btn btn-info xs-mr-10 js-printBtn disabled xs-mb-10" href="javascript:void(0);">
+        <i class="fa fa-print xs-pr-5" aria-hidden="true"></i> {{globalVars.printSelected}}</a>       
+    </div>
+    <div class="col-md-17 col-xs-24">
+        <div class="row">
+            <div class = "col-xs-7 xs-mt-5">
+                <span class="xs-ml-0 delDocFound">{{globalVars.delDocsFoundVar}}</span>
+            </div>          
+            <div class="col-xs-17">
+                <div class="js-sortbyDdn form-group pull-right">
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 </div>
 <div class="row tableContainer">
     <div class="col-xs-24">

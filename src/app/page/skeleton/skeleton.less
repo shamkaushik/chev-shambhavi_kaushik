@@ -61,6 +61,9 @@
 	}
 	.left-pane {
 		padding-left: 0;
+		.sub-heading{
+			font-weight: normal;
+		}
 		.fa {
 			&.fa-calendar {
 				color: @gray-dark;
@@ -150,6 +153,15 @@
 			.sub-heading {
 				cursor: pointer;
 				font-weight: bold;
+				.fa-filter {
+					margin-right: 5px;
+				}
+				.close-icon:before {
+					content: "\f00d";
+				}
+			}
+			.sub-heading-thin{
+				cursor: pointer;
 				.fa-filter {
 					margin-right: 5px;
 				}

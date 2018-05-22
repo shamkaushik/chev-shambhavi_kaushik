@@ -5,6 +5,7 @@
     "toDate": "29-08-2016",
     "eftSearchDataListA" : [],
     "eftSearchDataList": [{
+      "eftNoticeNumberId" : "226710253",
       "eftNoticeNumber":"226710253",
       "noticeDate":"03-12-2016",
       "accountNumber":"0450245835",
@@ -14,6 +15,7 @@
       "printed": false,
       "displayTotal": "12.392.370"
     },{
+      "eftNoticeNumberId" : "213710333",
       "eftNoticeNumber":"213710333",
       "noticeDate":"17-12-2016",
       "accountNumber":"0450245835",
@@ -23,6 +25,7 @@
       "printed": false,
       "displayTotal": "-78.192.370"
     },{
+      "eftNoticeNumberId" : "456710207",
       "eftNoticeNumber":"456710207",
       "noticeDate":"10-11-2016",
       "accountNumber":"0450245835",
@@ -32,6 +35,7 @@
       "printed": true,
       "displayTotal": "19.232.370"
     },{
+      "eftNoticeNumberId" : "678710245",
       "eftNoticeNumber":"678710245",
       "noticeDate":"16-11-2016",
       "accountNumber":"0450245835",
@@ -41,6 +45,7 @@
       "printed": false,
       "displayTotal": "-23.492.370"
     },{
+      "eftNoticeNumberId" : "226710253",
       "eftNoticeNumber":"226710253",
       "noticeDate":"12-10-2016",
       "accountNumber":"0450245835",
