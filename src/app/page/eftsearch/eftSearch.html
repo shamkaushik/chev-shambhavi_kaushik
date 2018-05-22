@@ -130,6 +130,20 @@
                 "uid": "0116134113",
                 "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
             }];
+
+            var soldToDropdown = [{
+                "uid": "0676334614",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "uid": "0912234461",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "uid": "0176224612",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "uid": "0116134113",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }];
             
             var downloadStatusDropdownOptions = [{
                 key: "all",
@@ -169,6 +183,14 @@
                         "label": "Account",
                         "title": "",
                         "name": "accountSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": true
+                    },
+                    "soldToDropdown": {
+                        "options": [],
+                        "label": "Sold To",
+                        "title": "",
+                        "name": "soldToDropdown",
                         "showOptions": 10,
                         "singleOption": true
                     },
