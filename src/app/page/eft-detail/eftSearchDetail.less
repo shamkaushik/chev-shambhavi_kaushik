@@ -1,7 +1,21 @@
 .eftSearch-page-detail {
-		.page-title {
-				text-transform: none;
+	.page-title {
+			text-transform: none;
+	}
+	.topSummaryLeftSection{
+		margin-right: 20px;
+	}
+	.rmcInqLink {
+		padding: 15px 0 10px 10px;
+		a{
+			color: #009dd9;
 		}
+	}
+	.eft-return-view{
+		a{
+			color: #009dd9;
+		}
+	}
 	.fixed-table-container{
 		tbody{
 			.selected td{
@@ -60,9 +74,24 @@
 	.right-pane{
 		.top-summary{
 			min-height:0;
+			background: none;
+			padding: 15px 5px;
 		}
 		.sub-heading{
 			font-weight: normal;
+		}
+		.bg-summary{
+			background-color: #EBF8FE;
+			padding: 15px 10px;
+			&.ccTurinsLink{
+				text-align: center;
+				vertical-align: middle;
+				line-height: 55px;
+				color: #009dd9;
+				a{
+					color: #009dd9;
+				}
+			}
 		}
 	}
 	.left-pane{
@@ -175,13 +204,22 @@
 	}
 }
 
-@media (min-width: @screen-md-max) {
+@media (min-width: @screen-md-min) {
 	.eftSearch-page-detail{
 		.bottom-detail {
 			.eftFound{
 				position: relative;
 				left:-85px;
 			}
+		}
+		.bg-summary{
+			&.ccTurinsLink{
+				width:19%;
+				line-height: 5px;
+			}
+		}
+		.rmcInqLink{
+			margin-right:20px;
 		}
 	}
 }
