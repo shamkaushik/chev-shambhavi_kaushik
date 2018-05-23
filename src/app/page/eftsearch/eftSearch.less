@@ -68,10 +68,6 @@
 		}
 	}
 	.bottom-detail {
-			.eftFound{
-				padding-top: 6px;
-				text-align: left;
-			}
 	}
 	.right-pane{
 		.top-summary{
@@ -165,7 +161,7 @@
 	}
 
 	#eftSearchToggle{
-		margin-left: 2px;
+		margin-left: 4px;
 		label{
 			margin:0px !important;
 			width: 0px !important;
@@ -185,7 +181,7 @@
 
 		&.btn-group {
 			.btn{
-				padding: 6px 28px;
+				padding: 6px 14px;
 			}
 		}
 	}
@@ -195,15 +191,29 @@
 		border-bottom: 1px solid #DCDDDE;
 	}
 
+	.hidden{
+		display: none !important;
+	}
 
+	#calendar{
+		width: auto !important;
+	}
+
+	.js-search-dateRange{
+		label{
+			display: none;
+		}
+		margin-bottom: 0px; 
+		&.form-group{
+			margin-bottom: 0px;
+		}
+	}
 }
 
 	@media (min-width: @screen-md-max) {
 		.eftSearch-page {
 			.bottom-detail {
 				.eftFound{
-					position: relative;
-					left:-45px;
 				}
 			}
 		}
