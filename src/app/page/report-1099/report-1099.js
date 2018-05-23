@@ -429,7 +429,7 @@ require(["modernizr",
             for (var i = 0; len = report.length, i < len; i++) {
                 if (isASM !== true)
                     $(".report-download-icon[data-siteid='" + report[i] + "']").addClass("text-success");
-                cbp.report1099Page.searchResponse.items = cbp.report1099Page.searchResponse.items.filter(function(obj) {
+                    cbp.report1099Page.searchResponse.items = cbp.report1099Page.searchResponse.items.filter(function(obj) {
                     if(obj.siteId === report[i])
                         obj.downloadStatus = true;
                     return obj;
@@ -458,6 +458,8 @@ require(["modernizr",
                 // $(this).addClass('text-success');
             });
 
+            /*
+
             $(document).on("reset-view.bs.table, toggle.bs.table", "#table", function(event) {
                 event.stopPropagation();
 
@@ -467,6 +469,8 @@ require(["modernizr",
                 }
 
             });
+
+            */
             
             /*
             $(document).on("#reset-view.bs.table, #toggle.bs.table", "#table", function(e) {
