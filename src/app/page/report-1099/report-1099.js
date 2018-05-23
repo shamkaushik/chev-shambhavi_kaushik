@@ -122,6 +122,14 @@ require(["modernizr",
             }
         };
 
+        var enableDownloadButton = function () {
+            $(config.downloadBtn).removeAttr('disabled', 'disabled');
+        };
+
+        var disableDownloadButton = function () {
+            $(config.downloadBtn).attr('disabled', 'disabled');
+        };
+
         var getMonthsToShow = function(){
             var monthsToShow = [];
              for(key in cbp.report1099Page.searchResponse.netAmountForSites){
@@ -148,6 +156,14 @@ require(["modernizr",
                 tableData.push(dataRow);
             });
             return tableData;
+        };
+
+        var replaceZeroDash = function(checkValue){
+            var num = parseFloat(checkValue);
+            if(!num)
+                return '-';
+            else
+                return checkValue;
         };
 
         var getTableColumns = function(){
@@ -192,22 +208,31 @@ require(["modernizr",
                     field: monthsToShow[0],
                     title: cbp.report1099Page.globalVars[monthsToShow[0]] +currency,
                     class: 'text-right',
+                    formatter: function(value, row, index){
+                        return replaceZeroDash(value);
+                    },
                     footerFormatter: function(){
-                        return "<span><strong>"+cbp.report1099Page.searchResponse.netAmountForSites[monthsToShow[0]]+"</strong></span>";
+                        return "<span><strong>"+replaceZeroDash(cbp.report1099Page.searchResponse.netAmountForSites[monthsToShow[0]])+"</strong></span>";
                     }
                 },{
                     field: monthsToShow[1],
                     title: cbp.report1099Page.globalVars[monthsToShow[1]] +currency,
                     class: 'text-right',
+                    formatter: function(value, row, index){
+                        return replaceZeroDash(value);
+                    },
                     footerFormatter: function(){
-                        return "<span><strong>"+cbp.report1099Page.searchResponse.netAmountForSites[monthsToShow[1]]+ "</strong></span>";
+                        return "<span><strong>"+replaceZeroDash(cbp.report1099Page.searchResponse.netAmountForSites[monthsToShow[1]])+ "</strong></span>";
                     }
                 },{
                     field: monthsToShow[2],
                     title: cbp.report1099Page.globalVars[monthsToShow[2]] +currency,
                     class: 'text-right',
+                    formatter: function(value, row, index){
+                        return replaceZeroDash(value);
+                    },
                     footerFormatter: function(){
-                        return "<span><strong>"+cbp.report1099Page.searchResponse.netAmountForSites[monthsToShow[2]]+"</strong></span>";
+                        return "<span><strong>"+replaceZeroDash(cbp.report1099Page.searchResponse.netAmountForSites[monthsToShow[2]])+"</strong></span>";
                     }
                 }, {
                     field: 'yearToDate',
@@ -288,7 +313,7 @@ require(["modernizr",
                 classes: 'table table-no-bordered',
                 striped: true,
                 iconsPrefix: 'fa',
-                uniqueId: 'site',
+                uniqueId: 'siteId',
                 sortName: 'site',
                 sortOrder: 'asc',
                 parentContainer: ".js-bottom-detail",
@@ -301,21 +326,29 @@ require(["modernizr",
                 data: getTableData(),
                 onCheck: function(row,$element){
                     selectedRow.push(row.siteId);
+                    enableDownloadButton();
                 },
                 onCheckAll: function(row){
                     selectedRow = [];
                     for(var i=0;i<row.length;i++){
                         selectedRow.push(row[i].siteId);
                     }
+                    if (row.length) {
+                        enableDownloadButton();
+                    }
                 },
                 onUncheck: function(row,$element){
                     var siteIndex = selectedRow.indexOf(row.siteId);
                     if (siteIndex !== -1) selectedRow.splice(siteIndex, 1);
+                    disableDownloadButton();
                 },
                 onUncheckAll: function(row){
                     for(var i=0;i<row.length;i++){
                         var siteIndex = selectedRow.indexOf(row[i].siteId);
                         if (siteIndex !== -1) selectedRow.splice(siteIndex, 1);
+                    }
+                    if (!($(config.tabelRow).hasClass('selected'))) {
+                        disableDownloadButton();
                     }
                 },
                 onResetView: function(){
@@ -377,6 +410,7 @@ require(["modernizr",
                     $('.fixed-table-footer').hide();
                     $('#tableFooter').hide();
                 }
+                disableDownloadButton();
             });
         }
 
@@ -387,25 +421,46 @@ require(["modernizr",
             if($(config.yearDdn).val()){
                 var downloadYear = $(config.yearDdn).val();
             }
-            console.log(report);
+            for (var i = 0; len = report.length, i < len; i++) {
+                if (isASM !== true)
+                    $(".report-download-icon[data-siteid='" + report[i] + "']").addClass("text-success");
+                cbp.report1099Page.searchResponse.items = cbp.report1099Page.searchResponse.items.filter(function(obj) {
+                    if(obj.siteId === report[i])
+                        obj.downloadStatus = true;
+                    return obj;
+                });
+            }
             $("#downloadReportForm #account").val(downloadAccount);
             $("#downloadReportForm #year").val(downloadYear);
             $("#downloadReportForm #sites").val(report);
-            $("#downloadReportForm").submit();
+            //$("#downloadReportForm").submit();
         }
 
         var bindEvents = function(){
+
             $(document).on('click', config.searchBtn, function(e){
                 cbp.report1099Page.globalUrl.searchReportsURL = "/assets/json/1099SearchResult2.json";
                 search();
             });
+
             $(document).on('click', config.downloadBtn, function(e){
                 downloadReport(selectedRow);
             });
+
             $(document).on('click', config.downloadIcon, function(e){
                 var selectedReportId = e.target.getAttribute('data-siteid');
-                //downloadReport([selectedReportId]);
-                $(this).addClass('text-success');
+                downloadReport([selectedReportId]);
+                // $(this).addClass('text-success');
+            });
+
+            $(document).on("reset-view.bs.table, toggle.bs.table", "#table", function(event) {
+                event.stopPropagation();
+
+                for(var i=0;i<selectedRow.length; i++){
+                    //trigger click for each selected delDoc
+                    $("#table tbody tr[data-uniqueid="+selectedRow[i]+"]").find("input[type=checkbox]").attr("checked","checked");
+                }
+
             });
             
             /*
