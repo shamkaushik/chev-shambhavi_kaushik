@@ -1,0 +1,832 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css' />
+    <link href='/assets/css/app-na.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <div class='body-wrapper'>
+        <main>
+            <header class="main-header main-header-md js-header" style="">
+            </header>
+        </main>
+        <section class='main-container'>
+            <div class="content-box invoices-page">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class='page-title'>invoices</h2>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="cartCounter pull-right viewCartCounter hidden-print">
+                            <input type="hidden" id="cartProductCount" value="1">
+
+                            <span id="warningVol" data-toggle="tooltip" data-original-title="Maximum volume per order: 20,184.844 gal">
+                              <span class="errorImageModal"></span>
+                            <span class="cartStyling"> Cart Volume:</span>
+                            <span class="cartVolume">30000</span>
+                            <span>gal</span>
+                            </span>
+                            <span class="verticalSeperatorStyling"> </span>
+                            <span id="warningWt" data-toggle="tooltip" data-original-title="Maximum weight per order: 20,184.844 kg">
+                              <span class="errorImageModal"></span>
+                            <span class="cartStyling">Cart Weight:</span>
+                            <span class="cartWeight">34,000</span>
+                            <span>kg</span>
+                            </span>
+                            <span class="verticalSeperatorStyling"> </span>
+                            <span class=""><a class="viewCartLink" id="viewCartLink" href="/sf/businessPoint/en/USD/cart">View Cart</a></span>
+                        </div>
+                    </div>
+                </div>
+                <div class='row xs-m-0 position-relative'>
+                    <div class="overlay-wrapper">
+                    </div>
+                    <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center'>
+                        <div class='search-content'>
+                            <span class='fa fa-sliders'></span>
+                        </div>
+                    </div>
+                    <div class='col-md-5 left-pane hidden-md search'>
+                        <div class='search-content'>
+                            <div class='sub-heading-thin hidden-sm hidden-xs'>
+                                search
+                                <span class='fa fa-close visible-md-inline'></span>
+                            </div>
+                            <div class='sub-heading hidden-lg hidden-md toggle-search-mobile'>
+                                <span class='fa fa-sliders'></span> Search
+                                <span class='fa fa-chevron-down pull-right'></span>
+                            </div>
+                            <div class='search-form xs-mt-10 js-search-form'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-23 col-lg-19 right-pane'>
+                        <div class="alert alert-danger js-card-error hide">
+                            <span class="alert-message">You do not have a credit card on file. Please go to <a href="http://localhost:9000/app/page/manage-card/manage-card.html">Manage Credit Card(s)</a> to add a card to your account.</span>
+                        </div>
+                        <div class="alert alert-danger js-card-expired-error hide">
+                            <span class="alert-message">Your credit card on file has expired. Please go to<a href="http://localhost:9000/app/page/manage-card/manage-card.html">Manage Credit Card(s)</a> to add a card to your account.</span>
+                        </div>
+                        <!-- <div class="alert alert-danger js-selected-product-error hide">
+                            <span class="alert-message">Please select only Product, Credit Memo, Debit Demo or Product Return invoices for payment.</span>
+                        </div> -->
+                        <!-- <div class="alert alert-danger js-selected-invoice-error hide">
+                            <span class="alert-message">Invoices that are processing or paid by credit card cannot be selected for payment. Please review your selection.</span>
+                        </div> -->
+                        <div class="alert alert-danger js-total-amount-error hide">
+                            <span class="alert-message">Total Invoice Amount should be greater than zero.</span>
+                        </div>
+                        <div class="alert alert-danger">
+                            <span class="alert-message">You have been redirected to this page beacuse you clicked on the browser back or refresh button for security reasons.</span>
+                        </div>
+                        <div class='top-summary js-invoices-summary'>
+                        </div>
+                        <div class='bottom-detail js-bottom-detail'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- <input type="hidden" id="isPaymentFlow" value="false"> -->
+        <input type="hidden" id="contextPath" value="/sf/businessPoint/en/USD">
+        <input type="hidden" id="isInternalUser" value="false">
+        <form id="orderDetailsForm" action="/app/page/order-details/order-details.html" method="post" target="_blank">
+            <input type="hidden" name="orderId" id="orderId">
+            <div></div>
+        </form>
+        <!-- form for invoice pdf -->
+        <form id="invoicePDFForm" action="/invoices/invoicePDF" method="post" target="_blank">
+            <input type="hidden" name="invoiceId" id="invoiceId">
+            <input type="hidden" name="invoicePrint" id="invoicePrint">
+        </form>
+
+        <form id="invoiceForm" method="POST" action="/sf/invoices/invoiceCSV">
+            <input name="selectedInvoices" id="selectedInvoices" type="hidden">
+        </form>
+<!-- 
+        <form id="paymentForm" method="GET" action="/app/page/payment-summary/payment-summary.html">
+            <input name="selectedInvoices" id="selectedInvoices" type="hidden">
+        </form> -->
+
+        <script type="text/javascript">
+            
+            var isNARegion = true;
+
+          //  var isPaymentFlow = true;
+
+            // if(document.getElementById("isPaymentFlow").value === "true"){
+            //      window.location.href = window.location.href;
+            // }
+            var showPayInvoice = "true";
+            var showLegal = false;
+            var weightCheck = '30000';
+
+            var inASMSession = "false";
+            var isASM = true;
+            var internalUser = false;
+            var volumeBasedCheck = false;
+            var allInvoiceFlow = "false"; //invoicesAttention
+
+            var srtByDdn = {
+                "options": [],
+                label: "Sort By",
+                labelClass: "xs-mr-5",
+                name: "sortByDdn",
+                display: "displayInline"
+            }
+
+            var invoicesResponse = {
+                "fromDate": "22-03-2015",
+                "toDate": "29-08-2016",
+                "debits": "368.441.475",
+                "credits": "14.423.292",
+                "currency": "USD",
+                "soldShipTo": "All",
+                //"soldShipToBlock": "7901220, DISMACOR S.A., ",
+                //"soldShipToNormal": "K 16 NRO 20-56, BUCARAMANGA, Colombia",
+                "summary":{
+                    shipTo:"SHipTo",
+                    soldTo:"SoldTo",
+                    currency:"PHP"
+                },
+                "invoiceColumnMapping":{
+                "altReferenceNumber":"46372647",
+                "originalDocumentNumber":"weuiriru",
+                "invoiceId": "test",
+                "invoiceDate": "dfhj",
+                "orderId": null,
+                "total": "yfleuir",
+                "total2": null,
+                "type": "fjeij",
+                "checkbox":"ejuje",
+                "location": "test",
+                "downloaded": "",
+                "printed": false,
+                "status":"dbshj",
+                "currencyUnit1": null,
+                "currencyUnit2": null,
+                "purchaseOrderNumber": "ehfukehf",  
+                "legalDocumentNumber": null,
+                "salesOrderType": null,
+                "invoiceStatus": "dfhkek",
+                "payerId": null,
+                "eftNumber": "fjri",
+                "deliveryDate": "ejiwejf",
+                "fiscalYear": null,
+                "altrefNumber":"hgdwed"
+                },
+
+                "invoiceList": [{
+                    "altReferenceNumber":"46372647",
+                    "originalDocumentNumber":"463756473",
+                    "invoiceId": "936710253",
+                    "invoiceDate": "02-12-2016",
+                    "orderId": "1",
+                    "total": -8919237.0,
+                    "displayTotal": "-8.919.237",
+                    "total2": null,
+                    "displayTotal2": null,
+                    "type": "YG2", //<spring:theme code="chevron.invoice.type.${invoice.type}" />
+                    "location": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
+                    "downloaded": true,
+                    "printed": true,
+                    "currencyUnit": "COP",
+                    "currencyUnit2": null,
+                    "purchaseOrderNumber": "NC BDP",
+                    "legalDocumentNumber": "35-2655",
+                    "salesOrderType": "ZOOR",
+                    "payInvoice": "true"
+                },
+                {
+                    "altReferenceNumber":"46372647",
+                    "originalDocumentNumber":"463756473",
+                    "invoiceId": "936670263",
+                    "invoiceDate": "30-11-2015",
+                    "orderId": "2",
+                    "total": 36928702,
+                    "displayTotal": "36.928.702",
+                    "total2": null,
+                    "displayTotal2": null,
+                    "type": "ZF2",
+                    "location": "7933464, DISMACOR S.A. BARBOSA, K 10 NRO 20  11, Colombia",
+                    "downloaded": true,
+                    "printed": false,
+                    "currencyUnit": "COP",
+                    "currencyUnit2": null,
+                    "purchaseOrderNumber": "BARBOSA",
+                    "legalDocumentNumber": "35-14602",
+                    "salesOrderType": "ZOOR",
+                    "cbpInvoiceStatus": "01"
+                }, 
+                {
+                    "altReferenceNumber":"46372647",
+                    "originalDocumentNumber":"463756473",
+                    "invoiceId": "936659699",
+                    "invoiceDate": "30-10-2015",
+                    "orderId": "3",
+                    "total": -12621100,
+                    "displayTotal": "-12.621.100",
+                    "total2": null,
+                    "displayTotal2": null,
+                    "type": "YSOU",
+                    "location": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
+                    "downloaded": true,
+                    "printed": false,
+                    "currencyUnit": "COP",
+                    "currencyUnit2": null,
+                    "purchaseOrderNumber": null,
+                    "legalDocumentNumber": "35-2371",
+                    "salesOrderType": "ZC"
+                }, 
+                {
+                    "altReferenceNumber":"46372647",
+                    "originalDocumentNumber":"463756473",
+                    "invoiceId": "936659698",
+                    "invoiceDate": "30-10-2015",
+                    "orderId": "4",
+                    "total": -5655000,
+                    "displayTotal": "-5.655.000",
+                    "total2": null,
+                    "displayTotal2": null,
+                    "type": "",
+                    "location": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
+                    "downloaded": false,
+                    "printed": false,
+                    "currencyUnit": "COP",
+                    "currencyUnit2": null,
+                    "purchaseOrderNumber": null,
+                    "legalDocumentNumber": "35-2370",
+                    "salesOrderType": "ZC"
+                }],
+                "resultCount": 4,
+                "multipleSoldTo": false,
+                "sort": null
+            };
+
+            var maxResults = 500;
+
+            var orderAvailable = true;
+            
+            var shiptoListOnLoad = [{
+                "uid":"7903258",
+                "displayName":"7903258 - Embotelladora Central S.A, 24 Calle 6-01 Zona 11"
+            },{
+                "uid":"7903259",
+                "displayName":"7903259 - Embotelladora Central S.A, Embotelladora Central Zona 18"
+            },{
+                "uid":"7903260",
+                "displayName":"7903260 - Embotelladora Central S.A, Embotelladora Central Zona 11"
+            }
+            /*
+  {
+    "uid": "0003697",
+    "displayName": "0003697 - Star Petroleum Refining Public, Company Limited",
+    "address": null,
+    "businessLocationData": null,
+    "name": null,
+    "name2": null,
+    "streetNumber": null,
+    "streetName": null,
+    "town": null,
+    "stateIsoCode": null,
+    "country": null,
+    "postalCode": null,
+    "countryIsoCode": null,
+    "cardLock": null,
+    "incoTermsCode": null,
+    "orderTypeValue": null,
+    "interCompanyShipTo": null,
+    "state": null,
+    "industryCode1": null,
+    "industrySubsegment": null,
+    "displayUid": null,
+    "displayAddress": null
+  },
+  {
+    "uid": "0000551",
+    "displayName": "0000551 - L5, 4sh",
+    "address": null,
+    "businessLocationData": null,
+    "name": null,
+    "name2": null,
+    "streetNumber": null,
+    "streetName": null,
+    "town": null,
+    "stateIsoCode": null,
+    "country": null,
+    "postalCode": null,
+    "countryIsoCode": null,
+    "cardLock": null,
+    "incoTermsCode": null,
+    "orderTypeValue": null,
+    "interCompanyShipTo": null,
+    "state": null,
+    "industryCode1": null,
+    "industrySubsegment": null,
+    "displayUid": null,
+    "displayAddress": null
+  },
+  {
+    "uid": "0000552",
+    "displayName": "0000552 - L6, 5sh",
+    "address": null,
+    "businessLocationData": null,
+    "name": null,
+    "name2": null,
+    "streetNumber": null,
+    "streetName": null,
+    "town": null,
+    "stateIsoCode": null,
+    "country": null,
+    "postalCode": null,
+    "countryIsoCode": null,
+    "cardLock": null,
+    "incoTermsCode": null,
+    "orderTypeValue": null,
+    "interCompanyShipTo": null,
+    "state": null,
+    "industryCode1": null,
+    "industrySubsegment": null,
+    "displayUid": null,
+    "displayAddress": null
+  },
+  {
+    "uid": "0000553",
+    "displayName": "0000553 - L7, 6sh",
+    "address": null,
+    "businessLocationData": null,
+    "name": null,
+    "name2": null,
+    "streetNumber": null,
+    "streetName": null,
+    "town": null,
+    "stateIsoCode": null,
+    "country": null,
+    "postalCode": null,
+    "countryIsoCode": null,
+    "cardLock": null,
+    "incoTermsCode": null,
+    "orderTypeValue": null,
+    "interCompanyShipTo": null,
+    "state": null,
+    "industryCode1": null,
+    "industrySubsegment": null,
+    "displayUid": null,
+    "displayAddress": null
+  },
+  {
+    "uid": "0000554",
+    "displayName": "0000554 - L8, 7sh",
+    "address": null,
+    "businessLocationData": null,
+    "name": null,
+    "name2": null,
+    "streetNumber": null,
+    "streetName": null,
+    "town": null,
+    "stateIsoCode": null,
+    "country": null,
+    "postalCode": null,
+    "countryIsoCode": null,
+    "cardLock": null,
+    "incoTermsCode": null,
+    "orderTypeValue": null,
+    "interCompanyShipTo": null,
+    "state": null,
+    "industryCode1": null,
+    "industrySubsegment": null,
+    "displayUid": null,
+    "displayAddress": null
+  },
+  {
+    "uid": "0000555",
+    "displayName": "0000555 - L9, 8sh",
+    "address": null,
+    "businessLocationData": null,
+    "name": null,
+    "name2": null,
+    "streetNumber": null,
+    "streetName": null,
+    "town": null,
+    "stateIsoCode": null,
+    "country": null,
+    "postalCode": null,
+    "countryIsoCode": null,
+    "cardLock": null,
+    "incoTermsCode": null,
+    "orderTypeValue": null,
+    "interCompanyShipTo": null,
+    "state": null,
+    "industryCode1": null,
+    "industrySubsegment": null,
+    "displayUid": null,
+    "displayAddress": null
+  },
+  {
+    "uid": "0000556",
+    "displayName": "0000556 - L10, 9sh",
+    "address": null,
+    "businessLocationData": null,
+    "name": null,
+    "name2": null,
+    "streetNumber": null,
+    "streetName": null,
+    "town": null,
+    "stateIsoCode": null,
+    "country": null,
+    "postalCode": null,
+    "countryIsoCode": null,
+    "cardLock": null,
+    "incoTermsCode": null,
+    "orderTypeValue": null,
+    "interCompanyShipTo": null,
+    "state": null,
+    "industryCode1": null,
+    "industrySubsegment": null,
+    "displayUid": null,
+    "displayAddress": null
+  },
+  {
+    "uid": "0000557",
+    "displayName": "0000557 - L11, 10sh",
+    "address": null,
+    "businessLocationData": null,
+    "name": null,
+    "name2": null,
+    "streetNumber": null,
+    "streetName": null,
+    "town": null,
+    "stateIsoCode": null,
+    "country": null,
+    "postalCode": null,
+    "countryIsoCode": null,
+    "cardLock": null,
+    "incoTermsCode": null,
+    "orderTypeValue": null,
+    "interCompanyShipTo": null,
+    "state": null,
+    "industryCode1": null,
+    "industrySubsegment": null,
+    "displayUid": null,
+    "displayAddress": null
+  },
+  {
+    "uid": "0000558",
+    "displayName": "0000558 - L12, 11sh",
+    "address": null,
+    "businessLocationData": null,
+    "name": null,
+    "name2": null,
+    "streetNumber": null,
+    "streetName": null,
+    "town": null,
+    "stateIsoCode": null,
+    "country": null,
+    "postalCode": null,
+    "countryIsoCode": null,
+    "cardLock": null,
+    "incoTermsCode": null,
+    "orderTypeValue": null,
+    "interCompanyShipTo": null,
+    "state": null,
+    "industryCode1": null,
+    "industrySubsegment": null,
+    "displayUid": null,
+    "displayAddress": null
+  },
+  {
+    "uid": "0000559",
+    "displayName": "0000559 - L13, 12sh",
+    "address": null,
+    "businessLocationData": null,
+    "name": null,
+    "name2": null,
+    "streetNumber": null,
+    "streetName": null,
+    "town": null,
+    "stateIsoCode": null,
+    "country": null,
+    "postalCode": null,
+    "countryIsoCode": null,
+    "cardLock": null,
+    "incoTermsCode": null,
+    "orderTypeValue": null,
+    "interCompanyShipTo": null,
+    "state": null,
+    "industryCode1": null,
+    "industrySubsegment": null,
+    "displayUid": null,
+    "displayAddress": null
+  }*/
+];
+
+            var locationDropDown = [{
+                "soldToNumber": "7933464",
+                "soldToAddress": "7933464,DISMACOR S.A. BARBOSA, K 10 NRO 20  11, BARBOSA, Colombia",
+                salesOrg: 1000
+            }, {
+                "soldToNumber": "3436466",
+                "soldToAddress": "3436466,DISMACOR S.A. BARRANQUILLA, CL 45 NRO 33 - 40, BARRANQUILLA, Colombia",
+                salesOrg: 1000
+            }, {
+                "soldToNumber": "8213629",
+                "soldToAddress": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia",
+                salesOrg: 2000
+            }];
+
+          
+
+            var invoiceTypeDropdownOptions = [{
+                key: "Adjustments",
+                value: "Adjustments"
+            }, {
+                key: "Cancellation",
+                value: "Cancellation"
+            }, {
+                key: "Credit",
+                value: "Credit"
+            }, {
+                key: "Debit",
+                value: "Debit"
+            }, {
+                key: "Product",
+                value: "Product"
+            }, {
+                key: "Product Return",
+                value: "Product Return"
+            }, {
+                key: "Rebate",
+                value: "Rebate"
+            }];
+
+
+            // var paymentStatusDropdownOptions = [{  
+            //     key: "00",
+            //     value: "Blank"
+            // },{
+            //     key: "01",
+            //     value: "Processing"
+            // },{
+            //     key: "02",
+            //     value: "Paid by Credit Card"
+            // }];
+
+            var invoiceTypeObj = {};
+            var invoiceStatusCodes = ["01", "02"];
+            var invoiceStatusMapper = {
+                "00": "Blank",
+                "01": "Processing",
+                "02": "Paid by Credit Card"
+            };
+            var noCardsAdded = "false";
+            var allCardsExpired = "false";
+           // var ccPaymentEligible = "true";
+            var productCodes = ["YF2","ZF2","YG2","YL2","YRE","LO","GI"];
+            var invoiceTypeMapper = {
+                "YCIN":"Incentive Credit memo",
+                "YDIN":"Incentive Debit memo",
+                "YF2":"Product",
+                "YG2":"Credit",
+                "YIC":"Inter-Co Invoice",
+                "YJR":"Jobber rents billing",
+                "YL2":"Debit",
+                "YOU":"Company Used",
+                "YRE":"Product Return",
+                "YRIC":"Inter-Co Return Cred",
+                "YRS":"Rents Inv-Rent Serv",
+                "YS1":"Cancellation",
+                "YS1R":"Cancel of inv.Rents",
+                "YS2":"Cancellation",
+                "YSCN":"Cancel Incentive CM",
+                "YSDN":"Cancel Incentive DM",
+                "YSOU":"Adjustments",
+                "ZF2":"Product",
+                "YLR":"Product",
+                "LO":"Product",
+                "GI":"Product"
+            };
+
+            var downloadStatusDropdownOptions = [{
+                key: "all",
+                value: "All"
+            }, {
+                key: "notDownloaded",
+                value: "Not Downloaded"
+            }, {
+                key: "downloaded",
+                value: "Downloaded"
+            }];
+
+            var printStatusDropdownOptions = [{
+                key: "all",
+                value: "All"
+            }, {
+                key: "notPrinted",
+                value: "Not Printed"
+            }, {
+                key: "printed",
+                value: "Printed"
+            }];
+
+            var maxResultText = '<div>{0} invoices matching your search were found in the system.</div>' +
+                '<div>Please refine your search to return less than 500 results.</div><br>' +
+                '<div><b><spring:theme code="chevron.invoice.noresult.suggestion"/></b></div>' +
+                '<ul>' +
+                '<li>Enter additional search criteria.</li>' +
+                '<li>Select a shorter date range.</li>' +
+                '<li>Select fewer Invoice Types.</li>' +
+                '</ul>';
+            var cbp = {
+                "staticBasePath": "/",
+                "invoicesPage": {
+                    "locationDropDown": {
+                        "options": [],
+                        "label": "Sold-To",
+                       // "title": "Select Location",
+                        "title": "",
+                        "name": "locationSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": true
+                    },
+                    "shipToDropDown": {
+                        "options": [],
+                        "label": "Ship-To",
+                        //"title": "Select Location",
+                        "title": "",
+                        "name": "shipToSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": false
+                    },
+                    "invoiceTypeDropdown": {
+                        "options": invoiceTypeDropdownOptions,
+                        "label":isNARegion?"Type":"Invoices Type",
+                        "name": "invoiceTypeDdn",
+                        "showOptions": 8,
+                        "multiple": true,
+                        "selectAll": true,
+                        "selectAllText": "All Types",
+                        "deselectAllText": "false",
+                        "title": "All Types"
+                    },
+                    // "paymentStatusDropdown": {
+                    //     "options": [],
+                    //     "label": "Payment Status",
+                    //     "name": "paymentStatusDdn",
+                    //     "showOptions": 5,
+                    //     "singleOption": true,
+                    //     "title": "All"
+                    // },
+                    "downloadStatusDropdown": {
+                        "options": downloadStatusDropdownOptions,
+                        "label": "Download Status",
+                        "title": "",
+                        "name": "downloadStatus",
+                        "showOptions": 3
+                    },
+                    "printStatusDropdown": {
+                        "options": printStatusDropdownOptions,
+                        "label": "Print Status",
+                        "title": "",
+                        "name": "printStatus",
+                        "showOptions": 3
+                    },
+                    "dateRange": {
+                        "maxMonth": 18,
+                        "format": "DD-MM-YYYY",
+                        "today": "Today",
+                        "yesterday": "Yesterday",
+                        "last7Days": "Last 7 Days",
+                        "last30Days": "Last 30 Days",
+                        "thisMonth": "This Month",
+                        "lastMonth": "Last Month",
+                        "customRange": "Custom Range",
+                        "cancel": "Cancel",
+                        "apply": "Apply",
+                        "iconClass": "fa fa-calendar pull-right",
+                        "id": "calendar"
+                    },
+                    "globalUrl": {
+                        "invoicePostURL": "/assets/json/invoices.json",
+                        "shipToURL": "/assets/json/shipToResponse.json",
+                        "method": "GET",
+                       // "payInvoiceURL" : "payInvoice"
+                    },
+                    "globalVars": {
+                        "invoiceDate":"Invoice Date",
+                        "NAtype":"Type",
+                        "altReferenceNumber":"Alternate Reference #",
+                        "originalDocumentNumber":"Original Doc #",
+                        "totaltbNew":"Total",
+                        "accountNum": "Account Number",
+                        "searchTxt": "Search",
+                        "allTb": "All",
+                        "invoiceNumber": "Invoice Number",
+                        "orderNumber": "Order Number",
+                        "poNumber": "PO Number",
+                        "invoiceType": "Invoice Type",
+                      //  "paymentStatus":"Payment Status",
+                        "fromAndTo": "{0} to {1}",
+                        "summaryfromAndTo": "{0} to {1}",
+                        "sortBy": "Sort by",
+                        "pickDateRange": "Pick date",
+                        "invoicesSummary": "invoices summary",
+                        "invoicesDetail": "invoices detail",
+                        "downloadSelected": "Download Selected",
+                        "printSelected": "Print Selected",
+                      //  "payInvoice": "Pay Selected",
+                        "invoicesFound": "{0} invoices found",
+                        "statustb": "Status",
+                        "locationtb": "Location",
+                        "pickDatetb": "Date",
+                        "orderNumbertb": "Order #",
+                        "customerPOtb": "Customer PO #",
+                        "invoicetb": "Invoice #",
+                        "legalInvoicetb": "Legal Invoice #",
+                      //  "paymentStatustb": "Payment Status",
+                        "docTypetb": "Type",
+                        "totaltb": "Total",
+                        "invoiceDateAsc": "Invoice Date, Newest to Oldest",
+                        "invoiceDateDesc": "Invoice Date, Oldest to Newest",
+                        "locationSortAsc": "Location, Ascending",
+                        "locationSortDesc": "Location, Descending",
+                        "accountNumAsc": "Account Number, Ascending",
+                        "accountNumDesc": "Account Number, Descending",
+                        "orderNumberAsc": "Order #, Ascending",
+                        "orderNumberDesc": "Order #, Descending",
+                        "invoiceNumberAsc": "Invoice #, Ascending",
+                        "invoiceNumberDesc": "Invoice #, Descending",
+                        "invoiceTypeAsc": "Invoice Type, Ascending",
+                        "invoiceTypeDesc": "Invoice Type, Descending",
+                        "totalAsc": "Total, Ascending",
+                        "totalDesc": "Total, Descending",
+                        "totalAscNew": "Total, Ascending",
+                        "totalDescNew": "Total, Descending",
+                        "eftNumberAsc": "EFT Number, Ascending",
+                        "eftNumberDesc": "EFT Number, Descending",
+                        "altReferenceNumberAsc": "Alternate Reference #, Ascending",
+                        "altReferenceNumberDesc": "Alternate Reference #, Descending",
+                        "soldTo": "Sold To:",
+                        "account":"Account:",
+                        "shipTo": "Ship To:",
+                        "debits": "Debits:",
+                        "credits": "Credits:",
+                        //"customerPO":"Customer PO",
+                        "noMatches": "No invoices found. Please change your search",
+                        "noMatchesMaxResults": maxResultText,
+                        "selectDdn": {
+                            "noneSelectedText": "Nothing selected",
+                            "noneResultsText": "No results for {0}",
+                            "selectAllText": "Select All",
+                            "deselectAllText": "Deselect All",
+                            "itemSelected": "{0} item selected",
+                            "itemSelected1": "{0} items selected",
+                            "limitReached": "Limit reached ({n} item max)",
+                            "limitReached1": "Limit reached ({n} items max)",
+                            "groupLimit": "Group limit reached ({n} item max)",
+                            "groupLimit1": "Group limit reached ({n} items max)"
+                        },
+                        "tableLocales": {
+                            "loadingMessage": "Loading, please wait...",
+                            "recordsPerPage": "{0} rows per page",
+                            "showingRows": "Showing {0} to {1} of {2} rows",
+                            "search": "Search",
+                            "noMatches": "No invoices found. Please change your search",
+                            "paginationSwitch": "Hide/Show pagination",
+                            "refresh": "Refresh",
+                            "toggle": "Toggle",
+                            "columns": "Columns",
+                            "allRows": "All"
+                        },
+                        "altRefNumbertb": "Alternate Reference #",
+                        "originalDocNumbertb": "Original Document #",                        
+                        "altRefNumber": "Alternate Reference #",
+                        "originalDocNumber": "Original Document #",
+                        "orderNumberNew":"Order Number",
+                        "poNumberNew":"PO Number",
+                        "orderNumbertbNew": "Order #",
+                        "customerPOtbNew": "Customer PO #",
+                        "eftNumber":"EFT",
+                        "deliveryDate":"Delivery Date"
+                        
+                    }
+                }
+            }
+
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="invoices.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,27 +1,25 @@
-.eftSearch-page {
+.eftSearch-page-detail {
 	.page-title {
-		text-transform: none;
+			text-transform: none;
 	}
-	.no-records-found{
-		.alert{
-			padding:0px 5px 0px 5px;
-			background: none;
-			margin-bottom: 0px;
-			.alert-message{
-				padding-left: 30px;
-				margin: 1px;
-				overflow: hidden;
-				&:before{
-					padding:3px;
-					font-size: 15px;
-				}
-			}
+	.topSummaryLeftSection{
+		margin-right: 20px;
+	}
+	.rmcInqLink {
+		padding: 15px 0 10px 10px;
+		a{
+			color: #009dd9;
+		}
+	}
+	.eft-return-view{
+		a{
+			color: #009dd9;
 		}
 	}
 	.fixed-table-container{
 		tbody{
 			.selected td{
-				background-color: transparent;
+			background-color: transparent;
 			}
 			td{
 				&.bs-checkbox.fa{
@@ -35,7 +33,7 @@
 			th{
 				&.bs-checkbox{
 					.th-inner{
-						padding-top: 1px !important;
+						padding-top: 6px;
 					}
 				}
 			}
@@ -68,13 +66,32 @@
 		}
 	}
 	.bottom-detail {
+			.eftFound{
+				padding-top: 6px;
+				text-align: left;
+			}
 	}
 	.right-pane{
 		.top-summary{
 			min-height:0;
+			background: none;
+			padding: 15px 5px;
 		}
 		.sub-heading{
 			font-weight: normal;
+		}
+		.bg-summary{
+			background-color: #EBF8FE;
+			padding: 15px 10px;
+			&.ccTurinsLink{
+				text-align: center;
+				vertical-align: middle;
+				line-height: 55px;
+				color: #009dd9;
+				a{
+					color: #009dd9;
+				}
+			}
 		}
 	}
 	.left-pane{
@@ -113,20 +130,16 @@
 				> tr {
 					> td {
 						> div:first-child {
-							display: none !important;
-						}
-						> div:nth-child(2) {
-							display: none !important;
-						}
-						> div:nth-child(3) {
 							background-color: @brand-primary !important;
 							color: #ffffff !important;
+							a{
+								color:#FFFFFF !important;
+							}
 						}
 					}
 				}
 			}
 		}
-
 		.card-view{
 			.title{
 				font-weight: normal;
@@ -161,7 +174,6 @@
 	}
 
 	#eftSearchToggle{
-		margin-left: 4px;
 		label{
 			margin:0px !important;
 			width: 0px !important;
@@ -181,7 +193,7 @@
 
 		&.btn-group {
 			.btn{
-				padding: 6px 14px;
+				padding: 6px 28px;
 			}
 		}
 	}
@@ -190,47 +202,24 @@
 		border-top: 1px solid #DCDDDE;
 		border-bottom: 1px solid #DCDDDE;
 	}
-
-	.hidden{
-		display: none !important;
-	}
-
-	#calendar{
-		width: auto !important;
-	}
-
-	.js-search-dateRange{
-		label{
-			display: none;
-		}
-		margin-bottom: 0px; 
-		&.form-group{
-			margin-bottom: 0px;
-		}
-	}
-
-	.toggleForEFTSerachForm{
-		.btn:first-child:not(:last-child):not(.dropdown-toggle) {
-			border-right:1px solid #ededed;
-		}
-		.btn:not(:first-child):not(:last-child):not(.dropdown-toggle){
-			border-right:1px solid #ededed;
-		}
-	}
-
-	span.italics{
-		color: #8c8f93;
-		font-style: italic;
-	}
 }
 
-	@media (min-width: @screen-md-max) {
-		.eftSearch-page {
-			.bottom-detail {
-				.eftFound{
-				}
+@media (min-width: @screen-md-min) {
+	.eftSearch-page-detail{
+		.bottom-detail {
+			.eftFound{
+				position: relative;
+				left:-85px;
 			}
 		}
+		.bg-summary{
+			&.ccTurinsLink{
+				width:19%;
+				line-height: 5px;
+			}
+		}
+		.rmcInqLink{
+			margin-right:20px;
+		}
 	}
-
-
+}
