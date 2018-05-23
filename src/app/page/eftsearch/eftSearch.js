@@ -345,13 +345,8 @@ require(["modernizr",
             /* end DSLEC-8*/
             postData.downloadStatus = $(config.downloadStatusDdn).val();
             postData.printStatus = $(config.printStatusDdn).val();
-            if(hiddenInputForToggleSwitch.val() == 1 && $.trim(selectorCalendar.text()).toLowerCase()!=cbp.eftSearchPage.globalVars.allAccount.toLowerCase()){
-                postData.startDate = startDate ? startDate : cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
-                postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
-            }else{
-                postData.startDate = "all";
-                postData.endDate = "all";
-            }
+            postData.startDate = startDate ? startDate : cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
+            postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
 
             if($.trim($(config.searchInputEft).val()).length!=0){
                 $("#eftSearchToggle input[type='hidden']").val() == 2 ? 
