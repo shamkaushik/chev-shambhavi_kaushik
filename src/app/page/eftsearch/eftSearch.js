@@ -692,7 +692,7 @@ require(["modernizr",
            $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'eftNoticeNumber',
+                sortName: 'total',
                 sortOrder: 'desc',
                 iconsPrefix: 'fa',
                 sortable: true,
