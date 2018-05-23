@@ -1,5 +1,6 @@
 {
     "payer" : "7901220, DISMACOR S.A. K 16 NRO 20-56, BUCARAMANGA, Colombia",
+    "soldTo" : "7901220, DISMACOR S.A. K 16 NRO 20-56, BUCARAMANGA, Colombia",
     "currency": "USD",
     "fromDate": "22-03-2015",
     "toDate": "29-08-2016",

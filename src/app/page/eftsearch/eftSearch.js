@@ -162,8 +162,6 @@ require(["modernizr",
             if (localStorage.getItem("eftObj") === undefined || localStorage.getItem("eftObj") === null) {
                 startDate = cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
                 endDate = cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
-                console.log("startDate , endDate >>>",startDate,endDate);
-                console.log("$(config.eftSearchToggle) >>>",$(config.eftSearchToggle));
                 triggerAjaxRequest();
             } else {
                 var eftObj = JSON.parse(localStorage.getItem("eftObj"));
@@ -333,6 +331,7 @@ require(["modernizr",
         };
 
         var triggerAjaxRequest = function () {
+            var selectorCalendar = $(config.ordercalendar).find('span'), hiddenInputForToggleSwitch = $("#eftSearchToggle input[type='hidden']");
             $(config.displaySpinner).show();
             $(config.eftSearchSummaryContainer).hide();
             $(config.searchDetailContainer).hide();
@@ -344,10 +343,12 @@ require(["modernizr",
             /* end DSLEC-8*/
             postData.downloadStatus = $(config.downloadStatusDdn).val();
             postData.printStatus = $(config.printStatusDdn).val();
-            if($("#eftSearchToggle input[type='hidden']").val() == 1){
-                console.log("Value in Hidden Field >>>",$("#eftSearchToggle input[type='hidden']").val());
+            if(hiddenInputForToggleSwitch.val() == 1 && $.trim(selectorCalendar.text()).toLowerCase()!=cbp.eftSearchPage.globalVars.allAccount.toLowerCase()){
                 postData.startDate = startDate ? startDate : cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
                 postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
+            }else{
+                postData.startDate = "all";
+                postData.endDate = "all";
             }
 
             if($.trim($(config.searchInputEft).val()).length!=0){
@@ -691,7 +692,7 @@ require(["modernizr",
            $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'eftNoticeNumber',
+                sortName: 'total',
                 sortOrder: 'desc',
                 iconsPrefix: 'fa',
                 sortable: true,
