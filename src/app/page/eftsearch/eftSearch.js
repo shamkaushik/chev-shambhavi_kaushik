@@ -73,15 +73,14 @@ require(["modernizr",
             label: "",
             //LabelBlock: true,
             options: [{
-                label: cbp.eftSearchPage.globalVars.eftNumberSwitchLabel,
+                label: cbp.eftSearchPage.globalVars.dateRange,
                 value: "1",
                 default: true
+            },{
+                label: cbp.eftSearchPage.globalVars.eftNumberSwitchLabel,
+                value: "2"
             }, {
                 label: cbp.eftSearchPage.globalVars.invoiceNumberSwitchLabel,
-                value: "2"
-            },
-            {
-                label: "Date Range",
                 value: "3"
             }]
         };
@@ -141,7 +140,8 @@ require(["modernizr",
             eftNoticeidInp: "#eftNoticeid",
             eftSearchToggle: "#eftSearchToggle",
             searchInputEft: ".js-eftSearchPage-searchEft",
-            soldToDdn: ".js-soldTo-ddn"
+            soldToDdn: ".js-soldTo-ddn",
+            daterangepickerContainer : '.daterangepicker'
         };
 
         var init = function () {
@@ -173,10 +173,10 @@ require(["modernizr",
                 
                 if(eftObj.eftNoticeNumber || eftObj.invoiceNumber){
                     if(eftObj.eftNoticeNumber){
-                        $(config.eftSearchToggle).find('button').eq(0).trigger('click');
+                        $(config.eftSearchToggle).find('button').eq(1).trigger('click');
                         $(config.searchInputEft).val(eftObj.eftNoticeNumber);
                     }else{
-                          $(config.eftSearchToggle).find('button').eq(1).trigger('click');
+                          $(config.eftSearchToggle).find('button').eq(2).trigger('click');
                         $(config.searchInputEft).val(eftObj.invoiceNumber);
                     }
                 }
@@ -190,6 +190,20 @@ require(["modernizr",
             }
             
             populatingCalendarComponent();
+            $(config.dateRangeContainer).removeClass('hidden');
+            $(config.searchInputEft).addClass('hidden');
+            $("#eftSearchToggle input[type='hidden']").val("1");
+            $(config.ordercalendar).find('span').html(cbp.eftSearchPage.globalVars.allAccount);
+            setItalicsToThedefaultSelection();
+        };
+
+        var setItalicsToThedefaultSelection = function(){
+            var selectorDopdown=$('.search-content').find('button span.filter-option'),selectorCalendar = $(config.ordercalendar).find('span'); 
+            selectorDopdown.each(function(){
+                $.trim($(this).text()).toLowerCase()==cbp.eftSearchPage.globalVars.allAccount.toLowerCase() ? $(this).addClass('italics') : $(this).removeClass('italics');
+            });
+
+            $.trim(selectorCalendar.text()).toLowerCase()==cbp.eftSearchPage.globalVars.allAccount.toLowerCase() ? selectorCalendar.addClass('italics') : selectorCalendar.removeClass('italics');
         };
 
         var loadingInitialHbsTemplates = function () {
@@ -228,12 +242,8 @@ require(["modernizr",
                 $(config.dropDownCommon).selectpicker('mobile');
             }
 
-            $(config.accountDdn).on('changed.bs.select change', function (e) {
-                if ($(config.accountDdn).val() !== "") {
-                    $(config.searchButton).removeAttr("disabled");
-                } else {
-                    $(config.searchButton).attr("disabled", "disabled");
-                }
+            $(config.searchFormContainer).find('select.selectpicker').on('changed.bs.select change', function (e) {
+                setItalicsToThedefaultSelection();
             });
         };
 
@@ -334,11 +344,14 @@ require(["modernizr",
             /* end DSLEC-8*/
             postData.downloadStatus = $(config.downloadStatusDdn).val();
             postData.printStatus = $(config.printStatusDdn).val();
-            postData.startDate = startDate ? startDate : cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
-            postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
+            if($("#eftSearchToggle input[type='hidden']").val() == 1){
+                console.log("Value in Hidden Field >>>",$("#eftSearchToggle input[type='hidden']").val());
+                postData.startDate = startDate ? startDate : cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
+                postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
+            }
 
             if($.trim($(config.searchInputEft).val()).length!=0){
-                ($("#eftSearchToggle input[type='hidden']").val() == 1 || $("#eftSearchToggle input[type='hidden']").val()=="default") ? 
+                $("#eftSearchToggle input[type='hidden']").val() == 2 ? 
                     postData['noticeNumber'] = $(config.searchInputEft).val() 
                     : postData['invoiceNumber'] = $(config.searchInputEft).val();   
             }
@@ -442,11 +455,11 @@ require(["modernizr",
                 var eftNoticeUid = $(e.target).attr('data-uid');
                 eftObj.account = $("#accountSelectDdn").val();
                 if($.trim($(config.searchInputEft).val()).length!=0){
-                    ($("#eftSearchToggle input[type='hidden']").val() == 1 || $("#eftSearchToggle input[type='hidden']").val()=="default") ? 
+                    $("#eftSearchToggle input[type='hidden']").val() == 2 ? 
                            eftObj.eftNoticeNumber = $(config.searchInputEft).val() 
                     : eftObj.invoiceNumber = $(config.searchInputEft).val();   
                 }
-               eftObj.downloadStatus = $("#downloadStatus").val();
+                eftObj.downloadStatus = $("#downloadStatus").val();
                 eftObj.printStatus = $("#printStatus").val();
                 eftObj.startDate = cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
                 eftObj.endDate = cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
@@ -509,10 +522,10 @@ require(["modernizr",
 
             $(document).on('click',config.eftSearchToggle+' button',function(){
                 $(config.searchInputEft).val('');
-                if($(this).val()==1){
+                if($(this).val()==2){
                     $(config.dateRangeContainer).addClass('hidden');
                     $(config.searchInputEft).removeClass('hidden').attr('placeholder','EFT Notice #');
-                }else if($(this).val()==2){
+                }else if($(this).val()==3){
                     $(config.dateRangeContainer).addClass('hidden');
                     $(config.searchInputEft).removeClass('hidden').attr('placeholder','Invoice #');
                 }else{
@@ -527,6 +540,14 @@ require(["modernizr",
             
             $(document).on("click", config.printBtn, function(){
                 printPDFSelected();
+            });
+
+            $(document).on('click',config.daterangepickerContainer+' .ranges ul li',function(){
+                setItalicsToThedefaultSelection();
+            });
+
+            $(document).on('click',config.daterangepickerContainer+' .range_inputs .applyBtn',function(){
+                setItalicsToThedefaultSelection();
             });
         };
 

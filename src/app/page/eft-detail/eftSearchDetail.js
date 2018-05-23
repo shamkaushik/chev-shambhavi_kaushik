@@ -293,7 +293,7 @@ require(["modernizr",
                 ranges: customRanges,
                 "minDate": moment().subtract(cbp.eftDetailPage.dateRange.maxMonth, 'month'),
                 "maxDate": moment(),
-                'applyClass': 'btn-primary',
+                'applyClass': 'btn-primary applyButtonClass',
                 locale: {
                     format: cbp.eftDetailPage.dateRange.format, 
                     separator: ' - ',
