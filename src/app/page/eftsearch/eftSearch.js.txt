@@ -141,8 +141,7 @@ require(["modernizr",
             eftSearchToggle: "#eftSearchToggle",
             searchInputEft: ".js-eftSearchPage-searchEft",
             soldToDdn: ".js-soldTo-ddn",
-            daterangepickerContainer: '.daterangepicker',
-            soldToDropdown: "#soldToDropdown"
+            daterangepickerContainer : '.daterangepicker'
         };
 
         var init = function () {
@@ -192,6 +191,7 @@ require(["modernizr",
             $(config.dateRangeContainer).removeClass('hidden');
             $(config.searchInputEft).addClass('hidden');
             $("#eftSearchToggle input[type='hidden']").val("1");
+            $(config.ordercalendar).find('span').html(cbp.eftSearchPage.globalVars.allAccount);
             setItalicsToThedefaultSelection();
         };
 
@@ -200,6 +200,8 @@ require(["modernizr",
             selectorDopdown.each(function(){
                 $.trim($(this).text()).toLowerCase()==cbp.eftSearchPage.globalVars.allAccount.toLowerCase() ? $(this).addClass('italics') : $(this).removeClass('italics');
             });
+
+            $.trim(selectorCalendar.text()).toLowerCase()==cbp.eftSearchPage.globalVars.allAccount.toLowerCase() ? selectorCalendar.addClass('italics') : selectorCalendar.removeClass('italics');
         };
 
         var loadingInitialHbsTemplates = function () {
@@ -237,10 +239,6 @@ require(["modernizr",
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
                 $(config.dropDownCommon).selectpicker('mobile');
             }
-
-            $(config.searchFormContainer).find('select.selectpicker').on('changed.bs.select change', function (e) {
-                setItalicsToThedefaultSelection();
-            });
 
             $(config.searchFormContainer).find('select.selectpicker').on('changed.bs.select change', function (e) {
                 setItalicsToThedefaultSelection();
@@ -549,44 +547,8 @@ require(["modernizr",
                 setItalicsToThedefaultSelection();
             });
 
-            $(document).on('change',config.soldToDropdown,function(){
+            $(document).on('click',config.daterangepickerContainer+' .range_inputs .applyBtn',function(){
                 setItalicsToThedefaultSelection();
-                populatePayer($(config.soldToDropdown).val());
-            });
-        };
-
-        var populatePayer = function(soldto){
-            accountDropdownOptions = [];
-            var postData={};
-            postData.soldTo = soldto;
-            
-            function successCallback(data) {
-                $(config.displaySpinner).hide();
-                leftPaneExpandCollapse.resetSearchFormHeight();
-                populateDropDowns(data.soldToDropdown,accountDropdownOptions,"accountDropdown");
-                $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.eftSearchPage.accountDropdown));
-                //Refresh dropdown at initial dispaly after loading templates
-                $(config.dropDownCommon).selectpicker('refresh');
-                enableMobileDefaultDropDown();
-                setItalicsToThedefaultSelection();
-            }
-
-            function errorCallback() {
-                $(config.displaySpinner).hide();
-                $(config.searchDetailContainer).show();
-                $(config.eftSearchSummaryContainer).show();
-                console.log("error");
-            }
-
-            $.ajax({
-                type: cbp.eftSearchPage.globalUrl.method,
-                headers: {'CSRFToken':CSRFToken},
-                data: JSON.stringify(postData),
-                contentType:"application/json",
-                dataType:"json",
-                url: cbp.eftSearchPage.globalUrl.eftSearchPostURL,
-                success: successCallback,
-                error: errorCallback
             });
         };
 
