@@ -1,4 +1,8 @@
-         require(["modernizr",
+
+
+       
+        
+        require(["modernizr",
             "jquery",
             "bootstrap",
             "handlebars",
@@ -6,12 +10,14 @@
             "calendar",
             "bootstrap-select",
             "bootstrap-table",
+            //"chartjs",
             "text!app/components/calendar/_calendar.hbs",
             "text!app/components/dropdown/_defaultDdn.hbs",
-            "text!app/page/station-report/searchForm.hbs",
-            "text!app/page/station-report/reportSummary.hbs",
-            "text!app/page/station-report/bottomDetail.hbs"
-        ], function (modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _reportSummaryHBS, _bottomDetailHBS) {
+            "text!app/page/credit-card-rankings/searchForm.hbs",
+            "text!app/page/credit-card-rankings/reportSummary.hbs",
+            "text!app/page/credit-card-rankings/bottomDetail.hbs",
+            "text!app/page/credit-card-rankings/retailerRankings.hbs"
+        ], function (modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable,/* Chart,*/ _calendarHBS, _defaultDdnHBS, _searchFormHBS, _reportSummaryHBS, _bottomDetailHBS,_retailerRankingsHBS) {
         
             //Compiling HBS templates
             var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
@@ -19,9 +25,39 @@
             var compiledsearchForm = Handlebars.compile(_searchFormHBS);
             var compiledreportSummary = Handlebars.compile(_reportSummaryHBS);
             var compiledBottomDetail = Handlebars.compile(_bottomDetailHBS);
+            var compiledRetailerRankings = Handlebars.compile(_retailerRankingsHBS);
+            
         
             var stationReport = (function () {
                 var startDate, endDate;
+        
+                // var srtByDdn = {
+                //     "options": [{
+                //         key: "productDescription-asc",
+                //         value: cbp.srPage.globalVars.prdctNameAZ
+                //     }, {
+                //         key: "productDescription-desc",
+                //         value: cbp.srPage.globalVars.prdctNameZA
+                //     }, {
+                //         key: "productCode-asc",
+                //         value: cbp.srPage.globalVars.prdctCodeAsc
+                //     }, {
+                //         key: "productCode-desc",
+                //         value: cbp.srPage.globalVars.prdctCodeDesc
+                //     }, {
+                //         key: "volume-asc",
+                //         value: cbp.srPage.globalVars.purchaseVolumeAsc
+                //     },
+                //     {
+                //         key: "volume-desc",
+                //         value: cbp.srPage.globalVars.purchaseVolumeDesc
+                //     }],
+                //     label: cbp.srPage.globalVars.sortBy,
+                //     labelClass: "xs-mr-5",
+                //     name: "sortByDdn",
+                //     display: "displayInline"
+                // };
+        
                 var config = {
                     locationDdnContainer: ".js-location-ddn",
                     shipToDdnContainer: ".js-shipTo-ddn",
@@ -30,6 +66,7 @@
                     searchFormContainer: ".js-search-form",
                     volSummaryContainer: ".js-volume-summary",
                     searchDetailContainer: ".js-bottom-detail",
+                    retailerRankingsContainer:".js-retailer-rankings",
                     sortByDdnContainer: ".js-sortbyDdn",
                     dropDownCommon: ".selectpicker",
                     calendar: "#calendar",
@@ -64,7 +101,8 @@
                     $(config.shipToDdn).selectpicker('refresh');
                    
                     // populatingShipTo($(config.locationDdn).val());
-                    populatingTable(cbp.srPage.srSearchResponse.stationReportDataList);
+                    populatingTable(cbp.srPage.srSearchResponse.marketerRankingsDataList);
+                   
                     bindEvents();
                 };
                 
@@ -155,6 +193,7 @@
                 var loadingDynamicHbsTemplates = function () {
                     $(config.volSummaryContainer).html(compiledreportSummary(cbp.srPage));
                     $(config.searchDetailContainer).html(compiledBottomDetail(cbp.srPage));
+                    $(config.retailerRankingsContainer).html(compiledRetailerRankings(cbp.srPage));
                     // $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
                     $(config.sortByDdnContainer).find(config.dropDownCommon).selectpicker('refresh');
                     enableMobileDefaultDropDown();
@@ -162,7 +201,7 @@
         
         
                 var bindEvents = function () {
-        
+                    populatingRetailerTable(cbp.srPage.srSearchResponse.retailerRankingsDataList);
                     //Purchase Volume Search button functionality
                     $(config.searchButton).on("click", function (e) {
                         if (!$(this).attr('disabled')) {
@@ -202,7 +241,13 @@
                         }
                         // populatingShipTo($(config.locationDdn).val());
                     });
+
+                   
         
+                    
+                    // $(document).on('click', config.retailerRankingsContainer, function (e) {
+                    //     $('.bottom-detail').empty();
+                    // });
                     $(document).on('change', config.shipToDdn, function (e) {
                         // if ($(this).val() !== "") {
                         //     $(config.searchButton).removeAttr("disabled");
@@ -288,6 +333,8 @@
                     $(config.displaySpinner).show();
                     $(config.volSummaryContainer).hide();
                     $(config.searchDetailContainer).hide();
+                    $(config.retailerRankingsContainer).hide();
+
         
                     leftPaneExpandCollapse.hideSearchBar();
                     // var postData = {};
@@ -309,6 +356,7 @@
                         $(config.displaySpinner).hide();
                         $(config.volSummaryContainer).show();
                         $(config.searchDetailContainer).show();
+                        $(config.retailerRankingsContainer).show();
         
                         cbp.srPage.srSearchResponse = data;
         
@@ -350,8 +398,8 @@
                             $(config.chartBtn).addClass("disabled");
                         }
                       //  setAccountOptions();
-                      
-                        populatingTable(cbp.srPage.srSearchResponse.stationReportDataList);
+                        populatingTable(cbp.srPage.srSearchResponse.marketerRankingsDataList);
+                        populatingRetailerTable(cbp.srPage.srSearchResponse.retailerRankingsDataList);
                         leftPaneExpandCollapse.resetSearchFormHeight();
                     }
         
@@ -359,6 +407,7 @@
                         $(config.displaySpinner).hide();
                         $(config.volSummaryContainer).show();
                         $(config.searchDetailContainer).show();
+                        $(config.retailerRankingsContainer).show();
                         console.log("error");
                     }
         
@@ -373,10 +422,10 @@
         
                 };
         
-                var populatingTable = function (stationReportDataList) {
+                var populatingTable = function (marketerRankingsDataList) {
         
-                    if (stationReportDataList === null || stationReportDataList === undefined) {
-                        stationReportDataList = [];
+                    if (marketerRankingsDataList === null || marketerRankingsDataList === undefined) {
+                        marketerRankingsDataList = [];
                     }
                     $(config.sortByDdn).val("productCode-asc").selectpicker('refresh');
                     // $(config.sortByDdn).selectpicker('refresh');
@@ -395,62 +444,79 @@
                         responsiveBreakPoint: 480,
                         responsiveClass: "bootstrap-table-cardview",
                         columns: [{
-                            field: 'report',
-                            title: cbp.srPage.globalVars.report ,
-                            titleTooltip: cbp.srPage.globalVars.report,
+                            field: 'marketer',
+                            title: cbp.srPage.globalVars.marketer ,
+                            titleTooltip: cbp.srPage.globalVars.marketer,
                             class: 'numberIcon text-wrap',
                             cellStyle: 'xs-pl-10',
                             
                             width : '30%'
                         }, {
-                            field: 'quarterOne',
-                            title: cbp.srPage.globalVars.quarterOne + ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')'),
-                            titleTooltip: cbp.srPage.globalVars.quarterOne,
+                            field: 'averageSubmittals',
+                            title: cbp.srPage.globalVars.averageSubmittals,
+                            titleTooltip: cbp.srPage.globalVars.averageSubmittals,
                             align:'right',
                             width : '13%'
                         }, {
-                            field: 'quarterTwo',
-                            title: cbp.srPage.globalVars.quarterTwo + ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')'),
-                            titleTooltip: cbp.srPage.globalVars.quarterTwo,
+                            field: 'nationwideRankings',
+                            title: cbp.srPage.globalVars.nationwideRankings,
+                            titleTooltip: cbp.srPage.globalVars.nationwideRankings,
                             class: 'numberIcon',
-                            
                             align: 'right',
                             width : '13%'
                          },
-                        {
-                            field: 'quarterThree',
-                            title: cbp.srPage.globalVars.quarterThree + ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')'),
-                            titleTooltip: cbp.srPage.globalVars.quarterThree,
-                            class: 'numberIcon',
-                            
-                            align: 'right',
-                            width : '13%',
-                            halign: 'right',
-                         },
-                         {
-                            field: 'quarterFour',
-                            title: cbp.srPage.globalVars.quarterFour + ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')'),
-                            titleTooltip: cbp.srPage.globalVars.quarterFour,
-                            class: 'numberIcon',
-                            
-                            align: 'right',
-                            width : '13%',
-                            halign: 'right',
-                         },
-                         {
-                            field: 'yod',
-                            title: cbp.srPage.globalVars.yod + ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')'),
-                            titleTooltip: cbp.srPage.globalVars.yod,
-                            class: 'numberIcon',
-                            align: 'right',
-                            width : '15%',
-                            halign: 'right',
-                         },
-
                     ],
-                        data: stationReportDataList
+                        data: marketerRankingsDataList
                     });
+
+                    
         
+                };
+                var populatingRetailerTable = function (retailerRankingsDataList) {
+                    $('.bottom-detail').empty();
+                    // $('#table').bootstrapTable('destroy');
+                    // $('.retailer-rankings').show();
+                    if (retailerRankingsDataList === null || retailerRankingsDataList === undefined) {
+                        retailerRankingsDataList = [];
+                    }
+                    $('#retailertable').bootstrapTable({
+                        classes: 'table table-no-bordered',
+                        striped: true,
+                        sortName: 'productCode',
+                        sortOrder: 'asc',
+                        iconsPrefix: 'fa',
+                        sortable: true,
+                        parentContainer: ".js-retailer-rankings",
+                        sortByDropdownId: "#sortByDdn",
+                        undefinedText: "",
+                        responsive: true,
+                        responsiveBreakPoint: 480,
+                        responsiveClass: "bootstrap-table-cardview",
+                        columns: [{
+                            field: 'retailer',
+                            title: cbp.srPage.globalVars.retailer ,
+                            titleTooltip: cbp.srPage.globalVars.retailer,
+                            class: 'numberIcon text-wrap',
+                            cellStyle: 'xs-pl-10',
+                            
+                            width : '30%'
+                        }, {
+                            field: 'averageSubmittals',
+                            title: cbp.srPage.globalVars.averageSubmittals,
+                            titleTooltip: cbp.srPage.globalVars.averageSubmittals,
+                            align:'right',
+                            width : '13%'
+                        }, {
+                            field: 'nationwideRankings',
+                            title: cbp.srPage.globalVars.nationwideRankings,
+                            titleTooltip: cbp.srPage.globalVars.nationwideRankings,
+                            class: 'numberIcon',
+                            align: 'right',
+                            width : '13%'
+                         },
+                    ],
+                        data: retailerRankingsDataList
+                    });
                 };
         
                 return {
@@ -523,8 +589,11 @@
                     cbp.srPage.globalVars.productsFoundVar = cbp.srPage.globalVars.productsFound.replace("{0}", srSearchResponse.resultCount);
                 }
         
-                if (srSearchResponse.stationReportDataList === undefined) {
-                    cbp.srPage.srSearchResponse.stationReportDataList = [];
+                if (srSearchResponse.marketerRankingsDataList === undefined) {
+                    cbp.srPage.srSearchResponse.marketerRankingsDataList = [];
+                }
+                if (srSearchResponse.retailerRankingsDataList === undefined) {
+                    cbp.srPage.srSearchResponse.retailerRankingsDataList = [];
                 }
         
                 // cbp.srPage.dateRange.startDate = moment().subtract(7, 'days');
