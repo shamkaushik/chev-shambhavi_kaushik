@@ -320,7 +320,12 @@ require(["modernizr",
                 },
                 onResetView: function(){
                     for(var i=0;i<selectedRow.length; i++){
-                        $("input[value="+ selectedRow[i] +"]").attr("checked","checked");
+                        var selectedElement = $("input[value="+selectedRow[i]+"]");
+                        $(selectedElement[0]).parent().children('input[name="btSelectItem"]').attr("checked","checked");
+                    } 
+                    if(selectedRow.length == getTableData().length){
+                        console.log('All Selected');
+                        $('input[name="btSelectAll"]').attr("checked","checked");
                     }
                 },
             });
