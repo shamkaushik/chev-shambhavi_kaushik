@@ -1,0 +1,69 @@
+<div class="col-xs-24 col-md-24  bg-forms fuel-type-container xs-mt-15 xs-p-10">    
+    <span> {{globalVars.formDesc}} </span>
+    <div class="row form-row">
+        <div class="col-xs-24 col-md-4 md-mb-0 xs-mb-15">
+            <label for="stationAccount">
+                {{globalVars.fuelInvoiceInquiry.stationAccountLabel}}
+            </label> <br/>
+            <span id="stationAccount">
+                <input type="text" name="stationAccountText" name="stationAccountText" class="input-field-style"/>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-24 col-md-4 md-mb-0 xs-mb-15">
+             <label for="fname">
+                {{globalVars.fuelInvoiceInquiry.billOfLadingLabel}}
+            </label> <br/>
+            <span id="billOfLading" class="form-group">
+                <input type="text" name="userFname" id="billOfLadingText" class="input-field-style"/>
+            </span>
+        </div>
+        <div class="col-xs-24 col-md-4 md-mb-0 xs-mb-15">
+            <label for="lname">
+                {{globalVars.fuelInvoiceInquiry.invoiceNoLabel}}
+            </label> <br/>
+            <span id="invoiceNo">
+                <input type="text" name="invoiceNoText" id="invoiceNoText" class="input-field-style"/>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+       <div class="col-xs-24 col-md-4">
+            <label for="carrierName">
+               {{globalVars.fuelInvoiceInquiry.carrierNameLabel}}
+            </label> <br/>
+            <span id="carrierName">
+                <input type="text" name="carrierNameText" id="carrierNameText" class="input-field-style"/>
+            </span>
+        </div> 
+    </div>
+    <div class="row">
+        <div class="col-xs-24 col-md-4">            
+            <span id="deliveryDate">
+            <div class='js-search-pickDateRange form-group'>
+            </div>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+       <div class="col-xs-24 col-md-4">
+            <label for="userPhone">
+                {{globalVars.fuelInvoiceInquiry.prodDisputedLabel}}
+            </label> <br/>
+            <span id="prodDisputed">
+                <input type="text" name="prodDisputedText" id="prodDisputedText" class="input-field-style"/>
+            </span>
+        </div> 
+    </div>
+    <div class="row">
+        <div class="col-xs-24 col-md-4">
+            <label for="userPhone">
+                {{globalVars.fuelInvoiceInquiry.reasonLabel}}
+            </label> <br/>
+            <span id="reasonLabel">
+                <textarea id="reasonLabelText" name="textarea-style" />
+            </span>
+        </div>
+    </div>
+</div>

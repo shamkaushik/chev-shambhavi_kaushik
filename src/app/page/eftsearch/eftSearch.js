@@ -17,11 +17,16 @@ require(["modernizr",
     // "text!app/page/eft-search/eftSearchSummary.hbs",
     // "text!app/page/eft-search/bottomDetail.hbs"
 
-], function (modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _eftSearchSummaryHBS, _bottomDetailHBS) {
+], function(modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _eftSearchSummaryHBS, _bottomDetailHBS) {
 
-    var accountDropdownOptions = [], eftObj = {},startDateDT = '',endDateDT = '';
+    var accountDropdownOptions = [],
+        eftObj = {},
+        startDateDT = '',
+        endDateDT = '';
 
-    var selectedEFTs = [],selectedProduct = [],selectedEftStatus = [];
+    var selectedEFTs = [],
+        selectedProduct = [],
+        selectedEftStatus = [];
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
@@ -30,41 +35,40 @@ require(["modernizr",
     var compiledeftSearchSummary = Handlebars.compile(_eftSearchSummaryHBS);
     var compiledBottomDetail = Handlebars.compile(_bottomDetailHBS);
 
-    var eftSearchPage = (function () {
+    var eftSearchPage = (function() {
         var startDate, endDate;
         var srtByDdn = {
             "options": [{
-                    key: "eftNoticeNumber-asc",
-                    value: cbp.eftSearchPage.globalVars.eftNoticeNumberAsc
+                key: "eftNoticeNumber-asc",
+                value: cbp.eftSearchPage.globalVars.eftNoticeNumberAsc
             }, {
-                    key: "eftNoticeNumber-desc",
-                    value: cbp.eftSearchPage.globalVars.eftNoticeNumberDesc
-            },{
-                    key: "noticeDate-desc",
-                    value: cbp.eftSearchPage.globalVars.noticeDateAsc
+                key: "eftNoticeNumber-desc",
+                value: cbp.eftSearchPage.globalVars.eftNoticeNumberDesc
             }, {
-                    key: "noticeDate-asc",
-                    value: cbp.eftSearchPage.globalVars.noticeDateDesc
+                key: "noticeDate-desc",
+                value: cbp.eftSearchPage.globalVars.noticeDateAsc
             }, {
-                    key: "accountNumber-asc",
-                    value: cbp.eftSearchPage.globalVars.accountNumberAsc
+                key: "noticeDate-asc",
+                value: cbp.eftSearchPage.globalVars.noticeDateDesc
             }, {
-                    key: "accountNumber-desc",
-                    value: cbp.eftSearchPage.globalVars.accountNumberDesc
+                key: "accountNumber-asc",
+                value: cbp.eftSearchPage.globalVars.accountNumberAsc
             }, {
-                    key: "settlementDate-asc",
-                    value: cbp.eftSearchPage.globalVars.settlementDateAsc
+                key: "accountNumber-desc",
+                value: cbp.eftSearchPage.globalVars.accountNumberDesc
             }, {
-                    key: "settlementDate-desc",
-                    value: cbp.eftSearchPage.globalVars.settlementDateDesc
+                key: "settlementDate-asc",
+                value: cbp.eftSearchPage.globalVars.settlementDateAsc
             }, {
-                    key: "total-asc",
-                    value: cbp.eftSearchPage.globalVars.totaltb  + " (" + eftSearchCurrency + "), " +  cbp.eftSearchPage.globalVars.ascLabel
+                key: "settlementDate-desc",
+                value: cbp.eftSearchPage.globalVars.settlementDateDesc
             }, {
-                    key: "total-desc",
-                    value: cbp.eftSearchPage.globalVars.totaltb + " (" + eftSearchCurrency + "), " + cbp.eftSearchPage.globalVars.descLabel
-            }
-          ],
+                key: "total-asc",
+                value: cbp.eftSearchPage.globalVars.totaltb + " (" + eftSearchCurrency + "), " + cbp.eftSearchPage.globalVars.ascLabel
+            }, {
+                key: "total-desc",
+                value: cbp.eftSearchPage.globalVars.totaltb + " (" + eftSearchCurrency + "), " + cbp.eftSearchPage.globalVars.descLabel
+            }],
             label: cbp.eftSearchPage.globalVars.sortBy,
             labelClass: "xs-mr-5",
             name: "sortByDdn",
@@ -138,13 +142,13 @@ require(["modernizr",
             searchInputEft: ".js-eftSearchPage-searchEft"
         };
 
-        var init = function () {
+        var init = function() {
             loadingInitialHbsTemplates();
 
-                if (cbp.eftSearchPage.accountDropdown["options"].length > 1) {
-                    $(config.accountDdn).val('all');
-                }
-                $(config.accountDdn).selectpicker('refresh');
+            if (cbp.eftSearchPage.accountDropdown["options"].length > 1) {
+                $(config.accountDdn).val('all');
+            }
+            $(config.accountDdn).selectpicker('refresh');
 
             if (allEftFlow === "true") {
                 $(config.downloadStatusDdn).val('notDownloaded').selectpicker('refresh');
@@ -154,10 +158,10 @@ require(["modernizr",
             bindEvents();
 
             if (localStorage.getItem("eftObj") === undefined || localStorage.getItem("eftObj") === null) {
-            startDate = cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
+                startDate = cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
                 endDate = cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
-                console.log("startDate , endDate >>>",startDate,endDate);
-                console.log("$(config.eftSearchToggle) >>>",$(config.eftSearchToggle));
+                console.log("startDate , endDate >>>", startDate, endDate);
+                console.log("$(config.eftSearchToggle) >>>", $(config.eftSearchToggle));
                 triggerAjaxRequest();
             } else {
                 var eftObj = JSON.parse(localStorage.getItem("eftObj"));
@@ -165,12 +169,12 @@ require(["modernizr",
                 cbp.eftSearchPage.dateRange.endDate = moment(eftObj.endDate, cbp.eftSearchPage.dateRange.format, true);
                 $(config.accountDdn).val(eftObj.account).selectpicker('refresh');
 
-                if(eftObj.eftNoticeNumber || eftObj.invoiceNumber){
-                    if(eftObj.eftNoticeNumber){
+                if (eftObj.eftNoticeNumber || eftObj.invoiceNumber) {
+                    if (eftObj.eftNoticeNumber) {
                         $(config.eftSearchToggle).find('button').eq(0).trigger('click');
                         $(config.searchInputEft).val(eftObj.eftNoticeNumber);
-                    }else{
-                          $(config.eftSearchToggle).find('button').eq(1).trigger('click');
+                    } else {
+                        $(config.eftSearchToggle).find('button').eq(1).trigger('click');
                         $(config.searchInputEft).val(eftObj.invoiceNumber);
                     }
                 }
@@ -187,7 +191,7 @@ require(["modernizr",
             populatingCalendarComponent();
         };
 
-        var loadingInitialHbsTemplates = function () {
+        var loadingInitialHbsTemplates = function() {
             //Appending handlebar templates to HTML
             $(config.searchFormContainer).html(compiledsearchForm(cbp.eftSearchPage));
             $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.eftSearchPage.accountDropdown));
@@ -208,7 +212,7 @@ require(["modernizr",
             $(config.displaySpinner).hide();
         };
 
-        var loadingDynamicHbsTemplates = function () {
+        var loadingDynamicHbsTemplates = function() {
             $(config.eftSearchSummaryContainer).html(compiledeftSearchSummary(cbp.eftSearchPage));
             $(config.searchDetailContainer).html(compiledBottomDetail(cbp.eftSearchPage));
             $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
@@ -216,13 +220,13 @@ require(["modernizr",
             enableMobileDefaultDropDown();
         };
 
-        var enableMobileDefaultDropDown = function () {
+        var enableMobileDefaultDropDown = function() {
             //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
                 $(config.dropDownCommon).selectpicker('mobile');
             }
 
-            $(config.accountDdn).on('changed.bs.select change', function (e) {
+            $(config.accountDdn).on('changed.bs.select change', function(e) {
                 if ($(config.accountDdn).val() !== "") {
                     $(config.searchButton).removeAttr("disabled");
                 } else {
@@ -232,25 +236,25 @@ require(["modernizr",
         };
 
 
-        var calleftSearchPDF = function (eftNoticeNumberId) {
+        var calleftSearchPDF = function(eftNoticeNumberId) {
             $("#eftSearchPDFForm").attr('target', '_blank');
             $('#eftSearchPDFForm #selectedEFTs').val(eftNoticeNumberId);
             $("#eftSearchPDFForm").submit();
         };
 
-        var calleftSearchPDFLink = function (eftNoticeNumberId) {
+        var calleftSearchPDFLink = function(eftNoticeNumberId) {
             $('#eftSearchPDFForm #eftNoticeNumberId').val(eftNoticeNumberId);
             $('#eftSearchPDFForm #eftPrint').val('false');
             $('#eftSearchPDFForm').submit();
         };
 
-        var goToOrderDetails = function (orderId) {
+        var goToOrderDetails = function(orderId) {
             $('#eftDetailsForm #eftNoticeNumberId').val(orderId);
             $('#eftDetailsForm #hybrisOrder').val(true);
             $('#eftDetailsForm').submit();
         };
 
-        var downloadBtnSelected = function () {
+        var downloadBtnSelected = function() {
             $('#eftForm #selectedEFTs').val(selectedEFTs.toString());
             for (var i = 0; len = selectedEFTs.length, i < len; i++) {
                 $(".iconsPrintDownload[data-eftNoticeNumberId='" + selectedEFTs[i] + "']").addClass("success-icon");
@@ -258,10 +262,10 @@ require(["modernizr",
             $("#eftForm").submit();
         };
 
-        var printPDFSelected = function () {
+        var printPDFSelected = function() {
             $('#eftSearchPDFForm #selectedEFTs').val(selectedEFTs.toString());
             $("#eftSearchPDFForm").attr('target', '_blank');
-            if(inASMSession!=true){
+            if (inASMSession != true) {
                 for (var i = 0; len = selectedEFTs.length, i < len; i++) {
                     $(".iconsEftPrint[data-eftNoticeNumberId='" + selectedEFTs[i] + "']").addClass("success-icon");
                 }
@@ -269,16 +273,16 @@ require(["modernizr",
             $("#eftSearchPDFForm").submit();
         };
 
-        var populatingCalendarComponent = function () {
+        var populatingCalendarComponent = function() {
             function cb(start, end) {
-            console.log("Start &&& END >>>>",start,end);
+                console.log("Start &&& END >>>>", start, end);
                 startDate = start.format(cbp.eftSearchPage.dateRange.format);
                 endDate = end.format(cbp.eftSearchPage.dateRange.format);
                 $(config.ordercalendar).find('span').html(cbp.eftSearchPage.globalVars.fromAndTo.replace("{0}", startDate).replace("{1}", endDate));
             }
 
             function cb2(start, end) {
-            console.log("Start &&& END >>>>",start,end);
+                console.log("Start &&& END >>>>", start, end);
                 $(config.ordercalendar).find('span').html(cbp.eftSearchPage.globalVars.fromAndTo.replace("{0}", startDate).replace("{1}", endDate));
             }
 
@@ -318,7 +322,7 @@ require(["modernizr",
             }, cb);
         };
 
-        var triggerAjaxRequest = function () {
+        var triggerAjaxRequest = function() {
             $(config.displaySpinner).show();
             $(config.eftSearchSummaryContainer).hide();
             $(config.searchDetailContainer).hide();
@@ -332,14 +336,13 @@ require(["modernizr",
             postData.printStatus = $(config.printStatusDdn).val();
 
 
-            console.log("Start Date & End Date >>>",startDate, endDate);
+            console.log("Start Date & End Date >>>", startDate, endDate);
             postData.startDate = startDate ? startDate : cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
             postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
 
-            if($.trim($(config.searchInputEft).val()).length!=0){
-                ($("#eftSearchToggle input[type='hidden']").val() == 1 || $("#eftSearchToggle input[type='hidden']").val()=="default") ?
-                    postData['noticeNumber'] = $(config.searchInputEft).val()
-                    : postData['invoiceNumber'] = $(config.searchInputEft).val();
+            if ($.trim($(config.searchInputEft).val()).length != 0) {
+                ($("#eftSearchToggle input[type='hidden']").val() == 1 || $("#eftSearchToggle input[type='hidden']").val() == "default") ?
+                postData['noticeNumber'] = $(config.searchInputEft).val(): postData['invoiceNumber'] = $(config.searchInputEft).val();
             }
 
             /* end DSLEC-120*/
@@ -384,8 +387,8 @@ require(["modernizr",
 
 
                 loadingDynamicHbsTemplates();
-                console.log("cbp.eftSearchPage.eftSearchResponse >>>",cbp.eftSearchPage.eftSearchResponse);
-                populatingTable(cbp.eftSearchPage.eftSearchResponse.eftSearchDataList,cbp.eftSearchPage.eftSearchResponse.eftSearchDataListMapping);
+                console.log("cbp.eftSearchPage.eftSearchResponse >>>", cbp.eftSearchPage.eftSearchResponse);
+                populatingTable(cbp.eftSearchPage.eftSearchResponse.eftSearchDataList, cbp.eftSearchPage.eftSearchResponse.eftSearchDataListMapping);
                 leftPaneExpandCollapse.resetSearchFormHeight();
             }
 
@@ -398,10 +401,10 @@ require(["modernizr",
 
             $.ajax({
                 type: cbp.eftSearchPage.globalUrl.method,
-                headers: {'CSRFToken':CSRFToken},
+                headers: { 'CSRFToken': CSRFToken },
                 data: JSON.stringify(postData),
-                contentType:"application/json",
-                dataType:"json",
+                contentType: "application/json",
+                dataType: "json",
                 url: cbp.eftSearchPage.globalUrl.eftSearchPostURL,
                 success: successCallback,
                 error: errorCallback
@@ -409,62 +412,60 @@ require(["modernizr",
 
         };
 
-        var downloadForm = function (eftNoticeNumberId) {
+        var downloadForm = function(eftNoticeNumberId) {
             var loc = $("#contextPath").val();
             var formTemplate = "<form id='downloadForm' method='POST' action='" + loc + "/eft/eftCSV'><input type='hidden' name='selectedEFTs' value='" + eftNoticeNumberId + "'/><input name='CSRFToken' id='CSRFToken' type='hidden' value='" + CSRFToken + "'/></form>";
             $(formTemplate).appendTo("body").submit().remove();
         };
 
-        var enablePrintDownloadButtons = function () {
+        var enablePrintDownloadButtons = function() {
             $(config.downloadBtn).removeClass("disabled");
             $(config.printBtn).removeClass("disabled");
         };
-        var disablePrintDownloadButtons = function () {
+        var disablePrintDownloadButtons = function() {
             $(config.downloadBtn).addClass("disabled");
             $(config.printBtn).addClass("disabled");
         };
 
-        var bindEvents = function () {
-            $(document).on("click","input[type='checkbox']", function(event){
-              if($(config.tabelRow).hasClass('selected')){
-                $(config.downloadBtn).removeClass("disabled");
-                $(config.printBtn).removeClass("disabled");
-              }
-              else{
-                $(config.downloadBtn).addClass("disabled");
-                $(config.printBtn).addClass("disabled");
-              }
+        var bindEvents = function() {
+            $(document).on("click", "input[type='checkbox']", function(event) {
+                if ($(config.tabelRow).hasClass('selected')) {
+                    $(config.downloadBtn).removeClass("disabled");
+                    $(config.printBtn).removeClass("disabled");
+                } else {
+                    $(config.downloadBtn).addClass("disabled");
+                    $(config.printBtn).addClass("disabled");
+                }
             });
 
-            $(document).on("click", config.eftNoticeLink, function(e){
+            $(document).on("click", config.eftNoticeLink, function(e) {
                 e.preventDefault();
                 console.log("In Link CLick >>>");
                 var eftNoticeUid = $(e.target).attr('data-uid');
                 eftObj.account = $("#accountSelectDdn").val();
-                if($.trim($(config.searchInputEft).val()).length!=0){
-                    ($("#eftSearchToggle input[type='hidden']").val() == 1 || $("#eftSearchToggle input[type='hidden']").val()=="default") ?
-                           eftObj.eftNoticeNumber = $(config.searchInputEft).val()
-                    : eftObj.invoiceNumber = $(config.searchInputEft).val();
+                if ($.trim($(config.searchInputEft).val()).length != 0) {
+                    ($("#eftSearchToggle input[type='hidden']").val() == 1 || $("#eftSearchToggle input[type='hidden']").val() == "default") ?
+                    eftObj.eftNoticeNumber = $(config.searchInputEft).val(): eftObj.invoiceNumber = $(config.searchInputEft).val();
                 }
-               eftObj.downloadStatus = $("#downloadStatus").val();
+                eftObj.downloadStatus = $("#downloadStatus").val();
                 eftObj.printStatus = $("#printStatus").val();
                 eftObj.startDate = cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
                 eftObj.endDate = cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
-                console.log("eft Object >>>",eftObj);
+                console.log("eft Object >>>", eftObj);
                 localStorage.setItem("eftObj", JSON.stringify(eftObj));
                 $('#eftDetailsForm #eftNoticeid').val(eftNoticeUid);
                 $('#eftDetailsForm').submit();
-              });
+            });
 
-            $(document).on('click', config.downloadIcon, function (evnt) {
+            $(document).on('click', config.downloadIcon, function(evnt) {
                 var isInternalUser = $("#isInternalUser").val();
                 if (isInternalUser != "true" && inASMSession !== "true")
                     $(evnt.target).addClass("success-icon");
                 downloadForm($(evnt.target).attr("data-eftNoticeNumberId"));
             });
 
-            $(document).on('click', config.printIcon, function (evnt) {
-                if (inASMSession !== true){
+            $(document).on('click', config.printIcon, function(evnt) {
+                if (inASMSession !== true) {
                     $(this).addClass("success-icon");
                 }
 
@@ -472,7 +473,7 @@ require(["modernizr",
             });
 
             //Search button functionality
-            $(config.searchButton).on("click", function (e) {
+            $(config.searchButton).on("click", function(e) {
                 selectedEFTs = [];
                 triggerAjaxRequest();
             });
@@ -482,7 +483,7 @@ require(["modernizr",
                 config.downloadStatusContainer + "," + config.dateRangeContainer + "";
 
 
-            $(document).on('keypress', valueOnSubmit, function (e) {
+            $(document).on('keypress', valueOnSubmit, function(e) {
                 if (e.which == 13) {
                     e.preventDefault();
                     $("#eftSearchBtn").trigger("click");
@@ -493,7 +494,7 @@ require(["modernizr",
 
             var validatefields = config.eftNoticeNumber + "," + config.invoiceNumber + "";
 
-            $(document).on('keypress', validatefields, function (e) {
+            $(document).on('keypress', validatefields, function(e) {
                 var regex = /^[0-9]+$/;
                 var str = String.fromCharCode(e.which);
                 if (str.match(regex)) {
@@ -503,31 +504,31 @@ require(["modernizr",
                 return false;
             });
 
-            $(document).on("click", ".search-form .toggleSwitch#eftSearchToggle button.btn-primary", function(){
+            $(document).on("click", ".search-form .toggleSwitch#eftSearchToggle button.btn-primary", function() {
                 $(".search-form").addClass("show");
             });
 
-            $(document).on('click',config.eftSearchToggle+' button',function(){
+            $(document).on('click', config.eftSearchToggle + ' button', function() {
                 $(config.searchInputEft).val('');
-                if($(this).val()==1){
-                    $(config.searchInputEft).attr('placeholder','EFT Notice #');
-                }else if($(this).val()==2){
-                    $(config.searchInputEft).attr('placeholder','Invoice #');
+                if ($(this).val() == 1) {
+                    $(config.searchInputEft).attr('placeholder', 'EFT Notice #');
+                } else if ($(this).val() == 2) {
+                    $(config.searchInputEft).attr('placeholder', 'Invoice #');
                 }
             });
 
-            $(document).on("click", config.downloadBtn, function(){
+            $(document).on("click", config.downloadBtn, function() {
                 downloadBtnSelected();
             });
 
-            $(document).on("click", config.printBtn, function(){
+            $(document).on("click", config.printBtn, function() {
                 printPDFSelected();
             });
         };
 
-        var generatingColumns = function (columnsDataList) {
-            console.log("columnsDataList >>>",columnsDataList);
-            var receivedOrderKey = Object.keys(columnsDataList).filter(function (key) {
+        var generatingColumns = function(columnsDataList) {
+            console.log("columnsDataList >>>", columnsDataList);
+            var receivedOrderKey = Object.keys(columnsDataList).filter(function(key) {
                 if (columnsDataList[key]) {
                     return columnsDataList[key];
                 }
@@ -556,7 +557,7 @@ require(["modernizr",
                     printReport = "<span class='fa fa-print iconsEftPrint " + printed + "' data-eftNoticeNumberId='" + row.eftNoticeNumberId + "'>" + "</span>";
                     return downloadReport + printReport;
                 }
-            },{
+            }, {
                 field: 'accountNumber',
                 title: cbp.eftSearchPage.globalVars.accountNumbertb,
                 titleTooltip: cbp.eftSearchPage.globalVars.accountNumbertb,
@@ -569,7 +570,7 @@ require(["modernizr",
                 class: 'numberIcon',
                 sortable: true,
                 formatter: function LinkFormatter(value, row, index) {
-                        return "<a href='#' class='js-eft-NoticeNumber' data-uid='" + row.eftNoticeNumberId + "'>" + value + "</a>";
+                    return "<a href='#' class='js-eft-NoticeNumber' data-uid='" + row.eftNoticeNumberId + "'>" + value + "</a>";
                 }
             }, {
                 field: 'noticeDate',
@@ -621,7 +622,7 @@ require(["modernizr",
                 }
             }];
 
-            var columnsListMap = columnsList.reduce(function (data, columnsList) {
+            var columnsListMap = columnsList.reduce(function(data, columnsList) {
                 data[columnsList.field] = columnsList;
                 return data;
             }, {});
@@ -639,18 +640,18 @@ require(["modernizr",
 
             }
 
-            console.log("requestedCol >>>",requestedCol);
+            console.log("requestedCol >>>", requestedCol);
 
             return requestedCol;
 
         };
 
-        var populatingTable = function (eftSearchDataList,columnsDataList) {
+        var populatingTable = function(eftSearchDataList, columnsDataList) {
             var eftStatusCount = 0;
             if (cbp.eftSearchPage.eftSearchResponse.eftSearchDataList === null) {
                 cbp.eftSearchPage.globalVars.tableLocales.noMatches = "";
             } else if (cbp.eftSearchPage.eftSearchResponse.resultCount === 0) {
-//                cbp.eftSearchPage.globalVars.tableLocales.noMatches = cbp.eftSearchPage.globalVars.noMatches;
+                //                cbp.eftSearchPage.globalVars.tableLocales.noMatches = cbp.eftSearchPage.globalVars.noMatches;
             } else if (cbp.eftSearchPage.eftSearchResponse.resultCount > maxResults && allEftFlow != "true") {
                 cbp.eftSearchPage.globalVars.tableLocales.noMatches = cbp.eftSearchPage.globalVars.noMatchesMaxResults.replace('{0}', cbp.eftSearchPage.eftSearchResponse.resultCount);
                 eftSearchDataList = [];
@@ -662,7 +663,7 @@ require(["modernizr",
 
             $(config.sortByDdn).val("eftNoticeNumber-desc").selectpicker('refresh');
 
-           $('#table').bootstrapTable({
+            $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
                 sortName: 'eftNoticeNumber',
@@ -674,12 +675,12 @@ require(["modernizr",
                 responsive: true,
                 responsiveBreakPoint: 768,
                 responsiveClass: "bootstrap-table-cardview",
-                onCheck: function (row, $element) {
+                onCheck: function(row, $element) {
                     // enable button
                     selectedEFTs.push(row.eftNoticeNumberId);
                     enablePrintDownloadButtons();
                 },
-                onCheckAll: function (rows) {
+                onCheckAll: function(rows) {
                     // enable button
                     selectedEFTs = [];
                     var len = rows.length;
@@ -692,7 +693,7 @@ require(["modernizr",
                         enablePrintDownloadButtons();
                     }
                 },
-                onUncheck: function (row, $element) {
+                onUncheck: function(row, $element) {
                     // write logic..as not sure if all unselected
                     var index = selectedEFTs.indexOf(row.eftNoticeNumberId);
 
@@ -705,7 +706,7 @@ require(["modernizr",
                     }
 
                 },
-                onUncheckAll: function (rows) {
+                onUncheckAll: function(rows) {
                     //disable button
                     selectedEFTs = [];
                     disablePrintDownloadButtons();
@@ -722,54 +723,54 @@ require(["modernizr",
         };
     })();
 
-    $(document).ready(function () {
+    $(document).ready(function() {
 
         //Localization setup for dropdown & table
         $.fn.selectpicker.defaults = {
             noneSelectedText: cbp.eftSearchPage.globalVars.selectDdn.noneSelectedText,
             noneResultsText: cbp.eftSearchPage.globalVars.selectDdn.noneResultsText,
-            countSelectedText: function (numSelected, numTotal) {
+            countSelectedText: function(numSelected, numTotal) {
                 return (numSelected == 1) ? cbp.eftSearchPage.globalVars.selectDdn.itemSelected : cbp.eftSearchPage.globalVars.selectDdn.itemSelected1;
             },
-            maxOptionsText: function (numAll, numGroup) {
+            maxOptionsText: function(numAll, numGroup) {
                 return [
                     (numAll == 1) ? cbp.eftSearchPage.globalVars.selectDdn.limitReached : cbp.eftSearchPage.globalVars.selectDdn.limitReached1,
                     (numGroup == 1) ? cbp.eftSearchPage.globalVars.selectDdn.groupLimit : cbp.eftSearchPage.globalVars.selectDdn.groupLimit1
-            ];
+                ];
             },
             selectAllText: cbp.eftSearchPage.globalVars.selectDdn.selectAllText,
             deselectAllText: cbp.eftSearchPage.globalVars.selectDdn.deselectAllText
         };
 
         $.fn.bootstrapTable.locales = {
-            formatLoadingMessage: function () {
+            formatLoadingMessage: function() {
                 return cbp.eftSearchPage.globalVars.tableLocales.loadingMessage;
             },
-            formatRecordsPerPage: function (pageNumber) {
+            formatRecordsPerPage: function(pageNumber) {
                 return cbp.eftSearchPage.globalVars.tableLocales.recordsPerPage.replace('{0}', pageNumber);
             },
-            formatShowingRows: function (pageFrom, pageTo, totalRows) {
+            formatShowingRows: function(pageFrom, pageTo, totalRows) {
                 return cbp.eftSearchPage.globalVars.tableLocales.showingRows.replace('{0}', pageFrom).replace('{1}', pageTo).replace('{2}', totalRows);
             },
-            formatSearch: function () {
+            formatSearch: function() {
                 return cbp.eftSearchPage.globalVars.tableLocales.search;
             },
-            formatNoMatches: function () {
+            formatNoMatches: function() {
                 return cbp.eftSearchPage.globalVars.tableLocales.noMatches;
             },
-            formatPaginationSwitch: function () {
+            formatPaginationSwitch: function() {
                 return cbp.eftSearchPage.globalVars.tableLocales.paginationSwitch;
             },
-            formatRefresh: function () {
+            formatRefresh: function() {
                 return cbp.eftSearchPage.globalVars.tableLocales.refresh;
             },
-            formatToggle: function () {
+            formatToggle: function() {
                 return cbp.eftSearchPage.globalVars.tableLocales.toggle;
             },
-            formatColumns: function () {
+            formatColumns: function() {
                 return cbp.eftSearchPage.globalVars.tableLocales.columns;
             },
-            formatAllRows: function () {
+            formatAllRows: function() {
                 return cbp.eftSearchPage.globalVars.tableLocales.allRows;
             }
         };
@@ -798,7 +799,7 @@ require(["modernizr",
             cbp.eftSearchPage.showDebitCredit = false;
         }
 
-        cbp.eftSearchPage.dateRange.startDate = moment().subtract(7,'days');
+        cbp.eftSearchPage.dateRange.startDate = moment().subtract(7, 'days');
         cbp.eftSearchPage.dateRange.endDate = moment();
 
         if (allEftFlow === "true") {
