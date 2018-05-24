@@ -1,0 +1,162 @@
+.invoices-page {
+	.fixed-table-container{
+		tbody{
+			.selected td{
+			background-color: transparent;
+			}
+			td{
+				&.bs-checkbox.fa{
+					margin-left: 10px;
+					padding-top: 5px !important;
+					font-size: 16px;
+				}
+			}
+			tr.bg-danger{
+				background-color: #F7E8E9 !important;
+			}
+		}
+		thead{
+			th{
+				&.bs-checkbox{
+					.th-inner{
+						padding-top: 18px;
+					}
+				}
+			}
+			tr{
+				background-color: @brand-primary;
+				th.bs-checkbox.fa{
+					width: 55px!important;
+					input[type="checkbox"]:before{
+						font-size: 16px;
+						color:#fff;
+					}
+				}
+			}
+		}
+	}
+	.js-shipToDdn{
+		.btn-group.bootstrap-select.displayInline{
+			width:100%!important;
+		}
+	}
+	.sub-heading-thin {
+		color: #009dd9;
+		font-size: 15px;
+		font-family: Gotham, "Helvetica Neue", Helvetica, Roboto, Arial, serif;
+		font-weight: normal;
+	}
+	.search-content {
+		.em-10 {
+			width: 10em;
+		}
+		.em-13, .js-downloadStatus-ddn .btn, .js-printStatus-ddn .btn {
+			width: 13em;
+		}
+		#ordercalendar {
+			width: 180px;
+		}
+	}
+	.bottom-detail {
+			.invoiceFound{
+				padding-top: 6px;
+				text-align: right;
+			}
+	}
+	.right-pane{
+		.top-summary{
+			    min-height:0;
+		}
+	}
+	.bootstrap-table {.table.table-no-bordered{
+		 tbody {
+			 tr {
+				//  td
+				// { white-space: normal;}
+				td:nth-child(4){
+					 white-space: nowrap;
+				}
+				td{
+					.iconsPrintDownload, .iconsInvoicePrint{
+						cursor: pointer;
+						font-size: 14px;
+						color: @brand-primary-blue;
+					}
+					.fa-check-square-o{
+						color:@brand-primary;
+					}
+					.success-icon{
+						color:@brand-success;
+					}
+				}
+		}
+		}
+	}
+	}
+	.bootstrap-table-cardview{
+		.table.table-no-bordered {
+			> tbody {
+				> tr {
+					> td {
+						> div:first-child {
+						display:none;
+						}
+						> div:nth-of-type(2) {
+						display:none;
+						}
+						> div:nth-of-type(3) {
+							background-color: @brand-primary !important;
+							color: #ffffff;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	input[type="checkbox"] {
+		 -webkit-appearance:none;/* Hides the default checkbox style */
+		 &:focus{
+			 outline:none;
+		 }
+		 &:before {
+		  text-align:center;
+		  content: '\f096';
+		 }
+		 &:checked{
+			 &::before{
+				 color: @brand-primary;
+				 content: '\f046';
+			 }
+		}
+	}
+}
+@media (max-width: @screen-xs){
+	.invoices-page{
+		.card-view .title{
+			word-wrap: break-word;
+			width: 30% !important;
+			min-width: 30%;
+		}
+	}
+}
+
+@media (max-width: @screen-sm-max) {
+	.invoices-page {
+		.bottom-detail {
+			.invoiceFound{
+	      text-align: left;
+			}
+			.tableContainer {
+				min-height: 100px;
+			}
+		}
+	}
+}
+
+.one{
+	order:2;
+}
+.two{
+	order:1;
+}
