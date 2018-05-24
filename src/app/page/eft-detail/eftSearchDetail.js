@@ -160,10 +160,10 @@ require(["modernizr",
                 $(config.printStatusDdn).val('notPrinted').selectpicker('refresh');
             }
 
-            populatingTable(cbp.eftDetailPage.eftDetailResponse.eftDetailDataList);
             populatingCalendarComponent();
             bindEvents();
             setHeightForCCTurnIns();
+            populatingTable(cbp.eftDetailPage.eftDetailResponse.eftDetailDataList);
         };
 
         var setHeightForCCTurnIns = function(){
@@ -424,7 +424,7 @@ require(["modernizr",
             if (eftDetailDataList === null || eftDetailDataList === undefined) {
                 eftDetailDataList = [];
            }
-            $(config.sortByDdn).val("eftNoticeNumber-desc").selectpicker('refresh');
+            $(config.sortByDdn).val("referenceDate-desc").selectpicker('refresh');
 
             $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
