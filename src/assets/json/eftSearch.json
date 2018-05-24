@@ -5,7 +5,7 @@
     "fromDate": "22-03-2015",
     "toDate": "29-08-2016",
     "eftSearchDataListA" : [],
-    "soldToDropdown" : [{
+    "accountDropdown" : [{
       "uid": "0676334614",
       "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 AAAAAA"
     }, {

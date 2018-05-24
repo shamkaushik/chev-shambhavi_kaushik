@@ -20,15 +20,12 @@
                 <br/>
                 <span id="eftSearchPayer">{{eftSearchResponse.payer}}</span>
             </div>
-            {{#if eftSearchResponse.fromDate}}
-            <div class="col-md-8 col-xs-24 md-pb-0 xs-pb-10">
-                <span>
-                    <strong>{{globalVars.dateRange}}</strong>
-                </span>
-                <br/>
-                <span id="eftSearchDateRange">{{globalVars.summaryfromAndToVar}}</span>
-            </div>
-            {{/if}}
         </div>
     </div>
+    {{#if eftSearchResponse.fromDate}}
+    <div class="col-md-24 col-xs-24 md-pb-0 xs-pb-10">
+        <br/>
+        <span id="eftSearchDateRange">{{globalVars.summaryfromAndToVar}}</span>
+    </div>
+    {{/if}}
 </div>

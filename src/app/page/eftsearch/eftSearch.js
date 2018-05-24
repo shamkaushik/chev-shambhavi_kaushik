@@ -345,13 +345,8 @@ require(["modernizr",
             /* end DSLEC-8*/
             postData.downloadStatus = $(config.downloadStatusDdn).val();
             postData.printStatus = $(config.printStatusDdn).val();
-            if(hiddenInputForToggleSwitch.val() == 1 && $.trim(selectorCalendar.text()).toLowerCase()!=cbp.eftSearchPage.globalVars.allAccount.toLowerCase()){
-                postData.startDate = startDate ? startDate : cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
-                postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
-            }else{
-                postData.startDate = "all";
-                postData.endDate = "all";
-            }
+            postData.startDate = startDate ? startDate : cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
+            postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
 
             if($.trim($(config.searchInputEft).val()).length!=0){
                 $("#eftSearchToggle input[type='hidden']").val() == 2 ? 
@@ -563,7 +558,7 @@ require(["modernizr",
             function successCallback(data) {
                 $(config.displaySpinner).hide();
                 leftPaneExpandCollapse.resetSearchFormHeight();
-                populateDropDowns(data.soldToDropdown,accountDropdownOptions,"accountDropdown");
+                populateDropDowns(data.accountDropdown,accountDropdownOptions,"accountDropdown");
                 $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.eftSearchPage.accountDropdown));
                 //Refresh dropdown at initial dispaly after loading templates
                 $(config.dropDownCommon).selectpicker('refresh');
@@ -584,7 +579,7 @@ require(["modernizr",
                 data: JSON.stringify(postData),
                 contentType:"application/json",
                 dataType:"json",
-                url: cbp.eftSearchPage.globalUrl.eftSearchPostURL,
+                url: cbp.eftSearchPage.globalUrl.eftFetchPayerURL,
                 success: successCallback,
                 error: errorCallback
             });
@@ -730,7 +725,7 @@ require(["modernizr",
            $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'total',
+                sortName: 'eftNoticeNumber',
                 sortOrder: 'desc',
                 iconsPrefix: 'fa',
                 sortable: true,
