@@ -6,6 +6,7 @@ require(["modernizr",
     "calendar",
     "bootstrap-select",
     "bootstrap-table",
+    "parsley",
     "text!app/components/dropdown/_defaultDdn.hbs",
     "text!app/components/calendar/_calendar.hbs",
     "text!app/page/rmc-inq/userInfoForm.hbs",
@@ -15,7 +16,7 @@ require(["modernizr",
     "text!app/page/rmc-inq/popForm.hbs",
     "text!app/page/rmc-inq/chargebackInquiryForm.hbs"
 
-], function(modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable, _defaultDdnHBS, _calenderHBS, _userInfo, _eftInquiryForm, _fuelInvoiceInquiryForm,
+], function(modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable, parsley, _defaultDdnHBS, _calenderHBS, _userInfo, _eftInquiryForm, _fuelInvoiceInquiryForm,
     _uclForm, _popForm, _chargebackInquiryForm) {
 
     //Compiling HBS templates
@@ -35,12 +36,13 @@ require(["modernizr",
             dateRangeContainer: "#dateRange-container",
             btnDownload: ".btn-download",
             dropDownCommon: ".selectpicker",
-            userinfoFormContainer: '.userinfoFormContainer',
+            userinfoFormContainer: '.js-user-info-form',
             inquiryForm: '.inquiry-form',
-            formDropdownContainer: '.form-dropdown-container',
-            formContainer: '.form-container',
+            formDropdownContainer: '.js-form-dropdown',
+            formContainer: '.js-form-container',
             inquiryTypeDdn: '#inquiryTypeDdn',
-            pickDeliveryDateContainer: '.js-search-pickDateRange'
+            pickDeliveryDateContainer: '.js-search-pickDateRange',
+            calendar: "#calendar"
         };
 
         var init = function() {
@@ -49,21 +51,54 @@ require(["modernizr",
             $(config.displaySpinner).hide();
         };
 
+
+        //Parsely Validation
+        $('#inquiryForm').parsley({
+            successClass: 'no-error',
+            errorClass: 'has-error',
+            validationThreshold: 0,
+            classHandler: function(el) {
+                return el.$element.closest("div");
+            },
+            errorsWrapper: '<span class=\"help-block\"><span class=\"fa\"><span class=\"fa-warning\"></span></span></span>',
+            errorTemplate: '<span></span>'
+        }).on('field:success', function() {
+            if ($('#inquiryForm').parsley().isValid()) {
+                $('#inquiryForm #submitBtn').removeClass('disabled').removeAttr('disabled');
+            }
+        }).on('field:error', function() {
+            $('#inquiryForm #submitBtn').addClass('disabled').attr('disabled');
+        });
+
         //to configure the calendar component
         var populatingCalendarComponent = function() {
-            $(config.ordercalendar).daterangepicker({
-                'applyClass': 'btn-primary',
-                locale: {
-                    format: cbp.rmcInqPage.globalVars.deliveryDate.format,
-                    separator: ' / ',
-                    applyLabel: cbp.rmcInqPage.globalVars.deliveryDate.applyLabel,
-                    cancelLabel: cbp.rmcInqPage.globalVars.deliveryDate.cancelLabel,
-                    weekLabel: 'W',
-                    daysOfWeek: moment.weekdaysShort(),
-                    monthNames: moment.monthsShort(),
-                    firstDay: moment.localeData().firstDayOfWeek()
-                }
-            });
+            function cb(startDate) {
+                //startDate = start.format(cbp.delDocPage.dateRange.format);
+                // endDate = end.format(cbp.delDocPage.dateRange.format);
+                $(config.calendar).find('span').html(startDate);
+            }
+            //cb(start);
+
+            $(config.pickDeliveryDateContainer).daterangepicker({
+                    'applyClass': 'btn-primary',
+                    locale: {
+                        format: cbp.rmcInqPage.globalVars.deliveryDate.format,
+                        separator: ' / ' //,
+                            /*applyLabel: cbp.rmcInqPage.globalVars.deliveryDate.applyLabel,
+                            cancelLabel: cbp.rmcInqPage.globalVars.deliveryDate.cancelLabel,
+                            weekLabel: 'W',
+                            daysOfWeek: moment.weekdaysShort(),
+                            monthNames: moment.monthsShort(),
+                            firstDay: moment.localeData().firstDayOfWeek(),*/
+                    },
+                    "singleDatePicker": true
+                }, cb)
+                .on('apply.daterangepicker', function(ev, picker) {
+                    cb(picker.startDate.format('MM-DD-YYYY'));
+                    /* console.log(picker.startDate.format('MM-DD-YYYY'));
+                     console.log(picker.endDate.format('MM-DD-YYYY'));*/
+                    //$("#")
+                });
         };
 
         var loadingInitialHbsTemplates = function() {
@@ -91,7 +126,9 @@ require(["modernizr",
                     $(config.pickDeliveryDateContainer).html(compileCalenderHBS({
                         label: cbp.rmcInqPage.globalVars.deliveryDate.deliveryDateLabel,
                         iconClass: cbp.rmcInqPage.globalVars.deliveryDate.iconClass,
-                        id: cbp.rmcInqPage.globalVars.deliveryDate.id
+                        id: cbp.rmcInqPage.globalVars.deliveryDate.id,
+                        placeholder: "MM/DD/YYYY"
+                            // value: cbp.rmcInqPage.globalVars.deliveryDate.deliveryDateVal
                     }));
                     populatingCalendarComponent();
                     break;
@@ -116,17 +153,6 @@ require(["modernizr",
                 $(config.dropDownCommon).selectpicker('mobile');
             }
         };
-
-
-        var downloadForm = function(siteId) {
-            console.log("Not yet integrated");
-            return;
-            var loc = window.location.pathname;
-            var formTemplate = "<form id='downloadForm' method='POST' action='" + cbp.siteOperatingPage.globalUrl.siteOperatingDownloadURL + "'><input type='hidden' name='selectedsiteOperating' value='" + siteId + "'/></form>";
-            cbp.siteOperatingPage.siteOperatingResponse.siteOperatingDataList[$("tr[data-uniqueid='" + siteId + "']").data("index")].downloaded = true;
-            $(formTemplate).appendTo("body").submit().remove();
-        };
-
 
         var bindEvents = function() {
             $(document).on('click', config.btnDownload, function(event) {

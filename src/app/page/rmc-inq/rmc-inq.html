@@ -16,36 +16,38 @@
             </header>
         </main>
         <section class='main-container'>
-            <div class="content-box rmcInq-page">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h2 class='page-title'>RMC inquiry</h2>
-                    </div>
-                    <span class="col-xs-24 sub-heading-thin xs-pt-15 xs-pl-15">
+            <form class="form-horizontal" id="inquiryForm" role="form">
+                <div class="content-box rmcInq-page">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2 class='page-title'>RMC inquiry</h2>
+                        </div>
+                        <span class="col-xs-24 sub-heading-thin xs-pt-15 xs-pl-15">
                         user information
                     </span>
-                    <div class="col-md-24 col-xs-24 userinfoFormContainer">
-
+                        <div class="col-xs-24 js-user-info-form">
+                        </div>
                     </div>
-                </div>
-                <div class='row xs-m-0'>
-                    <div class="overlay-wrapper">
-                    </div>
-                    <div class='col-md-24 col-lg-24 inquiry-form right-pane xs-m-0 xs-p-0'>
-                        <span class="col-xs-24 sub-heading-thin xs-pt-15 xs-pl-15">
+                    <div class='row xs-m-0'>
+                        <div class="overlay-wrapper">
+                        </div>
+                        <div class='col-xs-24 inquiry-form right-pane xs-m-0 xs-p-0'>
+                            <span class="col-xs-24 sub-heading-thin xs-pt-15 xs-pl-15">
                                 inquiry form
                         </span>
-                        <div class="col-xs-24 col-md-4 xs-pt-15 xs-pl-15 form-dropdown-container form-group">
+                            <div class="col-xs-24 col-md-4 xs-pt-15 xs-pl-15 js-form-dropdown form-group">
 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row position-relative">
+                        <div class="col-xs-24 js-form-container"></div>
+                        <div class="col-xs-24 xs-pt-20">
+                            <input type="submit" name="submitBtn" id="submitBtn" value="Submit" class="btn btn-primary fa-pull-right" />
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-24 col-xs-24 form-container position-relative">
-
-                    </div>
-                </div>
-            </div>
+            </form>
         </section>
 
         <form id="siteOperatingForm" method="POST" action="/sf/siteOperating/downloadsiteOperating">
@@ -56,6 +58,7 @@
             var inASMSession = "false";
 
             var maxResults = 500;
+            var deliveryDateVal;
             var inquiryTypeDropdownOptions = [{
                 key: "eftInquiry",
                 value: "EFT Inquiry"
@@ -111,6 +114,14 @@
                             "prodDisputedLabel": "Product/ Gallon Disputed",
                             "reasonLabel": "Reason for Inquiry"
                         },
+                        "ucl": {
+                            "stationNoLabel": "Station #",
+                            "batchDate": "Batch Date (Month and Day)",
+                            "batchNoLabel": "Batch #s",
+                            "noOfUclLabel": "# of Unconfirmed Logs (UCL)",
+                            "amountLabel": "Amount (USD)",
+                            "uclNote": "Please fax or e-mail the unconfirmed log report to the RMC including the case number that you will receive in the information e-mail."
+                        },
                         "deliveryDate": {
                             "deliveryDateLabel": "Delivery Date",
                             "format": "MM/DD/YYYY",
@@ -119,7 +130,8 @@
                             "iconClass": "fa fa-calendar pull-right",
                             "id": "calendar",
                             "applyLabel": "Apply",
-                            "cancelLabel": "Cancel"
+                            "cancelLabel": "Cancel",
+                            "deliveryDateVal": deliveryDateVal
                         },
                         "userID": "User ID",
                         "fname": "First Name",

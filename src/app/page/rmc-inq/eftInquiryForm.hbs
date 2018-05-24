@@ -1,22 +1,22 @@
-<div class="bg-forms inquiry-type-container xs-mt-15 xs-p-15">
+<div class="bg-forms inquiry-type-container xs-mt-15 xs-p-15"> 
     <span> {{globalVars.formDesc}} </span>
     <div class="row form-row">
         <div class="col-md-4 col-xs-24">
             <div class="row">
-                <div class="col-md-24 col-xs-24">
+                <div class="col-xs-24">
                     <label for="stationAccount">
                     {{globalVars.eftInquiry.stationAccountLabel}}
                     </label> <br/>           
-                    <input type="text" id="stationAccount" name="stationAccount" class="input-field-style" />     
+                    <input type="text" id="stationAccount" name="stationAccount" class="input-field-style" required=""/>     
                 </div>                
             </div>
             <div class="row xs-mt-15">
-                <div class="col-md-24 col-xs-24">
+                <div class="col-xs-24">
                     <label for="eftInvoiceNo">
                     {{globalVars.eftInquiry.eftInvoiceLabel}}
                     </label> <br/>  
                     <span id="eftInvoiceNo"> 
-                        <input type="text" id="eftInvoiceNoText" name="eftInvoiceNoText" class="input-field-style"/>  
+                        <input type="text" id="eftInvoiceNoText" name="eftInvoiceNoText" class="input-field-style" required=""/>  
                     </span>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 {{globalVars.eftInquiry.reasonLabel}}
             </label> <br/>  
             <span id="reason">     
-                <textarea name="reasonText" id="reasonText" class="textarea-style"></textarea>                         
+                <textarea name="reasonText" id="reasonText" class="textarea-style" required=""></textarea>                         
             </span>
         </div>
     </div>
