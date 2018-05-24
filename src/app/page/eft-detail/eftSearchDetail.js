@@ -429,7 +429,7 @@ require(["modernizr",
             $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'invoiceNumber',
+                sortName: 'referenceDate',
                 sortOrder: 'desc',
                 iconsPrefix: 'fa',
                 sortable: true,
@@ -549,13 +549,7 @@ require(["modernizr",
                         return 0;
                     },
                     formatter: function LinkFormatter(value, row, index) {
-                        var total;
-                        if (value >= '0') {
-                            total = row.displayTotal;
-                        } else {
-                            total = "<span class='text-danger'>" + row.displayTotal + "</span>";
-                        }
-                        return total;
+						return row.displayTotal;
                     }
                 }],
                 data: eftDetailDataList

@@ -558,7 +558,7 @@ require(["modernizr",
             function successCallback(data) {
                 $(config.displaySpinner).hide();
                 leftPaneExpandCollapse.resetSearchFormHeight();
-                populateDropDowns(data.soldToDropdown,accountDropdownOptions,"accountDropdown");
+                populateDropDowns(data.accountDropdown,accountDropdownOptions,"accountDropdown");
                 $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.eftSearchPage.accountDropdown));
                 //Refresh dropdown at initial dispaly after loading templates
                 $(config.dropDownCommon).selectpicker('refresh');
@@ -579,7 +579,7 @@ require(["modernizr",
                 data: JSON.stringify(postData),
                 contentType:"application/json",
                 dataType:"json",
-                url: cbp.eftSearchPage.globalUrl.eftSearchPostURL,
+                url: cbp.eftSearchPage.globalUrl.eftFetchPayerURL,
                 success: successCallback,
                 error: errorCallback
             });
@@ -725,7 +725,7 @@ require(["modernizr",
            $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'total',
+                sortName: 'eftNoticeNumber',
                 sortOrder: 'desc',
                 iconsPrefix: 'fa',
                 sortable: true,
