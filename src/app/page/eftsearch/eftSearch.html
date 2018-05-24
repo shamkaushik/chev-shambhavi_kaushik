@@ -84,6 +84,7 @@
                 "toDate": "29-08-2016",
                 "currency": "USD",
                 "payer" : "7901220, DISMACOR S.A. K 16 NRO 20-56, BUCARAMANGA, Colombia",
+                "soldTo" : "7901220, DISMACOR S.A. K 16 NRO 20-56, BUCARAMANGA, Colombia",
                 "eftSearchDataList": [{
                     "eftNoticeNumber":"936710253",
                     "noticeDate":"02-12-2016",
@@ -118,6 +119,20 @@
             var CSRFToken = "";
 
             var accountDropdown = [{
+                "uid": "0676334614",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "uid": "0912234461",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "uid": "0176224612",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "uid": "0116134113",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }];
+
+            var soldToDropdown = [{
                 "uid": "0676334614",
                 "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
             }, {
@@ -169,6 +184,14 @@
                         "label": "Account",
                         "title": "",
                         "name": "accountSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": true
+                    },
+                    "soldToDropdown": {
+                        "options": [],
+                        "label": "Sold To",
+                        "title": "",
+                        "name": "soldToDropdown",
                         "showOptions": 10,
                         "singleOption": true
                     },
@@ -235,7 +258,7 @@
                         "settlementDateDesc": "Settlement Date, Oldest to Newest",
                         "totalAsc": "Total, Ascending",
                         "totalDesc": "Total, Descending",
-                        "soldTo": "Sold To:",
+                        "soldTo": "Sold To:", //new EFT Changes
                         "account" : "Account",
                         "shipTo": "Ship To:",
                         "noMatches": "No EFTS found. Please change your search",
