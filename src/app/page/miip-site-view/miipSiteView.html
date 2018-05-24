@@ -1,6 +1,5 @@
 <!Doctype html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,17 +14,7 @@
             <header class="main-header main-header-md js-header">
             </header>
         </main>
-        <form id="delDocForm" method="POST" action="/sf/delDocs/delDocCSV">
-            <input name="selectedDelDocs" id="selectedDelDocs" type="hidden">
-        </form>
-        <form id="invoicePDFForm" action="/invoices/invoicePDF" method="post" target="_blank">
-            <input type="hidden" name="invoiceId" id="invoiceId">
-            <input type="hidden" name="invoicePrint" id="invoicePrint">
-        </form>
-        <form id="delDocPDFForm" action="/delDocs/delDocsPDF" method="post" target="_blank">
-            <input type="hidden" name="delDocId" id="delDocId">
-            <input type="hidden" name="delDocPrint" id="delDocPrint">
-        </form>
+
         <section class='main-container'>
             <div class="content-box delDoc-page">
                 <div class="row">
@@ -77,9 +66,9 @@
                 display: "displayInline"
             }
 
-            var delDocResponse = {
+            var miipSiteResponse = {
                 "currency": "USD",
-                "delDocColumnMapping": {
+                "miipSiteColumnMapping": {
                     "delDocId": "test",
                     "delDocDate": "dfhj",
                     "total": "yfleuir",
@@ -90,7 +79,7 @@
                     "invoiceId":"tyrui"
                 },
 
-                "delDocList": [{
+                "miipSiteList": [{
                     "delDocId": "936710253",
                     "invoiceId": "936710253",
                     "delDocDate": "02/12/2016",
@@ -160,30 +149,7 @@
                 "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
             }];
 
-
-
-            var downloadStatusDropdownOptions = [{
-                key: "all",
-                value: "All"
-            }, {
-                key: "downloaded",
-                value: "Downloaded"
-            }, {
-                key: "notDownloaded",
-                value: "Not Downloaded"
-            }];
-
-            var printStatusDropdownOptions = [{
-                key: "all",
-                value: "All"
-            }, {
-                key: "notPrinted",
-                value: "Not Printed"
-            }, {
-                key: "printed",
-                value: "Printed"
-            }];
-
+    
             var maxResultText = '<div>{0} delDocs matching your search were found in the system.</div>' +
                 '<div>Please refine your search to return less than 500 results.</div><br>' +
                 '<div><b><spring:theme code="chevron.delDoc.noresult.suggestion"/></b></div>' +
@@ -194,7 +160,7 @@
                 '</ul>';
             var cbp = {
                 "staticBasePath": "/",
-                "delDocPage": {
+                "miipSite": {
                     "locationDropDown": {
                         "options": [],
                         "label": "Sold To",
@@ -204,29 +170,16 @@
                         "showOptions": 10,
                         "singleOption": true
                     },
-                    "accountDropDown": {
+                    "siteDropDown": {
                         "options": [],
-                        "label": "Account",
+                        "label": "Site",
                         //"title": "Select Location",
                         "title": "",
                         "name": "accountSelectDdn",
                         "showOptions": 10,
                         "singleOption": false
                     },
-                    "downloadStatusDropdown": {
-                        "options": downloadStatusDropdownOptions,
-                        "label": "Download Status",
-                        "title": "",
-                        "name": "downloadStatus",
-                        "showOptions": 3
-                    },
-                    "printStatusDropdown": {
-                        "options": printStatusDropdownOptions,
-                        "label": "Print Status",
-                        "title": "",
-                        "name": "printStatus",
-                        "showOptions": 3
-                    },
+                   
                     "dateRange": {
                         "maxMonth": 18,
                         "format": "DD/MM/YYYY",
@@ -248,7 +201,7 @@
                         "method": "GET",
                     },
                     "globalVars": {
-                        "account": "Account",
+                        "site": "site",
                         "searchTxt": "Search",
                         "allTb": "All",
                         "billOfLading": "Bill of Lading #",
@@ -256,10 +209,8 @@
                         "summaryfromAndTo": "{0} - {1}",
                         "sortBy": "Sort by",
                         "dateRange": "Date Range",
-                        "delDocSummary": "delivery documents summary",
-                        "delDocsDetail": "delDocs detail",
-                        "downloadSelected": "Download Selected",
-                        "printSelected": "Print Selected",
+                        "miipSiteSummary": "MIIP site view summary",
+                       
                         "delDocsFound": "{0} result(s) found",
                         "statustb": "Status",
                         "pickDatetb": "Date",
