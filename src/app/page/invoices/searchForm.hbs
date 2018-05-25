@@ -10,7 +10,7 @@
     <input type="text" class="form-control em-10" id="invoiceNumber" placeholder="">
 </div>
 {{#if isNARegion}}
-<div class="form-group">
+{{!-- <div class="form-group">
     <label for="orderNumber">{{globalVars.altReferenceNumber}}</label>
     <input type="text" class="form-control em-10" id="altReferenceNumber">
 </div>
@@ -18,7 +18,7 @@
 <div class="form-group">
     <label for="poNumber">{{globalVars.originalDocumentNumber}}</label>
     <input type="text" class="form-control em-13" id="originalDocumentNumber">
-</div>
+</div> --}}
 {{else}}
 <div class="form-group">
     <label for="orderNumber">{{globalVars.orderNumber}}</label>
