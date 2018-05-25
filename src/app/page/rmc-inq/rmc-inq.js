@@ -140,6 +140,14 @@ require(["modernizr",
                     break;
                 case 'chargebackInquiry':
                     $(config.formContainer).html(compileChargebackInquiryForm(cbp.rmcInqPage));
+                    $(config.pickDeliveryDateContainer).html(compileCalenderHBS({
+                        label: cbp.rmcInqPage.globalVars.chargebackInquiry.chargebackDateLabel,
+                        iconClass: cbp.rmcInqPage.globalVars.deliveryDate.iconClass,
+                        id: cbp.rmcInqPage.globalVars.deliveryDate.id,
+                        placeholder: "MM/DD/YYYY"
+                            // value: cbp.rmcInqPage.globalVars.deliveryDate.deliveryDateVal
+                    }));
+                    populatingCalendarComponent();
                     break;
                 default:
                     break;
