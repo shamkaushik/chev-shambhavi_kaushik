@@ -1,8 +1,4 @@
-
-
-       
-        
-        require(["modernizr",
+         require(["modernizr",
             "jquery",
             "bootstrap",
             "handlebars",
@@ -10,13 +6,12 @@
             "calendar",
             "bootstrap-select",
             "bootstrap-table",
-            //"chartjs",
             "text!app/components/calendar/_calendar.hbs",
             "text!app/components/dropdown/_defaultDdn.hbs",
             "text!app/page/station-report/searchForm.hbs",
             "text!app/page/station-report/reportSummary.hbs",
             "text!app/page/station-report/bottomDetail.hbs"
-        ], function (modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable,/* Chart,*/ _calendarHBS, _defaultDdnHBS, _searchFormHBS, _reportSummaryHBS, _bottomDetailHBS) {
+        ], function (modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _reportSummaryHBS, _bottomDetailHBS) {
         
             //Compiling HBS templates
             var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
@@ -27,34 +22,6 @@
         
             var stationReport = (function () {
                 var startDate, endDate;
-        
-                // var srtByDdn = {
-                //     "options": [{
-                //         key: "productDescription-asc",
-                //         value: cbp.srPage.globalVars.prdctNameAZ
-                //     }, {
-                //         key: "productDescription-desc",
-                //         value: cbp.srPage.globalVars.prdctNameZA
-                //     }, {
-                //         key: "productCode-asc",
-                //         value: cbp.srPage.globalVars.prdctCodeAsc
-                //     }, {
-                //         key: "productCode-desc",
-                //         value: cbp.srPage.globalVars.prdctCodeDesc
-                //     }, {
-                //         key: "volume-asc",
-                //         value: cbp.srPage.globalVars.purchaseVolumeAsc
-                //     },
-                //     {
-                //         key: "volume-desc",
-                //         value: cbp.srPage.globalVars.purchaseVolumeDesc
-                //     }],
-                //     label: cbp.srPage.globalVars.sortBy,
-                //     labelClass: "xs-mr-5",
-                //     name: "sortByDdn",
-                //     display: "displayInline"
-                // };
-        
                 var config = {
                     locationDdnContainer: ".js-location-ddn",
                     shipToDdnContainer: ".js-shipTo-ddn",
