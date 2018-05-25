@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class='col-md-23 col-lg-19 right-pane'>
-                        <div class='top-summary js-delDoc-summary'>
+                        <div class='top-summary js-miipSite-summary'>
                         </div>
                         <div class='bottom-detail js-bottom-detail'>
                         </div>
@@ -67,71 +67,63 @@
             }
 
             var miipSiteResponse = {
-                "currency": "USD",
                 "miipSiteColumnMapping": {
-                    "delDocId": "test",
-                    "delDocDate": "dfhj",
-                    "total": "yfleuir",
-                    "checkbox": "ejuje",
-                    "account": "test",
-                    "billOfLading": "rfhuf",
-                    "status": "dbshj",
-                    "invoiceId":"tyrui"
+                    "siteName" :"test",
+                    "volumeDiscrepency":"fdgfdg",
+                    "thruput" : "gdfsgfsd",
+                    "rentFlag" : "rentdf",
+                    "brand" : "Chevron",
+                    "businessConsultant" : "dfgsad",
+                    "siteZone" : "dsfsadf",
                 },
 
                 "miipSiteList": [{
-                    "delDocId": "936710253",
-                    "invoiceId": "936710253",
-                    "delDocDate": "02/12/2016",
-                    "delDocTime":"14:32:40",
-                    "total": 8919237.0,
-                    "displayTotal": "8.919.237",
-                    "account": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
-                    "billOfLading": 75123,
-                    "salesOrderType": "ZOOR",
-                    "downloaded": true,
-                    "printed": true,
+                    "siteName" :"201154 Redwood Oil CO 39103 Highway 299",
+                    "volumeDiscrepency":"No",
+                    "thruput" : "R",
+                    "rentFlag" : "No",
+                    "brand" : "Chevron",
+                    "businessConsultant" : "Kevin Maloney",
+                    "siteZone" : "4A",
                 },
                 {
-                    "delDocId": "936670263",
-                    "invoiceId": "936710253",
-                    "delDocDate": "30/11/2015",
-                    "delDocTime":"14:32:40",
-                    "total": 36928702,
-                    "displayTotal": "36.928.702",
-                    "account": "7933464, DISMACOR S.A. BARBOSA, K 10 NRO 20  11, Colombia",
-                    "billOfLading": 75123,
-                    "downloaded": true,
-                    "printed": false,
-                    "salesOrderType": "ZOOR"
+                    "siteName" :"201964 Redwood Oil Co. 4925 Sonama Highway",
+                    "volumeDiscrepency":"Yes",
+                    "thruput" : "R",
+                    "rentFlag" : "No",
+                    "brand" : "Chevron",
+                    "businessConsultant" : "Kevin Maloney",
+                    "siteZone" : "4A",
                 },
                 {
-                    "delDocId": "936659699",
-                    "invoiceId": "936710253",
-                    "delDocDate": "30/10/2015",
-                    "delDocTime":"14:32:40",
-                    "total": 12621100,
-                    "displayTotal": "12.621.100",
-                    "account": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
-                    "billOfLading": 75123,
-                    "downloaded": true,
-                    "printed": false,
-                    "salesOrderType": "ZC"
+                    "siteName" :"202125 Redwood Oil Co. 830 Redwood DR.",
+                    "volumeDiscrepency":"No",
+                    "thruput" : "R",
+                    "rentFlag" : "Yes",
+                    "brand" : "Chevron",
+                    "businessConsultant" : "Kevin Maloney",
+                    "siteZone" : "4A",
                 },
                 {
-                    "delDocId": "936659698",
-                    "invoiceId": "936710253",
-                    "delDocDate": "30/10/2015",
-                    "delDocTime":"14:32:40",
-                    "total": 5655000,
-                    "billOfLading": 75124,
-                    "displayTotal": "5.655.000",
-                    "account": "7901220, DISMACOR S.A., K 16 NRO 20-56, Colombia",
-                    "downloaded": false,
-                    "printed": false,
-                    "salesOrderType": "ZC"
-                }],
-                "resultCount": 4,
+                    "siteName" :"201964 Redwood Oil Co. 4925 Sonama Highway",
+                    "volumeDiscrepency":"Yes",
+                    "thruput" : "R",
+                    "rentFlag" : "Yes",
+                    "brand" : "Chevron",
+                    "businessConsultant" : "Kevin Maloney",
+                    "siteZone" : "4A",
+                },
+                {
+                    "siteName" :"202125 Redwood Oil Co. 830 Redwood DR.",
+                    "volumeDiscrepency":"No",
+                    "thruput" : "R",
+                    "rentFlag" : "No",
+                    "brand" : "brand",
+                    "businessConsultant" : "Kevin Maloney",
+                    "siteZone" : "4A",
+                },
+                ],
+                "resultCount": 3,
                 "multipleSoldTo": false,
                 "sort": null
             };
@@ -149,14 +141,23 @@
                 "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
             }];
 
-    
+            var volumeDiscrepencyDropDown = [
+              {
+                "name": "Yes",
+                "displayName": "Yes"
+              },
+              {
+                "name": "No",
+                "displayName": "No"
+              },
+            ];
+
             var maxResultText = '<div>{0} delDocs matching your search were found in the system.</div>' +
                 '<div>Please refine your search to return less than 500 results.</div><br>' +
                 '<div><b><spring:theme code="chevron.delDoc.noresult.suggestion"/></b></div>' +
                 '<ul>' +
                 '<li>Enter additional search criteria.</li>' +
                 '<li>Select a shorter date range.</li>' +
-                '<li>Select fewer delDoc Types.</li>' +
                 '</ul>';
             var cbp = {
                 "staticBasePath": "/",
@@ -164,7 +165,6 @@
                     "locationDropDown": {
                         "options": [],
                         "label": "Sold To",
-                        // "title": "Select Location",
                         "title": "",
                         "name": "locationSelectDdn",
                         "showOptions": 10,
@@ -173,27 +173,18 @@
                     "siteDropDown": {
                         "options": [],
                         "label": "Site",
-                        //"title": "Select Location",
                         "title": "",
-                        "name": "accountSelectDdn",
+                        "name": "siteSelectDdn",
                         "showOptions": 10,
                         "singleOption": false
                     },
-                   
-                    "dateRange": {
-                        "maxMonth": 18,
-                        "format": "DD/MM/YYYY",
-                        "today": "Today",
-                        "yesterday": "Yesterday",
-                        "last7Days": "Last 7 Days",
-                        "last30Days": "Last 30 Days",
-                        "thisMonth": "This Month",
-                        "lastMonth": "Last Month",
-                        "customRange": "Custom Range",
-                        "cancel": "Cancel",
-                        "apply": "Apply",
-                        "iconClass": "fa fa-calendar pull-right",
-                        "id": "calendar"
+                    "volumeDiscrepencyDropDown": {
+                        "options": [],
+                        "label": "Volume Discrepency",
+                        "title": "",
+                        "name": "volumeSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": false
                     },
                     "globalUrl": {
                         "searchURL": "/assets/json/delDoc.json",
@@ -201,38 +192,25 @@
                         "method": "GET",
                     },
                     "globalVars": {
-                        "site": "site",
                         "searchTxt": "Search",
                         "allTb": "All",
-                        "billOfLading": "Bill of Lading #",
+
                         "fromAndTo": "{0} - {1}",
                         "summaryfromAndTo": "{0} - {1}",
                         "sortBy": "Sort by",
-                        "dateRange": "Date Range",
                         "miipSiteSummary": "MIIP site view summary",
-                       
-                        "delDocsFound": "{0} result(s) found",
+                        "miipResultsFound": "{0} result(s) found",
                         "statustb": "Status",
-                        "pickDatetb": "Date",
-                        "delDoctb": "Delivery Doc. #",
-                        "invoiceId":"Invoice #",
-                        "totaltb": "Total",
-                        "delDocDate":"Delivery Date",
-                        "delDocDateAsc": "Delivery Date, Newest to Oldest",
-                        "delDocDateDesc": "Delivery Date, Oldest to Newest",
-                        "accountSortAsc": "Account, Ascending",
-                        "accountSortDesc": "Account, Descending",
-                        "invoiceIdAsc": "Invoice #, Ascending",
-                        "invoiceIdDesc": "Invoice #, Descending",
-                        "billOfLadingAsc": "Bill of Lading #, Ascending",
-                        "billOfLadingDesc": "Bill of Lading #, Descending",
-                        "delDocAsc": "Delivery Doc. #, Ascending",
-                        "delDocDesc": "Delivery Doc. #, Descending",
-                        "totalAsc": "Total, Ascending",
-                        "totalDesc": "Total, Descending",
+                        "siteZone": "Site Zone",
                         "soldTo": "Sold To",
-                        "account": "Account",
-                        "noMatches": "No delDocs found. Please change your search",
+                        "site": "Site",
+                        "volumeDiscrepency": "Volume Discrepency",
+                        "thruput": "Thruput",
+                        "rentFlag": "Rent Flag",
+                        "brand" : "Brand",
+                        "businessConsultant" : "Business Consultant",
+                        "siteZone" : "Site Zone",
+                        "noMatches": "No miip Results found. Please change your search",
                         "noMatchesMaxResults": maxResultText,
                         "selectDdn": {
                             "noneSelectedText": "Nothing selected",
@@ -251,7 +229,7 @@
                             "recordsPerPage": "{0} rows per page",
                             "showingRows": "Showing {0} to {1} of {2} rows",
                             "search": "Search",
-                            "noMatches": "No delDocs found. Please change your search",
+                            "noMatches": "No miip Results found. Please change your search",
                             "paginationSwitch": "Hide/Show pagination",
                             "refresh": "Refresh",
                             "toggle": "Toggle",
