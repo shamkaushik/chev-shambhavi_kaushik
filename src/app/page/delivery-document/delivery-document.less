@@ -33,10 +33,55 @@
 			}
 		}
 	}
+	.toggleForDelDocSearchForm{
+		.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+			border-right:1px solid #ededed;
+		}
+		.btn:not(:first-child):not(:last-child):not(.dropdown-toggle){
+			border-right:1px solid #ededed;
+		}
+	}
+	.hidden{
+		display: none !important;
+	}
 	.delDocFound{
 		font-style:italic;
 		font-size:12px; 
 		color:#999999;
+	}
+	.toggleForDelDocSearchForm {
+		width: 100%;
+		.btn-default{
+			background: #dbdcdd;
+			color: #383838;
+			&:hover{
+				background: #dbdcdd;
+			}
+		}
+
+		&.btn-group {
+			.btn{
+				padding: 6px 14px;
+				width: 50%;
+			}
+		}
+	}
+	#delDocSearchToggle{
+		label{
+			display: none;
+		}
+	}
+	#calendar{
+		width: auto !important;
+	}
+	.js-search-pickDateRange{
+		label{
+			display: none;
+		}
+		margin-bottom: 0px; 
+		&.form-group{
+			margin-bottom: 0px;
+		}
 	}
 	.js-accountDdn{
 		.btn-group.bootstrap-select.displayInline{
