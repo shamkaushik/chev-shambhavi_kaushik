@@ -9,9 +9,9 @@ require(["modernizr",
     "toggleSwitch",
     "text!app/components/calendar/_calendar.hbs",
     "text!app/components/dropdown/_defaultDdn.hbs",
-    "text!app/page/eftsearch/searchForm.hbs",
-    "text!app/page/eftsearch/eftSearchSummary.hbs",
-    "text!app/page/eftsearch/bottomDetail.hbs"
+    "text!app/page/eft-search/searchForm.hbs",
+    "text!app/page/eft-search/eftSearchSummary.hbs",
+    "text!app/page/eft-search/bottomDetail.hbs"
 
 ], function (modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _eftSearchSummaryHBS, _bottomDetailHBS) {
 
@@ -345,14 +345,17 @@ require(["modernizr",
             /* end DSLEC-8*/
             postData.downloadStatus = $(config.downloadStatusDdn).val();
             postData.printStatus = $(config.printStatusDdn).val();
-            postData.startDate = startDate ? startDate : cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
-            postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
 
             if($.trim($(config.searchInputEft).val()).length!=0){
                 $("#eftSearchToggle input[type='hidden']").val() == 2 ? 
                     postData['noticeNumber'] = $(config.searchInputEft).val() 
-                    : postData['invoiceNumber'] = $(config.searchInputEft).val();   
+                : postData['invoiceNumber'] = $(config.searchInputEft).val();   
+            }else{
+                postData.startDate = startDate ? startDate : cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
+                postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
             }
+
+            postData.soldTo = $(config.soldToDropdown).val();
 
             /* end DSLEC-120*/
             
@@ -552,13 +555,11 @@ require(["modernizr",
 
         var populatePayer = function(soldto){
             accountDropdownOptions = [];
-            var postData={};
-            postData.soldTo = soldto;
             
             function successCallback(data) {
                 $(config.displaySpinner).hide();
                 leftPaneExpandCollapse.resetSearchFormHeight();
-                populateDropDowns(data.soldToDropdown,accountDropdownOptions,"accountDropdown");
+                populateDropDowns(data.accountDropdown,accountDropdownOptions,"accountDropdown");
                 $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.eftSearchPage.accountDropdown));
                 //Refresh dropdown at initial dispaly after loading templates
                 $(config.dropDownCommon).selectpicker('refresh');
@@ -576,10 +577,11 @@ require(["modernizr",
             $.ajax({
                 type: cbp.eftSearchPage.globalUrl.method,
                 headers: {'CSRFToken':CSRFToken},
-                data: JSON.stringify(postData),
-                contentType:"application/json",
+               	data: {
+                    'soldToNumber' : soldto
+                },
                 dataType:"json",
-                url: cbp.eftSearchPage.globalUrl.eftSearchPostURL,
+                url: cbp.eftSearchPage.globalUrl.eftFetchPayerURL,
                 success: successCallback,
                 error: errorCallback
             });
@@ -725,7 +727,7 @@ require(["modernizr",
            $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'total',
+                sortName: 'eftNoticeNumber',
                 sortOrder: 'desc',
                 iconsPrefix: 'fa',
                 sortable: true,
