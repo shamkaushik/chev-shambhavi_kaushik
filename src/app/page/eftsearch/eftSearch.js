@@ -345,14 +345,17 @@ require(["modernizr",
             /* end DSLEC-8*/
             postData.downloadStatus = $(config.downloadStatusDdn).val();
             postData.printStatus = $(config.printStatusDdn).val();
-            postData.startDate = startDate ? startDate : cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
-            postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
 
             if($.trim($(config.searchInputEft).val()).length!=0){
                 $("#eftSearchToggle input[type='hidden']").val() == 2 ? 
                     postData['noticeNumber'] = $(config.searchInputEft).val() 
-                    : postData['invoiceNumber'] = $(config.searchInputEft).val();   
+                : postData['invoiceNumber'] = $(config.searchInputEft).val();   
+            }else{
+                postData.startDate = startDate ? startDate : cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
+                postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
             }
+
+            postData.soldTo = $(config.soldToDropdown).val();
 
             /* end DSLEC-120*/
             
@@ -552,8 +555,6 @@ require(["modernizr",
 
         var populatePayer = function(soldto){
             accountDropdownOptions = [];
-            var postData={};
-            postData.soldTo = soldto;
             
             function successCallback(data) {
                 $(config.displaySpinner).hide();
@@ -576,8 +577,9 @@ require(["modernizr",
             $.ajax({
                 type: cbp.eftSearchPage.globalUrl.method,
                 headers: {'CSRFToken':CSRFToken},
-                data: JSON.stringify(postData),
-                contentType:"application/json",
+               	data: {
+                    'soldToNumber' : soldto
+                },
                 dataType:"json",
                 url: cbp.eftSearchPage.globalUrl.eftFetchPayerURL,
                 success: successCallback,
