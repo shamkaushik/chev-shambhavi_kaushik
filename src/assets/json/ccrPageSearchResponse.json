@@ -1,0 +1,43 @@
+ {
+    "totalVolume": "3,189,002.55",
+    
+    "soldShipToNormal": "All",
+    "site":"All",
+    "programYear":"2018",
+    "marketerRankingsDataList": [
+        {
+            "marketer":"234812 - Redwood Oil Co Inc.",
+            "averageSubmittals":"0.5",
+            "nationwideRankings":"10"
+        },
+        {
+            "marketer":"241132 - BURKETT OIL CO INC",
+            "averageSubmittals":"0.09",
+            "nationwideRankings":"16"
+        },
+        {
+            "marketer":"287612 - BUFFALO SERVICES INC",
+            "averageSubmittals":"0.13",
+            "nationwideRankings":"29"
+        }
+    ],
+        "retailerRankingsDataList": [
+        {
+            "retailer":"234812 - Redwood Oil Co Inc.",
+            "totalApprovals":"2",
+            "nationwideRankings":"10"
+        },
+        {
+            "retailer":"241132 - BURKETT OIL CO INC",
+            "totalApprovals":"5",
+            "nationwideRankings":"16"
+        },
+        {
+            "retailer":"287612 - BUFFALO SERVICES INC",
+            "totalApprovals":"1",
+            "nationwideRankings":"29"
+        }
+    ],
+    "resultCount": 3,
+    "multipleSoldTo": true
+}

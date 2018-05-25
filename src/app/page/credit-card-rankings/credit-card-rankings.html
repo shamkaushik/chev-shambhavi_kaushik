@@ -1,6 +1,5 @@
 <!Doctype html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +15,7 @@
           </header>
       </main>
       <section class='main-container'>
-        <div class="content-box page-stationreport">
+        <div class="content-box page-creditcardrankings">
             <div class="row">
                 <div class="col-sm-12">
                     <h2 class='page-title'>credit card submittals national rankings</h2>
@@ -47,21 +46,18 @@
                 <div class='col-md-23 col-lg-19 right-pane'>
                     <div class='top-summary js-volume-summary' style="min-height:50px;">
                     </div>
-                    <!-- <div class='bottom-detail js-bottom-detail'>
-                    </div> -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">marketer rankings</a>
+                        <li class="nav-item active">
+                          <a class="nav-link " id="marketerranking-tab" data-toggle="tab" href="#marketerranking" role="tab" aria-controls="home" aria-selected="true">marketer rankings</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">retailer rankings</a>
+                          <a class="nav-link" id="retailerranking-tab" data-toggle="tab" href="#retailerranking" role="tab" aria-controls="profile" aria-selected="false">retailer rankings</a>
                         </li>
                        
                       </ul>
                       <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane show active bottom-detail js-bottom-detail" id="home" role="tabpanel" aria-labelledby="home-tab"></div>
-                        <div class="tab-pane fade show retailer-rankings js-retailer-rankings" id="profile" role="tabpanel" aria-labelledby="profile-tab"></div>
-
+                        <div class="tab-pane show active bottom-detail js-bottom-detail" id="marketerranking" role="tabpanel" aria-labelledby="marketerranking-tab"></div>
+                        <div class="tab-pane fade show retailer-rankings js-retailer-rankings" id="retailerranking" role="tabpanel" aria-labelledby="retailerranking-tab"></div>
                       </div>
                     </div>
             </div>
@@ -69,11 +65,7 @@
     </section>
         
         <script type="text/javascript">
-         var srSearchResponse = {
-                "totalVolume": "3,189,002.55",
-                
-                "soldShipToNormal": "All",
-                "site":"All",
+         var ccrSearchReponse = {
                 "programYear":"2018",
                 "marketerRankingsDataList": [
                     {
@@ -95,55 +87,22 @@
                     "retailerRankingsDataList": [
                     {
                         "retailer":"234812 - Redwood Oil Co Inc.",
-                        "averageSubmittals":"0.5",
+                        "totalApprovals":"2",
                         "nationwideRankings":"10"
                     },
                     {
                         "retailer":"241132 - BURKETT OIL CO INC",
-                        "averageSubmittals":"0.09",
+                        "totalApprovals":"5",
                         "nationwideRankings":"16"
                     },
                     {
                         "retailer":"287612 - BUFFALO SERVICES INC",
-                        "averageSubmittals":"0.13",
+                        "totalApprovals":"1",
                         "nationwideRankings":"29"
                     }
                 ],
-                "resultCount": 3,
-                "multipleSoldTo": true
-            }
-            var locationDropDown = [{
-                "uid": "7933464",
-                "displayName": "7933464,DISMACOR S.A. BARBOSA, K 10 NRO 20  11, BARBOSA, Colombia"
-            },{
-                "uid": "3436466",
-                "displayName": "3436466,DISMACOR S.A. BARRANQUILLA, CL 45 NRO 33 - 40, BARRANQUILLA, Colombia"
-            }, {
-                "uid": "8213629",
-                "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
-            }, {
-                "uid": "9313629",
-                "displayName": "9313629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
-            }, {
-                "uid": "1217829",
-                "displayName": "1217829,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
-            }];
-            var shipToDropDown = [{
-                "uid": "793346var shipToDropDown4",
-                "displayName": "7933464,DISMACOR S.A. BARBOSA, K 10 NRO 20  11, BARBOSA, Colombia"
-            }, {
-                "uid": "3436466",
-                "displayName": "3436466,DISMACOR S.A. BARRANQUILLA, CL 45 NRO 33 - 40, BARRANQUILLA, Colombia"
-            }, {
-                "uid": "8213629",
-                "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
-            }, {
-                "uid": "9313629",
-                "displayName": "9313629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
-            }, {
-                "uid": "1217829",
-                "displayName": "1217829,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
-            }];
+               }
+           
             var programYearDropDown=[
             {
                 "uid":"2018",
@@ -157,23 +116,7 @@
 
             var cbp = {
                 "staticBasePath": "/",
-                "srPage": {
-                    "locationDropDown": {
-                        "options": [],
-                        "label": "Sold To",
-                        //"title": "Select Location",
-                        "name": "locationSelectDdn",
-                        "showOptions": 10,
-                        "singleOption": true
-                    },
-                    "shipToDropDown": {
-                        "options": [],
-                        "label": "Site",
-                        // "title": "All",
-                        "name": "shipToSelectDdn",
-                        "showOptions": 10,
-                        "singleOption": false
-                    },
+                "ccrPage": {
                    "programYearDropDown":{
                         "options": [],
                         "label": "Program Year",
@@ -183,46 +126,20 @@
                         "singleOption": false
                    },
                     "globalUrl": {
-                        "pvPostURL": "/assets/json/srPageSearchResponse.json",
-                        "shipToURL": "/assets/json/srPageSearchResponse.json",
+                        "pvPostURL": "/assets/json/ccrPageSearchResponse.json",
                         "method" : "GET"
                     },
                     "globalVars": {
                         "reportText":"This is an unofficial national report which ranks Marketers and retailers by the number of credit card submittals across all of their Accounts and Facilities.",
-                        "allTb":"All",
                         "currentYear":"2018",
-                        "searchTxt": "search",
-                        "allLocation" : "All Locations",
-                        "prdctName": "Product name",
+                        "searchTxt": "Search",
                         "reportSummary": "station report card",
-                        "ttlPurchaseVolume": "Total Purchased Volume",
-                        "programYear":"Program Year",
-                        "site": "Site",
-                        "soldTo": "Sold To",
-                        "fromAndTo": "{0} to {1}",
-                        "gal": "gal",
-                        "sortBy": "Sort by",
-                        "prdctNameAZ": "Product Name, A-Z",
-                        "prdctNameZA": "Product Name Z-A",
-                        "prdctCodeAsc": "Product Code Ascending",
-                        "prdctCodeDesc": "Product Code Descending",
-                        "purchaseVolume": "Purchased Volume",
-                        "dateRange": "Date Range",
                         "volDetail": "volume detail",
-                        "printReport": "Print",
-                        "downloadReport":"Download",
-                        "productsFound": "{0} Products found",
                         "marketer": "Marketer",
                         "retailer":"Retailer",
                         "averageSubmittals":"Average Submittals",
+                        "totalApprovals":"Total Approvals",
                         "nationwideRankings":"Nationwide Rankings",
-                        "quarterThree":"Q3",
-                        "quarterFour":"Q4",
-                        "yod":"Year of Date",
-                        "currency":"USD",
-                        "product": "Product",
-                        "package": "Package",
-                        "volume": "Volume (Gal)",
                         "selectDdn": {
                             "noneSelectedText": "Nothing selected",
                             "noneResultsText": "No results for {0}",
