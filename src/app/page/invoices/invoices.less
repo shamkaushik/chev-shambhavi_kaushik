@@ -1,10 +1,5 @@
-.delDoc-page {
+.invoices-page {
 	.fixed-table-container{
-		.bs-checkbox{
-			.th-inner{
-				padding: 0 0 !important;
-			}
-		}
 		tbody{
 			.selected td{
 			background-color: transparent;
@@ -21,6 +16,13 @@
 			}
 		}
 		thead{
+			th{
+				&.bs-checkbox{
+					.th-inner{
+						padding-top: 18px;
+					}
+				}
+			}
 			tr{
 				background-color: @brand-primary;
 				th.bs-checkbox.fa{
@@ -33,67 +35,9 @@
 			}
 		}
 	}
-	.toggleForDelDocSearchForm{
-		.btn:first-child:not(:last-child):not(.dropdown-toggle) {
-			border-right:1px solid #ededed;
-		}
-		.btn:not(:first-child):not(:last-child):not(.dropdown-toggle){
-			border-right:1px solid #ededed;
-		}
-	}
-	.hidden{
-		display: none !important;
-	}
-	.delDocFound{
-		font-style:italic;
-		font-size:12px; 
-		color:#999999;
-	}
-	.toggleForDelDocSearchForm {
-		width: 100%;
-		.btn-default{
-			background: #dbdcdd;
-			color: #383838;
-			&:hover{
-				background: #dbdcdd;
-			}
-		}
-
-		&.btn-group {
-			.btn{
-				padding: 6px 14px;
-				width: 50%;
-			}
-		}
-	}
-	#delDocSearchToggle{
-		label{
-			display: none;
-		}
-	}
-	#calendar{
-		width: auto !important;
-	}
-	.js-search-pickDateRange{
-		label{
-			display: none;
-		}
-		margin-bottom: 0px; 
-		&.form-group{
-			margin-bottom: 0px;
-		}
-	}
-	.js-accountDdn{
+	.js-shipToDdn{
 		.btn-group.bootstrap-select.displayInline{
 			width:100%!important;
-		}
-	}
-	@media (max-width: @screen-xs) {
-		.js-sortbyDdn.form-group {
-			float: right !important;
-			.bootstrap-select {
-				width: auto !important;
-			}
 		}
 	}
 	.sub-heading-thin {
@@ -114,7 +58,7 @@
 		}
 	}
 	.bottom-detail {
-			.delDocFound{
+			.invoiceFound{
 				padding-top: 6px;
 				text-align: right;
 			}
@@ -133,7 +77,7 @@
 					 white-space: nowrap;
 				}
 				td{
-					.iconsPrintDownload, .iconsdelDocPrint{
+					.iconsPrintDownload, .iconsInvoicePrint{
 						cursor: pointer;
 						font-size: 14px;
 						color: @brand-primary-blue;
@@ -142,7 +86,7 @@
 						color:@brand-primary;
 					}
 					.success-icon{
-						color: @brand-success;
+						color:@brand-success;
 					}
 				}
 		}
@@ -188,7 +132,7 @@
 	}
 }
 @media (max-width: @screen-xs){
-	.delDocs-page{
+	.invoices-page{
 		.card-view .title{
 			word-wrap: break-word;
 			width: 30% !important;
@@ -198,9 +142,9 @@
 }
 
 @media (max-width: @screen-sm-max) {
-	.delDocs-page {
+	.invoices-page {
 		.bottom-detail {
-			.delDocFound{
+			.invoiceFound{
 	      text-align: left;
 			}
 			.tableContainer {
@@ -208,4 +152,11 @@
 			}
 		}
 	}
+}
+
+.one{
+	order:2;
+}
+.two{
+	order:1;
 }

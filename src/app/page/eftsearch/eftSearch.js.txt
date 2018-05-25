@@ -9,9 +9,9 @@ require(["modernizr",
     "toggleSwitch",
     "text!app/components/calendar/_calendar.hbs",
     "text!app/components/dropdown/_defaultDdn.hbs",
-    "text!app/page/eftsearch/searchForm.hbs",
-    "text!app/page/eftsearch/eftSearchSummary.hbs",
-    "text!app/page/eftsearch/bottomDetail.hbs"
+    "text!app/page/eft-search/searchForm.hbs",
+    "text!app/page/eft-search/eftSearchSummary.hbs",
+    "text!app/page/eft-search/bottomDetail.hbs"
 
 ], function (modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _eftSearchSummaryHBS, _bottomDetailHBS) {
 
