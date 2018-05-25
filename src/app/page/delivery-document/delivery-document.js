@@ -6,13 +6,14 @@ require(["modernizr",
     "calendar",
     "bootstrap-select",
     "bootstrap-table",
+    "toggleSwitch",
     "text!app/components/calendar/_calendar.hbs",
     "text!app/components/dropdown/_defaultDdn.hbs",
     "text!app/page/delivery-document/searchForm.hbs",
     "text!app/page/delivery-document/delDocSummary.hbs",
     "text!app/page/delivery-document/bottomDetail.hbs"
 
-], function (modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _delDocSummaryHBS, _bottomDetailHBS) {
+], function (modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable, toggleSwitch, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _delDocSummaryHBS, _bottomDetailHBS) {
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
@@ -54,7 +55,9 @@ require(["modernizr",
             squareUnchecked: "fa-square-o",
             squareChecked: "fa-check-square-o",
             downloadIcon: ".iconsPrintDownload",
-            printIcon: ".iconsdelDocPrint"
+            printIcon: ".iconsdelDocPrint",
+            delDocSearchToggle: "#delDocSearchToggle",
+            delDocSearchInput:".js-DelDocPage-search"
         };
 
         var locationDropDownOptions = [];
@@ -65,12 +68,14 @@ require(["modernizr",
         var init = function () {
             populatingSoldTo();
         	populatingAccount(locationDropDownOptions[0].key, "all", true);
-            loadingInitialHbsTemplates();
-            
-            populatingTable(cbp.delDocPage.delDocResponse, cbp.delDocPage.delDocResponse.delDocColumnMapping );
-            
+            loadingInitialHbsTemplates();            
+            //populatingTable(cbp.delDocPage.delDocResponse, cbp.delDocPage.delDocResponse.delDocColumnMapping );
             bindEvents();
             enableMobileDefaultDropDown();
+            $(config.delDocSearchToggle).toggleSwitch(toggleSwitchConfig);
+            $(config.pickDateRangeContainer).removeClass('hidden');
+            $(config.delDocSearchInput).addClass('hidden');
+            $("#delDocSearchToggle input[type='hidden']").val("dateRange");
         };
 
        
@@ -122,6 +127,21 @@ require(["modernizr",
             $("#delDocPDFListForm").removeAttr('target');
         };
 
+        var toggleSwitchConfig = {
+            name: "switch",
+            cssClass: "toggleForDelDocSearchForm",
+            label: "",
+            //LabelBlock: true,
+            options: [{
+                label: cbp.delDocPage.globalVars.dateRange,
+                value: "dateRange",
+                default: true
+            },{
+                label: cbp.delDocPage.globalVars.billOfLading,
+                value: "billOfLading"
+            }]
+        };
+
 
         var loadingInitialHbsTemplates = function () {
             //Appending handlebar templates to HTML
@@ -132,7 +152,7 @@ require(["modernizr",
             $(config.delDocsTypeContainer).html(compiledDefaultDdn(cbp.delDocPage.delDocTypeDropdown));
             $(config.printStatusContainer).html(compiledDefaultDdn(cbp.delDocPage.printStatusDropdown));
             $(config.pickDateRangeContainer).html(compiledsearchDate({
-                label: cbp.delDocPage.globalVars.dateRange,
+                label: "",
                 iconClass: cbp.delDocPage.dateRange.iconClass,
                 id: cbp.delDocPage.dateRange.id
             }));
@@ -212,22 +232,27 @@ require(["modernizr",
 
             leftPaneExpandCollapse.hideSearchBar();
             
+            var hiddenInputForToggleSwitch = $("#delDocSearchToggle input[type='hidden']");
+
             var postData = {};
             
-            postData.account= $(config.accountDdn).val();
-            postData.soldTo = $(config.locationDdn).val();            
+            postData.shipTo= $(config.accountDdn).val();
+            postData.soldTo = $(config.locationDdn).val(); 
             
-            if($(config.billOfLading).val()!= "")
-            {
-                postData.billOfLading = $(config.billOfLading).val().trim();
-                postData.billOfLading = parseInt(postData.billOfLading,10);
-                $(config.billOfLading).val(postData.billOfLading);
+            if(hiddenInputForToggleSwitch.val() === "dateRange"){
+                postData.fromDate = startDate;
+                postData.toDate = endDate;    
             }
-        
+            else{
+                postData.billOfLading = $(config.delDocSearchInput).val();
+                postData.fromDate = "all";
+                postData.toDate = "all";
+            }          
+
             postData.downloadStatus = $(config.downloadStatusDdn).val();
-            postData.printed = $(config.printStatusDdn).val();
-            postData.fromDate = startDate;
-            postData.toDate = endDate;    
+            postData.printStatus = $(config.printStatusDdn).val();
+            
+            console.log("postdata", postData);
 
             function successCallback(data) {
                 $(config.displaySpinner).hide();
@@ -419,6 +444,7 @@ require(["modernizr",
                     $(config.delDocSummaryContainer).html(compiledDelDocSummary(cbp.delDocPage));
                 }
                 enableMobileDefaultDropDown();
+                triggerAjaxRequest();
             }
 
             function errorCallback() {
@@ -500,19 +526,6 @@ require(["modernizr",
                 triggerAjaxRequest();
             });
 
-            $(function () {
-                $('#billOfLading').bind('paste input', removeAlphaChars);
-            })
-            
-            function removeAlphaChars(e) {
-                var self = $(this);
-                setTimeout(function () {
-                    var initVal = self.val(),
-                    outputVal = initVal.replace(/\W/g, '');
-                    if (initVal != outputVal) self.val(outputVal);
-                });
-            }
-
             var valueOnSubmit = '.js-search-form input' + "," + config.printStatusContainer + "," +
                 config.locationDdnContainer + "," +
                 config.downloadStatusContainer + "," + config.pickDateRangeContainer + "";
@@ -536,6 +549,17 @@ require(["modernizr",
                 }
                 e.preventDefault();
                 return false;
+            });
+
+            $(document).on('click',config.delDocSearchToggle+' button',function(){
+                $(config.delDocSearchInput).val('');
+                if($(this).val()==="billOfLading"){
+                    $(config.pickDateRangeContainer).addClass('hidden');
+                    $(config.delDocSearchInput).removeClass('hidden').attr('placeholder', cbp.delDocPage.globalVars.billOfLading);
+                }else{
+                    $(config.pickDateRangeContainer).removeClass('hidden');
+                    $(config.delDocSearchInput).addClass('hidden');
+                }
             });
            
         };
@@ -648,8 +672,7 @@ require(["modernizr",
                                     total = row.displayTotal;
                                 } else {
                                     total = "<span class='text-danger'>" + row.displayTotal + "</span>";
-                                }
-            
+                                }            
                                 return total;
                             }
                         }
