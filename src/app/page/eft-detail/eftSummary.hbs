@@ -6,19 +6,19 @@
             </div>
         </div>
         <div class="row xs-mt-10">
-            <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
+            <div class="col-md-6 col-xs-24 md-pb-0 xs-pb-10 md-mr-10">
                 <span>
                     <strong>{{globalVars.detailSoldtoLabel}}</strong>
                 </span>
                 <br/>
                 <span id="eftDetailSoldTo">{{eftDetailResponse.eftSummaryData.soldTo}}</span>
             </div>
-            <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
+            <div class="col-md-6 col-xs-24 md-pb-0 xs-pb-10 md-mr-10">
                 <span>
-                    <strong>{{globalVars.eftNumberDetail}}</strong>
+                    <strong>{{globalVars.accountCaptionForSummary}}</strong>
                 </span>
                 <br/>
-                <span id="eftSearchNoticeNumber">{{eftDetailResponse.eftDetailsData.eftNoticeNumber}}</span>
+                <span id="eftSearchAccountNumber">{{eftDetailResponse.eftSummaryData.accountName}}</span>
             </div>
             <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
                 <span>
@@ -27,18 +27,27 @@
                 <br/>
                 <span id="eftSearchNoticeDate">{{eftDetailResponse.eftDetailsData.noticeDate}}</span>
             </div>
-            <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
-                <span>
-                    <strong>{{globalVars.settlementDatetb}}</strong>
-                </span>
-                <br/>
-                <span id="eftSearchSettlementDate">{{eftDetailResponse.eftDetailsData.settlementDate}}</span>
+            <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10 md-mr-10">
+                <div class="row">
+                    <div class="col-md-24 col-xs-12">
+                        <span>
+                            <strong>{{globalVars.settlementDatetb}}</strong>
+                        </span>
+                        <br/>
+                        <span id="eftSearchSettlementDate">{{eftDetailResponse.eftDetailsData.settlementDate}}</span>
+                    </div>
+                    <div class="col-md-24 col-xs-12 text-right hidden-md hidden-lg">
+                        <span>
+                            <strong>{{globalVars.noticeTotal}}({{eftDetailResponse.eftDetailsData.currency}}):</strong>
+                        </span>
+                        <span id="eftSearchNoticeTotal">{{eftDetailResponse.eftSummaryData.noticeTotal}}</span>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
+            <div class="col-md-5 col-xs-24 md-pb-0 xs-pb-10 text-right hidden-sm hidden-xs">
                 <span>
-                    <strong>{{globalVars.totalTbSD}}({{eftDetailResponse.eftDetailsData.currency}})</strong>
+                    <strong>{{globalVars.noticeTotal}}({{eftDetailResponse.eftDetailsData.currency}}):</strong>
                 </span>
-                <br/>
                 <span id="eftSearchNoticeTotal">{{eftDetailResponse.eftSummaryData.noticeTotal}}</span>
             </div>
         </div>

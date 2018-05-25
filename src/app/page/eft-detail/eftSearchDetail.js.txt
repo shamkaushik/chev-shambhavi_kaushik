@@ -160,10 +160,10 @@ require(["modernizr",
                 $(config.printStatusDdn).val('notPrinted').selectpicker('refresh');
             }
 
+            populatingTable(cbp.eftDetailPage.eftDetailResponse.eftDetailDataList);
             populatingCalendarComponent();
             bindEvents();
             setHeightForCCTurnIns();
-            populatingTable(cbp.eftDetailPage.eftDetailResponse.eftDetailDataList);
         };
 
         var setHeightForCCTurnIns = function(){
@@ -424,12 +424,12 @@ require(["modernizr",
             if (eftDetailDataList === null || eftDetailDataList === undefined) {
                 eftDetailDataList = [];
            }
-            $(config.sortByDdn).val("referenceDate-desc").selectpicker('refresh');
+            $(config.sortByDdn).val("eftNoticeNumber-desc").selectpicker('refresh');
 
             $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'referenceDate',
+                sortName: 'invoiceNumber',
                 sortOrder: 'desc',
                 iconsPrefix: 'fa',
                 sortable: true,
@@ -549,7 +549,13 @@ require(["modernizr",
                         return 0;
                     },
                     formatter: function LinkFormatter(value, row, index) {
-						return row.displayTotal;
+                        var total;
+                        if (value >= '0') {
+                            total = row.displayTotal;
+                        } else {
+                            total = "<span class='text-danger'>" + row.displayTotal + "</span>";
+                        }
+                        return total;
                     }
                 }],
                 data: eftDetailDataList

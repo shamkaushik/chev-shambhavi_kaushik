@@ -3,12 +3,9 @@
         <span class="sub-heading">{{globalVars.invoicesDetail}}</span>
     </div>
 </div> -->
-<div class="row xs-mt-5 xs-ml-5 hidden-print">
+<div class="row xs-mt-5 hidden-print">
       <div class="col-md-7 xs-mt-15 sm-mt-0 hidden-sm hidden-xs">
-        <a class="btn btn-info xs-mr-10 js-downloadBtn xs-mb-10 hidden-xs" data-name="eft_batch_download" href="javascript:void(0);">
-        	<i class="fa fa-download xs-pr-5" aria-hidden="true"></i> {{globalVars.downloadSelected}}
-        </a>
-        <a class="btn btn-info xs-mr-10 js-printBtn xs-mb-10 hidden-xs" href="javascript:void(0);">
+        <a class="btn btn-info xs-mr-10 js-printBtn xs-mb-10 xs-pr-15 xs-pl-15 hidden-xs" href="javascript:void(0);">
         	<i class="fa fa-print xs-pr-5" aria-hidden="true"></i> {{globalVars.printSelected}}
         </a>
       </div>
@@ -25,7 +22,7 @@
     <div class="col-xs-24">
         <table id="table"></table>
     </div>
-    <div class="col-xs-24 xs-mt-20">
-      <button class="btn button-default backToEFTSearch">Back</button>
+    <div class="col-xs-24 xs-mt-20 eft-return-view">
+      <a href="#">Return to EFT View</a>
     </div>
 </div>

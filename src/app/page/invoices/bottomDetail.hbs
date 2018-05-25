@@ -1,0 +1,35 @@
+<div class="row xs-ml-10 sm-mb-10">
+    <div class="col-xs-24 xs-pl-0">
+        <span class="sub-heading-thin">{{globalVars.invoicesDetail}}</span>
+    </div>
+</div>
+<div class="row xs-mt-5 xs-pl-4 xs-ml-1 hidden-print">
+      <div class="col-md-16 hidden-xs" style="margin-top:-4px;">
+        <a class="btn btn-info xs-mr-10 js-downloadBtn disabled xs-mb-10" data-name="invoices_batch_download" href="javascript:void(0);">
+        <i class="fa fa-download xs-pr-5" aria-hidden="true"></i> {{globalVars.downloadSelected}}</a>
+        <a class="btn btn-info xs-mr-10 js-printBtn disabled xs-mb-10" href="javascript:void(0);">
+        <i class="fa fa-print xs-pr-5" aria-hidden="true"></i> {{globalVars.printSelected}}</a>
+       
+            <span class="xs-ml-0 invoiceFound">{{globalVars.invoicesFoundVar}}</span>
+        
+        {{!-- {{#if_eq showHideInvoiceBtn 'false'}}
+        <a class="btn btn-info js-payInvBtn disabled xs-mb-10" data-name="Pay-Selected_button" href="javascript:void(0);" onclick="payInvoice()">
+        <i class="fa fa-credit-card xs-pr-5" aria-hidden="true"></i> {{globalVars.payInvoice}}</a>
+        {{/if_eq}} --}}
+
+      </div>
+      <div class="col-md-8 col-xs-24">
+        <div class="row">
+          
+          <div class="col-xs-24">
+            <div class="js-sortbyDdn form-group pull-right">
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+<div class="row tableContainer">
+    <div class="col-xs-24">
+        <table id="table"></table>
+    </div>
+</div>
