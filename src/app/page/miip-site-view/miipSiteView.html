@@ -143,11 +143,11 @@
 
             var volumeDiscrepencyDropDown = [
               {
-                "name": "Yes",
+                "key": "Yes",
                 "displayName": "Yes"
               },
               {
-                "name": "No",
+                "key": "No",
                 "displayName": "No"
               },
             ];
@@ -187,20 +187,33 @@
                         "singleOption": false
                     },
                     "globalUrl": {
-                        "searchURL": "/assets/json/delDoc.json",
-                        "accountURL": "/assets/json/accountResponse.json",
+                        "searchURL": "/assets/json/miipSiteResults.json",
+                        "siteURL": "/assets/json/siteDdnResponse.json",
                         "method": "GET",
                     },
                     "globalVars": {
                         "searchTxt": "Search",
                         "allTb": "All",
-
                         "fromAndTo": "{0} - {1}",
                         "summaryfromAndTo": "{0} - {1}",
                         "sortBy": "Sort by",
                         "miipSiteSummary": "MIIP site view summary",
                         "miipResultsFound": "{0} result(s) found",
                         "statustb": "Status",
+                        "siteSortAsc": "Site, Newest to Oldest",
+                        "siteSortDesc": "Site, Oldest to Newest",
+                        "volumeDesAsc": "Volume descrepency, Ascending",
+                        "volumeDesDesc": "Volume descrepency, Descending",
+                        "thruputAsc": "Thruput , Ascending",
+                        "thruputDesc": "Thruput , Descending",
+                        "rentFlagAsc": "Rent Flag , Ascending",
+                        "rentFlagDesc": "Rent Flag #, Descending",
+                        "brandAsc": "Brand, Ascending",
+                        "brandDesc": "Total, Descending",
+                        "businessConsultantAsc": "businessConsultant, Ascending",
+                        "businessConsultantDesc": "businessConsultant, Descending",
+                        "siteZoneAsc": "Site Zone, Ascending",
+                        "siteZoneDesc": "site Zone, Descending",
                         "siteZone": "Site Zone",
                         "soldTo": "Sold To",
                         "site": "Site",

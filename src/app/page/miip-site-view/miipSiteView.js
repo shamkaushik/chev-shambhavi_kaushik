@@ -15,14 +15,14 @@ require(["modernizr",
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
-    var compiledsearchForm = Handlebars.compile(_searchFormHBS);
+    var compiledSearchForm = Handlebars.compile(_searchFormHBS);
     var compiledMiipSummary = Handlebars.compile(_miipSummaryHBS);
     var compiledBottomDetail = Handlebars.compile(_bottomDetailHBS);
 
     var miipSite = (function () {
 
         var config = {
-            locationDdnContainer: ".js-location-ddn",
+            soldToDdnContainer: ".js-soldTo-ddn",
             siteDdnContainer: ".js-site-ddn",
             volumeDiscrepencyDdnContainer: ".js-volume-descrepency-ddn",
             miipSiteSummaryContainer: ".js-miipSite-summary",
@@ -32,7 +32,7 @@ require(["modernizr",
             searchButton: "#miipSiteSearch",
             tabelRow: "#table tbody tr",
             locationDdn: "#locationSelectDdn",
-            accountDdn: "#siteSelectDdn",
+            siteDdn: "#siteSelectDdn",
             sortByDdn: "#sortByDdn",
             displaySpinner: ".overlay-wrapper",
         };
@@ -41,8 +41,8 @@ require(["modernizr",
         var volumeDiscrepencyDropDownOptions = [];
 
         var init = function () {
-          populatingSoldTo();
-      	  populatingSite(locationDropDownOptions[0].key, "all", true);
+          populatingSoldTo(true);
+          populatingSite(locationDropDownOptions[0].key, "all", true);
           populatingVolumeDiscrepency();
           loadingInitialHbsTemplates();
           populatingTable(cbp.miipSite.miipSiteResponse, cbp.miipSite.miipSiteResponse.miipSiteColumnMapping );
@@ -59,10 +59,11 @@ require(["modernizr",
 
         var loadingInitialHbsTemplates = function () {
             //Appending handlebar templates to HTML
-            $(config.searchFormContainer).html(compiledsearchForm(cbp.miipSite));
-            $(config.locationDdnContainer).html(compiledDefaultDdn(cbp.miipSite.locationDropDown));
+            $(config.searchFormContainer).html(compiledSearchForm(cbp.miipSite));
+            $(config.soldToDdnContainer).html(compiledDefaultDdn(cbp.miipSite.locationDropDown));
             $(config.siteDdnContainer).html(compiledDefaultDdn(cbp.miipSite.siteDropDown));
             $(config.volumeDiscrepencyDdnContainer).html(compiledDefaultDdn(cbp.miipSite.volumeDiscrepencyDropDown));
+
             //Refresh dropdown at initial dispaly after loading templates
             enableMobileDefaultDropDown();
             loadingDynamicHbsTemplates();
@@ -73,10 +74,19 @@ require(["modernizr",
             $(config.searchDetailContainer).html(compiledBottomDetail(cbp.miipSite));
             $(config.miipSiteSummaryContainer).html(compiledMiipSummary(cbp.miipSite));
             var sortDdnOptions = generatingOptions(cbp.miipSite.miipSiteResponse.miipSiteColumnMapping);
+                $(config.soldToDdnContainer).html(compiledDefaultDdn(cbp.miipSite.locationDropDown));
             srtByDdn["options"] = sortDdnOptions;
             $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
             $(config.sortByDdnContainer).find(config.dropDownCommon).selectpicker('refresh');
             enableMobileDefaultDropDown();
+            setSummaryValues();
+        };
+
+        var setSummaryValues = function(){
+          cbp.miipSite.summary = {};
+          cbp.miipSite.summary.soldTo = cbp.miipSite.globalVars.allTb;
+          cbp.miipSite.summary.site = $('.js-site-ddn .btn-group .dropdown-toggle').text();
+          cbp.miipSite.summary.volumeDiscrepency = cbp.miipSite.globalVars.allTb;
         };
 
         var triggerAjaxRequest = function () {
@@ -85,17 +95,8 @@ require(["modernizr",
             $(config.searchDetailContainer).hide();
             leftPaneExpandCollapse.hideSearchBar();
             var postData = {};
-            postData.account= $(config.accountDdn).val();
+            postData.site= $(config.siteDdn).val();
             postData.soldTo = $(config.locationDdn).val();
-            if($(config.billOfLading).val()!= "")
-            {
-                postData.billOfLading = parseInt(postData.billOfLading,10);
-                $(config.billOfLading).val(postData.billOfLading);
-            }
-            postData.downloadStatus = $(config.downloadStatusDdn).val();
-            postData.printed = $(config.printStatusDdn).val();
-            postData.fromDate = startDate;
-            postData.toDate = endDate;
             function successCallback(data) {
                 $(config.displaySpinner).hide();
                 $(config.searchDetailContainer).show();
@@ -107,10 +108,6 @@ require(["modernizr",
                 } else {
                     cbp.miipSite.globalVars.miipFoundVar = cbp.miipSite.globalVars.miipResultsFound.replace("{0}", 0);
                 }
-                cbp.miipSite.dateRange.startDate = moment(startDate, cbp.miipSite.dateRange.format, true);
-                cbp.miipSite.dateRange.endDate = moment(endDate, cbp.miipSite.dateRange.format, true);
-
-                cbp.miipSite.globalVars.summaryfromAndToVar = cbp.miipSite.globalVars.summaryfromAndTo.replace("{0}", cbp.miipSite.dateRange.startDate.format(cbp.miipSite.dateRange.format)).replace("{1}", cbp.miipSite.dateRange.endDate.format(cbp.miipSite.dateRange.format));
 
                 loadingDynamicHbsTemplates();
 
@@ -137,42 +134,51 @@ require(["modernizr",
 
         var generatingOptions = function(data){
             globalSortList = [{
-                key: "delDocDate-desc",
-                value: cbp.miipSite.globalVars.delDocDateAsc
+                key: "site-asc",
+                value: cbp.miipSite.globalVars.siteSortAsc
         }, {
-                key: "delDocDate-asc",
-                value: cbp.miipSite.globalVars.delDocDateDesc
+                key: "site-desc",
+                value: cbp.miipSite.globalVars.siteSortDesc
         }, {
-                key: "account-asc",
-                value: cbp.miipSite.globalVars.accountSortAsc
+                key: "volumeDiscrepency-asc",
+                value: cbp.miipSite.globalVars.volumeDesAsc
         }, {
-                key: "account-desc",
-                value: cbp.miipSite.globalVars.accountSortDesc
+                key: "volumeDiscrepency-desc",
+                value: cbp.miipSite.globalVars.volumeDesDesc
         }, {
-                key: "invoiceId-asc",
-                value: cbp.miipSite.globalVars.invoiceIdAsc
+                key: "thruput-asc",
+                value: cbp.miipSite.globalVars.thruputAsc
         }, {
-                key: "invoiceId-desc",
-                value: cbp.miipSite.globalVars.invoiceIdDesc
+                key: "thruput-desc",
+                value: cbp.miipSite.globalVars.thruputDesc
         }, {
-                key: "delDocId-asc",
-                value: cbp.miipSite.globalVars.delDocAsc
+                key: "rentFlag-asc",
+                value: cbp.miipSite.globalVars.rentFlagAsc
         }, {
-                key: "delDocId-desc",
-                value: cbp.miipSite.globalVars.delDocDesc
+                key: "rentFlag-desc",
+                value: cbp.miipSite.globalVars.rentFlagDesc
         }, {
-                key: "billOfLading-asc",
-                value: cbp.miipSite.globalVars.billOfLadingAsc
+                key: "brand-asc",
+                value: cbp.miipSite.globalVars.brandAsc
         }, {
-                key: "billOfLading-desc",
-                value: cbp.miipSite.globalVars.billOfLadingDesc
+                key: "brand-desc",
+                value: cbp.miipSite.globalVars.brandDesc
+        },
+        {
+                key: "businessConsultant-asc",
+                value: cbp.miipSite.globalVars.businessConsultantAsc
         }, {
-                key: "total-asc",
-                value: cbp.miipSite.globalVars.totalAsc
+                key: "businessConsultant-desc",
+                value: cbp.miipSite.globalVars.businessConsultantDesc
+        },
+        {
+                key: "siteZone-asc",
+                value: cbp.miipSite.globalVars.siteZoneAsc
         }, {
-                key: "total-desc",
-                value: cbp.miipSite.globalVars.totalDesc
-        }];
+                key: "siteZone-desc",
+                value: cbp.miipSite.globalVars.siteZoneDesc
+        }
+      ];
 
         var sortListMap = globalSortList.reduce(function (data, globalSortList) {
             data[globalSortList.key] = globalSortList;
@@ -208,7 +214,7 @@ require(["modernizr",
             return optionDropdown;
         }
 
-        var populatingSoldTo = function(){
+        var populatingSoldTo = function(pageLoadCheck){
             locationDropDownOptions = locationDropDown.map(function(val,index){
                 return {
                     key : val.uid,
@@ -227,7 +233,7 @@ require(["modernizr",
         var populatingVolumeDiscrepency = function () {
           volumeDiscrepencyDropDownOptions = volumeDiscrepencyDropDown.map(function(val,index){
               return {
-                  key : val.name,
+                  key : val.key,
                   value : val.displayName
               };
           });
@@ -240,22 +246,22 @@ require(["modernizr",
           cbp.miipSite.volumeDiscrepencyDropDown.searchable = true;
         };
 
-        var populatingSite = function(soldToId, accountId, pageLoadCheck) {
+        var populatingSite = function(soldToId, siteId, pageLoadCheck) {
             $(config.displaySpinner).show();
             function successCallback(data) {
                 $(config.displaySpinner).hide();
                 var siteOptions = [];
                 var obj = {};
-                var account = data;
-                siteOptions = account.map(function(val,index){
+                var site = data;
+                siteOptions = site.map(function(val,index){
                     return {
                         key : val['uid'],
                         value : val['displayName']
                     };
                 });
-                if(account.length == 1){
+                if(site.length == 1){
                     cbp.miipSite.siteDropDown.singleOption = true;
-                }else if(account.length >= 1){
+                }else if(site.length >= 1){
                     obj["key"] = "all";
                     obj["value"] = cbp.miipSite.globalVars.allTb;
                     siteOptions.unshift(obj);
@@ -265,13 +271,14 @@ require(["modernizr",
 
                 $(config.siteDdnContainer).html(compiledDefaultDdn(cbp.miipSite.siteDropDown));
 
-                $(config.accountDdn).selectpicker('refresh');
+                $(config.siteDdn).selectpicker('refresh');
 
                 if(cbp.miipSite.siteDropDown["options"].length > 1){
-                    $(config.accountDdn).val(accountId).selectpicker('refresh');
+                    $(config.siteDdn).val(siteId).selectpicker('refresh');
                 }
                 if(pageLoadCheck === true){
-                    $(config.miipSiteSummaryContainer).html(compiledMiipSummary(cbp.miipSite));
+                  setSummaryValues();
+                  $(config.miipSiteSummaryContainer).html(compiledMiipSummary(cbp.miipSite));
                 }
                 enableMobileDefaultDropDown();
             }
@@ -288,7 +295,7 @@ require(["modernizr",
                     'soldToNumber' : soldToId
                 },
                 dataType:"json",
-                url: cbp.miipSite.globalUrl.accountURL,
+                url: cbp.miipSite.globalUrl.siteURL,
                 success: successCallback,
                 error: errorCallback
             });
@@ -304,7 +311,7 @@ require(["modernizr",
                 populatingSite($(config.locationDdn).val(), "all");
           });
 
-            $(document).on('change', config.accountDdn, function(e) {
+            $(document).on('change', config.siteDdn, function(e) {
                  if ($(this).val() !== "") {
                      $(config.searchButton).removeAttr("disabled");
                  } else {
@@ -313,14 +320,6 @@ require(["modernizr",
             });
 
 
-            $(document).on('click', config.printIcon, function (evnt) {
-            	var tempArray =[];
-
-                var delDocId = $(evnt.target).attr("data-delDocId");
-                tempArray = selectedDelDocs;
-                selectedDelDocs = [delDocId];
-                selectedDelDocs = tempArray;
-            });
             //Search button functionality
             $(config.searchButton).on("click", function (e) {
                 selectedDelDocs = []
@@ -342,7 +341,7 @@ require(["modernizr",
             }
 
             var valueOnSubmit = '.js-search-form input' + ","  +
-                config.locationDdnContainer + "," ;
+                config.soldToDdnContainer + "," ;
 
             $(document).on('keypress', valueOnSubmit, function (e) {
                 if (e.which == 13) {
@@ -481,7 +480,6 @@ require(["modernizr",
                 data: miipViewData.miipSiteList
             });
         };
-
         return {
             init: init
         };
