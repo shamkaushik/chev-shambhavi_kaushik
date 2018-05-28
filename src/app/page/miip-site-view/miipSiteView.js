@@ -74,7 +74,7 @@ require(["modernizr",
             $(config.searchDetailContainer).html(compiledBottomDetail(cbp.miipSite));
             $(config.miipSiteSummaryContainer).html(compiledMiipSummary(cbp.miipSite));
             var sortDdnOptions = generatingOptions(cbp.miipSite.miipSiteResponse.miipSiteColumnMapping);
-                $(config.soldToDdnContainer).html(compiledDefaultDdn(cbp.miipSite.locationDropDown));
+            $(config.soldToDdnContainer).html(compiledDefaultDdn(cbp.miipSite.locationDropDown));
             srtByDdn["options"] = sortDdnOptions;
             $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
             $(config.sortByDdnContainer).find(config.dropDownCommon).selectpicker('refresh');
@@ -325,19 +325,6 @@ require(["modernizr",
                 triggerAjaxRequest();
             });
 
-            $(function () {
-                $('#billOfLading').bind('paste input', removeAlphaChars);
-            })
-
-            function removeAlphaChars(e) {
-                var self = $(this);
-                setTimeout(function () {
-                    var initVal = self.val(),
-                    outputVal = initVal.replace(/\W/g, '');
-                    if (initVal != outputVal) self.val(outputVal);
-                });
-            }
-
             var valueOnSubmit = '.js-search-form input' + ","  +
                 config.soldToDdnContainer + "," ;
 
@@ -347,20 +334,6 @@ require(["modernizr",
                     $("#miipSiteSearch").trigger("click");
                 }
             });
-
-
-            var validateFields = config.orderNumber + "," + config.billOfLading;
-
-            $(document).on('keypress', validateFields, function (e) {
-            	var regex = /^[0-9a-zA-Z]+$/;
-                var str = String.fromCharCode(e.which);
-                if (str.match(regex)) {
-                    return true;
-                }
-                e.preventDefault();
-                return false;
-            });
-
         };
 
         var generatingColumns = function(columnsDataList){
@@ -371,7 +344,7 @@ require(["modernizr",
         	});
             var columnsList = [{
                           class: 'fa',
-                         
+
                         },
                         {
                             field: 'siteName',
@@ -427,7 +400,7 @@ require(["modernizr",
             data[columnsList.field] = columnsList;
             return data;
             }, {});
-            var orderKey = [ "siteName", "volumeDiscrepency","thruput", "rentFlag","brand","businessConsultant","siteZone"]
+            var orderKey = [ "siteName", "volumeDiscrepency", "thruput", "rentFlag", "brand", "businessConsultant", "siteZone"]
 
             var requestedCol = [];
             for(var i = 0; i< orderKey.length; i++){
@@ -452,13 +425,10 @@ require(["modernizr",
                 cbp.miipSite.globalVars.tableLocales.noMatches = cbp.miipSite.globalVars.noMatchesMaxResults.replace('{0}', miipViewData.resultCount);
                 miipViewData.miipSiteList = [];
             }
-
             if (miipViewData.miipSiteList === null || miipViewData.miipSiteList === undefined) {
                 miipViewData.miipSiteList = [];
             }
             $(config.sortByDdn).val("invoiceId-desc").selectpicker('refresh');
-
-
             $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
@@ -482,15 +452,7 @@ require(["modernizr",
     })();
 
     $(document).ready(function () {
-    	$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-            if (options.type.toLowerCase() === "post") {
-                options.headers = {
-                    'CSRFToken': CSRFToken
-                }
-            }
-        });
-
-        //Localization setup for dropdown & table
+      //Localization setup for dropdown & table
         $.fn.selectpicker.defaults = {
             noneSelectedText: cbp.miipSite.globalVars.selectDdn.noneSelectedText,
             noneResultsText: cbp.miipSite.globalVars.selectDdn.noneResultsText,
