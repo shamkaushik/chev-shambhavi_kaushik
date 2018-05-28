@@ -8,20 +8,24 @@
         <div class="row xs-mt-10">
             <div class="col-md-8 col-xs-24 md-pb-0 xs-pb-10">
                 <span>
-                    <strong>{{globalVars.account}}</strong>
+                    <strong>{{globalVars.soldTo}}</strong>
                 </span>
                 <br/>
-                <span>{{eftSearchResponse.payer}}</span>
+                <span id="eftSearchSoldTo">{{eftSearchResponse.soldTo}}</span>
             </div>
             <div class="col-md-8 col-xs-24 md-pb-0 xs-pb-10">
                 <span>
-                    <strong>{{globalVars.dateRange}}</strong>
+                    <strong>{{globalVars.account}}</strong>
                 </span>
                 <br/>
-                <span>
-                    {{globalVars.summaryfromAndToVar}}
-                </span>
+                <span id="eftSearchPayer">{{eftSearchResponse.payer}}</span>
             </div>
         </div>
     </div>
+    {{#if eftSearchResponse.fromDate}}
+    <div class="col-md-24 col-xs-24 md-pb-0 xs-pb-10">
+        <br/>
+        <span id="eftSearchDateRange">{{globalVars.summaryfromAndToVar}}</span>
+    </div>
+    {{/if}}
 </div>
