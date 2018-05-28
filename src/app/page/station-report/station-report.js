@@ -34,7 +34,6 @@
                     dropDownCommon: ".selectpicker",
                     calendar: "#calendar",
                     searchButton: "#pvSearch",
-                    printBtn: "#printBtn",
                     locationDdn: "#locationSelectDdn",
                     shipToDdn: "#shipToSelectDdn",
                     programYearDdn:"#programYearSelectDdn",
@@ -171,19 +170,6 @@
                         if (!$(this).attr('disabled')) {
                             triggerAjaxRequest();
                         }
-                    });
-                    
-                    
-                    
-                    $(document).on("click", config.printBtn, function (e) {
-                        var summary =  compiledreportSummary(cbp.srPage);
-                        var searchForm=  compiledsearchForm(cbp.srPage);
-                        var disclaimerData = $(".disclaimerData").html();
-                        var win = window.open('', '_blank', 'PopUp' + new Date().getTime() + ',width=1300,height=800');
-                        win.document.write('\n                <html>\n                    <head>\n                        <meta charset="utf-8">\n                        <meta http-equiv="X-UA-Compatible" content="IE=edge">\n                        <meta name="viewport" content="width=device-width, initial-scale=1">\n                        <link href="/assets/css/custom-bootstrap.css" rel="stylesheet" type="text/css"/>\n                        <link href="/assets/css/app-na.css" rel="stylesheet" type="text/css"/>\n                        <style>\n   .js-volume-summary{max-width:98%;margin-top:20px !important; margin-left:20px;} xs-mt-15{margin-top:0px!important;} .disclaimer{margin-left: 20px; font-size: 16px;}.hiddenvolume{display:none;} .bootstrap-table{margin-left:18px; margin-bottom: 15 px; margin-top:15px;} .total-cost-class {font-weight: bold;font-size: 15px;margin-left: 10px;}       .totalCost{text-align : right;padding:5px; 0 0 15px;}             .custBody {\n                            background-color: #ffffff;\n                          }\n                        .station-report-headerLbl {\n                            color: #009dd9;\n                            font-weight: bold;\n                            font-size: 20px;\n                            margin-left: 20px;\n             margin-bottom: -24px;             \tpadding: 0 0 10px 0;\n                        }\n          .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(4) {font-weight:bold;  background-color: #dbdcdd;}           .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(8) {font-weight:bold;  background-color: #dbdcdd;}   .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(9) {font-weight:bold;  background-color: #dbdcdd;}  .bootstrap-table .table.table-no-bordered.table-striped > tbody > tr:nth-of-type(10) {font-weight:bold;  background-color: #dbdcdd;}    .nav-bottom{\n                            border-bottom: none;\n                        }\n                        .navbar-brand{\n                            padding: 30px 0 10px 0;\n                        }\n  .fixed-table-container{padding-bottom:20px !important;}                      .fixed-table-body{\n                            height:auto !important;\n                        }\n                        .fixed-table-body{\n                       \t \theight: auto !important;\n                        }\n                        </style>\n                    </head>\n                    <body class="custBody">\n                        <div class="wrapper">\n                            <header class="main-header main-header-md js-header" style="">\n                                <div class="nav-bottom">\n                                    <nav class="main-navigation js-enquire-offcanvas-navigation" role="navigation">                                                                                                       \n                                        <div class="row">                                           \n                                            <a class="navbar-brand navbar-left" href="/index.html">\n                                                <img alt="Brand" src="/assets/images/logo.png">\n                                                <span>business point</span>\n                                            </a>\n                                            <a class="navbar-brand navbar-right" href="/index.html">                                                                                                                          <a class="navbar-brand navbar-right" href="/index.html">\n                                                <img alt="Brand" src="/assets/images/fob-color-rgb.png">                                                   \n                                             </a>\n                                        </div>                                                                                                                                                 \n                                \n                                    </nav>\n                                </div>\n                            </header>\n                            <div class="col-sm-24">\n                                <h2 class="page-title station-report-headerLbl">station report card</h2>\n                            </div>\n                                                                           \n                            <br>\n                        </div>\n                    </body>\n                </html>\n                ');
-                        win.document.write(summary);
-                        win.document.write($(".tableContainer").html());
-                        win.document.write('<div class="disclaimerData">'+ disclaimerData +'</div>');
                     });
         
                     var valueOnSubmit = '.js-search-form input' + ","  +
@@ -346,13 +332,7 @@
                         loadingDynamicHbsTemplates();
                         
                         //Enable buttons after loading dynamic templates
-                        if (cbp.srPage.srSearchResponse.resultCount > 0) {
-                            $(config.printBtn).removeClass("disabled");
-                            $(config.chartBtn).removeClass("disabled");
-                        } else {
-                            $(config.printBtn).addClass("disabled");
-                            $(config.chartBtn).addClass("disabled");
-                        }
+                       
                       //  setAccountOptions();
                       
                         populatingTable(cbp.srPage.srSearchResponse.stationReportDataList);
@@ -369,7 +349,7 @@
                     $.ajax({
                         type: cbp.srPage.globalUrl.method,
                        // 'CSRFToken':CSRFToken,
-                        data: postData,
+                        // data: postData,
                         url: cbp.srPage.globalUrl.pvPostURL,
                         success: successCallback,
                         error: errorCallback
