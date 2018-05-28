@@ -322,8 +322,6 @@ require(["modernizr",
 
             //Search button functionality
             $(config.searchButton).on("click", function (e) {
-                selectedDelDocs = []
-                selectedDelDocstatus = [];
                 triggerAjaxRequest();
             });
 
@@ -373,9 +371,7 @@ require(["modernizr",
         	});
             var columnsList = [{
                           class: 'fa',
-                          formatter:function LinkFormatter(value, row, index){
-                              return '<input type="hidden" name="type" value="'+ row.type + "@" + row.cbpdelDocStatus +'">';
-                          }
+                         
                         },
                         {
                             field: 'siteName',
