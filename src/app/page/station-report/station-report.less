@@ -21,6 +21,7 @@
             tr:nth-of-type(8) {
                 background-color: #dbdcdd;
                 font-weight:bold;
+                border-bottom: 9px solid white;
             }
             @media (min-width: 481px){
            tr:nth-of-type(9) {
@@ -74,6 +75,28 @@
 
 
 
+@media (max-width: @screen-sm-max){
+    #table tr:nth-child(9) {
+        td  {
+            .usdhidden{
+                display: none;
+            }
+        }
+    
+    }
+    #table tr:nth-child(10) {
+        td  {
+            .usdhidden{
+                display: none;
+            }
+        }
+    
+    }
+}
+
+
+
+
 // Page specific PRINT styles
 @media print {
     .disclaimer{
@@ -99,6 +122,7 @@
         margin-right: 10px;
     }
     #table thead , tr{
+
         -webkit-print-color-adjust: exact; 
     }
     #table th *, #table tr * {

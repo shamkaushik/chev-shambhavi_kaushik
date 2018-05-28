@@ -37,6 +37,7 @@
                     printBtn: "#printBtn",
                     locationDdn: "#locationSelectDdn",
                     shipToDdn: "#shipToSelectDdn",
+                    programYearDdn:"#programYearSelectDdn",
                     productName: "#productName",
                     sortByDdn: "#sortByDdn",
                     displaySpinner: ".overlay-wrapper",
@@ -62,6 +63,8 @@
                     //cbp.srPage.shipToDropDown.searchable = false;
                     $(config.locationDdn).selectpicker('refresh');
                     $(config.shipToDdn).selectpicker('refresh');
+                    $(config.programYearDdn).selectpicker('refresh');
+
                    
                     // populatingShipTo($(config.locationDdn).val());
                     populatingTable(cbp.srPage.srSearchResponse.stationReportDataList);
@@ -293,6 +296,7 @@
                     // var postData = {};
                     // postData.shipTo = $(config.shipToDdn).val() === null ? "null" : $(config.shipToDdn).val().toString();
                     // postData.soldTo = $(config.locationDdn).val() === null ? "null" : $(config.locationDdn).val().toString();
+                    // postData.programYear = $(config.programYearDdn).val() === null ? "null" : $(config.programYearDdn).val().toString();
                     // postData.fromDate = startDate;
                     // postData.toDate = endDate;
                     // postData.productName = $(config.productName).val();
@@ -365,16 +369,20 @@
                     $.ajax({
                         type: cbp.srPage.globalUrl.method,
                        // 'CSRFToken':CSRFToken,
-                        // data: postData,
+                        data: postData,
                         url: cbp.srPage.globalUrl.pvPostURL,
                         success: successCallback,
                         error: errorCallback
                     });
         
                 };
-        
+                
+                
+
                 var populatingTable = function (stationReportDataList) {
-        
+                   
+                                   
+                    
                     if (stationReportDataList === null || stationReportDataList === undefined) {
                         stationReportDataList = [];
                     }
@@ -404,13 +412,13 @@
                             width : '30%'
                         }, {
                             field: 'quarterOne',
-                            title: cbp.srPage.globalVars.quarterOne + ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')'),
+                            title: cbp.srPage.globalVars.quarterOne + '<span class="usdhidden">'+ ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')')+'</span>',
                             titleTooltip: cbp.srPage.globalVars.quarterOne,
                             align:'right',
                             width : '13%'
                         }, {
                             field: 'quarterTwo',
-                            title: cbp.srPage.globalVars.quarterTwo + ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')'),
+                            title: cbp.srPage.globalVars.quarterTwo  +'<span class="usdhidden">'+ ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')')+'</span>',
                             titleTooltip: cbp.srPage.globalVars.quarterTwo,
                             class: 'numberIcon',
                             
@@ -419,7 +427,7 @@
                          },
                         {
                             field: 'quarterThree',
-                            title: cbp.srPage.globalVars.quarterThree + ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')'),
+                            title: cbp.srPage.globalVars.quarterThree +'<span class="usdhidden">'+  ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')')+'</span>',
                             titleTooltip: cbp.srPage.globalVars.quarterThree,
                             class: 'numberIcon',
                             
@@ -429,7 +437,7 @@
                          },
                          {
                             field: 'quarterFour',
-                            title: cbp.srPage.globalVars.quarterFour + ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')'),
+                            title: cbp.srPage.globalVars.quarterFour +'<span class="usdhidden">'+  ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')')+'</span>',
                             titleTooltip: cbp.srPage.globalVars.quarterFour,
                             class: 'numberIcon',
                             
@@ -439,7 +447,7 @@
                          },
                          {
                             field: 'yod',
-                            title: cbp.srPage.globalVars.yod + ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')'),
+                            title: cbp.srPage.globalVars.yod +'<span class="usdhidden">'+ ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')') + '</span>',
                             titleTooltip: cbp.srPage.globalVars.yod,
                             class: 'numberIcon',
                             align: 'right',
@@ -450,8 +458,25 @@
                     ],
                         data: stationReportDataList
                     });
+
+                    // var reportData = stationReportDataList.filter(function(obj){
+                    //     if(obj.report ==="Total Cost of Credit (TCC) %")
+                    //      return obj.report;
+                    //     else
+                    //      return false;
+                    // })
+                   
+                    // console.log(reportData);
+
+                    // if(reportData[0].report === "Total Cost of Credit (TCC) %" && window.innerWidth<=480)
+                    // {
+                    //     $(".usdhidden").addClass("hidden-xs");
+                    // }
+                  
         
                 };
+
+
         
                 return {
                     init: init
