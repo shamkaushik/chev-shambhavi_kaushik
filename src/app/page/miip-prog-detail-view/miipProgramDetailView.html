@@ -26,7 +26,7 @@
                     <div class="overlay-wrapper">
                     </div>
                     <div class='col-md-24 col-lg-24 right-pane'>
-                        <div class='top-summary js-eftSearch-summary'>
+                        <div class='top-summary js-miisPrgDetailPage-summary'>
                         </div>
                         <div class='bottom-detail js-bottom-detail md-p-0 xs-pt-15'>
                         </div>
@@ -34,34 +34,11 @@
                 </div>
             </div>
         </section>
-        <input type="hidden" id="contextPath" value="/sf/businessPoint/en/USD">
-        <input type="hidden" id="isInternalUser" value="false">
-        <form id="eftDetailsForm" action="/app/page/order-details/order-details.html" method="get" target="_blank">
-            <input type="hidden" name="eftNoticeNumberId" id="eftNoticeNumberId">
-        </form>
-        <!-- form for invoice pdf -->
-        <form id="eftSearchPDFForm" action="/eftSearch/eftSearchPDF" method="post" target="_blank">
-            <input type="hidden" name="eftNoticeNumberId" id="eftNoticeNumberId">
-            <input type="hidden" name="eftPrint" id="eftPrint">
-        </form>
-
-        <form id="eftForm" method="POST" action="/sf/eftSearch/eftCSV">
-            <input name="selectedEFTs" id="selectedEFTs" type="hidden">
-        </form>
-
-        <form id="eftNoticeForm" action="${request.getContextPath()}/EftDetails/results" method="POST">
-           <input type="hidden" name="eftNoticeid" id="eftNoticeid" />
-        </form>
 
         <script type="text/javascript">
-            var inASMSession = "false";
 
-            var internalUser = false;
-
-            var allEftFlow = "false"; //invoicesAttention
-
-            var eftDetailResponse = {
-                "eftDetailsData": {
+            var miipProgDetailResponse = {
+                "miipProgDetailsData": {
                     "eftNoticeNumber": "14183188",
                     "noticeDate": "26-04-2018",
                     "settlementDate": "27-04-2018",
@@ -69,112 +46,54 @@
                     "currency": "USD",
                     "eftNoticeUid": "141831880426201820180061"
                 },
-                "eftSummaryData": {
+                "miipSummarData": {
                     "soldTo": "8106818 - Hanson Quarry Products (premix) Sdn, W501 Level 5, West Tower, Wisma Consplant 1 2 Jln Ss 16/4, MY", //Added for new detail page changes
                     "accountNumber": "8106818",
                     "accountName": "8106818 - Hanson Quarry Products (premix) Sdn, W501 Level 5, West Tower, Wisma Consplant 1 2 Jln Ss 16/4, MY",
                     "noticeTotal": "19.507,16"
                 },
-                "eftDetailDataList": [
+                "miisProgDetailDataList": [
                     {
-                        "invoiceNumber": "650889101",
-                        "referenceDate": "17-04-2018",
-                        "originalDoc": "32132131",
-                        "altReference": "313143143",
-                        "description": "FUEL",
-                        "deliveryAccount": "5514003",
-                        "total": "16972.26",
-                        "displayTotal": "16.972,26"
+                        "salesMonth": "02/2018",
+                        "paymentProcessingDate": "11/02/2018",
+                        "amountPaid": "123.23",
+                        "invoice": "JIIP558571",
+                        "billingDoc": "0714525158",
                     },
                     {
-                        "invoiceNumber": "8201003939",
-                        "referenceDate": "26-04-2018",
-                        "originalDoc": "",
-                        "altReference": "",
-                        "description": "DEBIT CARD FEES",
-                        "deliveryAccount": "5514003",
-                        "total": "285.13",
-                        "displayTotal": "285,13"
+                      "salesMonth": "02/2018",
+                      "paymentProcessingDate": "11/02/2018",
+                      "amountPaid": "123.23",
+                      "invoice": "JIIP558571",
+                      "billingDoc": "0714525158",
                     },
                     {
-                        "invoiceNumber": "650885516",
-                        "referenceDate": "17-04-2018",
-                        "originalDoc": "",
-                        "altReference": "",
-                        "description": "FUEL",
-                        "deliveryAccount": "5514003",
-                        "total": "22766.00",
-                        "displayTotal": "22.766,00"
+                      "salesMonth": "02/2018",
+                      "paymentProcessingDate": "11/02/2018",
+                      "amountPaid": "123.23",
+                      "invoice": "JIIP558571",
+                      "billingDoc": "0714525158",
                     },
                     {
-                        "invoiceNumber": "650885170",
-                        "referenceDate": "17-04-2018",
-                        "originalDoc": "",
-                        "altReference": "",
-                        "description": "FUEL",
-                        "deliveryAccount": "5514003",
-                        "total": "23019.05",
-                        "displayTotal": "23.019,05"
+                      "salesMonth": "02/2018",
+                      "paymentProcessingDate": "11/02/2018",
+                      "amountPaid": "123.23",
+                      "invoice": "JIIP558571",
+                      "billingDoc": "0714525158",
                     },
                     {
-                        "invoiceNumber": "8201003939",
-                        "referenceDate": "26-04-2018",
-                        "originalDoc": "",
-                        "altReference": "",
-                        "description": "CREDIT CARD TURN-IN",
-                        "deliveryAccount": "5514003",
-                        "total": "-64788.79",
-                        "displayTotal": "-64.788,79"
+                      "salesMonth": "02/2018",
+                      "paymentProcessingDate": "11/02/2018",
+                      "amountPaid": "123.23",
+                      "invoice": "JIIP558571",
+                      "billingDoc": "0714525158",
                     },
                     {
-                        "invoiceNumber": "650889102",
-                        "referenceDate": "17-04-2018",
-                        "originalDoc": "",
-                        "altReference": "",
-                        "description": "FUEL",
-                        "deliveryAccount": "8316960",
-                        "total": "2133.12",
-                        "displayTotal": "2.133,12"
-                    },
-                    {
-                        "invoiceNumber": "650886667",
-                        "referenceDate": "17-04-2018",
-                        "originalDoc": "",
-                        "altReference": "",
-                        "description": "FUEL",
-                        "deliveryAccount": "6792720",
-                        "total": "17994.41",
-                        "displayTotal": "17.994,41"
-                    },
-                    {
-                        "invoiceNumber": "714971998",
-                        "referenceDate": "17-04-2018",
-                        "originalDoc": "",
-                        "altReference": "",
-                        "description": "CR ADJ",
-                        "deliveryAccount": "8296920",
-                        "total": "-100.00",
-                        "displayTotal": "-100,00"
-                    },
-                    {
-                        "invoiceNumber": "714971997",
-                        "referenceDate": "17-04-2018",
-                        "originalDoc": "",
-                        "altReference": "",
-                        "description": "CR ADJ",
-                        "deliveryAccount": "8296920",
-                        "total": "-40.00",
-                        "displayTotal": "-40,00"
-                    },
-                    {
-                        "invoiceNumber": "8201003939",
-                        "referenceDate": "26-04-2018",
-                        "originalDoc": "",
-                        "altReference": "",
-                        "description": "CREDIT/BANK CARD FEES",
-                        "deliveryAccount": "5514003",
-                        "total": "1265.98",
-                        "displayTotal": "1.265,98"
+                      "salesMonth": "02/2018",
+                      "paymentProcessingDate": "11/02/2018",
+                      "amountPaid": "123.23",
+                      "invoice": "JIIP558571",
+                      "billingDoc": "0714525158",
                     }
                 ]
             };
@@ -202,35 +121,13 @@
                         "soldTo": "Sold To:",
                         "account" : "Account",
                         "shipTo": "Ship To:",
-                        "noMatches": "No invoices found. Please change your search",
-                        "noMatchesMaxResults": maxResultText,
-                        /*Labels for Search Detail*/
-                        "detailSoldtoLabel" : "Sold To", //Added for new detail page changes
-                        "eftNumberDetail" : "EFT #",
-                        "accountCaptionForSummary" : "Account", //Added for new detail page changes
-                        "noticeDatetb": "Notice Date",
-                        "settlementDatetb": "Settlement Date",
-                        "totaltb": "Notice Total (USD)",
-                        "documentNumber" : "Document #",
-                        "referenceDate" : "Reference Date",
-                        "originalDoc" : "Original Doc #",
-                        "referenceNumber" : "Reference #",
-                        "descriptionText" : "Description",
-                        "deliveryAccount" : "Delivery Account",
-                        "totalTbSD" :  "Total",
-                        "noticeTotal" : "Notice Total",
-                        "selectDdn": {
-                            "noneSelectedText": "Nothing selected",
-                            "noneResultsText": "No results for {0}",
-                            "selectAllText": "Select All",
-                            "deselectAllText": "Deselect All",
-                            "itemSelected": "{0} item selected",
-                            "itemSelected1": "{0} items selected",
-                            "limitReached": "Limit reached ({n} item max)",
-                            "limitReached1": "Limit reached ({n} items max)",
-                            "groupLimit": "Group limit reached ({n} item max)",
-                            "groupLimit1": "Group limit reached ({n} items max)"
-                        },
+                        /*Labels for Table header*/
+                        "detailSoldtoLabel" : "Sold To",
+                        "salesMonth" : "Sales Month",
+                        "paymentProcessingDate": "Payment Processing Date",
+                        "amountPaid": "Amount Paid",
+                        "invoice": "Invoice #",
+                        "billingDoc": "Billing Document",
                         "tableLocales": {
                             "loadingMessage": "Loading, please wait...",
                             "recordsPerPage": "{0} rows per page",

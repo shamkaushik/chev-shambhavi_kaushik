@@ -351,7 +351,10 @@ require(["modernizr",
                             title: cbp.miipSite.globalVars.site,
                             titleTooltip: cbp.miipSite.globalVars.site,
                             width: "40%",
-                            sortable: true
+                            sortable: true,
+                            formatter: function LinkFormatter(value, row, index) {
+                                return "<a href='#' class='js-eft-NoticeNumber'>" + value + "</a>";
+                            }
                         },
                         {
                             field: 'volumeDiscrepency',

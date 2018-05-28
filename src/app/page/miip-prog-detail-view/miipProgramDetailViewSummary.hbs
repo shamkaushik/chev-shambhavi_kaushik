@@ -11,21 +11,21 @@
                     <strong>{{globalVars.detailSoldtoLabel}}</strong>
                 </span>
                 <br/>
-                <span id="eftDetailSoldTo">{{eftDetailResponse.eftSummaryData.soldTo}}</span>
+                <span id="eftDetailSoldTo">{{miipProgDetailResponse.miipSummarData.soldTo}}</span>
             </div>
             <div class="col-md-6 col-xs-24 md-pb-0 xs-pb-10 md-mr-10">
                 <span>
                     <strong>{{globalVars.accountCaptionForSummary}}</strong>
                 </span>
                 <br/>
-                <span id="eftSearchAccountNumber">{{eftDetailResponse.eftSummaryData.accountName}}</span>
+                <span id="eftSearchAccountNumber">{{miipProgDetailResponse.miipSummarData.accountName}}</span>
             </div>
             <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
                 <span>
                     <strong>{{globalVars.noticeDatetb}}</strong>
                 </span>
                 <br/>
-                <span id="eftSearchNoticeDate">{{eftDetailResponse.eftDetailsData.noticeDate}}</span>
+                <span id="eftSearchNoticeDate">{{miipProgDetailResponse.miipProgDetailsData.noticeDate}}</span>
             </div>
             <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10 md-mr-10">
                 <div class="row">
@@ -34,21 +34,21 @@
                             <strong>{{globalVars.settlementDatetb}}</strong>
                         </span>
                         <br/>
-                        <span id="eftSearchSettlementDate">{{eftDetailResponse.eftDetailsData.settlementDate}}</span>
+                        <span id="eftSearchSettlementDate">{{miipProgDetailResponse.miipProgDetailsData.settlementDate}}</span>
                     </div>
                     <div class="col-md-24 col-xs-12 text-right hidden-md hidden-lg">
                         <span>
-                            <strong>{{globalVars.noticeTotal}}({{eftDetailResponse.eftDetailsData.currency}}):</strong>
+                            <strong>{{globalVars.noticeTotal}}({{miipProgDetailResponse.miipProgDetailsData.currency}}):</strong>
                         </span>
-                        <span id="eftSearchNoticeTotal">{{eftDetailResponse.eftSummaryData.noticeTotal}}</span>
+                        <span id="eftSearchNoticeTotal">{{miipProgDetailResponse.miipSummarData.noticeTotal}}</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-5 col-xs-24 md-pb-0 xs-pb-10 text-right hidden-sm hidden-xs">
                 <span>
-                    <strong>{{globalVars.noticeTotal}}({{eftDetailResponse.eftDetailsData.currency}}):</strong>
+                    <strong>{{globalVars.noticeTotal}}({{miipProgDetailResponse.miipProgDetailsData.currency}}):</strong>
                 </span>
-                <span id="eftSearchNoticeTotal">{{eftDetailResponse.eftSummaryData.noticeTotal}}</span>
+                <span id="eftSearchNoticeTotal">{{miipProgDetailResponse.miipSummarData.noticeTotal}}</span>
             </div>
         </div>
     </div>
