@@ -1,0 +1,62 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/app-na.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div class='body-wrapper'>
+        <main>
+            <header class="main-header main-header-md js-header">
+            </header>
+        </main>
+        <section class='main-container'>
+            <div class="content-box miip-program-volume-page">
+                <div class="row">
+                    <div class="overlay-wrapper">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-24">
+                        <div class="js-program-volume-heading">
+                        </div>
+                    </div>
+                </div>
+                <div class="row js-miip-program-view-summary-detail">
+                </div>
+                <div class="row js-miip-program-volume-details">
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+            var isASM = false;
+
+            var cbp = {
+                "staticBasePath": "/",
+                "miipProgramVolumeDetailPage": {
+                    "programView": true,
+                    "globalUrl": {
+                        
+                    },
+                    "globalVars": {
+
+                    }
+                }
+            }
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="miip-program-volume.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+    </div>
+</body>
+</html>
