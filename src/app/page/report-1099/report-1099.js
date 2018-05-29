@@ -20,6 +20,7 @@ require(["modernizr",
     var report1099page = (function() {
 
         var selectedRow = [];
+        var downloadedReportList = [];
         
         var config = {
             headerContainer: ".js-header",
@@ -241,7 +242,8 @@ require(["modernizr",
                         } else{
                             downloadReport = "<span class='fa fa-download report-download-icon' data-siteid='"+row.siteId+"'></span>";
                         }
-                        return downloadReport;
+                        //return downloadReport;
+                        return "<span class='fa fa-download report-download-icon' data-siteid='"+ row.siteId +"'></span>";
                     }
                 },
                     {
@@ -404,10 +406,21 @@ require(["modernizr",
                     }
                 },
                 onResetView: function(){
+                    //maintain/persist checked in checkbox during reset view
                     for(var i=0;i<selectedRow.length; i++){
                         $("input[value="+ selectedRow[i] +"]").attr("checked","checked");
                     } 
+                    //maintain/persist checked in select all checkbox during reset view
+                    if(selectedRow.length == getTableData().length){
+                        $('input[name="btSelectAll"]').attr("checked","checked");
                     }
+                    //maintain/persist green color for downloaded reports
+                    for(var i=0;i<downloadedReportList.length;i++){
+                        var downloadedElement = $('.report-download-icon').find("[data-siteid="+downloadedReportList[i]+"]");
+                        console.log(downloadedReportList);
+                        console.log(downloadedElement);
+                    }
+                }
             });
         }
         

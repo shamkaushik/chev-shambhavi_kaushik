@@ -11,10 +11,21 @@
 
 <body>
     <div class='body-wrapper'>
+
       <main>
           <header class="main-header main-header-md js-header" style="">
           </header>
       </main>
+      <!-- <form id="delDocForm" method="POST" action="/sf/delDocs/delDocCSV">
+        <input name="selectedDelDocs" id="selectedDelDocs" type="hidden">
+    </form>
+    <form id="invoicePDFForm" action="/invoices/invoicePDF" method="post" target="_blank">
+        <input type="hidden" name="invoiceId" id="invoiceId">
+        <input type="hidden" name="invoicePrint" id="invoicePrint">
+    </form> -->
+    <form id="stationReportCardPDFForm" action="/stationReportCard/stationReportCardPDF" method="post" target="_blank">
+        <input name="selectedStationReport" id="selectedStationReport" type="hidden">
+    </form>
       <section class='main-container'>
         <div class="content-box page-stationreport">
             <div class="row">
@@ -184,8 +195,8 @@
             }];
             var programYearDropDown=[
             {
-                "uid":"2018",
-                "displayName":"2018"
+                "uid":"2017",
+                "displayName":"2017"
             },
             {
                 "uid":"2017",
@@ -216,13 +227,15 @@
                         "options": [],
                         "label": "Program Year",
                         "name": "programYearSelectDdn",
-                        "title": "2018",
+                        "title": "2017",
                         "showOptions": 10,
                         "singleOption": false
                    },
                     "globalUrl": {
+                        "stationReportCardDownloadURL":"/assets/json/srPageSearchResponse.json",
                         "pvPostURL": "/assets/json/srPageSearchResponse.json",
                         "shipToURL": "/assets/json/srPageSearchResponse.json",
+                        "siteJSONURL": "/assets/json/siteDataList.json",
                         "method" : "GET"
                     },
                     "globalVars": {
