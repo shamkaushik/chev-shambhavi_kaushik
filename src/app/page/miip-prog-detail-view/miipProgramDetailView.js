@@ -19,7 +19,6 @@ require(["modernizr",
         var config = {
             miipProgSummaryContainer: ".js-miisPrgDetailPage-summary",
             searchDetailContainer: ".js-bottom-detail",
-            searchButton: "#eftSearchBtn",
             tabelRow: "#table tbody tr",
             displaySpinner: ".overlay-wrapper",
             backtoProgView: ".progReturnView",
@@ -45,18 +44,17 @@ require(["modernizr",
 
         var bindEvents = function () {
             $(document).on('click',config.backtoProgView,function(){
-                window.location.href=cbp.miisPrgDetailPage.globalUrl.eftSearchURL;
+                window.location.href=cbp.miisPrgDetailPage.globalUrl.miisProgViewURL;
             });
 
         };
 
         var populatingTable = function (miisProgDetailDataList) {
-            var eftStatusCount = 0;
             if (cbp.miisPrgDetailPage.miipProgDetailResponse.miisProgDetailDataList === null) {
                 cbp.miisPrgDetailPage.globalVars.tableLocales.noMatches = "";
             } else if (cbp.miisPrgDetailPage.miipProgDetailResponse.resultCount === 0) {
                 cbp.miisPrgDetailPage.globalVars.tableLocales.noMatches = cbp.miisPrgDetailPage.globalVars.noMatches;
-            } else if (cbp.miisPrgDetailPage.miipProgDetailResponse.resultCount > maxResults && allEftFlow != "true") {
+            } else if (cbp.miisPrgDetailPage.miipProgDetailResponse.resultCount > maxResults) {
                 cbp.miisPrgDetailPage.globalVars.tableLocales.noMatches = cbp.miisPrgDetailPage.globalVars.noMatchesMaxResults.replace('{0}', cbp.miisPrgDetailPage.miipProgDetailResponse.resultCount);
                 miisProgDetailDataList = [];
             }
@@ -158,8 +156,6 @@ require(["modernizr",
             }
         };
         $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
-        leftPaneExpandCollapse.init();
-        cbp.miisPrgDetailPage.showSoldTo = true;
         cbp.miisPrgDetailPage.miipProgDetailResponse = miipProgDetailResponse;
         if (miipProgDetailResponse.miisProgDetailDataList === undefined || miipProgDetailResponse.miisProgDetailDataList === null) {
             cbp.miisPrgDetailPage.miipProgDetailResponse.miisProgDetailDataList = [];

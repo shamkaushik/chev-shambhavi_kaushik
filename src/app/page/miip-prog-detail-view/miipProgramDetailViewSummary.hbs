@@ -6,50 +6,64 @@
             </div>
         </div>
         <div class="row xs-mt-10">
-            <div class="col-md-6 col-xs-24 md-pb-0 xs-pb-10 md-mr-10">
+            <div class="col-md-6 col-xs-24 md-mr-40 md-pb-0 xs-pb-10">
                 <span>
-                    <strong>{{globalVars.detailSoldtoLabel}}</strong>
+                    <strong>{{globalVars.soldtoLabel}}</strong>
                 </span>
                 <br/>
-                <span id="eftDetailSoldTo">{{miipProgDetailResponse.miipSummarData.soldTo}}</span>
+                <span>{{miipProgDetailResponse.miipSummarData.soldTo}}</span>
             </div>
-            <div class="col-md-6 col-xs-24 md-pb-0 xs-pb-10 md-mr-10">
+            <div class="col-md-6 col-xs-24 md-mr-40 md-pb-0 xs-pb-10">
                 <span>
-                    <strong>{{globalVars.accountCaptionForSummary}}</strong>
+                    <strong>{{globalVars.siteLabel}}</strong>
                 </span>
                 <br/>
-                <span id="eftSearchAccountNumber">{{miipProgDetailResponse.miipSummarData.accountName}}</span>
+                <span>{{miipProgDetailResponse.miipSummarData.accountName}}</span>
             </div>
-            <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
+            <div class="col-md-6 col-xs-24 md-pb-0 xs-pb-10">
                 <span>
-                    <strong>{{globalVars.noticeDatetb}}</strong>
+                    <strong>{{globalVars.programLabel}}</strong>
                 </span>
                 <br/>
-                <span id="eftSearchNoticeDate">{{miipProgDetailResponse.miipProgDetailsData.noticeDate}}</span>
+                <span>{{miipProgDetailResponse.miipSummarData.program}}</span>
             </div>
-            <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10 md-mr-10">
-                <div class="row">
-                    <div class="col-md-24 col-xs-12">
-                        <span>
-                            <strong>{{globalVars.settlementDatetb}}</strong>
-                        </span>
-                        <br/>
-                        <span id="eftSearchSettlementDate">{{miipProgDetailResponse.miipProgDetailsData.settlementDate}}</span>
-                    </div>
-                    <div class="col-md-24 col-xs-12 text-right hidden-md hidden-lg">
-                        <span>
-                            <strong>{{globalVars.noticeTotal}}({{miipProgDetailResponse.miipProgDetailsData.currency}}):</strong>
-                        </span>
-                        <span id="eftSearchNoticeTotal">{{miipProgDetailResponse.miipSummarData.noticeTotal}}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5 col-xs-24 md-pb-0 xs-pb-10 text-right hidden-sm hidden-xs">
-                <span>
-                    <strong>{{globalVars.noticeTotal}}({{miipProgDetailResponse.miipProgDetailsData.currency}}):</strong>
-                </span>
-                <span id="eftSearchNoticeTotal">{{miipProgDetailResponse.miipSummarData.noticeTotal}}</span>
-            </div>
+        </div>
+
+        <div class="row xs-mt-10">
+          <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
+              <span>
+                  <strong>{{globalVars.statusLabel}}</strong>
+              </span>
+              <br/>
+              <span>{{miipProgDetailResponse.miipSummarData.status}}</span>
+          </div>
+          <div class="col-md-3 col-xs-24 md-mr-40 md-pb-0 xs-pb-10">
+              <span>
+                  <strong>{{globalVars.paymentStartDateLabel}}</strong>
+              </span>
+              <br/>
+              <span>{{miipProgDetailResponse.miipSummarData.paymentStartDate}}</span>
+          </div>
+          <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
+              <span>
+                  <strong>{{globalVars.paymentEndDateLabel}}</strong>
+              </span>
+              <br/>
+              <span>{{miipProgDetailResponse.miipSummarData.paymentEndDate}}</span>
+          </div>
+          <div class="col-md-3 col-xs-24 md-pb-0 xs-pb-10">
+              <span>
+                  <strong>{{globalVars.amortizationEndDateLabel}}</strong>
+              </span>
+              <br/>
+              <span>{{miipProgDetailResponse.miipSummarData.amortizationEndDate}}</span>
+          </div>
+          <div class="col-md-11 col-xs-24 text-right md-pb-0 xs-pb-10">
+              <span class="md-mr-30">
+                  <strong>{{globalVars.totalAmountPaidLabel}}</strong>
+              </span>
+              <span>{{miipProgDetailResponse.miipSummarData.totalAmountPaid}}</span>
+          </div>
         </div>
     </div>
 </div>

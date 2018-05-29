@@ -39,26 +39,26 @@
 
             var miipProgDetailResponse = {
                 "miipProgDetailsData": {
-                    "eftNoticeNumber": "14183188",
-                    "noticeDate": "26-04-2018",
-                    "settlementDate": "27-04-2018",
-                    "accountAddress": "8106818 - Hanson Quarry Products (premix) Sdn, W501 Level 5, West Tower, Wisma Consplant 1 2 Jln Ss 16/4, MY",
-                    "currency": "USD",
-                    "eftNoticeUid": "141831880426201820180061"
+                    "currency" : "USD"
                 },
                 "miipSummarData": {
                     "soldTo": "8106818 - Hanson Quarry Products (premix) Sdn, W501 Level 5, West Tower, Wisma Consplant 1 2 Jln Ss 16/4, MY", //Added for new detail page changes
                     "accountNumber": "8106818",
                     "accountName": "8106818 - Hanson Quarry Products (premix) Sdn, W501 Level 5, West Tower, Wisma Consplant 1 2 Jln Ss 16/4, MY",
-                    "noticeTotal": "19.507,16"
+                    "program": "6 Brand Retention Program",
+                    "status" : "Active",
+                    "paymentStartDate" : "01/2017",
+                    "paymentEndDate" : "12/2026",
+                    "amortizationEndDate" : "01/2027",
+                    "totalAmountPaid" : "31.926.43",
                 },
                 "miisProgDetailDataList": [
                     {
-                        "salesMonth": "02/2018",
-                        "paymentProcessingDate": "11/02/2018",
-                        "amountPaid": "123.23",
-                        "invoice": "JIIP558571",
-                        "billingDoc": "0714525158",
+                      "salesMonth": "02/2018",
+                      "paymentProcessingDate": "11/02/2018",
+                      "amountPaid": "123.23",
+                      "invoice": "JIIP558571",
+                      "billingDoc": "0714525158",
                     },
                     {
                       "salesMonth": "02/2018",
@@ -112,8 +112,7 @@
                 "miisPrgDetailPage": {
 
                     "globalUrl": {
-                        "eftSearchPostURL": "/assets/json/eftSearch.json",
-                        "method": "GET"
+                        "miisProgViewURL" : "/miip-site-view/miipSiteView.html"
                     },
                     "globalVars": {
                       "progReturnView" : "Return to Program View",
@@ -122,7 +121,14 @@
                         "account" : "Account",
                         "shipTo": "Ship To:",
                         /*Labels for Table header*/
-                        "detailSoldtoLabel" : "Sold To",
+                        "soldtoLabel" : "Sold To",
+                        "siteLabel" : "Site",
+                        "programLabel" : "Program",
+                        "statusLabel" : "Status",
+                        "paymentStartDateLabel" : "Payment Start Date",
+                        "paymentEndDateLabel" : "Payment End Date",
+                        "amortizationEndDateLabel"  : "Amortization End Date",
+                        "totalAmountPaidLabel" : "Total Amount Paid(USD)",
                         "salesMonth" : "Sales Month",
                         "paymentProcessingDate": "Payment Processing Date",
                         "amountPaid": "Amount Paid",
