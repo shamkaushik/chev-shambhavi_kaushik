@@ -43,7 +43,9 @@ require(["modernizr",
             inquiryTypeDdn: '#inquiryTypeDdn',
             pickDeliveryDateContainer: '.js-search-pickDateRange',
             calendar: "#calendar",
-            parsleyErrorsList: ".parsley-errors-list"
+            parsleyErrorsList: ".parsley-errors-list",
+            formInput: "#inquiryForm .input-element",
+            resetBtn: "#resetBtn"
         };
 
 
@@ -83,26 +85,21 @@ require(["modernizr",
 
         //To trigger parsely from validation
 
-        /*.addValidator(checkValidDate, function() {
-                                var validDate = $("#calendar").find("span").text() && $(".fuel-type-container").length ? true : false;
-                                var errorTemplate = "<span class='error-msg'> This field is required.. </span>";
-                                $("#calendar").find("span").append(errorTemplate);
-                            })*/
-
-        var triggerParselyFormValidation = function() {
+        var triggerParselyFormValidation = function(el) {
             window.ParsleyValidator.addValidator('checkvaliddate',
                     function(value, requirement) {
                         console.log("Custom Validator!!", value);
                         return false;
                     }, 32)
                 .addMessage('en', 'checkvaliddate', 'my validator failed');
-            $('#inquiryForm').parsley().on('field:success', function() {
+            $(el).parsley().on('field:success', function() {
                 //var fuelContainer = $(".fuel-type-container").length ? true : false;                
                 if ($('#inquiryForm').parsley().isValid()) {
                     $('#inquiryForm #submitBtn').removeClass('disabled').removeAttr('disabled');
                 }
             }).on('field:error', function(field) {
                 //$(config.parsleyErrorsList).show();
+                console.log("element", field.$element);
                 field.$element.context.nextElementSibling.classList.add("error-msg");
                 // <span class = \"help-block\"><span class=\"fa\"><span class=\"fa-warning\"></span></span></span>
                 $('#inquiryForm #submitBtn').addClass('disabled').attr('disabled');
@@ -115,7 +112,8 @@ require(["modernizr",
             function cb(startDate) {
                 //startDate = start.format(cbp.delDocPage.dateRange.format);
                 // endDate = end.format(cbp.delDocPage.dateRange.format);
-                $(config.calendar).find('span').html(startDate);
+                console.log("startDate:", startDate);
+                $(config.calendar).find('input').val(startDate);
             }
             //cb(start);
 
@@ -125,7 +123,8 @@ require(["modernizr",
                         format: cbp.rmcInqPage.globalVars.deliveryDate.format,
                         separator: ' / '
                     },
-                    "singleDatePicker": true
+                    "singleDatePicker": true,
+                    // "autoUpdateInput": true
                 }, cb)
                 .on('apply.daterangepicker', function(ev, picker) {
                         cb(picker.startDate.format('MM-DD-YYYY'));
@@ -188,7 +187,7 @@ require(["modernizr",
                     break;
             }
             enableMobileDefaultDropDown();
-            triggerParselyFormValidation();
+            $('#inquiryForm').parsley()._refreshFields();
         };
         var enableMobileDefaultDropDown = function() {
             //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
@@ -200,12 +199,15 @@ require(["modernizr",
             $(document).on('click', config.btnDownload, function(event) {
                 downloadForm();
             });
+
             $(config.inquiryTypeDdn).on('changed.bs.select change', function(e) {
                 var inquiryTypeValue = $("#inquiryTypeDdn option:selected").val();
                 loadingDynamicHbsTemplates(inquiryTypeValue);
             });
-            $("#inquiryForm:input").on('change', function() {
-                triggerParselyFormValidation();
+            $(document).on('focusout blur', config.formInput, function(event) {
+                triggerParselyFormValidation(event.target);
+                console.log("event.target:", event);
+                event.target.value !== "" ? $('#inquiryForm #resetBtn').removeClass('disabled').removeAttr('disabled') : $('#inquiryForm #resetBtn').addClass('disabled').attr('disabled');
             });
         };
         return {

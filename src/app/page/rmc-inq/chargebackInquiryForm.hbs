@@ -6,7 +6,7 @@
                 {{globalVars.chargebackInquiry.stationNoLabel}}
             </label> <br/>   
             <span id="stationNo">
-                    <input type="text" id="stationNoVal" name="stationNoVal" class="input-field-style" required=""/> 
+                    <input type="text" id="stationNoVal" name="stationNoVal" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout" /> 
             </span>  
         </div>
         <div class="col-xs-24 xs-pt-15">
@@ -14,7 +14,7 @@
                 {{globalVars.chargebackInquiry.chargebackNoLabel}}
             </label> <br/>   
             <span id="chargebackNo">
-                    <input type="text" id="chargebackValue" name="chargebackValue" class="input-field-style"/> 
+                    <input type="text" id="chargebackValue" name="chargebackValue" class="input-field-style input-element"/> 
             </span>  
         </div>
         <div class="col-md-4 col-xs-24">
@@ -31,7 +31,7 @@
                     {{globalVars.chargebackInquiry.amount}}
                     </label> <br/>  
                     <span id="amount"> 
-                        <input type="text" id="amountValue" name="amountValue" class="input-field-style"/>  
+                        <input type="text" id="amountValue" name="amountValue" class="input-field-style input-element"/>  
                     </span>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 {{globalVars.chargebackInquiry.reasonLabel}}
             </label> <br/>  
             <span id="reason">     
-                <textarea name="reasonText" id="reasonText" class="textarea-style" required=""></textarea>                         
+                <textarea name="reasonText" id="reasonText" class="textarea-style input-element" data-parsley-required="" data-parsley-trigger="focusout" ></textarea>                         
             </span>
         </div>
     </div>        
