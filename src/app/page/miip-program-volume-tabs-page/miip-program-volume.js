@@ -22,6 +22,8 @@ require(["modernizr",
     var compiledProgramVolumeHeading = Handlebars.compile(_programVolumeHeadingHBS);
 
     var miipProgramVolumePage = (function() {
+
+        var volumeRowArray = [];
         
         var config = {
             headerContainer: ".js-header",
@@ -162,30 +164,83 @@ require(["modernizr",
             });
 
             $('#volumeTable').bootstrapTable({
+                classes: 'table table-no-bordered',
+                striped: true,
+                iconsPrefix: 'fa',
+                sortName: 'status',
+                sortOrder: 'asc',
+                parentContainer: ".js-program-view",
+                responsive: true,
+                responsiveBreakPoint: 768,
+                responsiveClass: "bootstrap-table-cardview",
+                undefinedText: "",
                 columns: [{
-                    field: 'id',
-                    title: 'VolumeItem ID'
+                    field: 'salesMonth',
+                    title: 'Sales Month',
+                    formatter: function(row, value){
+                        return '<a href="">'+row+'</a>';
+                    }
                 }, {
-                    field: 'name',
-                    title: 'VolumeItem Name'
+                    field: 'rul',
+                    title: 'RUL'
                 }, {
-                    field: 'price',
-                    title: 'VolumeItem Price'
+                    field: 'mul',
+                    title: 'MUL'
+                }, {
+                    field: 'pul',
+                    title: 'PUL'
+                }, {
+                    field: 'total',
+                    title: 'Total'
+                }, {
+                    field: 'disputeVolume',
+                    title: 'Dispute Volume',
+                    formatter: function(row, value, index){
+                        if($.inArray( value, volumeRowArray) < 0){
+                            volumeRowArray.splice(index, 0, value);
+                        }
+                        return '<a href="" data-toggle="modal" data-target="#disputeModal" data-index='+index+'>'+row+'</a>';
+                    }
+                }, {
+                    field: 'reason',
+                    title: 'Reason'
+                }, {
+                    field: 'status',
+                    title: 'Status'
                 }],
                 data: [{
-                    id: 1,
-                    name: 'Item 1 Volume',
-                    price: '$901'
+                    salesMonth: 'Sept 2017',
+                    rul: '70,460',
+                    mul: '90,123',
+                    pul: '69,279',
+                    total: '192,105',
+                    disputeVolume: 'Dispute',
+                    reason: '',
+                    status: ''
                 }, {
-                    id: 2,
-                    name: 'Item 2 Volume',
-                    price: '$4532'
+                    salesMonth: 'Sept 2017',
+                    rul: '1234567890,1234567890,1234567890,1234567890',
+                    mul: '90,123',
+                    pul: '69,279',
+                    total: '192,105',
+                    disputeVolume: 'Dispute',
+                    reason: '',
+                    status: ''
+                }, {
+                    salesMonth: 'Oct 2017',
+                    rul: '1234567890',
+                    mul: '90,123',
+                    pul: '69,279',
+                    total: '192,105',
+                    disputeVolume: 'Dispute',
+                    reason: '',
+                    status: ''
                 }]
             });
         }
 
         var bindEvents = function(){
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $(document).on('shown.bs.tab','a[data-toggle="tab"]', function (e) {
                 var target = $(e.target).attr("href");
                 if(target === '#programview'){
                     cbp.miipProgramVolumeDetailPage.programView = true;
@@ -194,6 +249,10 @@ require(["modernizr",
                 }
                 $(config.programVolumeHeadingContainer).html(compiledProgramVolumeHeading(cbp.miipProgramVolumeDetailPage));
                 $(config.programViewSummaryConatiner).html(compiledProgramViewSummary(cbp.miipProgramVolumeDetailPage));
+            });
+
+            $(document).on('click','a[data-target="#disputeModal"]', function(e){
+                console.log(volumeRowArray);
             });
         }
 
