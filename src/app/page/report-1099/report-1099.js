@@ -33,16 +33,34 @@ require(["modernizr",
             qtrDdnContainer: ".js-qtr-ddn",
             dnldStatusDdnContainer: ".js-download-status-ddn",
             reportSummaryContainer: ".js-report-summary",
+            soldToDdnContainer:".js-soldTo-ddn",
+            soldToDdn: "#soldToSelectDdn",
             accountDdn: "#accountSelectDdn",
             yearDdn: "#yearSelectDdn",
             quarterDdn: "#qtrSelectDdn",
             downloadStatusDdn: "#dnldStatusSelectDdn",
             searchBtn: "#searchBtn",
-            downloadBtn: '#downloadBtn',
+            downloadBtn: "#downloadBtn",
             downloadIcon: ".report-download-icon"
         };
 
-        var triggerAjaxRequest = function(data,type,url){   
+        var enableDownloadButton = function () {
+            $(config.downloadBtn).removeAttr('disabled', 'disabled');
+        };
+
+        var disableDownloadButton = function () {
+            $(config.downloadBtn).attr('disabled', 'disabled');
+        };
+
+        var replaceZeroDash = function(checkValue){
+            if(checkValue === "0" || checkValue === "0.00" || checkValue === "")
+                return '-';
+            else
+                return checkValue;
+        };
+
+
+        var triggerAjaxRequest = function(data,type,url,contentType){   
             $(config.displaySpinner).show();
             function successCallback(res){
                 return res;
@@ -53,9 +71,7 @@ require(["modernizr",
             return $.ajax({
                 type: type,
                 data: data,
-                data: JSON.stringify(data),
-                //headers: {'CSRFToken':CSRFToken},
-                contentType: "application/json",
+				contentType: contentType,
                 dataType:"json",
                 url: url,
                 success: successCallback,
@@ -63,16 +79,55 @@ require(["modernizr",
             });
         };
 
-        var populateAccountDropdown = function(){
+        var populateSoldToDropdown = function(){
             var options = [];
-            options = accountDropdown.map(function(val, index){
+            options = soldToDropdown.map(function(val, index){
                 return {
                     key: val.uid,
                     value: val.displayName
                 }
             });
-            cbp.report1099Page.accountDropDown["options"] = options;
+            if(options.length>1)
+            {
+                options.unshift({key:"all",value:cbp.report1099Page.globalVars.allTb});
+            }
+            cbp.report1099Page.soldToDropDown["options"] = options;
         }
+
+        var populateAccountDropdown = function(soldTo, pageLoadCheck){
+        	var postData = {};
+            if(pageLoadCheck && soldToDropdown.length>1)
+            {
+            	postData.soldToNumber = "all";
+            }
+            else
+        	{
+            	postData.soldToNumber = soldTo;
+        	}
+            $.when(triggerAjaxRequest(postData, cbp.report1099Page.globalUrl.method, cbp.report1099Page.globalUrl.accountDdnURL, "application/x-www-form-urlencoded")).then(function(response){
+                var options = [];
+                options = response.map(function(val, index){
+                    return {
+                        key: val.uid,
+                        value: val.displayName
+                    }
+                });
+                if(options.length>1)
+                {
+                    options.unshift({key:"all",value:cbp.report1099Page.globalVars.allTb});
+                }
+            cbp.report1099Page.accountDropDown["options"] = options;
+                $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.accountDropDown));
+                $(config.accountDdn).selectpicker('refresh');
+                if(pageLoadCheck)
+                	{
+                		search();
+        }
+                $(config.displaySpinner).hide();
+            });
+
+        }
+
 
         var populateYearDropDown = function(){
             var options = [];
@@ -85,7 +140,20 @@ require(["modernizr",
             cbp.report1099Page.yearDropDown["options"] = options;
         }
 
-        var populateQuarterDropDown = function(){
+        var populateQuarterDropDown = function(quarterDdn, selectedQuarter){
+            var options = [];
+            options = quarterDdn.map(function(val, index){
+                return {
+                    key: val,
+                    value: val
+                }
+            });
+            cbp.report1099Page.qtrDropDown["options"] = options;
+            cbp.report1099Page.qtrDropDown.title = selectedQuarter;
+        }
+
+
+        var populatedownloadDropDown = function(){
             var options = [];
             options = quarterDropdown.map(function(val, index){
                 return {
@@ -94,7 +162,6 @@ require(["modernizr",
                 }
             });
             cbp.report1099Page.qtrDropDown["options"] = options;
-            cbp.report1099Page.qtrDropDown.title = selectedQuarter;
         }
 
         var loadingInitialHbsTemplates = function() {
@@ -105,8 +172,9 @@ require(["modernizr",
         };
 
         var loadingDynamicHbsTemplates = function() {
-            //$(config.searchDetailContainer).html(compiledBottomDetail(cbp.report1099Page));
-            //$(config.reportSummaryContainer).html(compiledReportSummary(cbp.report1099Page));
+            $(config.searchDetailContainer).html(compiledBottomDetail(cbp.report1099Page));
+            $(config.reportSummaryContainer).html(compiledReportSummary(cbp.report1099Page));
+            $(config.soldToDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.soldToDropDown));
             $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.accountDropDown));
             $(config.yearDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.yearDropDown));
             $(config.qtrDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.qtrDropDown));
@@ -122,21 +190,12 @@ require(["modernizr",
             }
         };
 
-        var enableDownloadButton = function () {
-            $(config.downloadBtn).removeAttr('disabled', 'disabled');
-        };
-
-        var disableDownloadButton = function () {
-            $(config.downloadBtn).attr('disabled', 'disabled');
-        };
-
         var getMonthsToShow = function(){
             var monthsToShow = [];
              for(key in cbp.report1099Page.searchResponse.netAmountForSites){
-                if(cbp.report1099Page.searchResponse.netAmountForSites[key]){
+            	 if(cbp.report1099Page.searchResponse.netAmountForSites[key])
                     monthsToShow.push(key);
                 }
-            }
             return monthsToShow;
         }
 
@@ -158,17 +217,10 @@ require(["modernizr",
             return tableData;
         };
 
-        var replaceZeroDash = function(checkValue){
-            var num = parseFloat(checkValue);
-            if(!num)
-                return '-';
-            else
-                return checkValue;
-        };
-
         var getTableColumns = function(){
+
+        	var columnsOrder = ["checkbox", "status", "site", "amountForSite", "yearToDate"];
             var columnsToShow = [];
-            var columnsOrder = ["checkbox", "status", "site", "amountForSite", "yearToDate"];
             var monthsToShow = getMonthsToShow();
             var currency = " (" + ten99SearchCurrency + ")";
             
@@ -176,10 +228,7 @@ require(["modernizr",
             var reportTableColumns = [{
                     field: 'checkbox',
                     checkbox: true,
-                    class: '',
-                    formatter: function(value, row, index){
-                        return '<input type="hidden" class="userCheckedCheckbox" name="userChecked" value="'+ row.siteId +'">';
-                    }
+                    class: ''
                 },{
                     field: 'status',
                     title: cbp.report1099Page.globalVars.status,
@@ -188,9 +237,9 @@ require(["modernizr",
                     formatter: function(value, row, index) {
                         var downloadReport;
                         if(row.downloadStatus){
-                            downloadReport = "<span class='fa fa-download text-success report-download-icon' data-siteid='"+ row.siteId +"'></span>";
+                            downloadReport = "<span class='fa fa-download text-success report-download-icon' data-siteid='"+row.siteId+"'></span>";
                         } else{
-                            downloadReport = "<span class='fa fa-download report-download-icon' data-siteid='"+ row.siteId +"'></span>";
+                            downloadReport = "<span class='fa fa-download report-download-icon' data-siteid='"+row.siteId+"'></span>";
                         }
                         return downloadReport;
                     }
@@ -222,7 +271,7 @@ require(["modernizr",
                         return replaceZeroDash(value);
                     },
                     footerFormatter: function(){
-                        return "<span><strong>"+replaceZeroDash(cbp.report1099Page.searchResponse.netAmountForSites[monthsToShow[1]])+ "</strong></span>";
+                        return "<span><strong>"+replaceZeroDash(cbp.report1099Page.searchResponse.netAmountForSites[monthsToShow[1]])+"</strong></span>";
                     }
                 },{
                     field: monthsToShow[2],
@@ -243,6 +292,7 @@ require(["modernizr",
                     }
                 }];
 
+            
             for(var i=0;i<columnsOrder.length;i++){
                 for(key in cbp.report1099Page.searchResponse.reportSearchDataListMapping){
                     if(columnsOrder[i] == key && cbp.report1099Page.searchResponse.reportSearchDataListMapping[key]){
@@ -250,6 +300,7 @@ require(["modernizr",
                     }
                 }
             }
+
 
             //replacing the value months with actual months in columns to show
             var indexOfMonth = columnsToShow.indexOf('amountForSite');
@@ -301,7 +352,7 @@ require(["modernizr",
                 class: 'text-right',
             }, {
                 field: 'yearToDate',
-                title: cbp.report1099Page.globalVars.yeartodate +currency,
+                title: cbp.report1099Page.globalVars.yearToDate +currency,
                 class: 'text-right',
             }];
 
@@ -336,6 +387,7 @@ require(["modernizr",
                     if (row.length) {
                         enableDownloadButton();
                     }
+
                 },
                 onUncheck: function(row,$element){
                     var siteIndex = selectedRow.indexOf(row.siteId);
@@ -353,14 +405,9 @@ require(["modernizr",
                 },
                 onResetView: function(){
                     for(var i=0;i<selectedRow.length; i++){
-                        var selectedElement = $("input[value="+selectedRow[i]+"]");
-                        $(selectedElement[0]).parent().children('input[name="btSelectItem"]').attr("checked","checked");
+                        $("input[value="+ selectedRow[i] +"]").attr("checked","checked");
                     } 
-                    if(selectedRow.length == getTableData().length){
-                        console.log('All Selected');
-                        $('input[name="btSelectAll"]').attr("checked","checked");
                     }
-                },
             });
         }
         
@@ -383,28 +430,22 @@ require(["modernizr",
         var search = function(){
             var postData = {};
             
+            if($(config.soldToDdn).val()){
+                postData.soldTo = $(config.soldToDdn).val();
+            }
+            
             if($(config.accountDdn).val()){
                 postData.account = $(config.accountDdn).val();
             }
-
             if($(config.yearDdn).val()){
                 postData.year = $(config.yearDdn).val();
             }
-
-            /*
-            if($(config.quarterDdn).val()){
-                postData.quarter = $(config.quarterDdn).val();
-            } else{
-                postData.quarter = cbp.report1099Page.searchResponse.header.quarter;
-            }*/
-
             $(config.quarterDdn).val() ? postData.quarter = $(config.quarterDdn).val() : postData.quarter = selectedQuarter; 
-
             if($(config.downloadStatusDdn).val()){
                 postData.downloadStatus = $(config.downloadStatusDdn).val();
             }
-
-            $.when(triggerAjaxRequest(postData, cbp.report1099Page.globalUrl.method, cbp.report1099Page.globalUrl.searchReportsURL)).then(function(response){
+            postData = JSON.stringify(postData); 
+            $.when(triggerAjaxRequest(postData, cbp.report1099Page.globalUrl.method, cbp.report1099Page.globalUrl.searchReportsURL, "application/json")).then(function(response){
                 $(config.displaySpinner).hide();
                 cbp.report1099Page.searchResponse = response;
                 $(config.searchDetailContainer).html(compiledBottomDetail(cbp.report1099Page));
@@ -426,6 +467,7 @@ require(["modernizr",
             if($(config.yearDdn).val()){
                 var downloadYear = $(config.yearDdn).val();
             }
+            
             for (var i = 0; len = report.length, i < len; i++) {
                 if (isASM !== true)
                     $(".report-download-icon[data-siteid='" + report[i] + "']").addClass("text-success");
@@ -435,16 +477,16 @@ require(["modernizr",
                     return obj;
                 });
             }
-            $("#downloadReportForm #account").val(downloadAccount);
-            $("#downloadReportForm #year").val(downloadYear);
-            $("#downloadReportForm #sites").val(report);
-            //$("#downloadReportForm").submit();
+
+            $('#downloadReportForm #account').val(downloadAccount);
+            $('#downloadReportForm #year').val(downloadYear);
+            $('#downloadReportForm #sites').val(report);
+            $('#downloadReportForm').submit();
         }
 
         var bindEvents = function(){
 
             $(document).on('click', config.searchBtn, function(e){
-                cbp.report1099Page.globalUrl.searchReportsURL = "/assets/json/1099SearchResult2.json";
                 search();
             });
 
@@ -452,44 +494,47 @@ require(["modernizr",
                 downloadReport(selectedRow);
             });
 
-            $(document).on('click', config.downloadIcon, function(e){
+            $(document).on("reset-view.bs.table,toggle.bs.table","#table",function(event) {
+                event.stopPropagation();
+                $('#table').bootstrapTable("load", getTableData());
+            });
+
+            
+            
+            $(document).on('click', config.downloadIcon ,function(e){
                 var selectedReportId = e.target.getAttribute('data-siteid');
                 downloadReport([selectedReportId]);
-                // $(this).addClass('text-success');
+                if(isASM !== true)
+                	$(this).addClass("text-success"); 
             });
 
-            /*
-
-            $(document).on("reset-view.bs.table, toggle.bs.table", "#table", function(event) {
-                event.stopPropagation();
-
-                for(var i=0;i<selectedRow.length; i++){
-                    //trigger click for each selected delDoc
-                    $("#table tbody tr[data-uniqueid="+selectedRow[i]+"]").find("input[type=checkbox]").attr("checked","checked");
-                }
-
-            });
-
-            */
-            
-            /*
-            $(document).on("#reset-view.bs.table, #toggle.bs.table", "#table", function(e) {
-                e.stopPropagation();
-                for(var i=0;i<selectedRow.length; i++){
-                    $("input[value="+ selectedRow[i] +"]").attr("checked","checked");
+            $(document).on('change', config.soldToDdn, function (e) {
+                if ($(config.soldToDdn).val() !== "") {
+                	$(config.displaySpinner).show();
+                    populateAccountDropdown($(config.soldToDdn).val(), false);
                 }
             });
-            */
+
+            $(document).on('change', config.yearDdn, function(event){
+                if($(config.yearDdn).val() === yearDropdown[0])
+                    populateQuarterDropDown(quarterDropdown, "Q1");
+                else
+                    populateQuarterDropDown(quarterDdnAll, "Q1");
+                $(config.qtrDdnContainer).html(compiledDefaultDdn(cbp.report1099Page.qtrDropDown));
+                $(config.quarterDdn).selectpicker('refresh');
+            });
+
             
         }
 
         var init = function() {
-            populateAccountDropdown();
+        	populateSoldToDropdown();
+            populateAccountDropdown(soldToDropdown[0].uid, true);
             populateYearDropDown();
-            populateQuarterDropDown();
+            populateQuarterDropDown(quarterDropdown, selectedQuarter);
             loadingInitialHbsTemplates();
-            search();
             bindEvents();
+            disableDownloadButton();
         };
 
         return {
