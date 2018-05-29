@@ -9,9 +9,9 @@ require(["modernizr",
     "toggleSwitch",
     "text!app/components/calendar/_calendar.hbs",
     "text!app/components/dropdown/_defaultDdn.hbs",
-    "text!app/page/eftsearch/searchForm.hbs",
-    "text!app/page/eftsearch/eftSearchSummary.hbs",
-    "text!app/page/eftsearch/bottomDetail.hbs"
+    "text!app/page/eft-search/searchForm.hbs",
+    "text!app/page/eft-search/eftSearchSummary.hbs",
+    "text!app/page/eft-search/bottomDetail.hbs"
 
 ], function (modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _eftSearchSummaryHBS, _bottomDetailHBS) {
 
@@ -141,7 +141,8 @@ require(["modernizr",
             eftSearchToggle: "#eftSearchToggle",
             searchInputEft: ".js-eftSearchPage-searchEft",
             soldToDdn: ".js-soldTo-ddn",
-            daterangepickerContainer : '.daterangepicker'
+            daterangepickerContainer: '.daterangepicker',
+            soldToDropdown: "#soldToDropdown"
         };
 
         var init = function () {
@@ -191,7 +192,6 @@ require(["modernizr",
             $(config.dateRangeContainer).removeClass('hidden');
             $(config.searchInputEft).addClass('hidden');
             $("#eftSearchToggle input[type='hidden']").val("1");
-            $(config.ordercalendar).find('span').html(cbp.eftSearchPage.globalVars.allAccount);
             setItalicsToThedefaultSelection();
         };
 
@@ -200,8 +200,6 @@ require(["modernizr",
             selectorDopdown.each(function(){
                 $.trim($(this).text()).toLowerCase()==cbp.eftSearchPage.globalVars.allAccount.toLowerCase() ? $(this).addClass('italics') : $(this).removeClass('italics');
             });
-
-            $.trim(selectorCalendar.text()).toLowerCase()==cbp.eftSearchPage.globalVars.allAccount.toLowerCase() ? selectorCalendar.addClass('italics') : selectorCalendar.removeClass('italics');
         };
 
         var loadingInitialHbsTemplates = function () {
@@ -239,6 +237,10 @@ require(["modernizr",
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
                 $(config.dropDownCommon).selectpicker('mobile');
             }
+
+            $(config.searchFormContainer).find('select.selectpicker').on('changed.bs.select change', function (e) {
+                setItalicsToThedefaultSelection();
+            });
 
             $(config.searchFormContainer).find('select.selectpicker').on('changed.bs.select change', function (e) {
                 setItalicsToThedefaultSelection();
@@ -343,19 +345,17 @@ require(["modernizr",
             /* end DSLEC-8*/
             postData.downloadStatus = $(config.downloadStatusDdn).val();
             postData.printStatus = $(config.printStatusDdn).val();
-            if(hiddenInputForToggleSwitch.val() == 1 && $.trim(selectorCalendar.text()).toLowerCase()!=cbp.eftSearchPage.globalVars.allAccount.toLowerCase()){
-                postData.startDate = startDate ? startDate : cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
-                postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
-            }else{
-                postData.startDate = "all";
-                postData.endDate = "all";
-            }
 
             if($.trim($(config.searchInputEft).val()).length!=0){
                 $("#eftSearchToggle input[type='hidden']").val() == 2 ? 
                     postData['noticeNumber'] = $(config.searchInputEft).val() 
-                    : postData['invoiceNumber'] = $(config.searchInputEft).val();   
+                : postData['invoiceNumber'] = $(config.searchInputEft).val();   
+            }else{
+                postData.startDate = startDate ? startDate : cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
+                postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
             }
+
+            postData.soldTo = $(config.soldToDropdown).val();
 
             /* end DSLEC-120*/
             
@@ -547,8 +547,43 @@ require(["modernizr",
                 setItalicsToThedefaultSelection();
             });
 
-            $(document).on('click',config.daterangepickerContainer+' .range_inputs .applyBtn',function(){
+            $(document).on('change',config.soldToDropdown,function(){
                 setItalicsToThedefaultSelection();
+                populatePayer($(config.soldToDropdown).val());
+            });
+        };
+
+        var populatePayer = function(soldto){
+            accountDropdownOptions = [];
+            
+            function successCallback(data) {
+                $(config.displaySpinner).hide();
+                leftPaneExpandCollapse.resetSearchFormHeight();
+                populateDropDowns(data.accountDropdown,accountDropdownOptions,"accountDropdown");
+                $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.eftSearchPage.accountDropdown));
+                //Refresh dropdown at initial dispaly after loading templates
+                $(config.dropDownCommon).selectpicker('refresh');
+                enableMobileDefaultDropDown();
+                setItalicsToThedefaultSelection();
+            }
+
+            function errorCallback() {
+                $(config.displaySpinner).hide();
+                $(config.searchDetailContainer).show();
+                $(config.eftSearchSummaryContainer).show();
+                console.log("error");
+            }
+
+            $.ajax({
+                type: cbp.eftSearchPage.globalUrl.method,
+                headers: {'CSRFToken':CSRFToken},
+               	data: {
+                    'soldToNumber' : soldto
+                },
+                dataType:"json",
+                url: cbp.eftSearchPage.globalUrl.eftFetchPayerURL,
+                success: successCallback,
+                error: errorCallback
             });
         };
 
@@ -692,7 +727,7 @@ require(["modernizr",
            $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'total',
+                sortName: 'eftNoticeNumber',
                 sortOrder: 'desc',
                 iconsPrefix: 'fa',
                 sortable: true,
