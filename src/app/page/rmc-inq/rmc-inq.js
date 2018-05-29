@@ -200,10 +200,11 @@ require(["modernizr",
                 downloadForm();
             });
 
-            $(config.inquiryTypeDdn).on('changed.bs.select change', function(e) {
+            $(document).on('changed.bs.select change', config.inquiryTypeDdn, function(e) {
                 var inquiryTypeValue = $("#inquiryTypeDdn option:selected").val();
                 loadingDynamicHbsTemplates(inquiryTypeValue);
             });
+
             $(document).on('focusout blur', config.formInput, function(event) {
                 triggerParselyFormValidation(event.target);
                 console.log("event.target:", event);
