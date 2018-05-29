@@ -1,0 +1,164 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css' />
+    <link href='/assets/css/app-na.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <div class='body-wrapper'>
+        <main>
+            <header class="main-header main-header-md js-header" style="">
+            </header>
+        </main>
+        <section class='main-container'>
+            <div class="content-box miip-prog-detail">
+                <div class="row">
+                    <div class="col-sm-15 col-xs-15">
+                        <h2 class='page-title'> MIIP program details</h2>
+                    </div>
+                </div>
+                <div class='row xs-m-0 position-relative'>
+                    <div class="overlay-wrapper">
+                    </div>
+                    <div class='col-md-24 col-lg-24 right-pane'>
+                        <div class='top-summary js-miisPrgDetailPage-summary'>
+                        </div>
+                        <div class='bottom-detail js-bottom-detail md-p-0 xs-pt-15'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+
+            var miipProgDetailResponse = {
+                "miipProgDetailsData": {
+                    "currency" : "USD"
+                },
+                "miipSummarData": {
+                    "soldTo": "8106818 - Hanson Quarry Products (premix) Sdn, W501 Level 5, West Tower, Wisma Consplant 1 2 Jln Ss 16/4, MY", //Added for new detail page changes
+                    "site": "8106818 - Hanson Quarry Products (premix) Sdn, W501 Level 5, West Tower, Wisma Consplant 1 2 Jln Ss 16/4, MY",
+                    "program": "6 Brand Retention Program",
+                    "status" : "Active",
+                    "paymentStartDate" : "01/2017",
+                    "paymentEndDate" : "12/2026",
+                    "amortizationEndDate" : "01/2027",
+                    "totalAmountPaid" : "31.926.43",
+                },
+                "miisProgDetailDataList": [
+                    {
+                      "salesMonth": "02/2018",
+                      "paymentProcessingDate": "11/02/2018",
+                      "amountPaid": "123.23",
+                      "invoice": "JIIP558571",
+                      "billingDoc": "0714525158",
+                    },
+                    {
+                      "salesMonth": "02/2018",
+                      "paymentProcessingDate": "11/02/2018",
+                      "amountPaid": "123.23",
+                      "invoice": "JIIP558571",
+                      "billingDoc": "0714525158",
+                    },
+                    {
+                      "salesMonth": "02/2018",
+                      "paymentProcessingDate": "11/02/2018",
+                      "amountPaid": "123.23",
+                      "invoice": "JIIP558571",
+                      "billingDoc": "0714525158",
+                    },
+                    {
+                      "salesMonth": "02/2018",
+                      "paymentProcessingDate": "11/02/2018",
+                      "amountPaid": "123.23",
+                      "invoice": "JIIP558571",
+                      "billingDoc": "0714525158",
+                    },
+                    {
+                      "salesMonth": "02/2018",
+                      "paymentProcessingDate": "11/02/2018",
+                      "amountPaid": "123.23",
+                      "invoice": "JIIP558571",
+                      "billingDoc": "0714525158",
+                    },
+                    {
+                      "salesMonth": "02/2018",
+                      "paymentProcessingDate": "11/02/2018",
+                      "amountPaid": "123.23",
+                      "invoice": "JIIP558571",
+                      "billingDoc": "0714525158",
+                    }
+                ]
+            };
+
+            var maxResults = 500;
+            var maxResultText = '<div>{0} MIIP matching your search were found in the system.</div>' +
+                '<div>Please refine your search to return less than 500 results.</div><br>' +
+                '<div><b>Suggestions:</b></div>' +
+                '<ul>' +
+                '<li>Enter additional search criteria.</li>' +
+                '<li>Select a shorter date range.</li>' +
+                '</ul>';
+
+            var cbp = {
+                "staticBasePath": "/",
+                "miisPrgDetailPage": {
+
+                    "globalUrl": {
+                        "miisProgViewURL" : "/miip-site-view/miipSiteView.html"
+                    },
+                    "globalVars": {
+                      "progReturnView" : "Return to Program View",
+                        "miisPrgDetailsSummary": "MIIP program details summary",
+                        "soldTo": "Sold To:",
+                        "account" : "Account",
+                        "shipTo": "Ship To:",
+                        /*Labels for Table header*/
+                        "soldtoLabel" : "Sold To",
+                        "siteLabel" : "Site",
+                        "programLabel" : "Program",
+                        "statusLabel" : "Status",
+                        "paymentStartDateLabel" : "Payment Start Date",
+                        "paymentEndDateLabel" : "Payment End Date",
+                        "amortizationEndDateLabel"  : "Amortization End Date",
+                        "totalAmountPaidLabel" : "Total Amount Paid(USD)",
+                        "salesMonth" : "Sales Month",
+                        "paymentProcessingDate": "Payment Processing Date",
+                        "amountPaid": "Amount Paid",
+                        "invoice": "Invoice #",
+                        "billingDoc": "Billing Document",
+                        "tableLocales": {
+                            "loadingMessage": "Loading, please wait...",
+                            "recordsPerPage": "{0} rows per page",
+                            "showingRows": "Showing {0} to {1} of {2} rows",
+                            "search": "Search",
+                            "noMatches": "<div class='alert alert-danger'><span class='alert-message'>No invoices found. Please change your search<span></div>",
+                            "paginationSwitch": "Hide/Show pagination",
+                            "refresh": "Refresh",
+                            "toggle": "Toggle",
+                            "columns": "Columns",
+                            "allRows": "All"
+                        }
+                    }
+                }
+            }
+
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="miipVolumeDetailView.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+    </div>
+</body>
+
+</html>
