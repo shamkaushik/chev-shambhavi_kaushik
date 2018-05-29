@@ -6,7 +6,7 @@
                 {{globalVars.fuelInvoiceInquiry.stationAccountLabel}}
             </label> <br/>
             <span id="stationAccount">
-                <input type="text" name="stationAccountText" name="stationAccountText" class="input-field-style" required="" />
+                <input type="text" name="stationAccountText" name="stationAccountText" class="input-field-style" required="true" />
             </span>
         </div>
     </div>
@@ -34,14 +34,15 @@
                {{globalVars.fuelInvoiceInquiry.carrierNameLabel}}
             </label> <br/>
             <span id="carrierName">
-                <input type="text" name="carrierNameText" id="carrierNameText" class="input-field-style" required="" />
+                <input type="text" name="carrierNameText" id="carrierNameText" class="input-field-style" required="true" />
             </span>
         </div> 
     </div>
     <div class="row xs-pb-15">
         <div class="col-xs-24 col-md-4">            
             <span id="deliveryDate">
-            <div class='js-search-pickDateRange'>
+            <div class="fa fa-calendar">
+                <input data-parsley-trigger="focusout" name="deliveryDate" data-check-valid-date="" required="" type="text" class='js-search-pickDateRange' id="datePicker1" placeholder="(MM/DD/YYYY)">
             </div>
             </span>
         </div>
@@ -52,7 +53,7 @@
                 {{globalVars.fuelInvoiceInquiry.prodDisputedLabel}}
             </label> <br/>
             <span id="prodDisputed">
-                <input type="text" name="prodDisputedText" id="prodDisputedText" class="input-field-style" required="" />
+                <input type="text" name="prodDisputedText" id="prodDisputedText" class="input-field-style" required="true" />
             </span>
         </div> 
     </div>
@@ -62,7 +63,7 @@
                 {{globalVars.fuelInvoiceInquiry.reasonLabel}}
             </label> <br/>
             <span id="reasonLabel">
-                <textarea id="reasonLabelText" name="reasonLabelText" class="textarea-style" required="" />
+                <textarea id="reasonLabelText" name="reasonLabelText" class="textarea-style" required="true" />
             </span>
         </div>
     </div>

@@ -16,7 +16,7 @@
             </header>
         </main>
         <section class='main-container'>
-            <form class="form-horizontal" id="inquiryForm" role="form">
+            <form class="form-horizontal" id="inquiryForm" role="form" data-parsley-validate>
                 <div class="content-box rmcInq-page">
                     <div class="row">
                         <div class="col-sm-12">
@@ -43,16 +43,12 @@
                     <div class="row position-relative">
                         <div class="col-xs-24 js-form-container"></div>
                         <div class="col-xs-24 xs-pt-20">
-                            <input type="submit" name="submitBtn" id="submitBtn" value="Submit" class="btn btn-primary fa-pull-right" />
+                            <input type="submit" name="submitBtn" id="submitBtn" value="Submit" disabled="disabled" class="btn btn-primary fa-pull-right" />
                         </div>
                     </div>
                 </div>
             </form>
         </section>
-
-        <form id="siteOperatingForm" method="POST" action="/sf/siteOperating/downloadsiteOperating">
-            <input name="selectedSiteOperating" id="selectedSiteOperating" type="hidden">
-        </form>
 
         <script type="text/javascript">
             var inASMSession = "false";

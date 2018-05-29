@@ -42,33 +42,73 @@ require(["modernizr",
             formContainer: '.js-form-container',
             inquiryTypeDdn: '#inquiryTypeDdn',
             pickDeliveryDateContainer: '.js-search-pickDateRange',
-            calendar: "#calendar"
+            calendar: "#calendar",
+            parsleyErrorsList: ".parsley-errors-list"
         };
+
+
+
 
         var init = function() {
             loadingInitialHbsTemplates();
             bindEvents();
-            $(config.displaySpinner).hide();
+            //Parsely Form Validation
+            // $('#inquiryForm').parsley({
+            //     errors: {
+            //         classHandler: function(elem) {},
+            //         container: function(elem, template, isRadioOrCheckbox) {
+            //             //here i have span msg. id to be displayed as custom attribute in input element
+            //             $('#' + $(elem).attr('errorSpan')).html(template);
+            //             return true; //returning back boolean makes it work
+            //         },
+            //         errorsWrapper: '<span class=\"help-block\"><span class=\"fa\"><span class=\"fa-warning\"></span></span></span>',
+            //         errorElem: '<span></span>'
+            //     },
+            //     successClass: 'no-error',
+            //     errorClass: 'has-error',
+            //     validationThreshold: 0,
+            //     classHandler: function(el) {
+            //         return el.$element.closest("div");
+            //     },
+            //     errorsWrapper: '<span class=\"help-block\"><span class=\"fa\"><span class=\"fa-warning\"></span></span></span>',
+            //     errorTemplate: '<span></span>'
+            // }).validate();   
+
+            //Parsely Validation
+            // $('#inquiryForm').parsley().on('form:validate', function() {
+            //     $(config.parsleyErrorsList).hide();
+            // });
+            // triggerParselyFormValidation();
         };
 
+        //To trigger parsely from validation
 
-        //Parsely Validation
-        $('#inquiryForm').parsley({
-            successClass: 'no-error',
-            errorClass: 'has-error',
-            validationThreshold: 0,
-            classHandler: function(el) {
-                return el.$element.closest("div");
-            },
-            errorsWrapper: '<span class=\"help-block\"><span class=\"fa\"><span class=\"fa-warning\"></span></span></span>',
-            errorTemplate: '<span></span>'
-        }).on('field:success', function() {
-            if ($('#inquiryForm').parsley().isValid()) {
-                $('#inquiryForm #submitBtn').removeClass('disabled').removeAttr('disabled');
-            }
-        }).on('field:error', function() {
-            $('#inquiryForm #submitBtn').addClass('disabled').attr('disabled');
-        });
+        /*.addValidator(checkValidDate, function() {
+                                var validDate = $("#calendar").find("span").text() && $(".fuel-type-container").length ? true : false;
+                                var errorTemplate = "<span class='error-msg'> This field is required.. </span>";
+                                $("#calendar").find("span").append(errorTemplate);
+                            })*/
+
+        var triggerParselyFormValidation = function() {
+            window.ParsleyValidator.addValidator('checkvaliddate',
+                    function(value, requirement) {
+                        console.log("Custom Validator!!", value);
+                        return false;
+                    }, 32)
+                .addMessage('en', 'checkvaliddate', 'my validator failed');
+            $('#inquiryForm').parsley().on('field:success', function() {
+                //var fuelContainer = $(".fuel-type-container").length ? true : false;                
+                if ($('#inquiryForm').parsley().isValid()) {
+                    $('#inquiryForm #submitBtn').removeClass('disabled').removeAttr('disabled');
+                }
+            }).on('field:error', function(field) {
+                //$(config.parsleyErrorsList).show();
+                field.$element.context.nextElementSibling.classList.add("error-msg");
+                // <span class = \"help-block\"><span class=\"fa\"><span class=\"fa-warning\"></span></span></span>
+                $('#inquiryForm #submitBtn').addClass('disabled').attr('disabled');
+            }).validate();
+        };
+
 
         //to configure the calendar component
         var populatingCalendarComponent = function() {
@@ -83,22 +123,18 @@ require(["modernizr",
                     'applyClass': 'btn-primary',
                     locale: {
                         format: cbp.rmcInqPage.globalVars.deliveryDate.format,
-                        separator: ' / ' //,
-                            /*applyLabel: cbp.rmcInqPage.globalVars.deliveryDate.applyLabel,
-                            cancelLabel: cbp.rmcInqPage.globalVars.deliveryDate.cancelLabel,
-                            weekLabel: 'W',
-                            daysOfWeek: moment.weekdaysShort(),
-                            monthNames: moment.monthsShort(),
-                            firstDay: moment.localeData().firstDayOfWeek(),*/
+                        separator: ' / '
                     },
                     "singleDatePicker": true
                 }, cb)
                 .on('apply.daterangepicker', function(ev, picker) {
-                    cb(picker.startDate.format('MM-DD-YYYY'));
-                    /* console.log(picker.startDate.format('MM-DD-YYYY'));
-                     console.log(picker.endDate.format('MM-DD-YYYY'));*/
-                    //$("#")
-                });
+                        cb(picker.startDate.format('MM-DD-YYYY'));
+                    },
+                    function(start, end, label) {
+                        $(config.pickDeliveryDateContainer).parsley().validate();
+                        //console.log(start.toISOString(), end.toISOString(), label);
+                    }
+                );
         };
 
         var loadingInitialHbsTemplates = function() {
@@ -127,8 +163,7 @@ require(["modernizr",
                         label: cbp.rmcInqPage.globalVars.deliveryDate.deliveryDateLabel,
                         iconClass: cbp.rmcInqPage.globalVars.deliveryDate.iconClass,
                         id: cbp.rmcInqPage.globalVars.deliveryDate.id,
-                        placeholder: "MM/DD/YYYY"
-                            // value: cbp.rmcInqPage.globalVars.deliveryDate.deliveryDateVal
+                        placeholder: "MM/DD/YYYY",
                     }));
                     populatingCalendarComponent();
                     break;
@@ -153,15 +188,14 @@ require(["modernizr",
                     break;
             }
             enableMobileDefaultDropDown();
+            triggerParselyFormValidation();
         };
-
         var enableMobileDefaultDropDown = function() {
             //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
                 $(config.dropDownCommon).selectpicker('mobile');
             }
         };
-
         var bindEvents = function() {
             $(document).on('click', config.btnDownload, function(event) {
                 downloadForm();
@@ -170,16 +204,15 @@ require(["modernizr",
                 var inquiryTypeValue = $("#inquiryTypeDdn option:selected").val();
                 loadingDynamicHbsTemplates(inquiryTypeValue);
             });
+            $("#inquiryForm:input").on('change', function() {
+                triggerParselyFormValidation();
+            });
         };
-
         return {
             init: init
         };
     })();
-
     $(document).ready(function() {
         rmcInqPage.init();
     });
-
-
 });
