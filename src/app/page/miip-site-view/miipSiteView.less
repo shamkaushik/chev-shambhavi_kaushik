@@ -1,20 +1,8 @@
-.delDoc-page {
+.miipSiteView {
 	.fixed-table-container{
-		.bs-checkbox{
-			.th-inner{
-				padding: 0 0 !important;
-			}
-		}
 		tbody{
 			.selected td{
 			background-color: transparent;
-			}
-			td{
-				&.bs-checkbox.fa{
-					margin-left: 10px;
-					padding-top: 5px !important;
-					font-size: 16px;
-				}
 			}
 			tr.bg-danger{
 				background-color: #F7E8E9 !important;
@@ -33,57 +21,12 @@
 			}
 		}
 	}
-	.toggleForDelDocSearchForm{
-		.btn:first-child:not(:last-child):not(.dropdown-toggle) {
-			border-right:1px solid #ededed;
-		}
-		.btn:not(:first-child):not(:last-child):not(.dropdown-toggle){
-			border-right:1px solid #ededed;
-		}
-	}
-	.hidden{
-		display: none !important;
-	}
-	.delDocFound{
+	.miipSiteViewFound {
 		font-style:italic;
 		font-size:12px; 
 		color:#999999;
 	}
-	.toggleForDelDocSearchForm {
-		width: 100%;
-		.btn-default{
-			background: #dbdcdd;
-			color: #383838;
-			&:hover{
-				background: #dbdcdd;
-			}
-		}
-
-		&.btn-group {
-			.btn{
-				padding: 6px 14px;
-				width: 50%;
-			}
-		}
-	}
-	#delDocSearchToggle{
-		label{
-			display: none;
-		}
-	}
-	#calendar{
-		width: auto !important;
-	}
-	.js-search-pickDateRange{
-		label{
-			display: none;
-		}
-		margin-bottom: 0px; 
-		&.form-group{
-			margin-bottom: 0px;
-		}
-	}
-	.js-accountDdn{
+	.js-soldTo-ddn{
 		.btn-group.bootstrap-select.displayInline{
 			width:100%!important;
 		}
@@ -106,15 +49,9 @@
 		.em-10 {
 			width: 10em;
 		}
-		.em-13, .js-downloadStatus-ddn .btn, .js-printStatus-ddn .btn {
-			width: 13em;
-		}
-		#ordercalendar {
-			width: 180px;
-		}
 	}
 	.bottom-detail {
-			.delDocFound{
+			.miipSiteViewFound{
 				padding-top: 6px;
 				text-align: right;
 			}
@@ -170,25 +107,9 @@
 		}
 	}
 
-	input[type="checkbox"] {
-		 -webkit-appearance:none;/* Hides the default checkbox style */
-		 &:focus{
-			 outline:none;
-		 }
-		 &:before {
-		  text-align:center;
-		  content: '\f096';
-		 }
-		 &:checked{
-			 &::before{
-				 color: @brand-primary;
-				 content: '\f046';
-			 }
-		}
-	}
 }
 @media (max-width: @screen-xs){
-	.delDocs-page{
+	.miipSiteView{
 		.card-view .title{
 			word-wrap: break-word;
 			width: 30% !important;
@@ -198,9 +119,9 @@
 }
 
 @media (max-width: @screen-sm-max) {
-	.delDocs-page {
+	.miipSiteView {
 		.bottom-detail {
-			.delDocFound{
+			.miipSiteViewFound{
 	      text-align: left;
 			}
 			.tableContainer {

@@ -1,0 +1,182 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css'/>
+    <link href='/assets/css/app-na.css' rel='stylesheet' type='text/css'/>
+</head>
+
+<body>
+    <div class='body-wrapper'>
+      <main>
+          <header class="main-header main-header-md js-header" style="">
+          </header>
+      </main>
+      <section class='main-container'>
+        <div class="content-box page-creditcardrankings">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class='page-title'>credit card submittals national rankings</h2>
+                </div>
+            </div>
+            <div class='row xs-m-0 position-relative'>
+                <div class="overlay-wrapper">
+                </div>
+                <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center hidden-print'>
+                    <div class='search-content'>
+                        <span class='fa fa-sliders'></span>
+                    </div>
+                </div>
+                <div class='col-md-5 left-pane hidden-md search hidden-print'>
+                    <div class='search-content'>
+                        <div class='sub-heading-thin hidden-sm hidden-xs'>
+                            search
+                            <span class='fa fa-close visible-md-inline'></span>
+                        </div>
+                        <div class='sub-heading-thin hidden-lg hidden-md toggle-search-mobile'>
+                            <span class='fa fa-sliders'></span> search
+                            <span class='fa fa-chevron-down pull-right'></span>
+                        </div>
+                        <div class='search-form xs-mt-10 js-search-form'>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-23 col-lg-19 right-pane'>
+                    <div class='top-summary js-volume-summary' style="min-height:50px;">
+                    </div>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item active">
+                          <a class="nav-link " id="marketerranking-tab" data-toggle="tab" href="#marketerranking" role="tab" aria-controls="home" aria-selected="true">marketer rankings</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="retailerranking-tab" data-toggle="tab" href="#retailerranking" role="tab" aria-controls="profile" aria-selected="false">retailer rankings</a>
+                        </li>
+                       
+                      </ul>
+                      <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane show active bottom-detail js-bottom-detail" id="marketerranking" role="tabpanel" aria-labelledby="marketerranking-tab"></div>
+                        <div class="tab-pane fade show retailer-rankings js-retailer-rankings" id="retailerranking" role="tabpanel" aria-labelledby="retailerranking-tab"></div>
+                      </div>
+                    </div>
+            </div>
+        </div>
+    </section>
+        
+        <script type="text/javascript">
+         var ccrSearchReponse = {
+                "programYear":"2018",
+                "marketerRankingsDataList": [
+                    {
+                        "marketer":"234812 - Redwood Oil Co Inc.",
+                        "averageSubmittals":"0.5",
+                        "nationwideRankings":"10"
+                    },
+                    {
+                        "marketer":"241132 - BURKETT OIL CO INC",
+                        "averageSubmittals":"0.09",
+                        "nationwideRankings":"16"
+                    },
+                    {
+                        "marketer":"287612 - BUFFALO SERVICES INC",
+                        "averageSubmittals":"0.13",
+                        "nationwideRankings":"29"
+                    }
+                ],
+                    "retailerRankingsDataList": [
+                    {
+                        "retailer":"234812 - Redwood Oil Co Inc.",
+                        "totalApprovals":"2",
+                        "nationwideRankings":"10"
+                    },
+                    {
+                        "retailer":"241132 - BURKETT OIL CO INC",
+                        "totalApprovals":"5",
+                        "nationwideRankings":"16"
+                    },
+                    {
+                        "retailer":"287612 - BUFFALO SERVICES INC",
+                        "totalApprovals":"1",
+                        "nationwideRankings":"29"
+                    }
+                ],
+               }
+           
+            var programYearDropDown=[
+            {
+                "uid":"2018",
+                "displayName":"2018"
+            },
+            {
+                "uid":"2017",
+                "displayName":"2017"
+            },
+        ];
+
+            var cbp = {
+                "staticBasePath": "/",
+                "ccrPage": {
+                   "programYearDropDown":{
+                        "options": [],
+                        "label": "Program Year",
+                        "name": "programYearSelectDdn",
+                        "title": "2018",
+                        "showOptions": 10,
+                        "singleOption": false
+                   },
+                    "globalUrl": {
+                        "pvPostURL": "/assets/json/ccrPageSearchResponse.json",
+                        "method" : "GET"
+                    },
+                    "globalVars": {
+                        "reportText":"This is an unofficial national report which ranks Marketers and retailers by the number of credit card submittals across all of their Accounts and Facilities.",
+                        "currentYear":"2018",
+                        "searchTxt": "Search",
+                        "reportSummary": "station report card",
+                        "volDetail": "volume detail",
+                        "marketer": "Marketer",
+                        "retailer":"Retailer",
+                        "averageSubmittals":"Average Submittals",
+                        "totalApprovals":"Total Approvals",
+                        "nationwideRankings":"Nationwide Rankings",
+                        "selectDdn": {
+                            "noneSelectedText": "Nothing selected",
+                            "noneResultsText": "No results for {0}",
+                            "selectAllText": "Select All",
+                            "deselectAllText": "Deselect All",
+                            "itemSelected": "{0} item selected",
+                            "itemSelected1": "{0} items selected",
+                            "limitReached": "Limit reached ({n} item max)",
+                            "limitReached1": "Limit reached ({n} items max)",
+                            "groupLimit": "Group limit reached ({n} item max)",
+                            "groupLimit1": "Group limit reached ({n} items max)"
+                        },
+                        "tableLocales": {
+                            "loadingMessage": "Loading, please wait...",
+                            "recordsPerPage": "{0} rows per page",
+                            "showingRows": "Showing {0} to {1} of {2} rows",
+                            "search": "search",
+                            "noMatches": "No products found. Please change your search",
+                            "paginationSwitch": "Hide/Show pagination",
+                            "refresh": "Refresh",
+                            "toggle": "Toggle",
+                            "columns": "Columns",
+                            "allRows": "All"
+                        }
+                    }
+                }
+            }
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="credit-card-rankings.js"></script>
+        <footer id="footer" class="js-footer hidden-print">
+        </footer>
+    </div>
+</body>
+
+</html>
