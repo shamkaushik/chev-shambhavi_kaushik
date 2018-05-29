@@ -287,10 +287,7 @@
                         $(config.searchDetailContainer).show();
         
                         cbp.srPage.srSearchResponse = data;
-                        // cbp.srPage.dateRange.startDate = startDate;
-                        // cbp.srPage.dateRange.endDate = endDate;
-                        // cbp.srPage.srSearchResponse.localizedDateFormat = data.localizedDateFormat.toUpperCase();
-                        if(data.multipleSoldTo){
+                       if(data.multipleSoldTo){
                             setValueForSoldToShipto("all", true);
                         }
                         else{
@@ -355,13 +352,13 @@
                             width : '30%'
                         }, {
                             field: 'quarterOne',
-                            title: cbp.srPage.globalVars.quarterOne + '<span class="usdhidden">'+ ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')')+'</span>',
+                            title: cbp.srPage.globalVars.quarterOne + '<span class="usdHidden">'+ ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')')+'</span>',
                             titleTooltip: cbp.srPage.globalVars.quarterOne,
                             align:'right',
                             width : '13%'
                         }, {
                             field: 'quarterTwo',
-                            title: cbp.srPage.globalVars.quarterTwo  +'<span class="usdhidden">'+ ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')')+'</span>',
+                            title: cbp.srPage.globalVars.quarterTwo  +'<span class="usdHidden">'+ ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')')+'</span>',
                             titleTooltip: cbp.srPage.globalVars.quarterTwo,
                             class: 'numberIcon',
                             align: 'right',
@@ -369,7 +366,7 @@
                          },
                         {
                             field: 'quarterThree',
-                            title: cbp.srPage.globalVars.quarterThree +'<span class="usdhidden">'+  ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')')+'</span>',
+                            title: cbp.srPage.globalVars.quarterThree +'<span class="usdHidden">'+  ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')')+'</span>',
                             titleTooltip: cbp.srPage.globalVars.quarterThree,
                             class: 'numberIcon',
                             align: 'right',
@@ -387,7 +384,7 @@
                          },
                          {
                             field: 'yod',
-                            title: cbp.srPage.globalVars.yod +'<span class="usdhidden">'+ ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')') + '</span>',
+                            title: cbp.srPage.globalVars.yod +'<span class="usdHidden">'+ ((cbp.srPage.globalVars.currency === "" || cbp.srPage.globalVars.currency == null) ? '' : ' (' + cbp.srPage.globalVars.currency + ')') + '</span>',
                             titleTooltip: cbp.srPage.globalVars.yod,
                             class: 'numberIcon',
                             align: 'right',
