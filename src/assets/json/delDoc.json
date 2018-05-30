@@ -9,13 +9,14 @@
                     "shipTo": "test",
                     "billOfLading": "rfhuf",
                     "status": "dbshj",
-                    "invoiceId":"tyrui"
+                    "invoiceId":"tyrui",
+		    "account":"tyy"
                 },
 
                 "delDocList": [{
                     "delDocId": "936710253",
-                    "invoiceId": "936710253",
-                    "delDocDate": "30/10/2015",
+                    "invoiceId": "",
+                    "delDocDate": "30/10/2015 7:31 AM",
                     "delDocTime":"14:32:40",
                     "total": 8919237.0,
                     "displayTotal": "-8.919.237",
@@ -28,7 +29,7 @@
                 {
                     "delDocId": "936670263",
                     "invoiceId": "936710253",
-                    "delDocDate": "30/10/2015",
+                    "delDocDate": "30/10/2015 7:30 AM",
                     "delDocTime":"14:32:40",
                     "total": 36928702,
                     "displayTotal": "36.928.702",
@@ -42,7 +43,7 @@
                 {
                     "delDocId": "936659699",
                     "invoiceId": "936710253",
-                    "delDocDate": "30/10/2015",
+                    "delDocDate": "30/10/2015 6:30 AM",
                     "delDocTime":"14:32:40",
                     "total": 12621100,
                     "displayTotal": "-12.621.100",
@@ -55,7 +56,7 @@
                 {
                     "delDocId": "936659698",
                     "invoiceId": "936710253",
-                    "delDocDate": "30/10/2015",
+                    "delDocDate": "30/10/2015 6:31AM",
                     "delDocTime":"14:32:40",
                     "total": 5655000,
                     "displayTotal": "-5.655.000",

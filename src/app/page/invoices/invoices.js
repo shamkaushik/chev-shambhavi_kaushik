@@ -1,5 +1,5 @@
 var locationDropDownOptions = [];
-var startDate, endDate, pastSelectableDate = 6;
+var startDate, endDate;
 var invoiceObj = {};
 var invoiceTotalSum = 0;
 
@@ -9,7 +9,6 @@ locationDropDownOptions = locationDropDown.map(function(val,index){
         value : val.displayName
     };
 });
-
 if(locationDropDownOptions.length>1)
 {
 	locationDropDownOptions.unshift({key:"all",value:cbp.invoicesPage.globalVars.allTb});
@@ -26,25 +25,24 @@ function enableMobileDefaultDropDown() {
 
 function callInvoicePDF(invoiceId) {
     $("#invoicePDFForm #invoiceId").val(invoiceId);
-    //$("#invoicePDFForm").submit();
+    $("#invoicePDFForm").submit();
 }
 
 function callInvoicePDFLink(invoiceId) {
     $('#invoicePDFForm #invoiceId').val(invoiceId);
     $('#invoicePDFForm #invoicePrint').val('false');
-    //$('#invoicePDFForm').submit();
+    $('#invoicePDFForm').submit();
 }
 
 function goToOrderDetails(orderId) {
     $('#orderDetailsForm #orderId').val(orderId);
     $('#orderDetailsForm #hybrisOrder').val(false);
-    //$('#orderDetailsForm').submit();
+    $('#orderDetailsForm').submit();
 }
 
-function goToEftDetails(eftId, fiscalYear) {
-	    $('#eftForm #eftId').val(eftId);
-	    $('#eftForm #fiscalYear').val(fiscalYear);
-	    //$('#eftForm').submit();
+function goToEftDetails(eftId) {
+	    $('#eftForm #selectedEFTs').val(eftId);
+	    $('#eftForm').submit();
 }
 
 var selectedInvoices = [],
@@ -121,7 +119,7 @@ require(["modernizr",
         	populatingShipToOnLoad(shiptoListOnLoad);
         	
             loadingInitialHbsTemplates();
-            
+
             if(cbp.invoicesPage.locationDropDown["options"].length == 1){
                 populatingShipTo($(config.locationDdn).val(), "all");
                 $(config.searchButton).removeAttr("disabled");
@@ -129,7 +127,7 @@ require(["modernizr",
 
             $(config.locationDdn).selectpicker('refresh');
             
-           
+          
            
             if (allInvoiceFlow === "true") {
                 $(config.downloadStatusDdn).val('notDownloaded').selectpicker('refresh');
@@ -170,11 +168,11 @@ require(["modernizr",
         var downloadBtnSelected = function() {
             $('#invoiceForm #selectedInvoices').val(selectedInvoices.toString());
             for (var i = 0; len = selectedInvoices.length, i < len; i++) {
-                if (isASM !== true)
-                    $(".iconsPrintDownload[data-invoiceid='" + selectedInvoices[i] + "']").addClass("success-icon");
+            	if(isASM !== true)
+                	$(".iconsPrintDownload[data-invoiceid='" + selectedInvoices[i] + "']").addClass("success-icon");
                 cbp.invoicesPage.invoicesResponse.invoiceList[$("tr[data-uniqueid='" + selectedInvoices[i] + "']").data("index")].downloaded = true;
             }
-            //$("#invoiceForm").submit();
+            $("#invoiceForm").submit();
            // selectedInvoices.length=0;
         };
 
@@ -186,13 +184,13 @@ require(["modernizr",
             $("#invoicePDFListForm").attr('action', contextPath);
             $("#invoicePDFListForm").attr('target', '_blank');
             
-            $("#invoicePDFListForm").append('<input type="hidden"');
+            $("#invoicePDFListForm").append('<input type="hidden" name="CSRFToken" value="'+CSRFToken+'"');
             for (var i = 0;  i < len; i++) {
-                if (isASM !== true)
-                    $(".iconsInvoicePrint[data-invoiceid='" + selectedInvoices[i] + "']").addClass("success-icon");
+            	if(isASM !== true)
+                	$(".iconsInvoicePrint[data-invoiceid='" + selectedInvoices[i] + "']").addClass("success-icon");
                 cbp.invoicesPage.invoicesResponse.invoiceList[$("tr[data-uniqueid='" + selectedInvoices[i] + "']").data("index")].printed = true;
             }
-            //$("#invoicePDFListForm").submit();
+            $("#invoicePDFListForm").submit();
             $("#invoicePDFListForm").attr('action', currentActionURL);
             $("#invoicePDFListForm").removeAttr('target');
             //selectedInvoices.length=0;
@@ -263,6 +261,9 @@ require(["modernizr",
 
 
         var populatingCalendarComponent = function () {
+        	moment.updateLocale('en',{weekdaysShort:cbp.invoicesPage.weekdaysShort});
+        	moment.updateLocale('en',{monthsShort:cbp.invoicesPage.monthsShort});
+        	
             function cb(start, end) {
                 startDate = start.format(cbp.invoicesPage.dateRange.format);
                 endDate = end.format(cbp.invoicesPage.dateRange.format);
@@ -331,18 +332,20 @@ require(["modernizr",
                 postData.invoiceNumber = parseInt(postData.invoiceNumber,10);
                 $(config.invoiceNumber).val(postData.invoiceNumber);
             }
-            
-            if($(config.orderNumber).val()!= "")
-            {    
-                postData.salesOrderNumber = $(config.orderNumber).val().trim();
-                $(config.orderNumber).val(postData.salesOrderNumber);
+            if(!isNARegion){
+            	if($(config.orderNumber).val()!= "")
+                {    
+                    postData.salesOrderNumber = $(config.orderNumber).val().trim();
+                    $(config.orderNumber).val(postData.salesOrderNumber);
+                }
+                
+                if($(config.poNumber).val()!= "")
+                {
+                    postData.poNumber = $(config.poNumber).val().trim();
+                    $(config.poNumber).val(postData.poNumber);
+                }
             }
             
-            if($(config.poNumber).val()!= "")
-            {
-                postData.poNumber = $(config.poNumber).val().trim();
-                $(config.poNumber).val(postData.poNumber);
-            }
 
             /* end DSLEC-8*/
             postData.invoiceTypes = $(config.invoiceTypeDdn).val() ? $(config.invoiceTypeDdn).val() : allInvoiceType;
@@ -413,7 +416,7 @@ require(["modernizr",
             }
 
             $.ajax({
-                type: "POST",
+                type: "get",
                 data: JSON.stringify(postData),
                 contentType: "application/json",
                 dataType:"json",
@@ -436,9 +439,9 @@ require(["modernizr",
 
 
         var downloadForm = function (invoiceId) {
-            var formTemplate = "<form id='downloadForm' method='POST' action='" + cbp.invoicesPage.globalUrl.invoiceCSVURL + "'><input type='hidden' name='selectedInvoices' value='" + invoiceId + "'/></form>";
+            var formTemplate = "<form id='downloadForm' method='POST' action='" + cbp.invoicesPage.globalUrl.invoiceCSVURL + "'><input type='hidden' name='selectedInvoices' value='" + invoiceId + "'/><input name='CSRFToken' id='CSRFToken' type='hidden' value='" + CSRFToken + "'/></form>";
             cbp.invoicesPage.invoicesResponse.invoiceList[$("tr[data-uniqueid='" + invoiceId + "']").data("index")].downloaded = true;
-          //  $(formTemplate).appendTo("body").submit().remove();
+            $(formTemplate).appendTo("body").submit().remove();
         };
 
         var enablePrintDownloadButtons = function () {
@@ -459,11 +462,11 @@ require(["modernizr",
                 key: "invoiceDate-asc",
                 value: cbp.invoicesPage.globalVars.invoiceDateDesc
         }, { 
-                key: "location-asc",
-                value: cbp.invoicesPage.isNARegion?cbp.invoicesPage.globalVars.accountNumAsc:cbp.invoicesPage.globalVars.locationSortAsc
+	        	key: "location-asc",
+	            value: cbp.invoicesPage.isNARegion?cbp.invoicesPage.globalVars.accountNumAsc:cbp.invoicesPage.globalVars.locationSortAsc
         }, {
-                key: "location-desc",
-                value: cbp.invoicesPage.isNARegion?cbp.invoicesPage.globalVars.accountNumDesc:cbp.invoicesPage.globalVars.locationSortDesc
+	        	key: "location-desc",
+	            value: cbp.invoicesPage.isNARegion?cbp.invoicesPage.globalVars.accountNumDesc:cbp.invoicesPage.globalVars.locationSortDesc
         }, {
                 key: "orderId-asc",
                 value: cbp.invoicesPage.globalVars.orderNumberAsc
@@ -489,24 +492,24 @@ require(["modernizr",
                 key: "total-desc",
                 value: cbp.invoicesPage.globalVars.totalDescNew
         }, {
-                key: "eftNumber-asc",
-                value: cbp.invoicesPage.globalVars.eftNumberAsc
-        }, {
-                key: "eftNumber-desc",
-                value: cbp.invoicesPage.globalVars.eftNumberDesc
-        }, {
-                key: "altReferenceNumber-asc",
-                value: cbp.invoicesPage.globalVars.altReferenceNumberAsc
-        }, {
-                key: "altReferenceNumber-desc",
-                value: cbp.invoicesPage.globalVars.altReferenceNumberDesc
-        },{
-                key: "deliveryDate-desc",
-                value: cbp.invoicesPage.globalVars.deliveryDateAsc
-        }, {
-                key: "deliveryDate-asc",
-                value: cbp.invoicesPage.globalVars.deliveryDateDesc
-        }]
+	            key: "eftNumber-asc",
+	            value: cbp.invoicesPage.globalVars.eftNumberAsc
+	    }, {
+	            key: "eftNumber-desc",
+	            value: cbp.invoicesPage.globalVars.eftNumberDesc
+	    }, {
+	            key: "altReferenceNumber-asc",
+	            value: cbp.invoicesPage.globalVars.altReferenceNumberAsc
+	    }, {
+	            key: "altReferenceNumber-desc",
+	            value: cbp.invoicesPage.globalVars.altReferenceNumberDesc
+	    },{
+	            key: "deliveryDate-desc",
+	            value: cbp.invoicesPage.globalVars.deliveryDateAsc
+	    }, {
+	            key: "deliveryDate-asc",
+	            value: cbp.invoicesPage.globalVars.deliveryDateDesc
+	    }];
 
         var sortListMap = globalSortList.reduce(function (data, globalSortList) {
             data[globalSortList.key] = globalSortList;
@@ -642,10 +645,9 @@ require(["modernizr",
                 console.log("error");
             }
             return $.ajax({
-                type: "POST",
+                type: "get",
                 data: {
                     'soldToNumber' : soldToId
-                   
                 },
                 dataType:"json",
                 url: cbp.invoicesPage.globalUrl.shipToURL,
@@ -664,9 +666,6 @@ require(["modernizr",
                     //trigger click for each selected invoice
                     $("#table tbody tr[data-uniqueid="+selectedInvoices[i]+"]").find("input[type=checkbox]").attr("checked","checked");
                 }
-                // if(selectedInvoices.length ===  $("#table tbody tr").length){
-                //     $("#table thead tr").find("input[type=checkbox]").attr("checked","checked");
-                // }
 
             });
             
@@ -707,11 +706,11 @@ require(["modernizr",
             	var tempArray =[];
             	if (isASM !== true)
             		$(this).addClass("success-icon");
-                var invoiceId = $(evnt.target).attr("data-invoiceId");
-                tempArray = selectedInvoices;
-                selectedInvoices = [invoiceId];
-                printPDFSelected();
-                selectedInvoices = tempArray;
+            	var invoiceId = $(evnt.target).attr("data-invoiceId");
+            	tempArray = selectedInvoices;
+            	selectedInvoices = [invoiceId];
+            	printPDFSelected();
+            	selectedInvoices = tempArray;
             	});
             //Search button functionality
             $(config.searchButton).on("click", function (e) {
@@ -759,7 +758,7 @@ require(["modernizr",
 
 
             var validateFields = config.orderNumber + "," + config.invoiceNumber;
-
+            
             $(document).on('keypress', validateFields, function (e) {
             	var regex = /^[0-9a-zA-Z]+$/;
                 var str = String.fromCharCode(e.which);
@@ -935,9 +934,8 @@ require(["modernizr",
                             titleTooltip: cbp.invoicesPage.globalVars.eftNumber,
                             class: 'text-nowrap',
                             sortable: true,
-                            visible: cbp.invoicesPage.showEFT,
                             formatter: function LinkFormatter(value, row, index) {
-                                    return '<a href="javascript:void(0);" onclick="goToEftDetails(\'' + value+ '\', \'' + row.fiscalYear + '\')">' + value + '</a>';
+                                    return '<a href="javascript:void(0);" onclick="goToEftDetails(\'' + value+ '\')">' + value + '</a>';
                             }
                         },
                         {
@@ -945,7 +943,6 @@ require(["modernizr",
                             title: cbp.invoicesPage.globalVars.deliveryDate,
                             titleTooltip: cbp.invoicesPage.globalVars.deliveryDate,
                             class: 'text-nowrap',
-                            visible: cbp.invoicesPage.showDeliveryDate,
                             sortable: true                    
                         },{
                             field: 'altReferenceNumber',
@@ -964,10 +961,10 @@ require(["modernizr",
             return data;
             }, {});
             if(!cbp.invoicesPage.isNARegion)
-                var orderKey = ["checkbox", "status","location", "invoiceDate", "invoiceId","type","orderId","total"]
+                var orderKey = ["checkbox", "status","location", "invoiceDate", "invoiceId","type","orderId","total"];
             else
                 var orderKey = ["checkbox", "status","location", "invoiceDate", "invoiceId", "type", "deliveryDate", "total", "altReferenceNumber", "eftNumber"]
-
+          
             var requestedCol = [];
             for(var i = 0; i< orderKey.length; i++){
                 for(var j = 0; j<receivedOrderKey.length; j++){
@@ -1004,9 +1001,7 @@ require(["modernizr",
             $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'invoiceDate',
                 uniqueId: 'invoiceId',
-                //sortOrder: 'desc',
                 iconsPrefix: 'fa',
                 sortable: true,
                 parentContainer: ".js-bottom-detail",
@@ -1121,7 +1116,7 @@ require(["modernizr",
 
 
     $(document).ready(function () {
-        
+    	
     	$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
             if (options.type.toLowerCase() === "post") {
                 options.headers = {
@@ -1211,16 +1206,8 @@ require(["modernizr",
 
         cbp.invoicesPage.globalVars.summaryfromAndToVar = cbp.invoicesPage.globalVars.summaryfromAndTo.replace("{0}", cbp.invoicesPage.dateRange.startDate.format(cbp.invoicesPage.dateRange.format)).replace("{1}", cbp.invoicesPage.dateRange.endDate.format(cbp.invoicesPage.dateRange.format));
 
-        cbp.invoicesPage.isNARegion = isNARegion;
+        cbp.invoicesPage.isNARegion = isNARegion;        
         
-        if(cbp.invoicesPage.isNARegion){
-            cbp.invoicesPage.showDeliveryDate = true;
-            cbp.invoicesPage.showEFT = true;
-        }
-        else{
-            cbp.invoicesPage.showDeliveryDate = false;
-            cbp.invoicesPage.showEFT = false;
-        }
         invoicesPage.init();
         enableMobileDefaultDropDown();
 
