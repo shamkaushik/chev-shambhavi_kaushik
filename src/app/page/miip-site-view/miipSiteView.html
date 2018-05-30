@@ -1,0 +1,268 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css' />
+    <link href='/assets/css/app-na.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <div class='body-wrapper'>
+        <main>
+            <header class="main-header main-header-md js-header">
+            </header>
+        </main>
+
+        <section class='main-container'>
+            <div class="content-box miipSiteView">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class='page-title'>MIIP site view</h2>
+                    </div>
+                </div>
+                <div class='row xs-m-0 position-relative'>
+                    <div class="overlay-wrapper">
+                    </div>
+                    <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center'>
+                        <div class='search-content'>
+                            <span class='fa fa-sliders'></span>
+                        </div>
+                    </div>
+                    <div class='col-md-5 left-pane hidden-md search'>
+                        <div class='search-content'>
+                            <div class='sub-heading-thin hidden-sm hidden-xs'>
+                                search
+                                <span class='fa fa-close visible-md-inline'></span>
+                            </div>
+                            <div class='sub-heading-thin hidden-lg hidden-md toggle-search-mobile'>
+                                <span class='fa fa-sliders'></span> search
+                                <span class='fa fa-chevron-down pull-right'></span>
+                            </div>
+                            <div class='search-form xs-mt-10 js-search-form'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-23 col-lg-19 right-pane'>
+                        <div class='top-summary js-miipSite-summary'>
+                        </div>
+                        <div class='bottom-detail js-bottom-detail'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+
+            var pastSelectableDate = 6
+
+            var srtByDdn = {
+                "options": [],
+                label: "Sort By",
+                labelClass: "xs-mr-5",
+                name: "sortByDdn",
+                display: "displayInline"
+            }
+
+            var miipSiteResponse = {
+                "miipSiteColumnMapping": {
+                    "siteName" :"test",
+                    "volumeDiscrepency":"fdgfdg",
+                    "thruput" : "gdfsgfsd",
+                    "rentFlag" : "rentdf",
+                    "brand" : "Chevron",
+                    "businessConsultant" : "dfgsad",
+                    "siteZone" : "dsfsadf",
+                },
+
+                "miipSiteList": [{
+                    "siteName" :"201154 Redwood Oil CO 39103 Highway 299",
+                    "volumeDiscrepency":"No",
+                    "thruput" : "R",
+                    "rentFlag" : "No",
+                    "brand" : "Chevron",
+                    "businessConsultant" : "Kevin Maloney",
+                    "siteZone" : "4A",
+                },
+                {
+                    "siteName" :"201964 Redwood Oil Co. 4925 Sonama Highway",
+                    "volumeDiscrepency":"Yes",
+                    "thruput" : "R",
+                    "rentFlag" : "No",
+                    "brand" : "Chevron",
+                    "businessConsultant" : "Kevin Maloney",
+                    "siteZone" : "4A",
+                },
+                {
+                    "siteName" :"202125 Redwood Oil Co. 830 Redwood DR.",
+                    "volumeDiscrepency":"No",
+                    "thruput" : "R",
+                    "rentFlag" : "Yes",
+                    "brand" : "Chevron",
+                    "businessConsultant" : "Kevin Maloney",
+                    "siteZone" : "4A",
+                },
+                {
+                    "siteName" :"201964 Redwood Oil Co. 4925 Sonama Highway",
+                    "volumeDiscrepency":"Yes",
+                    "thruput" : "R",
+                    "rentFlag" : "Yes",
+                    "brand" : "Chevron",
+                    "businessConsultant" : "Kevin Maloney",
+                    "siteZone" : "4A",
+                },
+                {
+                    "siteName" :"202125 Redwood Oil Co. 830 Redwood DR.",
+                    "volumeDiscrepency":"No",
+                    "thruput" : "R",
+                    "rentFlag" : "No",
+                    "brand" : "brand",
+                    "businessConsultant" : "Kevin Maloney",
+                    "siteZone" : "4A",
+                },
+                ],
+                "resultCount": 3,
+                "multipleSoldTo": false,
+                "sort": null
+            };
+
+            var maxResults = 500;
+
+            var locationDropDown = [{
+                "uid": "7933464",
+                "displayName": "7933464,DISMACOR S.A. BARBOSA, K 10 NRO 20  11, BARBOSA, Colombia"
+            }, {
+                "uid": "3436466",
+                "displayName": "3436466,DISMACOR S.A. BARRANQUILLA, CL 45 NRO 33 - 40, BARRANQUILLA, Colombia"
+            }, {
+                "uid": "8213629",
+                "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
+            }];
+
+            var volumeDiscrepencyDropDown = [
+              {
+                "key": "Yes",
+                "displayName": "Yes"
+              },
+              {
+                "key": "No",
+                "displayName": "No"
+              },
+            ];
+
+            var maxResultText = '<div>{0} miip Site matching your search were found in the system.</div>' +
+                '<div>Please refine your search to return less than 500 results.</div><br>' +
+                '<div><b><spring:theme code="chevron.miip Site.noresult.suggestion"/></b></div>' +
+                '<ul>' +
+                '<li>Enter additional search criteria.</li>' +
+                '<li>Select a shorter date range.</li>' +
+                '</ul>';
+            var cbp = {
+                "staticBasePath": "/",
+                "miipSite": {
+                    "locationDropDown": {
+                        "options": [],
+                        "label": "Sold To",
+                        "title": "",
+                        "name": "locationSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": true
+                    },
+                    "siteDropDown": {
+                        "options": [],
+                        "label": "Site",
+                        "title": "",
+                        "name": "siteSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": false
+                    },
+                    "volumeDiscrepencyDropDown": {
+                        "options": [],
+                        "label": "Volume Discrepency",
+                        "title": "",
+                        "name": "volumeSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": false
+                    },
+                    "globalUrl": {
+                        "searchURL": "/assets/json/miipSiteResults.json",
+                        "siteURL": "/assets/json/siteDdnResponse.json",
+                        "method": "GET",
+                    },
+                    "globalVars": {
+                        "searchTxt": "Search",
+                        "allTb": "All",
+                        "fromAndTo": "{0} - {1}",
+                        "summaryfromAndTo": "{0} - {1}",
+                        "sortBy": "Sort by",
+                        "miipSiteSummary": "MIIP site view summary",
+                        "miipResultsFound": "{0} result(s) found",
+                        "statustb": "Status",
+                        "siteSortAsc": "Site, Newest to Oldest",
+                        "siteSortDesc": "Site, Oldest to Newest",
+                        "volumeDesAsc": "Volume descrepency, Ascending",
+                        "volumeDesDesc": "Volume descrepency, Descending",
+                        "thruputAsc": "Thruput , Ascending",
+                        "thruputDesc": "Thruput , Descending",
+                        "rentFlagAsc": "Rent Flag , Ascending",
+                        "rentFlagDesc": "Rent Flag #, Descending",
+                        "brandAsc": "Brand, Ascending",
+                        "brandDesc": "Total, Descending",
+                        "businessConsultantAsc": "businessConsultant, Ascending",
+                        "businessConsultantDesc": "businessConsultant, Descending",
+                        "siteZoneAsc": "Site Zone, Ascending",
+                        "siteZoneDesc": "site Zone, Descending",
+                        "siteZone": "Site Zone",
+                        "soldTo": "Sold To",
+                        "site": "Site",
+                        "volumeDiscrepency": "Volume Discrepency",
+                        "thruput": "Thruput",
+                        "rentFlag": "Rent Flag",
+                        "brand" : "Brand",
+                        "businessConsultant" : "Business Consultant",
+                        "siteZone" : "Site Zone",
+                        "noMatches": "No miip Results found. Please change your search",
+                        "noMatchesMaxResults": maxResultText,
+                        "selectDdn": {
+                            "noneSelectedText": "Nothing selected",
+                            "noneResultsText": "No results for {0}",
+                            "selectAllText": "Select All",
+                            "deselectAllText": "Deselect All",
+                            "itemSelected": "{0} item selected",
+                            "itemSelected1": "{0} items selected",
+                            "limitReached": "Limit reached ({n} item max)",
+                            "limitReached1": "Limit reached ({n} items max)",
+                            "groupLimit": "Group limit reached ({n} item max)",
+                            "groupLimit1": "Group limit reached ({n} items max)"
+                        },
+                        "tableLocales": {
+                            "loadingMessage": "Loading, please wait...",
+                            "recordsPerPage": "{0} rows per page",
+                            "showingRows": "Showing {0} to {1} of {2} rows",
+                            "search": "Search",
+                            "noMatches": "No miip Results found. Please change your search",
+                            "paginationSwitch": "Hide/Show pagination",
+                            "refresh": "Refresh",
+                            "toggle": "Toggle",
+                            "columns": "Columns",
+                            "allRows": "All"
+                        }
+                    }
+                }
+            }
+
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="miipSiteView.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+    </div>
+</body>
+
+</html>

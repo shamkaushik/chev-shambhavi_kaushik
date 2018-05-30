@@ -1,0 +1,75 @@
+<div class="bg-forms fuel-type-container xs-mt-15 xs-p-10"> 
+   <span> {{globalVars.formDesc}} </span>
+    <div class="row xs-pb-15">
+        <div class="col-xs-24 xs-pb-15">
+            <label for="stationAccntNo">
+                {{globalVars.pop.stationAccountLabel}}
+            </label> <br/>
+            <span id="stationAccntNo">               
+                <input type="text" id="stationAccntNoValue" name="stationAccntNoValue" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout" />
+            </span>                
+        </div>
+        <div class="col-xs-24 xs-pb-15">
+            <label for="deliveryAddrContainer">
+                {{globalVars.pop.deliveryAddress}}
+            </label> <br/>
+           <span id="deliveryAddrContainer">
+                <input type="checkbox" id="deliveryAddr" name="deliveryAddr" />
+                <span for="deliveryAddr">Address is the same as my station address</span>
+           </span>            
+        </div>
+        <div class="col-xs-24 xs-pb-15">
+            <label for="addrLine1">
+                {{globalVars.formAddress.addrLine1Label}}
+            </label> <br/>
+            <span id="addrLine1">
+            <input type="text" id="addrLine1Value" name="addrLine1Value" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout" />
+            </span>
+        </div>
+        <div class="col-xs-24 xs-pb-15">
+            <label for="addrLine2">
+                {{globalVars.formAddress.addrLine2Label}}
+            </label> <br/>
+            <span id="addrLine2">
+                <input type="text" id="addrLine2Value" name="addrLine2Value" class="input-field-style input-element" />
+            </span>                        
+        </div>
+        <div class="col-xs-24 col-md-4 xs-pb-15">
+            <label for="city">{{globalVars.formAddress.cityLabel}}</label> <br/>
+            <span id="city"><input type="text" id="cityValue" name="cityValue" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout"  /></span>                       
+        </div>
+        <div class="col-xs-24 col-md-20 xs-pb-15">
+            <label for="county">{{globalVars.formAddress.countryLabel}}</label> <br/>
+            <span id="county"><input type="text" id="countyValue" name="countyValue" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout"  /></span>            
+        </div>
+        <div class="col-xs-24 col-md-4 xs-pb-15">
+            <label for="country">{{globalVars.formAddress.countryLabel}}</label> <br/>
+            <span id="country"><input type="text" id="countryValue" name="countryValue" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout"  /></span>            
+        </div>
+        <div class="col-xs-24 col-md-20 xs-pb-15">
+            <label for="postalCode">{{globalVars.formAddress.postalCodeLabel}}</label> <br/>
+            <span id="postalCode"><input type="text" id="postalCodeValue" name="postalCodeValue" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout"  /></span>            
+        </div>
+        <div class="col-xs-24 xs-pb-15">
+            <label for="brand">{{globalVars.pop.brandLabel}}</label> <br/>
+            <span id="brand" class="input-element">
+                <input type="radio" id="chev" name="brand" data-parsley-required="" class="radio-btn-space"/> {{globalVars.pop.chevronLabel}}
+                <input type="radio" id="tex" name="brand" data-parsley-required="" class="radio-btn-space"/> {{globalVars.pop.texacoLabel}}
+                <input type="radio" id="all" name="brand" data-parsley-required="" class="radio-btn-space"/> {{globalVars.pop.allLabel}}
+            </span>            
+        </div>   
+        <div class="col-xs-24 xs-pb-15">
+            <label for="quantityNeeded">{{globalVars.pop.quantityNeededLabel}}</label> <br/>
+            <span> {{globalVars.pop.quantityTextareaLabel}} </span> <br />
+            <span id="quantityNeeded">
+                <textarea name="qty" id="qty" class="textarea-style input-element"></textarea>
+            </span>
+        </div>   
+        <div class="col-xs-24 xs-pb-15">
+             <label for="reason">{{globalVars.pop.reasonLabel}}</label> <br/>
+            <span id="reason">
+                <textarea name="reasonText" id="reasonText" class="textarea-style input-element" data-parsley-required="" data-parsley-trigger="focusout" ></textarea>
+            </span>            
+        </div> 
+    </div>
+</div>

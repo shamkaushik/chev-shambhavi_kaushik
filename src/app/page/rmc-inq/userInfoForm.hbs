@@ -1,6 +1,6 @@
-<div class="col-xs-24 col-md-24  bg-userinfo userInfoContainer xs-mt-15 xs-p-10">
+<div class="bg-userinfo userInfoContainer xs-pt-15 xs-p-10"> 
     <div class="row">
-        <div class="col-xs-24 col-md-8 md-mb-0 xs-mb-15">
+        <div class="col-xs-24 col-md-4 md-mb-0 xs-mb-15">
             <label for="userIdText">
                 {{globalVars.userID}}
             </label> <br/>
@@ -9,50 +9,48 @@
             </span>
         </div>
 
-        <div class="col-xs-24 col-md-8 md-mb-0 xs-mb-15">
+        <div class="col-xs-24 col-md-4 md-mb-0 xs-mb-15">
             <label for="fname">
                 {{globalVars.fname}}
             </label> <br/>
-            <span id="fname" class="form-group">
-                <input type="text" name="userFname" id="userFname" />
+            <span id="fname">
+                <input type="text" name="userFname" id="userFname" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout"/>
             </span>
         </div>
 
-        <div class="col-xs-24 col-md-8 md-mb-0 xs-mb-15">
+        <div class="col-xs-24 col-md-4 md-mb-0 xs-mb-15">
             <label for="lname">
                 {{globalVars.lname}}
             </label> <br/>
             <span id="lname">
-                JVANALYEA
+                <input type="text" name="userLname" id="userLname" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout" />
             </span>
         </div>
     </div>
 
-    <div class="row xs-mt-15">
-        <div class="col-xs-24 col-md-8">
+    <div class="row md-mt-15">
+        <div class="col-xs-24 col-md-4 md-mb-0 xs-mb-15">
             <label for="userEmail">
                {{globalVars.userEmail}}
             </label> <br/>
-            <span id="userEmail">
+            <span id="email">
                 JVANALYEA
             </span>
         </div>
-
-        <div class="col-xs-24 col-md-8">
+        <div class="col-xs-24 col-md-4 md-mb-0 xs-mb-15">
             <label for="altEmail">
                 {{globalVars.altEmail}}
             </label> <br/>
             <span id="altEmail">
-                JVANALYEA
+                <input type="email" name="altUserEmail" id="altUserEmail" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout"/>
             </span>
         </div>
-
-        <div class="col-xs-24 col-md-8">
+        <div class="col-xs-24 col-md-4 md-mb-0 xs-mb-15">
             <label for="userPhone">
                 {{globalVars.userPhone}} 
             </label> <br/>
             <span id="userPhone">
-                JVANALYEA
+                <input type="tel" name="phone" id="phone" class="input-field-style input-element" data-parsley-type="digits" data-parsley-required="" data-parsley-trigger="focusout"/>
             </span>
         </div>
     </div>

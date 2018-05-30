@@ -21,8 +21,6 @@ require(["modernizr",
         var init = function () {
             bindEvents();
             $(config.displaySpinner).hide();
-            //console.log(moment().format(cbp.siteOperatingPage.globalVars.dateRange.format),moment().subtract(7,'d').format(cbp.siteOperatingPage.globalVars.dateRange.format));
-            //$(config.dateRangeContainer).text(moment().subtract(7,'d').format(cbp.siteOperatingPage.globalVars.dateRange.format)+" - "+moment().format(cbp.siteOperatingPage.globalVars.dateRange.format));
         };
 
         var downloadForm = function (siteId) {

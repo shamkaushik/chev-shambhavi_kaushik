@@ -169,7 +169,7 @@
                             class: 'numberIcon',
                             align: 'right',
                             width : '13%'
-                         }
+                         },
                     ],
                         data: marketerRankingsDataList
                     });

@@ -1,0 +1,132 @@
+.miipSiteView {
+	.fixed-table-container{
+		tbody{
+			.selected td{
+			background-color: transparent;
+			}
+			tr.bg-danger{
+				background-color: #F7E8E9 !important;
+			}
+		}
+		thead{
+			tr{
+				background-color: @brand-primary;
+				th.bs-checkbox.fa{
+					width: 55px!important;
+					input[type="checkbox"]:before{
+						font-size: 16px;
+						color:#fff;
+					}
+				}
+			}
+		}
+	}
+	.miipSiteViewFound {
+		font-style:italic;
+		font-size:12px; 
+		color:#999999;
+	}
+	.js-soldTo-ddn{
+		.btn-group.bootstrap-select.displayInline{
+			width:100%!important;
+		}
+	}
+	@media (max-width: @screen-xs) {
+		.js-sortbyDdn.form-group {
+			float: right !important;
+			.bootstrap-select {
+				width: auto !important;
+			}
+		}
+	}
+	.sub-heading-thin {
+		color: #009dd9;
+		font-size: 15px;
+		font-family: Gotham, "Helvetica Neue", Helvetica, Roboto, Arial, serif;
+		font-weight: normal;
+	}
+	.search-content {
+		.em-10 {
+			width: 10em;
+		}
+	}
+	.bottom-detail {
+			.miipSiteViewFound{
+				padding-top: 6px;
+				text-align: right;
+			}
+	}
+	.right-pane{
+		.top-summary{
+			    min-height:0;
+		}
+	}
+	.bootstrap-table {.table.table-no-bordered{
+		 tbody {
+			 tr {
+				//  td
+				// { white-space: normal;}
+				td:nth-child(4){
+					 white-space: nowrap;
+				}
+				td{
+					.iconsPrintDownload, .iconsdelDocPrint{
+						cursor: pointer;
+						font-size: 14px;
+						color: @brand-primary-blue;
+					}
+					.fa-check-square-o{
+						color:@brand-primary;
+					}
+					.success-icon{
+						color: @brand-success;
+					}
+				}
+		}
+		}
+	}
+	}
+	.bootstrap-table-cardview{
+		.table.table-no-bordered {
+			> tbody {
+				> tr {
+					> td {
+						> div:first-child {
+						display:none;
+						}
+						> div:nth-of-type(2) {
+						display:none;
+						}
+						> div:nth-of-type(3) {
+							background-color: @brand-primary !important;
+							color: #ffffff;
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+@media (max-width: @screen-xs){
+	.miipSiteView{
+		.card-view .title{
+			word-wrap: break-word;
+			width: 30% !important;
+			min-width: 30%;
+		}
+	}
+}
+
+@media (max-width: @screen-sm-max) {
+	.miipSiteView {
+		.bottom-detail {
+			.miipSiteViewFound{
+	      text-align: left;
+			}
+			.tableContainer {
+				min-height: 100px;
+			}
+		}
+	}
+}

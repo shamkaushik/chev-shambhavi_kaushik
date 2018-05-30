@@ -1,66 +1,58 @@
 //PV page styles
 .page-stationreport{
     .sub-heading-thin{
-		color: #009dd9;;
+		color: @brand-primary;
 		font-size: 15px;
 		font-family: Gotham, "Helvetica Neue", Helvetica, Roboto, Arial, serif;
 		font-weight: normal;
     }
-    // .btn-group > .btn:first-child {
-       
-    //     font-style: italic;
-       
-    // }
-    
+    .disclaimerData{
+        padding-top:20px;
+    }
     .bootstrap-table .table.table-no-bordered.table-striped { 
         tbody {
              tr:nth-of-type(4) {
-             background-color: #dbdcdd;
+             background-color: @gray;
              font-weight:bold;
             }
             tr:nth-of-type(8) {
-                background-color: #dbdcdd;
+                background-color: @gray;
                 font-weight:bold;
+                border-bottom: 9px solid white;
             }
             @media (min-width: 481px){
            tr:nth-of-type(9) {
-                background-color: #dbdcdd;
+                background-color: @gray;
                 font-weight:bold;
             }
         }
             tr:nth-of-type(10) {
-                background-color: #dbdcdd;
+                background-color: @gray;
                 font-weight:bold;
             }
         }
     }
     .bootstrap-table-cardview .table.table-no-bordered > tbody > tr:nth-of-type(4) > td > div:first-child{
-         background-color: #dbdcdd !important; 
-         color:#383838;
+         background-color: @gray !important; 
+         color:@gray-base;
         
     }
     .bootstrap-table-cardview .table.table-no-bordered > tbody > tr:nth-of-type(8) > td > div:first-child{
-        background-color: #dbdcdd !important; 
-        color:#383838;
-      
+        background-color: @gray !important; 
+        color:@gray-base;
    }
    .bootstrap-table-cardview .table.table-no-bordered > tbody > tr:nth-of-type(9) > td > div:first-child{
-    background-color: #dbdcdd !important; 
+    background-color: @gray !important; 
     font-weight:bold;
-    color:#383838;
+    color:@gray-base;
 }
-
-
 .bootstrap-table-cardview .table.table-no-bordered > tbody > tr:nth-of-type(10) > td > div:first-child{
-    background-color: #dbdcdd !important; 
-    color:#383838;
-  
+    background-color: @gray !important; 
+    color:@gray-base;
 }
    .bootstrap-table-cardview .table.table-no-bordered > tbody > tr > td > div:first-child .title{
     display:none;
-   
 }
-  
 .fixed-table-body .card-view .value {
     width: 60%;
 }
@@ -68,11 +60,24 @@
    
     min-width: 40%;
 }
-
 }  
 
-
-
+@media (max-width: @screen-sm-max){
+    #table tr:nth-child(9) {
+        td  {
+            .usd-hidden{
+                display: none;
+            }
+        }
+    }
+    #table tr:nth-child(10) {
+        td  {
+            .usd-hidden{
+                display: none;
+            }
+        }
+    }
+}
 
 // Page specific PRINT styles
 @media print {
@@ -88,9 +93,6 @@
         -moz-box-shadow: none !important ;
         box-shadow: none !important;
     }
-   
-  
-   
     .navbar-brand.navbar-left {
         margin-left: 10px;
     }
@@ -99,6 +101,7 @@
         margin-right: 10px;
     }
     #table thead , tr{
+
         -webkit-print-color-adjust: exact; 
     }
     #table th *, #table tr * {
@@ -109,21 +112,16 @@
     .js-volume-summary{
         -webkit-print-color-adjust: exact;
     }
-
     body{
         background: none;
     }
     .page-stationreport{
-        
         .page-title{
             margin-left:100!important;
         }
-        
         .asc .fa, .dsc .fa{
             display: none;
         }
-        
-       
     }
 }
 

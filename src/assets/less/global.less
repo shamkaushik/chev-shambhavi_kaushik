@@ -18,6 +18,7 @@ that are to be used at the global level
 
 .result-count{
     color: @gray-dark;
+    font-style: italic;
 }
 
 .page-title {
@@ -76,6 +77,31 @@ input::-ms-clear {
 }
 .tooltip-arrow {
     border-top-color: @gray-darker !important;
+}
+
+.content-tabs{
+    .nav-tabs{
+        li{
+            a{
+                color: #0b2d71;
+                border: 0;
+                background-color: transparent;
+                text-decoration: none;
+            }
+            &.active{
+                a{
+                    font-weight: bold;
+                    border-bottom: 2px solid #0b2d71;
+                    &:hover, &:focus{
+                        color: #0b2d71;
+                        border: 0;
+                        border-bottom: 2px solid #0b2d71;
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .print-preview-wrapper{
