@@ -54,33 +54,6 @@ require(["modernizr",
         var init = function() {
             loadingInitialHbsTemplates();
             bindEvents();
-            //Parsely Form Validation
-            // $('#inquiryForm').parsley({
-            //     errors: {
-            //         classHandler: function(elem) {},
-            //         container: function(elem, template, isRadioOrCheckbox) {
-            //             //here i have span msg. id to be displayed as custom attribute in input element
-            //             $('#' + $(elem).attr('errorSpan')).html(template);
-            //             return true; //returning back boolean makes it work
-            //         },
-            //         errorsWrapper: '<span class=\"help-block\"><span class=\"fa\"><span class=\"fa-warning\"></span></span></span>',
-            //         errorElem: '<span></span>'
-            //     },
-            //     successClass: 'no-error',
-            //     errorClass: 'has-error',
-            //     validationThreshold: 0,
-            //     classHandler: function(el) {
-            //         return el.$element.closest("div");
-            //     },
-            //     errorsWrapper: '<span class=\"help-block\"><span class=\"fa\"><span class=\"fa-warning\"></span></span></span>',
-            //     errorTemplate: '<span></span>'
-            // }).validate();   
-
-            //Parsely Validation
-            // $('#inquiryForm').parsley().on('form:validate', function() {
-            //     $(config.parsleyErrorsList).hide();
-            // });
-            // triggerParselyFormValidation();
         };
 
         //To trigger parsely from validation
@@ -93,15 +66,11 @@ require(["modernizr",
                     }, 32)
                 .addMessage('en', 'checkvaliddate', 'my validator failed');
             $(el).parsley().on('field:success', function() {
-                //var fuelContainer = $(".fuel-type-container").length ? true : false;                
                 if ($('#inquiryForm').parsley().isValid()) {
                     $('#inquiryForm #submitBtn').removeClass('disabled').removeAttr('disabled');
                 }
             }).on('field:error', function(field) {
-                //$(config.parsleyErrorsList).show();
-                console.log("element", field.$element);
                 field.$element.context.nextElementSibling.classList.add("error-msg");
-                // <span class = \"help-block\"><span class=\"fa\"><span class=\"fa-warning\"></span></span></span>
                 $('#inquiryForm #submitBtn').addClass('disabled').attr('disabled');
             }).validate();
         };
@@ -110,12 +79,9 @@ require(["modernizr",
         //to configure the calendar component
         var populatingCalendarComponent = function() {
             function cb(startDate) {
-                //startDate = start.format(cbp.delDocPage.dateRange.format);
-                // endDate = end.format(cbp.delDocPage.dateRange.format);
                 console.log("startDate:", startDate);
                 $(config.calendar).find('input').val(startDate);
             }
-            //cb(start);
 
             $(config.pickDeliveryDateContainer).daterangepicker({
                     'applyClass': 'btn-primary',
@@ -131,7 +97,6 @@ require(["modernizr",
                     },
                     function(start, end, label) {
                         $(config.pickDeliveryDateContainer).parsley().validate();
-                        //console.log(start.toISOString(), end.toISOString(), label);
                     }
                 );
         };
@@ -179,7 +144,6 @@ require(["modernizr",
                         iconClass: cbp.rmcInqPage.globalVars.deliveryDate.iconClass,
                         id: cbp.rmcInqPage.globalVars.deliveryDate.id,
                         placeholder: "MM/DD/YYYY"
-                            // value: cbp.rmcInqPage.globalVars.deliveryDate.deliveryDateVal
                     }));
                     populatingCalendarComponent();
                     break;
@@ -207,7 +171,6 @@ require(["modernizr",
 
             $(document).on('focusout blur', config.formInput, function(event) {
                 triggerParselyFormValidation(event.target);
-                console.log("event.target:", event);
                 event.target.value !== "" ? $('#inquiryForm #resetBtn').removeClass('disabled').removeAttr('disabled') : $('#inquiryForm #resetBtn').addClass('disabled').attr('disabled');
             });
         };
