@@ -19,14 +19,14 @@
             <div class="content-box miip-prog-detail">
                 <div class="row">
                     <div class="col-sm-15 col-xs-15">
-                        <h2 class='page-title'> MIIP program details</h2>
+                        <h2 class='page-title'>MIIP volume details</h2>
                     </div>
                 </div>
                 <div class='row xs-m-0 position-relative'>
                     <div class="overlay-wrapper">
                     </div>
                     <div class='col-md-24 col-lg-24 right-pane'>
-                        <div class='top-summary js-miisPrgDetailPage-summary'>
+                        <div class='top-summary js-miisVolumeDetailPage-summary'>
                         </div>
                         <div class='bottom-detail js-bottom-detail md-p-0 xs-pt-15'>
                         </div>
@@ -37,62 +37,63 @@
 
         <script type="text/javascript">
 
-            var miipProgDetailResponse = {
-                "miipProgDetailsData": {
-                    "currency" : "USD"
+            var miipVolumeDetailResponse = {
+
+                "miipVolumeSummaryData": {
+                    "soldTo": "7063485 Cain Petroleum Incorporated, 4512 Sw Kelly Portland, OR 97239, United States",
+                    "site": "209902 Cain Petroleum Incorporated, Glastone, 830 East Berkley, United States",
+                    "salesMonth": "October 2017",
+                    "siteZone" : "4A",
+                    "businessConsultant" : "Kevin Maloney",
+                    "thruputMethod" : "R/Wincor Beetle MI",
+                    "brand" : "Chevron",
+                    "totalRUL" : "856,724.123",
+                    "totalMUL" : "4,167,651.112",
+                    "totalPUL" : "701,936.154",
+                    "total" : "101,936.088"
                 },
-                "miipSummarData": {
-                    "soldTo": "8106818 - Hanson Quarry Products (premix) Sdn, W501 Level 5, West Tower, Wisma Consplant 1 2 Jln Ss 16/4, MY", //Added for new detail page changes
-                    "site": "8106818 - Hanson Quarry Products (premix) Sdn, W501 Level 5, West Tower, Wisma Consplant 1 2 Jln Ss 16/4, MY",
-                    "program": "6 Brand Retention Program",
-                    "status" : "Active",
-                    "paymentStartDate" : "01/2017",
-                    "paymentEndDate" : "12/2026",
-                    "amortizationEndDate" : "01/2027",
-                    "totalAmountPaid" : "31.926.43",
-                },
-                "miisProgDetailDataList": [
+                "miisVolumeDetailDataList": [
                     {
-                      "salesMonth": "02/2018",
-                      "paymentProcessingDate": "11/02/2018",
-                      "amountPaid": "123.23",
-                      "invoice": "JIIP558571",
-                      "billingDoc": "0714525158",
+                      "salesDate": "10/18/2017",
+                      "rul": "7,460.019",
+                      "mul": "123.23",
+                      "pul": "279.123",
+                      "total": "3,921.051",
                     },
                     {
-                      "salesMonth": "02/2018",
-                      "paymentProcessingDate": "11/02/2018",
-                      "amountPaid": "123.23",
-                      "invoice": "JIIP558571",
-                      "billingDoc": "0714525158",
+                      "salesDate": "10/18/2017",
+                      "rul": "7,460.019",
+                      "mul": "123.23",
+                      "pul": "279.123",
+                      "total": "3,921.051",
                     },
                     {
-                      "salesMonth": "02/2018",
-                      "paymentProcessingDate": "11/02/2018",
-                      "amountPaid": "123.23",
-                      "invoice": "JIIP558571",
-                      "billingDoc": "0714525158",
+                      "salesDate": "10/18/2017",
+                      "rul": "7,460.019",
+                      "mul": "123.23",
+                      "pul": "279.123",
+                      "total": "3,921.051",
                     },
                     {
-                      "salesMonth": "02/2018",
-                      "paymentProcessingDate": "11/02/2018",
-                      "amountPaid": "123.23",
-                      "invoice": "JIIP558571",
-                      "billingDoc": "0714525158",
+                      "salesDate": "10/18/2017",
+                      "rul": "7,460.019",
+                      "mul": "123.23",
+                      "pul": "279.123",
+                      "total": "3,921.051",
                     },
                     {
-                      "salesMonth": "02/2018",
-                      "paymentProcessingDate": "11/02/2018",
-                      "amountPaid": "123.23",
-                      "invoice": "JIIP558571",
-                      "billingDoc": "0714525158",
+                      "salesDate": "10/18/2017",
+                      "rul": "7,460.019",
+                      "mul": "123.23",
+                      "pul": "279.123",
+                      "total": "3,921.051",
                     },
                     {
-                      "salesMonth": "02/2018",
-                      "paymentProcessingDate": "11/02/2018",
-                      "amountPaid": "123.23",
-                      "invoice": "JIIP558571",
-                      "billingDoc": "0714525158",
+                      "salesDate": "10/18/2017",
+                      "rul": "7,460.019",
+                      "mul": "123.23",
+                      "pul": "279.123",
+                      "total": "3,921.051",
                     }
                 ]
             };
@@ -108,31 +109,35 @@
 
             var cbp = {
                 "staticBasePath": "/",
-                "miisPrgDetailPage": {
+                "miisVolumeDetailPage": {
 
                     "globalUrl": {
-                        "miisProgViewURL" : "/miip-site-view/miipSiteView.html"
+                        "miisVolumeViewURL" : "/miip-site-view/miipSiteView.html"
                     },
                     "globalVars": {
-                      "progReturnView" : "Return to Program View",
-                        "miisPrgDetailsSummary": "MIIP program details summary",
+                      "volumeReturnView" : "Return to Volume View",
+                        "miisPrgDetailsSummary": "MIIP volume details summary",
                         "soldTo": "Sold To:",
                         "account" : "Account",
                         "shipTo": "Ship To:",
                         /*Labels for Table header*/
                         "soldtoLabel" : "Sold To",
                         "siteLabel" : "Site",
-                        "programLabel" : "Program",
-                        "statusLabel" : "Status",
-                        "paymentStartDateLabel" : "Payment Start Date",
-                        "paymentEndDateLabel" : "Payment End Date",
-                        "amortizationEndDateLabel"  : "Amortization End Date",
+                        "salesMonthLabel" : "Sales Month",
+                        "siteZoneLabel" : "Site Zone",
+                        "businessConsultantLabel" : "Business Consultant",
+                        "thruputMethodLabel" : "Thruput Method/Equipment",
+                        "brandLabel"  : "Brand",
                         "totalAmountPaidLabel" : "Total Amount Paid(USD)",
-                        "salesMonth" : "Sales Month",
-                        "paymentProcessingDate": "Payment Processing Date",
-                        "amountPaid": "Amount Paid",
-                        "invoice": "Invoice #",
-                        "billingDoc": "Billing Document",
+                        "totalRULLabel" : "Total RUL (GA)",
+                        "totalMULLabel" : "Total MUL (GA)",
+                        "totalPULLabel" : "Total PUL (GA)",
+                        "totalLabel" : "Total (GA)",
+                        "salesDate" : "Sales Date (30 Days)",
+                        "rul" : "RUL (GA)",
+                        "mul" : "MUL (GA)",
+                        "pul" : "PUL (GA)",
+                        "total" : "Total (GA)",
                         "tableLocales": {
                             "loadingMessage": "Loading, please wait...",
                             "recordsPerPage": "{0} rows per page",
