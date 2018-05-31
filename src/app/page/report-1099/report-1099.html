@@ -61,7 +61,7 @@
 
         <script type="text/javascript">
             var isASM = false;
-            var accountDropdown = [{
+            var soldToDropdown = [{
                     "uid": "0676334614",
                     "displayName": "0676334614, ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
                 }, {
@@ -77,8 +77,10 @@
 
             var yearDropdown = ["2018","2017"];
 
-            var quarterDropdown = ["Q1", "Q2", "Q3", "Q4"];
+            var quarterDropdown = ["Q1", "Q2"];
 
+            var quarterDdnAll = ["Q1", "Q2", "Q3", "Q4"];
+                
             var selectedQuarter = "Q2";
 
             var ten99SearchCurrency = 'USD';
@@ -86,6 +88,13 @@
             var cbp = {
                 "staticBasePath": "/",
                 "report1099Page": {
+                    "soldToDropDown": {
+                        "options": [],
+                        "label": "Sold To",
+                        "name": "soldToSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": true
+                    },
                     "accountDropDown": {
                         "options": [],
                         "label": "Account",
@@ -126,6 +135,7 @@
                     "globalUrl": {
                         "searchReportsURL": "/assets/json/1099SearchResults.json",
                         "downloadReportsURL": "/assets/json/1099downloadResults.json",
+                        "accountDdnURL":"/assets/json/1099accountDdn.json",
                         "method": "GET"
                     },
                     "globalVars": {
@@ -148,9 +158,11 @@
                         "note": "Note",
                         "notemsg": "Please note the download file contains all year to date payment card transaction data by facility, by month.",
                         "pageTitle": "1099 report summary",
+                        "soldTo":"Sold To",
                         "account": "Account",
                         "year": "Year",
                         "quarter": "Quarter",
+                        "allTb": "All",
                         "resultCount": "result(s) found"
                     },
                     "searchResponse": {}

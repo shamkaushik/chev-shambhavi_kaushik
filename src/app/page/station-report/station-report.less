@@ -60,6 +60,63 @@
    
     min-width: 40%;
 }
+
+    .onoffbtn {
+        width: 35px;
+        height: 20px;
+        border-radius: 10px;
+        background: #0082c8;
+        display: inline-block;
+        position: relative;
+    }
+
+    .onoffbtn.disabled {
+        background: #dbdbdb;
+    }
+
+    .onoffbtn:after {
+        position: absolute;
+        height: 18px;
+        width: 18px;
+        display: block;
+        border-radius: 50%;
+        background: #ffffff;
+        top: 1px;
+        left: 1px;
+        content: " ";
+        -webkit-transition: all 200ms ease-in-out;
+        -moz-transition: all 200ms ease-in-out;
+        -o-transition: all 200ms ease-in-out;
+        transition: all 200ms ease-in-out;
+        text-align: center;
+        line-height: 29px;
+    }
+
+    .onoffbtn.active:after {
+        left: 100%;
+        margin-left: -19px;
+    }
+
+    .onoffbtn input[type="checkbox"] {
+        opacity: 0;
+    }
+
+    .captionSrcDonut{
+        padding-left:38%;
+        padding: 9px 10px;
+        margin: 0;color: #fff;
+        background-color: #009dd9;
+        display: block;
+        text-align: center;
+        margin: 0 auto; 
+        position: relative;
+        top: -10px;
+    }
+
+    .legendsDonut{
+        display: inline;
+        padding-right: 35px;
+    }
 }  
 
 @media (max-width: @screen-sm-max){
