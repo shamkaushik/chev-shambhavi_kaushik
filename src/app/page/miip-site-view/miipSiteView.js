@@ -160,7 +160,6 @@ require(["modernizr",
       ];
 
         var sortListMap = globalSortList.reduce(function (data, globalSortList) {
-          debugger;
             data[globalSortList.key] = globalSortList;
             return data;
           }, {});
