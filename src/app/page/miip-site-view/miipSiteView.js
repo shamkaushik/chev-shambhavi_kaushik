@@ -150,20 +150,13 @@ require(["modernizr",
         }, {
                 key: "brand-desc",
                 value: cbp.miipSite.globalVars.brandDesc
-        }, {
-            key: "site-asc",
-            value: cbp.miipSite.globalVars.siteSortAsc
-        }, {
-            key: "site-desc",
-            value: cbp.miipSite.globalVars.siteSortDesc
-        }
+        },
       ];
 
         var sortListMap = globalSortList.reduce(function (data, globalSortList) {
             data[globalSortList.key] = globalSortList;
             return data;
           }, {});
-
 
         var sortKey = Object.keys(sortListMap).filter(function(key) {
             if(sortListMap[key]){
@@ -326,7 +319,7 @@ require(["modernizr",
 
                         },
                         {
-                            field: 'siteName',
+                            field: 'site',
                             title: cbp.miipSite.globalVars.site,
                             titleTooltip: cbp.miipSite.globalVars.site,
                             width: "40%",
@@ -382,7 +375,7 @@ require(["modernizr",
             data[columnsList.field] = columnsList;
             return data;
             }, {});
-            var orderKey = [ "siteName", "volumeDiscrepency", "thruput", "rentFlag", "brand", "businessConsultant", "siteZone"]
+            var orderKey = [ "site", "volumeDiscrepency", "thruput", "rentFlag", "brand", "businessConsultant", "siteZone"]
 
             var requestedCol = [];
             for(var i = 0; i< orderKey.length; i++){
