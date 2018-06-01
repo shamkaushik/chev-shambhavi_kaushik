@@ -1,4 +1,4 @@
-<!Doctype html>
+<!Doctype html> 
 <html>
 
 <head>
@@ -12,40 +12,66 @@
 <body>
     <div class='body-wrapper'>
         <main>
-            <header class="main-header main-header-md js-header" style="">
+            <header class="main-header main-header-md js-header">
             </header>
         </main>
         <section class='main-container'>
-            <div class="content-box rmcInq-page">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h2 class='page-title'>RMC inquiry</h2>
+            <form class="form-horizontal" id="inquiryForm" role="form" data-parsley-validate>
+                <div class="content-box rmcInq-page">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2 class='page-title'>RMC inquiry</h2>
+                        </div>
+                        <span class="col-xs-24 sub-heading-thin xs-pt-15 xs-pb-15 xs-pl-10">
+                            user information
+                        </span>
+                        <div class="col-xs-24 js-user-info-form">
+                        </div>
                     </div>
-                    <span class="col-xs-24 sub-heading-thin xs-pt-15 xs-pl-15">
-                        user information
-                    </span>
-                    <div class="col-md-24 col-xs-24 userinfoFormContainer">
+                    <div class='row xs-m-0'>
+                        <div class="overlay-wrapper">
+                        </div>
+                        <div class='col-xs-24 inquiry-form right-pane xs-m-0 xs-p-0'>
+                            <span class="col-xs-24 sub-heading-thin xs-pt-15 xs-pl-10">
+                                inquiry form
+                        </span>
+                            <div class="col-xs-24 col-md-4 xs-pt-15 xs-pl-15 js-form-dropdown form-group">
 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row position-relative">
+                        <div class="col-xs-24 js-form-container"></div>
+                        <div class="col-md-3 col-xs-12 xs-pt-20 pull-right">
+                            <input type="reset" name="resetBtn" id="resetBtn" value="Reset" disabled="disabled" class="btn reset-btn" />
+                            <input type="submit" name="submitBtn" id="submitBtn" value="Submit" disabled="disabled" class="btn btn-primary xs-ml-10 md-ml-15" />
+                        </div>
                     </div>
                 </div>
-                <div class='row xs-m-0 position-relative'>
-                    <div class="overlay-wrapper">
-                    </div>
-                    <div class='col-md-24 col-lg-24 right-pane xs-m-0 xs-p-0'>
-
-                    </div>
-                </div>
-            </div>
+            </form>
         </section>
-
-        <form id="siteOperatingForm" method="POST" action="/sf/siteOperating/downloadsiteOperating">
-            <input name="selectedSiteOperating" id="selectedSiteOperating" type="hidden">
-        </form>
 
         <script type="text/javascript">
             var inASMSession = "false";
 
             var maxResults = 500;
+            var deliveryDateVal;
+            var inquiryTypeDropdownOptions = [{
+                key: "eftInquiry",
+                value: "EFT Inquiry"
+            }, {
+                key: "fuelInvoiceInquiry",
+                value: "Fuel Invoice Inquiry"
+            }, {
+                key: "ucl",
+                value: "Unconfirmed Log (UCL)"
+            }, {
+                key: "pop",
+                value: "Point of Purchase (POP)"
+            }, {
+                key: "chargebackInquiry",
+                value: "Chargeback Inquiry"
+            }];
             var cbp = {
                 "staticBasePath": "/",
                 "rmcInqPage": {
@@ -53,26 +79,93 @@
                         "siteOperatingPostURL": "/assets/json/siteOperating.json",
                         "siteURL": "/assets/json/siteResponse.json",
                         "method": "GET",
-                        "siteOperatingearch":  "/assets/json/siteOperatingSearchResult.json",
+                        "siteOperatingearch":   "/assets/json/siteOperatingSearchResult.json",
                         "siteOperatingSummaryURL": "/assets/json/siteOperatingSummaryURL.json",
-                        "siteOperatingPrintURL":  "sf/siteOperating/printsiteOperating",
-                        "siteOperatingDownloadURL":  "sf/siteOperating/downloadsiteOperating",
+                        "siteOperatingPrintURL":   "sf/siteOperating/printsiteOperating",
+                        "siteOperatingDownloadURL":   "sf/siteOperating/downloadsiteOperating",
+                    },
+                    "inquiryTypeDropdown": {
+                        "options": inquiryTypeDropdownOptions,
+                        "label": "Inquiry Type",
+                        "title": "",
+                        "name": "inquiryTypeDdn",
+                        "showOptions": 10,
+                        "singleOption": true
                     },
                     "globalVars": {
-                        "formANDToRange" : "",
-                        "dateRange" : {
-                            "format" : "MM/DD/YYYY"
+                        "formANDToRange": "",
+                        "dateRange": {
+                            "format": "MM/DD/YYYY"
                         },
-                        "userID" : "User ID",
-                        "fname" : "First Name",
-                        "lname" : "Last Name",
-                        "userEmail" : "E-mail",
-                        "altEmail" : "Alternate E-mail Address",
-                        "userPhone" : "Phone No."
+                        "eftInquiry": {
+                            "stationAccountLabel": "Station or Account #",
+                            "eftInvoiceLabel": "EFT or Invoice #",
+                            "reasonLabel": "Reason for Inquiry"
+                        },
+                        "fuelInvoiceInquiry": {
+                            "stationAccountLabel": "Station or Account #",
+                            "billOfLadingLabel": "Bill of Lading #",
+                            "invoiceNoLabel": "Invoice #",
+                            "carrierNameLabel": "Carrier Name",
+                            "deliveryDateLabel": "Delivery Date",
+                            "prodDisputedLabel": "Product/ Gallon Disputed",
+                            "reasonLabel": "Reason for Inquiry"
+                        },
+                        "ucl": {
+                            "stationNoLabel": "Station #",
+                            "batchDate": "Batch Date (Month and Day)",
+                            "batchNoLabel": "Batch #s",
+                            "noOfUclLabel": "# of Unconfirmed Logs (UCL)",
+                            "amountLabel": "Amount (USD)",
+                            "uclNote": "Please fax or e-mail the unconfirmed log report to the RMC including the case number that you will receive in the information e-mail."
+                        },
+                        "pop": {
+                            "stationAccountLabel": "Station or Account #",
+                            "deliveryAddress": "Delivery Address",
+                            "addrCheckboxLabel": "Address is the same as my station address",
+                            "brandLabel": "Brand (Chevron or Texaco)",
+                            "chevronLabel": "Chevron",
+                            "texacoLabel": "Texaco",
+                            "allLabel": "All",
+                            "quantityNeededLabel": "POP Element Needed and Quantity",
+                            "quantityTextareaLabel": "Please specify the quantity type by brand",
+                            "reasonLabel": "Reason for Inquiry"
+                        },
+                        "formAddress": {
+                            "addrLine1Label": "Address Line 1",
+                            "addrLine2Label": "Address Line 2",
+                            "cityLabel": "City",
+                            "countryLabel": "Country",
+                            "postalCodeLabel": "Postal Code"
+                        },
+                        "chargebackInquiry": {
+                            "stationNoLabel": "Station #",
+                            "chargebackNoLabel": "Chargeback #",
+                            "chargebackDateLabel": "Chargeback Posting Date",
+                            "amount": "Amount (USD)",
+                            "reasonLabel": "Reason for Inquiry"
+                        },
+                        "deliveryDate": {
+                            "deliveryDateLabel": "Delivery Date",
+                            "format": "MM/DD/YYYY",
+                            "cancel": "Cancel",
+                            "apply": "Apply",
+                            "iconClass": "fa fa-calendar pull-right",
+                            "id": "calendar",
+                            "applyLabel": "Apply",
+                            "cancelLabel": "Cancel",
+                            "deliveryDateVal": deliveryDateVal
+                        },
+                        "userID": "User ID",
+                        "fname": "First Name",
+                        "lname": "Last Name",
+                        "userEmail": "E-mail",
+                        "altEmail": "Alternate E-mail Address",
+                        "userPhone": "Phone No.",
+                        "formDesc": "Enter your information, then click on the submit button to process your request."
                     }
                 }
             }
-
         </script>
         <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
         <script src="/assets/js/requirejs.js"></script>
