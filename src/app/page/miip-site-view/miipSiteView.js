@@ -291,7 +291,6 @@ require(["modernizr",
                  }
             });
 
-
             //Search button functionality
             $(config.searchButton).on("click", function (e) {
                 triggerAjaxRequest();
@@ -339,15 +338,13 @@ require(["modernizr",
                             field: 'thruput',
                             title: cbp.miipSite.globalVars.thruput,
                             titleTooltip: cbp.miipSite.globalVars.thruput,
-                            width: "20%",
-                            sortable: true
+                            width: "20%"
                         },
                         {
                             field: 'rentFlag',
                             title: cbp.miipSite.globalVars.rentFlag,
                             titleTooltip: cbp.miipSite.globalVars.rentFlag,
-                            width: "20%",
-                            sortable: true
+                            width: "20%"
                         },
                         {
                           field: 'brand',
@@ -360,15 +357,13 @@ require(["modernizr",
                           field: 'businessConsultant',
                           title: cbp.miipSite.globalVars.businessConsultant,
                           titleTooltip: cbp.miipSite.globalVars.businessConsultant,
-                          width: "40%",
-                          sortable: true
+                          width: "40%"
                         },
                         {
                           field: 'siteZone',
                           title: cbp.miipSite.globalVars.siteZone,
                           titleTooltip: cbp.miipSite.globalVars.siteZone,
-                          width: "20%",
-                          sortable: true
+                          width: "20%"
                         }];
 
             var columnsListMap = columnsList.reduce(function (data, columnsList) {
@@ -407,8 +402,6 @@ require(["modernizr",
             $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'invoiceId',
-                uniqueId: 'delDocId',
                 sortOrder: 'desc',
                 iconsPrefix: 'fa',
                 sortable: true,
