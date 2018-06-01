@@ -46,7 +46,8 @@ require(["modernizr",
             selectedDisputeLink: 'a[data-target="#disputeModal"]',
             salesModal: ".js-sales-modal",
             disputeModal: ".js-dispute-modal",
-            disputedModal: ".js-disputed-modal"
+            disputedModal: ".js-disputed-modal",
+            printBtn: ".js-printBtn"
         };
 
         var srtByDdn = {
@@ -141,6 +142,7 @@ require(["modernizr",
                 columns: [{
                     field: 'program',
                     title: 'Program',
+                    class:'text-wrap',
                     formatter: function(row, value){
                         if(value.status == 'Rollover'){
                             return row;
@@ -150,25 +152,29 @@ require(["modernizr",
                     },
                 }, {
                     field: 'paymentStartDate',
-                    title: 'Payment Start Date'
+                    title: 'Payment Start Date',
+                    class:'text-wrap'
                 }, {
                     field: 'paymentEndDate',
-                    title: 'Payment End Date'
+                    title: 'Payment End Date',
+                    class:'text-wrap'
                 }, {
                     field: 'amortizationEndDate',
-                    title: 'Amortization End Date'
+                    title: 'Amortization End Date',
+                    class:'text-wrap break-word',
                 }, {
                     field: 'totalPaid',
                     title: 'Total Paid (USD)',
-                    class: 'text-right'
+                    class: 'text-right text-wrap '
                 },
                 {
                     field: 'estimatedRepaymentAmount',
                     title: 'Estimated Repayment Amount',
-                    class: 'text-right'
+                    class: 'text-right text-wrap'
                 },{
                     field: 'status',
-                    title: 'Status'
+                    title: 'Status',
+                    class:'text-wrap'
                 }],
                 data: [{
                     program: '6 Brand Retention Program',
@@ -273,6 +279,15 @@ require(["modernizr",
         }
 
         var bindEvents = function(){
+            
+            $(document).on("click", config.printBtn, function (e) {
+                var programViewSummary = compiledProgramViewSummary(cbp.miipProgramVolumeDetailPage);
+                var win = window.open('', '_blank', 'PopUp' + ',width=1300,height=800');
+                win.document.write('\n                <html>\n                    <head>\n                        <meta charset="utf-8">\n                        <meta http-equiv="X-UA-Compatible" content="IE=edge">\n                        <meta name="viewport" content="width=device-width, initial-scale=1">\n                        <link href="/assets/css/custom-bootstrap.css" rel="stylesheet" type="text/css"/>\n                        <link href="/assets/css/app-na.css" rel="stylesheet" type="text/css"/>\n                        <style>\n      .break-word{ word-wrap: break-word; width:16%;}    .summary-heading{display:none;} a{text-decoration:none; color:#383838; cursor: default; pointer-events:none;} a:hover{text-decoration:none; color:#383838; cursor: default;} a:focus{text-decoration:none; color:#383838; cursor: default;}      .summary-print{margin-left:20px; margin-bottom:20px; width:97%;}       .custBody {\n                            background-color: #ffffff;\n                          }\n                 .fixed-table-container{    margin-left: -6px;}       .miip-program-view-headerLabel {\n                            color: #009dd9;\n                            font-weight: bold;\n                                                                                                     font-size: 20px;\n                            margin-left: 22px;\n                                                                                                     padding: 0 0 0px 0;\n                        }\n\t\t\t\t\t\t.table{\n\t\t\t\t\t\t\tmax-width:98%;\n\t\t\t\t\t\t\tmargin-left:20px;\n}\t\n.nav-bottom{\n                                                                                                     border-bottom: none;\n                                                                                      }\n                                                                                      .navbar-brand{\n                                                                                                     \n                                                                                      }\n                                                                                      .fixed-table-body{\n                                                                                                     height:auto !important;\n                                                                                      }\n                        </style>\n                    </head>\n                    <body class="custBody">\n                        <div class="wrapper">\n                            <header class="main-header main-header-md js-header" style="">\n                                <div class="nav-bottom">\n                                    <nav class="main-navigation js-enquire-offcanvas-navigation" role="navigation">\n                                                                                                                                                \n                                        <div class="row">                                            \n                                                <a class="navbar-brand navbar-left" href="/index.html">\n                                                    <img alt="Brand" src="/assets/images/logo.png">\n                                                    <span>business point</span>\n                                                </a>\n                                                                                                                                                                               <a class="navbar-brand navbar-right" href="/index.html">\n                                                    <img alt="Brand" src="/assets/images/fob-color-rgb.png">                                                    \n                                                </a>\n                                            </div>                                                                                                                                                  \n                                        \n                                    </nav>\n                                </div>\n                            </header>\n                            <div class="col-sm-24">\n                                <p class="miip-program-view-headerLabel">MIIP program view</p>\n                            </div>\n                           <div class ="col-xs-24 shipToSummary"></div>\n                                                    \n                            \n                        </div>\n                    </body>\n                </html>\n                ');
+                win.document.write(programViewSummary);
+                win.document.write($(".tableContainer").html());
+            });
+
             $(document).on('shown.bs.tab',config.selectedTabs, function (e) {
                 var target = $(e.target).attr("href");
                 if(target === '#programview'){
