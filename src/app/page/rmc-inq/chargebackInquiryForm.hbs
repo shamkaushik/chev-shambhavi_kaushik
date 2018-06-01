@@ -21,7 +21,14 @@
             <div class="row xs-pt-15">
                 <div class="col-xs-24">                    
                     <span id="chargebackDate">
-                        <div class='js-search-pickDateRange'></div>
+                        {{!-- <div class='js-search-pickDateRange'></div> --}}
+                        <label for="stationNo">
+                            {{globalVars.chargebackInquiry.chargebackDateLabel}}
+                        </label> <br/>                         
+                        <div class="calendar-container">
+                            <input data-parsley-trigger="focusout" name="chargebackDate" data-check-valid-date="" type="text"  data-parsley-required="" class='js-search-pickDateRange input-field-style input-element' id="datePicker2" placeholder="(MM/DD/YYYY)">
+                            <span class="fa fa-calendar calendar-icon"></span>
+                        </div>
                     </span>                            
                 </div>                
             </div>

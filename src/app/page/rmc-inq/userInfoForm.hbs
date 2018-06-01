@@ -1,4 +1,7 @@
 <div class="bg-userinfo userInfoContainer xs-pt-15 xs-p-10"> 
+    {{!-- <span class="col-xs-24 sub-heading-thin xs-pt-15 xs-pb-15 xs-pl-10">        
+        {{globalVars.userInfo.userInfoLabel}}
+    </span> --}}
     <div class="row">
         <div class="col-xs-24 col-md-4 md-mb-0 xs-mb-15">
             <label for="userIdText">
@@ -14,7 +17,7 @@
                 {{globalVars.fname}}
             </label> <br/>
             <span id="fname">
-                <input type="text" name="userFname" id="userFname" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout"/>
+                <input type="text" name="userFname" id="userFname" value="{{globalVars.userInfo.firstNameVal}}" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout"/>
             </span>
         </div>
 
@@ -23,7 +26,7 @@
                 {{globalVars.lname}}
             </label> <br/>
             <span id="lname">
-                <input type="text" name="userLname" id="userLname" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout" />
+                <input type="text" name="userLname" id="userLname" value="{{globalVars.userInfo.lastNameVal}}" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout" />
             </span>
         </div>
     </div>
@@ -42,7 +45,7 @@
                 {{globalVars.altEmail}}
             </label> <br/>
             <span id="altEmail">
-                <input type="email" name="altUserEmail" id="altUserEmail" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout"/>
+                <input type="email" name="altUserEmail" id="altUserEmail" value="{{globalVars.userInfo.userEmailVal}}" class="input-field-style input-element" data-parsley-required="" data-parsley-trigger="focusout"/>
             </span>
         </div>
         <div class="col-xs-24 col-md-4 md-mb-0 xs-mb-15">
@@ -50,7 +53,7 @@
                 {{globalVars.userPhone}} 
             </label> <br/>
             <span id="userPhone">
-                <input type="tel" name="phone" id="phone" class="input-field-style input-element" data-parsley-type="digits" data-parsley-required="" data-parsley-trigger="focusout"/>
+                <input type="tel" name="phone" id="phone" class="input-field-style input-element" value="{{globalVars.userInfo.userPhoneVal}}" data-parsley-type="digits" data-parsley-required="" data-parsley-trigger="focusout"/>
             </span>
         </div>
     </div>
