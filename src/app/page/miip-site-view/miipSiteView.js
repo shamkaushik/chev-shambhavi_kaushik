@@ -77,7 +77,6 @@ require(["modernizr",
             $(config.soldToDdnContainer).html(compiledDefaultDdn(cbp.miipSite.locationDropDown));
             srtByDdn["options"] = sortDdnOptions;
             $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
-            $(config.sortByDdnContainer).find(config.dropDownCommon).selectpicker('refresh');
             enableMobileDefaultDropDown();
             setSummaryValues();
         };
@@ -132,7 +131,7 @@ require(["modernizr",
 
         };
 
-        var generatingOptions = function(data){
+        var generatingOptions = function(data) {
             globalSortList = [{
                 key: "site-asc",
                 value: cbp.miipSite.globalVars.siteSortAsc
@@ -145,42 +144,23 @@ require(["modernizr",
         }, {
                 key: "volumeDiscrepency-desc",
                 value: cbp.miipSite.globalVars.volumeDesDesc
-        }, {
-                key: "thruput-asc",
-                value: cbp.miipSite.globalVars.thruputAsc
-        }, {
-                key: "thruput-desc",
-                value: cbp.miipSite.globalVars.thruputDesc
-        }, {
-                key: "rentFlag-asc",
-                value: cbp.miipSite.globalVars.rentFlagAsc
-        }, {
-                key: "rentFlag-desc",
-                value: cbp.miipSite.globalVars.rentFlagDesc
-        }, {
+        },  {
                 key: "brand-asc",
                 value: cbp.miipSite.globalVars.brandAsc
         }, {
                 key: "brand-desc",
                 value: cbp.miipSite.globalVars.brandDesc
-        },
-        {
-                key: "businessConsultant-asc",
-                value: cbp.miipSite.globalVars.businessConsultantAsc
         }, {
-                key: "businessConsultant-desc",
-                value: cbp.miipSite.globalVars.businessConsultantDesc
-        },
-        {
-                key: "siteZone-asc",
-                value: cbp.miipSite.globalVars.siteZoneAsc
+            key: "site-asc",
+            value: cbp.miipSite.globalVars.siteSortAsc
         }, {
-                key: "siteZone-desc",
-                value: cbp.miipSite.globalVars.siteZoneDesc
+            key: "site-desc",
+            value: cbp.miipSite.globalVars.siteSortDesc
         }
       ];
 
         var sortListMap = globalSortList.reduce(function (data, globalSortList) {
+          debugger;
             data[globalSortList.key] = globalSortList;
             return data;
           }, {});

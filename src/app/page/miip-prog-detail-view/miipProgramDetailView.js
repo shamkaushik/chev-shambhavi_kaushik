@@ -5,15 +5,16 @@ require(["modernizr",
     "moment",
     "bootstrap-select",
     "bootstrap-table",
-    "toggleSwitch",
+    "text!app/components/dropdown/_defaultDdn.hbs",
     "text!app/page/miip-prog-detail-view/miipProgramDetailViewSummary.hbs",
     "text!app/page/miip-prog-detail-view/bottomDetail.hbs"
 
-], function (modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, bootstrapSelect, bootstrapTable, _miipProgDetailSummaryHBS, _bottomDetailHBS) {
+], function (modernizr, $, bootstrap, Handlebars, moment, bootstrapSelect, bootstrapTable, _defaultDdnHBS, _miipProgDetailSummaryHBS, _bottomDetailHBS) {
 
     // Compiling HBS templates
     var compiledMiipProgDetailSummary = Handlebars.compile(_miipProgDetailSummaryHBS);
     var compiledBottomDetail = Handlebars.compile(_bottomDetailHBS);
+    var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
 
     var miipProgDetailPage = (function () {
         var config = {
@@ -23,6 +24,8 @@ require(["modernizr",
             displaySpinner: ".overlay-wrapper",
             backtoProgView: ".progReturnView",
             topSummaryLeftSection: ".topSummaryLeftSection",
+            sortByDdnContainer: ".js-sortbyDdn",
+            sortByDdn: "#sortByDdn",
         };
 
         var init = function () {
@@ -40,6 +43,7 @@ require(["modernizr",
         var loadingDynamicHbsTemplates = function () {
             $(config.miipProgSummaryContainer).html(compiledMiipProgDetailSummary(cbp.miisPrgDetailPage));
             $(config.searchDetailContainer).html(compiledBottomDetail(cbp.miisPrgDetailPage));
+            $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
         };
 
         var bindEvents = function () {
@@ -47,6 +51,34 @@ require(["modernizr",
                 window.location.href=cbp.miisPrgDetailPage.globalUrl.miisProgViewURL;
             });
 
+        };
+
+
+        var srtByDdn = {
+            "options": [{
+                key: "sales-Month-za",
+                value: "Sales Month, A to Z",
+                id: 'status'
+            },{
+                key: "sales-Month-az",
+                value: "Sales Month, Z to A",
+                id: 'status'
+            },
+            {
+                key: "payment-processing-za",
+                value: "Payment Processing, Z to A",
+                id: 'status'
+            },
+            {
+                key: "payment-processing-az",
+                value: "Payment Processing, Z to A",
+                id: 'status'
+            }],
+            label: "Sort By",
+            //title: cbp.ohPage.globalVars.docDateAsc,
+            labelClass: "xs-mr-5",
+            name: "sortByDdn",
+            display: "displayInline"
         };
 
         var populatingTable = function (miisProgDetailDataList) {
@@ -82,14 +114,14 @@ require(["modernizr",
                     titleTooltip: cbp.miisPrgDetailPage.globalVars.salesMonth,
                     class: 'text-nowrap numberIcon',
                     sortable: true,
-                    width:'10%'
+
                 },{
                     field: 'paymentProcessingDate',
                     title: cbp.miisPrgDetailPage.globalVars.paymentProcessingDate,
                     titleTooltip: cbp.miisPrgDetailPage.globalVars.paymentProcessingDate,
                     class: 'numberIcon text-nowrap',
                     sortable: true,
-                    width:'10%'
+
                 }, {
                     field: 'amountPaid',
                     title: cbp.miisPrgDetailPage.globalVars.amountPaid + " (" + cbp.miisPrgDetailPage.miipProgDetailResponse.miipProgDetailsData.currency+ ")",
@@ -97,21 +129,23 @@ require(["modernizr",
                     class: 'numberIcon',
                     sortable: true,
                     align: 'right',
-                    width:'10%'
+
                 }, {
                     field: 'invoice',
                     title: cbp.miisPrgDetailPage.globalVars.invoice,
                     titleTooltip: cbp.miisPrgDetailPage.globalVars.invoice,
                     class: 'numberIcon text-nowrap',
                     sortable: true,
-                    width:'10%'
+
                 }, {
                     field: 'billingDoc',
                     title: cbp.miisPrgDetailPage.globalVars.billingDoc,
                     titleTooltip: cbp.miisPrgDetailPage.globalVars.billingDoc,
                     class: 'numberIcon text-nowrap col-md-5',
                     sortable: true,
-                    width:'10%'
+                    formatter: function LinkFormatter(value, row, index) {
+                        return "<a href='#' class='js-prg-billingDoc'>" + value + "</a>";
+                    }
                 }],
                 data: miisProgDetailDataList
             });
