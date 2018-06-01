@@ -65,7 +65,7 @@ require(["modernizr",
                         return false;
                     }, 32)
                 .addMessage('en', 'checkvaliddate', 'my validator failed');
-            $(el).parsley().on('field:success', function() {
+            $("#inquiryForm").parsley().on('field:success', function() {
                 if ($('#inquiryForm').parsley().isValid()) {
                     $('#inquiryForm #submitBtn').removeClass('disabled').removeAttr('disabled');
                 }
