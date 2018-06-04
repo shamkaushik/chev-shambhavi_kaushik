@@ -30,7 +30,7 @@ require(["modernizr",
     var miipProgramVolumePage = (function() {
 
         var volumeRowArray = [];
-        
+
         var config = {
             headerContainer: ".js-header",
             footerContainer: ".js-footer",
@@ -54,7 +54,7 @@ require(["modernizr",
                 key: "status-za",
                 value: "Status, A to Z",
                 id: 'status'
-            },{
+            }, {
                 key: "status-az",
                 value: "Status, Z to A",
                 id: 'status'
@@ -66,12 +66,14 @@ require(["modernizr",
             display: "displayInline"
         };
 
-        var triggerAjaxRequest = function(data,type,url){   
+        var triggerAjaxRequest = function(data, type, url) {
             $(config.displaySpinner).show();
-            function successCallback(res){
+
+            function successCallback(res) {
                 return res;
             }
-            function errorCallback(err){
+
+            function errorCallback(err) {
                 return err;
             }
             return $.ajax({
@@ -80,7 +82,7 @@ require(["modernizr",
                 data: JSON.stringify(data),
                 //headers: {'CSRFToken':CSRFToken},
                 contentType: "application/json",
-                dataType:"json",
+                dataType: "json",
                 url: url,
                 success: successCallback,
                 error: errorCallback
@@ -114,7 +116,7 @@ require(["modernizr",
             }
         };
 
-        var initalizingTables = function(){
+        var initalizingTables = function() {
             $('#disputeTable, #disputedTable, #addSalesTable').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
@@ -126,7 +128,7 @@ require(["modernizr",
             });
         }
 
-        var populateTable = function(){
+        var populateTable = function() {
             $('#programTable').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
@@ -139,37 +141,38 @@ require(["modernizr",
                 responsiveClass: "bootstrap-table-cardview",
                 undefinedText: "",
                 columns: [{
-                    field: 'program',
-                    title: 'Program',
-                    formatter: function(row, value){
-                        if(value.status == 'Rollover'){
-                            return row;
-                        } else {
-                            return '<a href="">'+row+'</a>';
-                        }
+                        field: 'program',
+                        title: 'Program',
+                        formatter: function(row, value) {
+                            if (value.status == 'Rollover') {
+                                return row;
+                            } else {
+                                return '<a href="">' + row + '</a>';
+                            }
+                        },
+                    }, {
+                        field: 'paymentStartDate',
+                        title: 'Payment Start Date'
+                    }, {
+                        field: 'paymentEndDate',
+                        title: 'Payment End Date'
+                    }, {
+                        field: 'amortizationEndDate',
+                        title: 'Amortization End Date'
+                    }, {
+                        field: 'totalPaid',
+                        title: 'Total Paid (USD)',
+                        class: 'text-right'
                     },
-                }, {
-                    field: 'paymentStartDate',
-                    title: 'Payment Start Date'
-                }, {
-                    field: 'paymentEndDate',
-                    title: 'Payment End Date'
-                }, {
-                    field: 'amortizationEndDate',
-                    title: 'Amortization End Date'
-                }, {
-                    field: 'totalPaid',
-                    title: 'Total Paid (USD)',
-                    class: 'text-right'
-                },
-                {
-                    field: 'estimatedRepaymentAmount',
-                    title: 'Estimated Repayment Amount',
-                    class: 'text-right'
-                },{
-                    field: 'status',
-                    title: 'Status'
-                }],
+                    {
+                        field: 'estimatedRepaymentAmount',
+                        title: 'Estimated Repayment Amount',
+                        class: 'text-right'
+                    }, {
+                        field: 'status',
+                        title: 'Status'
+                    }
+                ],
                 data: [{
                     program: '6 Brand Retention Program',
                     paymentStartDate: '01/2016',
@@ -203,8 +206,8 @@ require(["modernizr",
                 columns: [{
                     field: 'salesMonth',
                     title: 'Sales Month',
-                    formatter: function(row, value){
-                        return '<a href="">'+row+'</a>';
+                    formatter: function(row, value) {
+                        return '<a href="">' + row + '</a>';
                     }
                 }, {
                     field: 'rul',
@@ -221,16 +224,16 @@ require(["modernizr",
                 }, {
                     field: 'disputeVolume',
                     title: 'Dispute Volume',
-                    formatter: function(row, value, index){
+                    formatter: function(row, value, index) {
                         console.log(value);
-                        if($.inArray( value, volumeRowArray) < 0){
+                        if ($.inArray(value, volumeRowArray) < 0) {
                             volumeRowArray.splice(index, 0, value);
                         }
 
-                        if(value.disputeVolume === 'Disputed'){
-                            return '<a href="" data-toggle="modal" data-target="#disputedModal" data-index='+index+'>'+row+'</a>';
-                        } else{
-                            return '<a href="" data-toggle="modal" data-target="#disputeModal" data-index='+index+'>'+row+'</a>';
+                        if (value.disputeVolume === 'Disputed') {
+                            return '<a href="" data-toggle="modal" data-target="#disputedModal" data-index=' + index + '>' + row + '</a>';
+                        } else {
+                            return '<a href="" data-toggle="modal" data-target="#disputeModal" data-index=' + index + '>' + row + '</a>';
                         }
                     }
                 }, {
@@ -272,19 +275,19 @@ require(["modernizr",
             });
         }
 
-        var bindEvents = function(){
-            $(document).on('shown.bs.tab',config.selectedTabs, function (e) {
+        var bindEvents = function() {
+            $(document).on('shown.bs.tab', config.selectedTabs, function(e) {
                 var target = $(e.target).attr("href");
-                if(target === '#programview'){
+                if (target === '#programview') {
                     cbp.miipProgramVolumeDetailPage.programView = true;
-                }else{
+                } else {
                     cbp.miipProgramVolumeDetailPage.programView = false;
                 }
                 $(config.programVolumeHeadingContainer).html(compiledProgramVolumeHeading(cbp.miipProgramVolumeDetailPage));
                 $(config.programViewSummaryConatiner).html(compiledProgramViewSummary(cbp.miipProgramVolumeDetailPage));
             });
 
-            $(document).on('click',config.selectedDisputeLink, function(e){
+            $(document).on('click', config.selectedDisputeLink, function(e) {
                 var targetDataIndex = e.target.dataset.index;
             });
         }
