@@ -1,4 +1,7 @@
 .miipSiteView {
+	.page-heading {
+		text-transform: none;
+	}
 	.fixed-table-container{
 		tbody{
 			.selected td{
@@ -89,10 +92,13 @@
 }
 @media (max-width: @screen-xs){
 	.miipSiteView{
-		.card-view .title{
+		.card-view .title {
 			word-wrap: break-word;
 			width: 30% !important;
-			min-width: 30%;
+			min-width: 40%;
+		}
+		.card-view .value {
+			width: 60% !important;
 		}
 	}
 }
