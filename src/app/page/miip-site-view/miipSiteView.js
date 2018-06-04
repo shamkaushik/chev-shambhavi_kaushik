@@ -77,7 +77,6 @@ require(["modernizr",
             $(config.soldToDdnContainer).html(compiledDefaultDdn(cbp.miipSite.locationDropDown));
             srtByDdn["options"] = sortDdnOptions;
             $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
-            $(config.sortByDdnContainer).find(config.dropDownCommon).selectpicker('refresh');
             enableMobileDefaultDropDown();
             setSummaryValues();
         };
@@ -132,7 +131,7 @@ require(["modernizr",
 
         };
 
-        var generatingOptions = function(data){
+        var generatingOptions = function(data) {
             globalSortList = [{
                 key: "site-asc",
                 value: cbp.miipSite.globalVars.siteSortAsc
@@ -145,46 +144,19 @@ require(["modernizr",
         }, {
                 key: "volumeDiscrepency-desc",
                 value: cbp.miipSite.globalVars.volumeDesDesc
-        }, {
-                key: "thruput-asc",
-                value: cbp.miipSite.globalVars.thruputAsc
-        }, {
-                key: "thruput-desc",
-                value: cbp.miipSite.globalVars.thruputDesc
-        }, {
-                key: "rentFlag-asc",
-                value: cbp.miipSite.globalVars.rentFlagAsc
-        }, {
-                key: "rentFlag-desc",
-                value: cbp.miipSite.globalVars.rentFlagDesc
-        }, {
+        },  {
                 key: "brand-asc",
                 value: cbp.miipSite.globalVars.brandAsc
         }, {
                 key: "brand-desc",
                 value: cbp.miipSite.globalVars.brandDesc
         },
-        {
-                key: "businessConsultant-asc",
-                value: cbp.miipSite.globalVars.businessConsultantAsc
-        }, {
-                key: "businessConsultant-desc",
-                value: cbp.miipSite.globalVars.businessConsultantDesc
-        },
-        {
-                key: "siteZone-asc",
-                value: cbp.miipSite.globalVars.siteZoneAsc
-        }, {
-                key: "siteZone-desc",
-                value: cbp.miipSite.globalVars.siteZoneDesc
-        }
       ];
 
         var sortListMap = globalSortList.reduce(function (data, globalSortList) {
             data[globalSortList.key] = globalSortList;
             return data;
           }, {});
-
 
         var sortKey = Object.keys(sortListMap).filter(function(key) {
             if(sortListMap[key]){
@@ -319,7 +291,6 @@ require(["modernizr",
                  }
             });
 
-
             //Search button functionality
             $(config.searchButton).on("click", function (e) {
                 triggerAjaxRequest();
@@ -347,7 +318,7 @@ require(["modernizr",
 
                         },
                         {
-                            field: 'siteName',
+                            field: 'site',
                             title: cbp.miipSite.globalVars.site,
                             titleTooltip: cbp.miipSite.globalVars.site,
                             width: "40%",
@@ -367,15 +338,13 @@ require(["modernizr",
                             field: 'thruput',
                             title: cbp.miipSite.globalVars.thruput,
                             titleTooltip: cbp.miipSite.globalVars.thruput,
-                            width: "20%",
-                            sortable: true
+                            width: "20%"
                         },
                         {
                             field: 'rentFlag',
                             title: cbp.miipSite.globalVars.rentFlag,
                             titleTooltip: cbp.miipSite.globalVars.rentFlag,
-                            width: "20%",
-                            sortable: true
+                            width: "20%"
                         },
                         {
                           field: 'brand',
@@ -388,22 +357,20 @@ require(["modernizr",
                           field: 'businessConsultant',
                           title: cbp.miipSite.globalVars.businessConsultant,
                           titleTooltip: cbp.miipSite.globalVars.businessConsultant,
-                          width: "40%",
-                          sortable: true
+                          width: "40%"
                         },
                         {
                           field: 'siteZone',
                           title: cbp.miipSite.globalVars.siteZone,
                           titleTooltip: cbp.miipSite.globalVars.siteZone,
-                          width: "20%",
-                          sortable: true
+                          width: "20%"
                         }];
 
             var columnsListMap = columnsList.reduce(function (data, columnsList) {
             data[columnsList.field] = columnsList;
             return data;
             }, {});
-            var orderKey = [ "siteName", "volumeDiscrepency", "thruput", "rentFlag", "brand", "businessConsultant", "siteZone"]
+            var orderKey = [ "site", "volumeDiscrepency", "thruput", "rentFlag", "brand", "businessConsultant", "siteZone"]
 
             var requestedCol = [];
             for(var i = 0; i< orderKey.length; i++){
@@ -435,8 +402,6 @@ require(["modernizr",
             $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'invoiceId',
-                uniqueId: 'delDocId',
                 sortOrder: 'desc',
                 iconsPrefix: 'fa',
                 sortable: true,
