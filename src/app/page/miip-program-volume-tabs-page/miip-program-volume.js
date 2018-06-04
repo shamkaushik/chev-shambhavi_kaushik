@@ -30,7 +30,7 @@ require(["modernizr",
     var miipProgramVolumePage = (function() {
 
         var volumeRowArray = [];
-        
+
         var config = {
             headerContainer: ".js-header",
             footerContainer: ".js-footer",
@@ -60,14 +60,14 @@ require(["modernizr",
                 value: "Status, Z to A",
                 id: 'status'
             }],
-            label: "Sort By",
+            label: "Sort by",
             //title: cbp.ohPage.globalVars.docDateAsc,
             labelClass: "xs-mr-5",
             name: "sortByDdn",
             display: "displayInline"
         };
 
-        var triggerAjaxRequest = function(data,type,url){   
+        var triggerAjaxRequest = function(data,type,url){
             $(config.displaySpinner).show();
             function successCallback(res){
                 return res;
@@ -169,7 +169,7 @@ require(["modernizr",
                 },
                 {
                     field: 'estimatedRepaymentAmount',
-                    title: 'Estimated Repayment Amount',
+                    title: 'Estimated Repayment Amount (USD)',
                     class: 'text-right text-wrap'
                 },{
                     field: 'status',
@@ -279,7 +279,7 @@ require(["modernizr",
         }
 
         var bindEvents = function(){
-            
+
             $(document).on("click", config.printBtn, function (e) {
                 var programViewSummary = compiledProgramViewSummary(cbp.miipProgramVolumeDetailPage);
                 var win = window.open('', '_blank', 'PopUp' + ',width=1300,height=800');
