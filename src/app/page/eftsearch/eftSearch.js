@@ -97,6 +97,7 @@ require(["modernizr",
                 var obj = {};
                 obj["key"] = dropDownList[i].uid;
                 obj["value"] = dropDownList[i].displayName;
+                obj["isInGracePeriod"] = dropDownList[i].isInGracePeriod;
                 dropDownListOptions.push(obj);
             }
 
