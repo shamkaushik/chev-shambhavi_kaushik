@@ -1,0 +1,100 @@
+
+<div class="row">
+    <div class="col-xs-24">
+        <span class="sub-heading">{{globalVars.miisPrgDetailsSummary}}</span>
+    </div>
+</div>
+<div class="row">
+<div class="col-md-18">
+    <div class="row xs-mt-10">
+          <div class="col-md-8 md-pr-40 xs-pb-10">
+            <span>
+                <strong>{{globalVars.soldtoLabel}}</strong>
+            </span>
+            <br/>
+            <span>{{miipVolumeDetailResponse.miipVolumeSummaryData.soldTo}}</span>
+          </div>
+          <div class="col-md-8 md-pl-40 xs-pb-10">
+            <span>
+                <strong>{{globalVars.siteLabel}}</strong>
+            </span>
+            <br/>
+            <span>{{miipVolumeDetailResponse.miipVolumeSummaryData.site}}</span>
+          </div>
+    </div>
+    <div class="row xs-mt-10">
+          <div class="col-md-4 md-pr-40 xs-pb-10">
+            <span>
+                <strong>{{globalVars.salesMonthLabel}}</strong>
+            </span>
+            <br/>
+            <span>{{miipVolumeDetailResponse.miipVolumeSummaryData.salesMonth}}</span>
+          </div>
+          <div class="col-md-4 md-pl-40 xs-pb-10">
+            <span>
+                <strong>{{globalVars.siteZoneLabel}}</strong>
+            </span>
+            <br/>
+            <span>{{miipVolumeDetailResponse.miipVolumeSummaryData.siteZone}}</span>
+          </div>
+
+          <div class="col-md-4 md-pl-40 xs-pb-10">
+            <span>
+                <strong>{{globalVars.businessConsultantLabel}}</strong>
+            </span>
+            <br/>
+            <span>{{miipVolumeDetailResponse.miipVolumeSummaryData.businessConsultant}}</span>
+          </div>
+          <div class="col-md-5 md-pl-40 xs-pb-10">
+            <span>
+                <strong>{{globalVars.thruputMethodLabel}}</strong>
+            </span>
+            <br/>
+            <span>{{miipVolumeDetailResponse.miipVolumeSummaryData.thruputMethod}}</span>
+          </div>
+          <div class="col-md-4 md-pl-40 xs-pb-10">
+            <span>
+                <strong>{{globalVars.brandLabel}}</strong>
+            </span>
+            <br/>
+            <span>{{miipVolumeDetailResponse.miipVolumeSummaryData.brand}}</span>
+          </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="row xs-mt-10">
+        <div class="xs-mt-15 visible-xs"></div>
+        <div class="col-md-17 col-sm-15 col-xs-18 text-right">
+        <label class="xs-pr-10">{{globalVars.totalRULLabel}}</label>
+        </div>
+        <div class="col-md-7 col-sm-9 col-xs-6 text-right">
+              <span>{{miipVolumeDetailResponse.miipVolumeSummaryData.totalRUL}}</span>
+        </div>
+    </div>
+    <div class="row xs-mt-5">
+        <div class="col-md-17 col-sm-15 col-xs-18 text-right">
+          <label class="xs-pr-10">{{globalVars.totalMULLabel}}</label>
+        </div>
+        <div class="col-md-7 col-sm-9 col-xs-6 text-right">
+             <span>{{miipVolumeDetailResponse.miipVolumeSummaryData.totalMUL}}</span>
+        </div>
+    </div>
+
+    <div class="row xs-mt-5">
+        <div class="col-md-17 col-sm-15 col-xs-18 text-right">
+          <label class="xs-pr-10">{{globalVars.totalPULLabel}}</label>
+        </div>
+        <div class="col-md-7 col-sm-9 col-xs-6 text-right">
+             <span>{{miipVolumeDetailResponse.miipVolumeSummaryData.totalPUL}}</span>
+        </div>
+    </div>
+    <div class="row xs-mt-5">
+        <div class="col-md-17 col-sm-15 col-xs-18 text-right">
+          <label class="xs-pr-10">{{globalVars.totalLabel}}</label>
+        </div>
+        <div class="col-md-7 col-sm-9 col-xs-6 text-right">
+             <span>{{miipVolumeDetailResponse.miipVolumeSummaryData.total}}</span>
+        </div>
+    </div>
+</div>
+</div>
