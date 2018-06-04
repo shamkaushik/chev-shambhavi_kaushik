@@ -329,6 +329,7 @@ require(["modernizr",
                             titleTooltip: cbp.miipSite.globalVars.site,
                             width: "40%",
                             sortable: true,
+                            class: 'col-md-6',
                             formatter: function LinkFormatter(value, row, index) {
                                 return "<a href='#' class='js-eft-NoticeNumber'>" + value + "</a>";
                             }
@@ -408,7 +409,7 @@ require(["modernizr",
             $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortOrder: 'desc',
+                sortName: 'site',
                 iconsPrefix: 'fa',
                 sortable: true,
                 parentContainer: ".js-bottom-detail",

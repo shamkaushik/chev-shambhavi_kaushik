@@ -134,6 +134,7 @@ require(["modernizr",
                 iconsPrefix: 'fa',
                 sortName: 'status',
                 sortOrder: 'asc',
+                sortName : 'status',
                 parentContainer: ".js-program-view",
                 responsive: true,
                 responsiveBreakPoint: 768,
@@ -147,7 +148,7 @@ require(["modernizr",
                         if(value.status == 'Rollover'){
                             return row;
                         } else {
-                            return '<a href="">'+row+'</a>';
+                            return '<a href="" class="programAnchor">'+row+'</a>';
                         }
                     },
                 }, {
@@ -174,7 +175,8 @@ require(["modernizr",
                 },{
                     field: 'status',
                     title: 'Status',
-                    class:'text-wrap'
+                    class:'text-wrap',
+                    sortable: true
                 }],
                 data: [{
                     program: '6 Brand Retention Program',
@@ -199,8 +201,8 @@ require(["modernizr",
                 classes: 'table table-no-bordered',
                 striped: true,
                 iconsPrefix: 'fa',
-                sortName: 'status',
-                sortOrder: 'asc',
+                sortName: 'salesMonth',
+                sortOrder: 'desc',
                 parentContainer: ".js-program-view",
                 responsive: true,
                 responsiveBreakPoint: 768,
@@ -209,6 +211,8 @@ require(["modernizr",
                 columns: [{
                     field: 'salesMonth',
                     title: 'Sales Month',
+                    sortable: true,
+                    class: 'numberIcon col-md-6',
                     formatter: function(row, value){
                         return '<a href="">'+row+'</a>';
                     }
@@ -245,7 +249,8 @@ require(["modernizr",
                 }, {
                     field: 'status',
                     title: 'Status',
-                    sortable: true
+
+                    class: 'col-md-6',
                 }],
                 data: [{
                     salesMonth: 'Sept 2017',

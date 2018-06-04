@@ -1,10 +1,29 @@
 .miip-program-volume-page{
-    .sub-heading{
-        font-weight: normal;
-    }
+  .sub-heading{
+    font-weight: normal;
+  }
 }
-@media print{
-    .summary-print{
-        -webkit-print-color-adjust: exact;
+
+@media (max-width: @screen-xs) {
+  .miip-program-volume-page {
+    .card-view .title {
+      word-wrap: break-word;
+      width: 50% !important;
+      min-width: 40%;
     }
+
+  .card-view .value {
+      width: 50% !important;
+    }
+
+  .programAnchor {
+      color: @table-body-bg;
+    }
+  }
+}
+
+@media print{
+  .summary-print{
+    -webkit-print-color-adjust: exact;
+  }
 }
