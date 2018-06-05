@@ -126,7 +126,9 @@ require(["modernizr",
                     field: 'amountPaid',
                     title: cbp.miisPrgDetailPage.globalVars.amountPaid + " (" + cbp.miisPrgDetailPage.miipProgDetailResponse.miipProgDetailsData.currency+ ")",
                     titleTooltip: cbp.miisPrgDetailPage.globalVars.amountPaid + " (" + cbp.miisPrgDetailPage.miipProgDetailResponse.miipProgDetailsData.currency+ ")",
-                    align:'right'
+                    align:'right',
+                    width:"10%",
+                    class: 'amount-paid-column',
                 }, {
                     field: 'invoice',
                     title: cbp.miisPrgDetailPage.globalVars.invoice,
