@@ -14,56 +14,56 @@
 }
 .sales-popup-input-text-large{
     width:67px;
-    }
+}
 
-    @media (max-width: @screen-xs) {
-        .miip-program-volume-page {
-            .card-view .title {
-              word-wrap: break-word;
-              width: 50% !important;
-              min-width: 40%;
-            }
-        
-          .card-view .value {
-              width: 50% !important;
-            }
-        
-          .programAnchor {
-              color: @table-body-bg;
-            }
-          }
-          /*Modal Popup changes*/
-        #myModal .modal-dialog, .modal .modal-dialog, .bootstrap-dialog .modal-dialog{
-            position: relative;
-            height:100vh;
-            width:100%;
-        }        
-        .modal-content {
-            position: fixed;
-            height: 100vh;
-            width: 100%;
-            overflow: scroll;
-        } 
-        .save-btn{
-            width:100%;
-        }  
-        button.btn.clos-btn.btn-default{
-            display:none;
+@media (max-width: @screen-xs) {
+    .miip-program-volume-page {
+        .card-view .title {
+            word-wrap: break-word;
+            width: 50% !important;
+            min-width: 40%;
         }
+    
+        .card-view .value {
+            width: 50% !important;
+        }
+    
+        .programAnchor {
+            color: @table-body-bg;
+        }
+        }
+        /*Modal Popup changes*/
+    #myModal .modal-dialog, .modal .modal-dialog, .bootstrap-dialog .modal-dialog{
+        position: relative;
+        height:100vh;
+        width:100%;
+    }        
+    .modal-content {
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        overflow: scroll;
+    } 
+    .save-btn{
+        width:100%;
+    }  
+    button.btn.clos-btn.btn-default{
+        display:none;
     }
+}
 
-    @media (max-width: @screen-sm-max) {
-        .modal-dialog{
-            width:100%;
-            height:100%;
-        }
-        button.btn.clos-btn.btn-default{
-            display:none;
-        }
-        .save-btn{
-            width:100%;
-        } 
+@media (max-width: @screen-sm-max) {
+    .modal-dialog{
+        width:100%;
+        height:100%;
     }
+    button.btn.clos-btn.btn-default{
+        display:none;
+    }
+    .save-btn{
+        width:100%;
+    } 
+}
 
 @media print{
   .summary-print{
