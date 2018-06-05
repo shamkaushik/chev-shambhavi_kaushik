@@ -7,7 +7,8 @@
     "cssSearchDataListA" : [],
     "siteDropdown" : [{
       "uid": "0676334614",
-      "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 AAAAAA"
+      "displayName": "6227166 - Redwood Oil Co. Inc, 50 Professional CTR Dr. Suite 100 Tohnert Park, Ca 94928, United States",
+      "isInGracePeriod" : true
     }, {
         "uid": "0912234461",
         "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 AAAAAA"
