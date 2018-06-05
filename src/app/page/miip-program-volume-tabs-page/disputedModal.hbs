@@ -6,6 +6,25 @@
                 <h4 class="modal-title" id="disputedModalLabel">Disputed title</h4>
             </div>
             <div class="modal-body">
+                <div class="row popup-sub-title">
+                    <div class="col-xs-6">
+                        <label>
+                        Sales Month
+                        </label> <br />
+                        <span>
+                            Sep 2017
+                        </span>
+                    </div>
+                    <div class="col-xs-6">
+                        <label>
+                        Dispute Status
+                        </label> <br />
+                        <span>
+                            Pending
+                        </span>
+                    </div>
+                </div>
+
                 <table data-toggle="table" id="disputedTable">
                     <thead>
                         <tr>
@@ -26,17 +45,30 @@
                         </tr>
                         <tr>
                             <td>Actual Volume</td>
-                            <td>75,432</td>
-                            <td>12,675</td>
-                            <td>11,523</td>
-                            <td>99,630</td>
+                            <td><input type="text" class="form-control"></td>
+                            <td><input type="text" class="form-control"></td>
+                            <td><input type="text" class="form-control"></td>
+                            <td><input type="text" class="form-control"></td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="md-pt-15 md-pb-15">
+                    <label>Reason:</label> <br />
+                    <span>
+                        -
+                    </span>
+                </div>
+                <div class="md-pb-15">
+                    <label>Disclaimer:</label> <br />
+                    <span>
+                        Total volume discrepancy must exceed 500 gallons.
+                        If you dispute a volume, please enter total volumes for all three products.
+                    </span>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn clos-btn btn-default hidden-md-down" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary save-btn">Save Dispute</button>
             </div>
         </div>
     </div>
