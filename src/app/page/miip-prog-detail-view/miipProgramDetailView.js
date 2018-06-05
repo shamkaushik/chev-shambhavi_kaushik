@@ -126,21 +126,20 @@ require(["modernizr",
                     field: 'amountPaid',
                     title: cbp.miisPrgDetailPage.globalVars.amountPaid + " (" + cbp.miisPrgDetailPage.miipProgDetailResponse.miipProgDetailsData.currency+ ")",
                     titleTooltip: cbp.miisPrgDetailPage.globalVars.amountPaid + " (" + cbp.miisPrgDetailPage.miipProgDetailResponse.miipProgDetailsData.currency+ ")",
-                    align: 'right',
-                    width:"20%",
+                    align:'right'
                 }, {
                     field: 'invoice',
                     title: cbp.miisPrgDetailPage.globalVars.invoice,
                     titleTooltip: cbp.miisPrgDetailPage.globalVars.invoice,
                     class: 'numberIcon text-nowrap',
-                    width:"30%",
+                    width:"20%",
 
                 }, {
                     field: 'billingDoc',
                     title: cbp.miisPrgDetailPage.globalVars.billingDoc,
                     titleTooltip: cbp.miisPrgDetailPage.globalVars.billingDoc,
                     class: 'numberIcon text-nowrap col-md-5',
-                    width:"30%",
+                    width:"10%",
                     formatter: function LinkFormatter(value, row, index) {
                         return "<a href='#' class='js-prg-billingDoc'>" + value + "</a>";
                     }
