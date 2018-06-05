@@ -88,12 +88,10 @@ require(["modernizr",
         };
 
         var config = {
-            accountDdnContainer: ".js-account-ddn",
             ccsSummaryContainer: ".js-ccs-summary",
             soldToDdnContainer : ".js-soldTo-ddn",
             siteDdnContainer : ".js-site-ddn",
             pyDdnContainer : ".js-py-ddn",
-            dateRangeContainer: ".js-search-dateRange",
             searchFormContainer: ".js-search-form",
             searchDetailContainer: ".js-bottom-detail",
             sortByDdnContainer: ".js-sortbyDdn",
@@ -101,6 +99,9 @@ require(["modernizr",
             searchButton: "#ccsSearchBtn",
             tabelRow: "#table tbody tr",
             downloadBtn: ".js-downloadBtn",
+            soldToDropdownSelector: "#soldToDropdownSelector",
+            siteDropdownSelector: "#siteDropdownSelector",
+            pyDropdownSelector: "#pyDropdownSelector",
             sortByDdn: "#sortByDdn",
             displaySpinner: ".overlay-wrapper",
             dropdownSelect: ".dropdown-menu .toggle-select",
@@ -307,18 +308,18 @@ require(["modernizr",
                 setItalicsToThedefaultSelection();
             });
 
-            $(document).on('change',config.soldToDropdown,function(){
+            $(document).on('change',config.soldToDropdownSelector,function(){
+                populateSite($(config.soldToDropdownSelector).val());
             });
         };
 
-        var populatePayer = function(soldto){
-            accountDropdownOptions = [];
-
+        var populateSite = function(soldto){
+            siteDropdownOptions = [];
             function successCallback(data) {
                 $(config.displaySpinner).hide();
                 leftPaneExpandCollapse.resetSearchFormHeight();
-                populateDropDowns(data.accountDropdown,accountDropdownOptions,"accountDropdown");
-                $(config.accountDdnContainer).html(compiledDefaultDdn(cbp.ccsPage.accountDropdown));
+                populateDropDowns(data.siteDropdown,siteDropdownOptions,"siteDropdown");
+                $(config.siteDdnContainer).html(compiledDefaultDdn(cbp.ccsPage.siteDropdown));
                 //Refresh dropdown at initial dispaly after loading templates
                 $(config.dropDownCommon).selectpicker('refresh');
                 enableMobileDefaultDropDown();
@@ -339,7 +340,7 @@ require(["modernizr",
                     'soldToNumber' : soldto
                 },
                 dataType:"json",
-                url: cbp.ccsPage.globalUrl.eftFetchPayerURL,
+                url: cbp.ccsPage.globalUrl.ccsFetchSiteURL,
                 success: successCallback,
                 error: errorCallback
             });

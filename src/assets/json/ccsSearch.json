@@ -16,7 +16,8 @@
         "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 AAAAAA"
     }, {
         "uid": "0116134113",
-        "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 AAAAAA"
+        "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 AAAAAA",
+        "isInGracePeriod" : true
     }],
     "cssSearchDataList": [{
       "eftNoticeNumberId" : "226710253",
