@@ -17,7 +17,9 @@
         width:67px;
     }
 }
-
+.display-mobile{
+    display:none;
+}
 @media (max-width: @screen-xs) {
     .miip-program-volume-page {
         .card-view .title {
@@ -33,6 +35,12 @@
         .programAnchor {
             color: @table-body-bg;
         }
+    }
+    .display-desktop{
+        display:none;
+    }
+    .display-mobile{
+        display:inline-block;
     }
     /*Modal Popup changes*/
     .miip-modals{
@@ -53,6 +61,9 @@
         button.btn.clos-btn.btn-default{
             display:none;
         }
+        .result-count{
+            line-height: 2.5;
+        }
     }    
 }
 
@@ -68,6 +79,15 @@
         .save-btn{
             width:100%;
         }
+    }
+    .display-desktop{
+        display:none;
+    }
+    .display-mobile{
+        display:inline-block;
+    }
+    .result-count{
+        line-height: 2.5;
     }    
 }
 
