@@ -34,14 +34,7 @@
 			width:100%!important;
 		}
 	}
-	@media (max-width: @screen-xs) {
-		.js-sortbyDdn.form-group {
-			float: right !important;
-			.bootstrap-select {
-				width: auto !important;
-			}
-		}
-	}
+
 	.sub-heading-thin {
 		color: #009dd9;
 		font-size: 15px;
@@ -114,4 +107,15 @@
 			}
 		}
 	}
+}
+
+@media (max-width: @screen-xs) {
+  .miipSiteView {
+    .js-sortbyDdn.form-group {
+      float: right !important;
+      .bootstrap-select {
+        width: auto !important;
+      }
+    }
+  }
 }
