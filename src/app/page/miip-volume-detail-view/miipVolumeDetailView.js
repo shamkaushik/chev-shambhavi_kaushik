@@ -80,30 +80,22 @@ require(["modernizr",
                     field: 'salesDate',
                     title: cbp.miisVolumeDetailPage.globalVars.salesDate,
                     titleTooltip: cbp.miisVolumeDetailPage.globalVars.salesDate,
-                    class: 'text-nowrap numberIcon',
-                    sortable: true,
 
                 },{
                     field: 'rul',
                     title: cbp.miisVolumeDetailPage.globalVars.rul,
                     titleTooltip: cbp.miisVolumeDetailPage.globalVars.rul,
-                    class: 'numberIcon text-nowrap',
-                    sortable: true,
 
                 }, {
                     field: 'mul',
                     title: cbp.miisVolumeDetailPage.globalVars.mul,
                     titleTooltip: cbp.miisVolumeDetailPage.globalVars.mul,
-                    class: 'numberIcon',
-                    sortable: true,
                     align: 'right',
 
                 }, {
                     field: 'pul',
                     title: cbp.miisVolumeDetailPage.globalVars.pul,
                     titleTooltip: cbp.miisVolumeDetailPage.globalVars.pul,
-                    class: 'numberIcon text-nowrap',
-                    sortable: true,
                     align: 'right',
 
                 }, {
@@ -111,7 +103,6 @@ require(["modernizr",
                     title: cbp.miisVolumeDetailPage.globalVars.total,
                     titleTooltip: cbp.miisVolumeDetailPage.globalVars.total,
                     class: 'numberIcon text-nowrap col-md-5',
-                    sortable: true,
                     align: 'right',
                 }],
                 data: miisVolumeDetailDataList
