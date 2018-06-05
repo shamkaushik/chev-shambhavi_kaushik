@@ -53,29 +53,27 @@ require(["modernizr",
 
         };
 
-
         var srtByDdn = {
             "options": [{
-                key: "sales-Month-za",
-                value: "Sales Month, A to Z",
+                key: "sales-Month-az",
+                value: "Sales Month, Ascending",
                 id: 'status'
             },{
-                key: "sales-Month-az",
-                value: "Sales Month, Z to A",
+                key: "sales-Month-za",
+                value: "Sales Month, Descending",
+                id: 'salesMonth'
+            },
+            {
+                key: "payment-processing-az",
+                value: "Payment Processing Date, Ascending",
                 id: 'status'
             },
             {
                 key: "payment-processing-za",
-                value: "Payment Processing, Z to A",
-                id: 'status'
-            },
-            {
-                key: "payment-processing-az",
-                value: "Payment Processing, Z to A",
-                id: 'status'
+                value: "Payment Processing Date, Descending",
+                id: 'paymentProcessing'
             }],
             label: "Sort By",
-            //title: cbp.ohPage.globalVars.docDateAsc,
             labelClass: "xs-mr-5",
             name: "sortByDdn",
             display: "displayInline"
@@ -107,6 +105,7 @@ require(["modernizr",
                 sortByDropdownId: "#sortByDdn",
                 responsive: true,
                 responsiveBreakPoint: 768,
+                sortName: 'salesMonth',
                 responsiveClass: "bootstrap-table-cardview",
                 columns: [{
                     field: 'salesMonth',
@@ -114,35 +113,34 @@ require(["modernizr",
                     titleTooltip: cbp.miisPrgDetailPage.globalVars.salesMonth,
                     class: 'text-nowrap numberIcon',
                     sortable: true,
+                    width:"20%",
 
                 },{
                     field: 'paymentProcessingDate',
                     title: cbp.miisPrgDetailPage.globalVars.paymentProcessingDate,
                     titleTooltip: cbp.miisPrgDetailPage.globalVars.paymentProcessingDate,
-                    class: 'numberIcon text-nowrap',
-                    sortable: true,
-
+                    width:"20%",
+                    sortable:true,
+                    class: 'text-nowrap numberIcon',
                 }, {
                     field: 'amountPaid',
                     title: cbp.miisPrgDetailPage.globalVars.amountPaid + " (" + cbp.miisPrgDetailPage.miipProgDetailResponse.miipProgDetailsData.currency+ ")",
                     titleTooltip: cbp.miisPrgDetailPage.globalVars.amountPaid + " (" + cbp.miisPrgDetailPage.miipProgDetailResponse.miipProgDetailsData.currency+ ")",
-                    class: 'numberIcon',
-                    sortable: true,
                     align: 'right',
-
+                    width:"20%",
                 }, {
                     field: 'invoice',
                     title: cbp.miisPrgDetailPage.globalVars.invoice,
                     titleTooltip: cbp.miisPrgDetailPage.globalVars.invoice,
                     class: 'numberIcon text-nowrap',
-                    sortable: true,
+                    width:"30%",
 
                 }, {
                     field: 'billingDoc',
                     title: cbp.miisPrgDetailPage.globalVars.billingDoc,
                     titleTooltip: cbp.miisPrgDetailPage.globalVars.billingDoc,
                     class: 'numberIcon text-nowrap col-md-5',
-                    sortable: true,
+                    width:"30%",
                     formatter: function LinkFormatter(value, row, index) {
                         return "<a href='#' class='js-prg-billingDoc'>" + value + "</a>";
                     }
