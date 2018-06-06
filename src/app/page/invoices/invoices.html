@@ -54,6 +54,17 @@
                     <div class='col-md-5 left-pane hidden-md search'>
                         <div class='search-content'>
                             <div class='sub-heading-thin hidden-sm hidden-xs'>
+                                view
+                                <span class='fa fa-close visible-md-inline'></span>
+                            </div>
+                            <div class='sub-heading hidden-lg hidden-md toggle-search-mobile'>
+                                <span class='fa fa-sliders'></span> view
+                                <span class='fa fa-chevron-down pull-right'></span>
+                            </div>
+                            <div class="col-xs-24 col-sm-24 xs-mt-10 xs-pl-0 xs-pr-0 xs-mb-10 xs-pt-5 xs-pb-10 borderEFTToogle">
+                                <div id="invoiceViewToggle"></div>
+                            </div>
+                            <div class='sub-heading-thin hidden-sm hidden-xs'>
                                 search
                                 <span class='fa fa-close visible-md-inline'></span>
                             </div>
@@ -61,7 +72,7 @@
                                 <span class='fa fa-sliders'></span> Search
                                 <span class='fa fa-chevron-down pull-right'></span>
                             </div>
-                            <div class='search-form xs-mt-10 js-search-form'>
+                            <div class='search-form xs-mt-15 js-search-form'>
                             </div>
                         </div>
                     </div>
@@ -81,8 +92,11 @@
                         <div class="alert alert-danger js-total-amount-error hide">
                             <span class="alert-message">Total Invoice Amount should be greater than zero.</span>
                         </div>
-                        <div class="alert alert-danger">
+                        <div class="alert alert-danger hide">
                             <span class="alert-message">You have been redirected to this page beacuse you clicked on the browser back or refresh button for security reasons.</span>
+                        </div>
+                        <div class="alert alert-danger js-advancedInputs-error">
+                            <span class="alert-message"></span>
                         </div>
                         <div class='top-summary js-invoices-summary'>
                         </div>
@@ -633,6 +647,8 @@
                 value: "Printed"
             }];
 
+            var eftGroupFlag = true;
+
             var maxResultText = '<div>{0} invoices matching your search were found in the system.</div>' +
                 '<div>Please refine your search to return less than 500 results.</div><br>' +
                 '<div><b><spring:theme code="chevron.invoice.noresult.suggestion"/></b></div>' +
@@ -778,6 +794,15 @@
                         //"customerPO":"Customer PO",
                         "noMatches": "No invoices found. Please change your search",
                         "noMatchesMaxResults": maxResultText,
+                        /* New Locales */
+                        "viewBasicCap": "Basic",
+                        "viewAdvancedCap": "Advanced",
+                        "dateRange" : "Date Range",
+                        "altRefNumbertoggle": "Alt. Ref #",
+                        "originalDocNumbertToggle": "Ori. Doc #",
+                        "invoiceVoidcMsg" : "Invoice Number # is required",
+                        "altRefVoidMsg" : "Alternate Reference Number # is required",
+                        "oriDocVoidMsg" : "Original Document Number # is required",
                         "selectDdn": {
                             "noneSelectedText": "Nothing selected",
                             "noneResultsText": "No results for {0}",
@@ -812,7 +837,6 @@
                         "customerPOtbNew": "Customer PO #",
                         "eftNumber":"EFT",
                         "deliveryDate":"Delivery Date"
-                        
                     }
                 }
             }
