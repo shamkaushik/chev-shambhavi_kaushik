@@ -128,7 +128,7 @@ require(["modernizr",
         };
 
         var toggleSwitchConfigForView = {
-            name: "switch",
+            name: "switchtoggleSwitchConfigForView",
             cssClass: "toggleSwitchConfigForView",
             label: "",
             //LabelBlock: true,
@@ -143,7 +143,7 @@ require(["modernizr",
         };
 
         var toggleSwitchConfigForBasic = {
-            name: "switch",
+            name: "switchtoggleSwitchConfigForBasic",
             cssClass: "toggleSwitchConfigForBasic",
             label: "",
             //LabelBlock: true,
@@ -158,7 +158,7 @@ require(["modernizr",
         };
 
         var toggleSwitchConfigForAdvanced = {
-            name: "switch",
+            name: "switchtoggleSwitchConfigForAdvanced",
             cssClass: "toggleSwitchConfigForAdvanced",
             label: "",
             //LabelBlock: true,
@@ -227,6 +227,7 @@ require(["modernizr",
             showHideView();
             showHideBasic();
             showHideAdvanced();
+            $(config.advancedInputsError).addClass('hide');
         };
 
         var showHideView = function(){
@@ -413,52 +414,28 @@ require(["modernizr",
             postData.shipTo= $(config.shipToDdn).val();
             postData.soldTo = $(config.locationDdn).val();
             
-             
-            
-            if($(config.invoiceNumber).val()!= "")
-            {
-                postData.invoiceNumber = $(config.invoiceNumber).val().trim();
-                postData.invoiceNumber = parseInt(postData.invoiceNumber,10);
-                $(config.invoiceNumber).val(postData.invoiceNumber);
-            }
-            if(!isNARegion){
-            	if($(config.orderNumber).val()!= "")
-                {    
-                    postData.salesOrderNumber = $(config.orderNumber).val().trim();
-                    $(config.orderNumber).val(postData.salesOrderNumber);
+            var advancedHiddenInput = $(config.invoiceAdvancedToggle).find("input[type='hidden']");
+            if($(config.invoiceViewToggle).find("input[type='hidden']").val()!=1){
+                if(advancedHiddenInput.val()==1){
+                    postData.invoiceNumber = $(config.invoiceNumber).val().trim();
+                    postData.invoiceNumber = parseInt(postData.invoiceNumber,10);
+                    $(config.invoiceNumber).val(postData.invoiceNumber);
+                }else if(advancedHiddenInput.val()==2){
+                    postData.altRefNumber = $(config.invoiceNumber).val().trim();
+                }else{
+                    postData.originalDocNumber = $(config.originalDocNumber).val().trim();
                 }
-                
-                if($(config.poNumber).val()!= "")
-                {
-                    postData.poNumber = $(config.poNumber).val().trim();
-                    $(config.poNumber).val(postData.poNumber);
+            }else{
+                if($(config.invoiceBasicToggle).find("input[type='hidden']").val()!=1){
+                    postData.invoiceTypes = $(config.invoiceTypeDdn).val() ? $(config.invoiceTypeDdn).val() : allInvoiceType;
+                }else{
+                    postData.fromDate = startDate;
+                    postData.toDate = endDate;
                 }
-            }
-            
 
-            /* end DSLEC-8*/
-            postData.invoiceTypes = $(config.invoiceTypeDdn).val() ? $(config.invoiceTypeDdn).val() : allInvoiceType;
-            postData.downloadStatus = $(config.downloadStatusDdn).val();
-            postData.printed = $(config.printStatusDdn).val();
-                        
-            /* start DSLEC-120*/
-          /*  if($(config.invoiceNumber).val() != "" || 
-               $(config.orderNumber).val()   != "" || 
-               $(config.poNumber).val()      != "" ) 
-            {
-               	var backDate = moment().subtract(cbp.invoicesPage.dateRange.backDatedRange, 'month');
-            	    backDate = backDate.format(cbp.invoicesPage.dateRange.format);
-            	var curDate  = moment();
-            	    curDate  = curDate.format(cbp.invoicesPage.dateRange.format);
-            	    postData.fromDate = backDate;
-                    postData.toDate   = curDate;
+                postData.downloadStatus = $(config.downloadStatusDdn).val();
+                postData.printed = $(config.printStatusDdn).val();
             }
-            else 
-            {*/
-            	 postData.fromDate = startDate;
-                 postData.toDate = endDate;
-            //}
-            /* end DSLEC-120*/
             
 
             function successCallback(data) {
@@ -801,47 +778,63 @@ require(["modernizr",
             	selectedInvoices = [invoiceId];
             	printPDFSelected();
             	selectedInvoices = tempArray;
-            	});
+            });
+
             //Search button functionality
             $(config.searchButton).on("click", function (e) {
                 var advancedHiddenInput = $(config.invoiceAdvancedToggle).find("input[type='hidden']");
-                if(advancedHiddenInput.val()==1){
-                    if($.trim($(config.invoiceNumber).val()).length==0){
-                        $(config.advancedInputsError).find('span.alert-message').text(cbp.globalVars.invoiceVoidMsg);
-                        return;
-                    }
-                }else if(advancedHiddenInput.val()==2){
-                    if($.trim($(config.altRefNumber).val()).length==0){
-                        $(config.advancedInputsError).find('span.alert-message').text(cbp.globalVars.altRefVoidMsg);
-                        return;
+                if($(config.invoiceViewToggle).find("input[type='hidden']").val()!=1){
+                    console.log(">>>>>> if",$(config.invoiceViewToggle).find("input[type='hidden']").val());
+                    if(advancedHiddenInput.val()==1){
+                        if($.trim($(config.invoiceNumber).val()).length==0){
+                            $(config.advancedInputsError).removeClass('hide');
+                            $(config.advancedInputsError).find('span.alert-message').text(cbp.invoicesPage.globalVars.invoiceVoidMsg);
+                            return;
+                        }else{
+                            invoiceObj.invoiceNumber = $(config.invoiceNumber).val();
+                        }
+                    }else if(advancedHiddenInput.val()==2){
+                        if($.trim($(config.altRefNumber).val()).length==0){
+                            $(config.advancedInputsError).removeClass('hide');
+                            $(config.advancedInputsError).find('span.alert-message').text(cbp.invoicesPage.globalVars.altRefVoidMsg);
+                            return;
+                        }else{
+                            invoiceObj.altRefNumber = $(config.altRefNumber).val();
+                        }
+                    }else{
+                        if($.trim($(config.originalDocNumber).val()).length==0){
+                            $(config.advancedInputsError).removeClass('hide');
+                            $(config.advancedInputsError).find('span.alert-message').text(cbp.invoicesPage.globalVars.oriDocVoidMsg);
+                            return;
+                        }else{
+                            invoiceObj.originalDocNumber = $(config.originalDocNumber).val()
+                        }
                     }
                 }else{
-                    if($.trim($(config.originalDocNumber).val()).length==0){
-                        $(config.advancedInputsError).find('span.alert-message').text(cbp.globalVars.oriDocVoidMsg);
-                        return;
+                    console.log(">>>>>> else",$(config.invoiceViewToggle).find("input[type='hidden']").val());
+                    if($(config.invoiceBasicToggle).find("input[type='hidden']").val()==1){
+                        invoiceObj.startDate = startDate;
+                        invoiceObj.endDate = endDate;
+                    }else{
+                        invoiceObj.invoiceTypes = $("#invoiceTypeDdn").val();
                     }
-                }
 
+                    invoiceObj.downloadStatus = $("#downloadStatus").val();
+                    invoiceObj.printStatus = $("#printStatus").val();
+                }
+                $(config.advancedInputsError).addClass('hide');
                 selectedInvoices = [];
                 selectedProduct = [];
                 selectedInvoiceStatus = [];
                 invoiceObj.shipTo = $("#shipToSelectDdn").val();
                 invoiceObj.soldTo = $("#locationSelectDdn").val();
-                invoiceObj.invoiceNumber = $("#invoiceNumber").val();
-                invoiceObj.salesOrderNumber = $("#orderNumber").val();
-                invoiceObj.poNumber = $("#poNumber").val();
-                invoiceObj.invoiceTypes = $("#invoiceTypeDdn").val();
-                invoiceObj.downloadStatus = $("#downloadStatus").val();
-                invoiceObj.printStatus = $("#printStatus").val();
-                invoiceObj.startDate = startDate;
-                invoiceObj.endDate = endDate;
                 $(".alert-danger").addClass("hide");
                 triggerAjaxRequest();
             });
 
             $(function () {
                 $('#orderNumber, #invoiceNumber').bind('paste input', removeAlphaChars);
-            })
+            });
             
             function removeAlphaChars(e) {
                 var self = $(this);
