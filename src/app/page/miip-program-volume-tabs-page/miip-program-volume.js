@@ -129,7 +129,7 @@ require(["modernizr",
             });
         }
 
-        var populateTable = function() {
+        var populateProgramTable = function(){
             $('#programTable').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
@@ -199,7 +199,9 @@ require(["modernizr",
                     status: 'Rollover'
                 }]
             });
+        }
 
+        var populateVolumeTable = function(){
             $('#volumeTable').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
@@ -284,6 +286,11 @@ require(["modernizr",
                     status: ''
                 }]
             });
+        }
+
+        var populateTable = function() {
+            populateProgramTable();
+            populateVolumeTable();
         }
 
         var bindEvents = function() {
