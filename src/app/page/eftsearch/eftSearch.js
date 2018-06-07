@@ -579,7 +579,7 @@ require(["modernizr",
 
         var populatePayer = function(soldto){
             accountDropdownOptions = [];
-
+            $(config.displaySpinner).show();
             function successCallback(data) {
                 $(config.displaySpinner).hide();
                 leftPaneExpandCollapse.resetSearchFormHeight();
