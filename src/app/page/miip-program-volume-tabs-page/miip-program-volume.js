@@ -2,6 +2,7 @@ require(["modernizr",
     "jquery",
     "bootstrap",
     "handlebars",
+    "moment",
     "bootstrap-select",
     "bootstrap-table",
     "text!app/components/dropdown/_defaultDdn.hbs",
@@ -14,7 +15,7 @@ require(["modernizr",
     "text!app/page/miip-program-volume-tabs-page/disputeModal.hbs",
     "text!app/page/miip-program-volume-tabs-page/disputedModal.hbs",
 
-], function(modernizr, $, bootstrap, Handlebars, bootstrapSelect, bootstrapTable, _defaultDdnHBS, _programViewSummaryHBS, _programVolumeDetailsHBS, _programViewHBS, _volumeViewHBS, _programVolumeHeadingHBS, _salesModalHBS, _disputeModalHBS, _disputedModalHBS) {
+], function(modernizr, $, bootstrap, Handlebars, moment, bootstrapSelect, bootstrapTable, _defaultDdnHBS, _programViewSummaryHBS, _programVolumeDetailsHBS, _programViewHBS, _volumeViewHBS, _programVolumeHeadingHBS, _salesModalHBS, _disputeModalHBS, _disputedModalHBS) {
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
@@ -36,6 +37,8 @@ require(["modernizr",
         var isCalculatedTotalValValid = false;
         var formIsValid = true;
         var calculatedTotalValue;
+        var volumeDetailFormObj = {};
+
         var config = {
             headerContainer: ".js-header",
             footerContainer: ".js-footer",
@@ -60,7 +63,9 @@ require(["modernizr",
             closBtn: ".clos-btn",
             prevTotal: ".prev-total",
             modal: '.modal',
-            jsSaveSuccess: '.js-save-success'
+            jsSaveSuccess: '.js-save-success',
+            programAnchor: ".js-program-anchor",
+            soldTo: ".js-soldTo-summary"
         };
 
         var srtByDdn = {
@@ -285,7 +290,7 @@ require(["modernizr",
                     sortable: true,
                     class: 'numberIcon col-md-6',
                     formatter: function(row, value) {
-                        return '<a href="">' + row + '</a>';
+                        return "<a href='#' class='js-program-anchor' data-uid='" + row + "'>" + row + "</a>";
                     }
                 }, {
                     field: 'rul',
@@ -393,31 +398,48 @@ require(["modernizr",
                 $(config.totalValue).text(calculatedTotalValue.toString());
             });
 
-            $(".modal").on("hidden.bs.modal", function(e) {
-                // put your default event here
-                console.log("hidden: ", e.target);
-                resetModal(e);
-                //$(e.target).html('');
+            $(document).on("click", config.programAnchor, function(e) {
+                e.preventDefault();
+                var saleMonth = $(e.target).attr('data-uid');
+                var salesMonthArr = saleMonth.split(" ");
+                volumeDetailFormObj.soldTo = $(config.soldTo).text();
+                volumeDetailFormObj.siteZone = $('.js-site-zone-summary').text();
+                volumeDetailFormObj.businessConsultant = $('.js-business-consultant-summary').text();
+                volumeDetailFormObj.site = $('.js-site-summary').text();
+                volumeDetailFormObj.thruput = $('.js-thruput-summary').text();
+                volumeDetailFormObj.brand = $('.js-brand-summary').text();
+                volumeDetailFormObj.month = moment().month(salesMonthArr[0]).format("M");
+                volumeDetailFormObj.year = salesMonthArr[1];
+                console.log("volumeDetailFormObj", volumeDetailFormObj);
+                $('#CBPMIIPVolumeDetailForm #volumeDetailFormData').val(JSON.stringify(volumeDetailFormObj));
+                $('#CBPMIIPVolumeDetailForm').submit();
             });
         }
-        var resetModal = function(e) {
-            $(config.modal).find('input').val('').removeClass('has-error')
-            $(config.totalValue).text('').removeClass('has-error');
-            $(config.disclaimerSection).removeClass('has-error');
-        }
-        var init = function() {
-            loadingInitialHbsTemplates();
-            initalizingTables();
-            populateTable();
-            bindEvents();
-        };
 
-        return {
-            init: init
-        };
-    })();
-
-    $(document).ready(function() {
-        miipProgramVolumePage.init();
+        $(".modal").on("hidden.bs.modal", function(e) {
+            // put your default event here
+            console.log("hidden: ", e.target);
+            resetModal(e);
+            //$(e.target).html('');
+        });
     });
+    var resetModal = function(e) {
+        $(config.modal).find('input').val('').removeClass('has-error')
+        $(config.totalValue).text('').removeClass('has-error');
+        $(config.disclaimerSection).removeClass('has-error');
+    }
+    var init = function() {
+        loadingInitialHbsTemplates();
+        initalizingTables();
+        populateTable();
+        bindEvents();
+    };
+
+    return {
+        init: init
+    };
+})();
+
+$(document).ready(function() {
+    miipProgramVolumePage.init();
 });
