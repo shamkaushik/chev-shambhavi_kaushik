@@ -59,13 +59,7 @@ require(["modernizr",
         //To trigger parsely from validation
 
         var triggerParselyFormValidation = function(el) {
-            window.ParsleyValidator.addValidator('checkvaliddate',
-                    function(value, requirement) {
-                        console.log("Custom Validator!!", value);
-                        return false;
-                    }, 32)
-                .addMessage('en', 'checkvaliddate', 'my validator failed');
-            $("#inquiryForm").parsley().on('field:success', function() {
+            $(el).parsley().on('field:success', function() {
                 if ($('#inquiryForm').parsley().isValid()) {
                     $('#inquiryForm #submitBtn').removeClass('disabled').removeAttr('disabled');
                 }
@@ -169,7 +163,7 @@ require(["modernizr",
                 loadingDynamicHbsTemplates(inquiryTypeValue);
             });
 
-            $(document).on('focusout blur', config.formInput, function(event) {
+            $(document).on('focusout', config.formInput, function(event) {
                 triggerParselyFormValidation(event.target);
                 event.target.value !== "" ? $('#inquiryForm #resetBtn').removeClass('disabled').removeAttr('disabled') : $('#inquiryForm #resetBtn').addClass('disabled').attr('disabled');
             });
