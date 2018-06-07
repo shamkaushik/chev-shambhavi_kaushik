@@ -27,6 +27,7 @@ require(["modernizr",
     var compiledSalesModal = Handlebars.compile(_salesModalHBS);
     var compiledDisputeModal = Handlebars.compile(_disputeModalHBS);
     var compiledDisputedModal = Handlebars.compile(_disputedModalHBS);
+
     var miipProgramVolumePage = (function() {
 
         var volumeRowArray = [];
@@ -422,24 +423,24 @@ require(["modernizr",
             resetModal(e);
             //$(e.target).html('');
         });
+
+        var resetModal = function(e) {
+            $(config.modal).find('input').val('').removeClass('has-error')
+            $(config.totalValue).text('').removeClass('has-error');
+            $(config.disclaimerSection).removeClass('has-error');
+        }
+        var init = function() {
+            loadingInitialHbsTemplates();
+            initalizingTables();
+            populateTable();
+            bindEvents();
+        };
+
+        return {
+            init: init
+        };
+    })();
+    $(document).ready(function() {
+        miipProgramVolumePage.init();
     });
-    var resetModal = function(e) {
-        $(config.modal).find('input').val('').removeClass('has-error')
-        $(config.totalValue).text('').removeClass('has-error');
-        $(config.disclaimerSection).removeClass('has-error');
-    }
-    var init = function() {
-        loadingInitialHbsTemplates();
-        initalizingTables();
-        populateTable();
-        bindEvents();
-    };
-
-    return {
-        init: init
-    };
-})();
-
-$(document).ready(function() {
-    miipProgramVolumePage.init();
 });
