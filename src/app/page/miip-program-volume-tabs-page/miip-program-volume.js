@@ -239,7 +239,6 @@ require(["modernizr",
                     field: 'disputeVolume',
                     title: 'Dispute Volume',
                     formatter: function(row, value, index) {
-                        console.log(value);
                         if ($.inArray(value, volumeRowArray) < 0) {
                             volumeRowArray.splice(index, 0, value);
                         }
@@ -325,10 +324,10 @@ require(["modernizr",
               volumeDetailFormObj.site = $('.js-site-summary').text();
               volumeDetailFormObj.thruput = $('.js-thruput-summary').text();
               volumeDetailFormObj.brand = $('.js-brand-summary').text();
-              volumeDetailFormObj.month = moment().month(salesMonthArr[0]).format("M");
+              volumeDetailFormObj.month = moment().month(salesMonthArr[0]).format("MM");
               volumeDetailFormObj.year = salesMonthArr[1];
-              console.log("volumeDetailFormObj",volumeDetailFormObj);
-              $('#CBPMIIPVolumeDetailForm #volumeDetailFormData').val(JSON.stringify(volumeDetailFormObj));
+              volumeDetailFormObj = JSON.stringify(volumeDetailFormObj);
+              $('#CBPMIIPVolumeDetailForm #volumeDetailFormData').val(volumeDetailFormObj);
               $('#CBPMIIPVolumeDetailForm').submit();
           });
         }
