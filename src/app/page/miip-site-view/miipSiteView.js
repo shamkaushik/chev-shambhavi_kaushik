@@ -295,9 +295,9 @@ require(["modernizr",
         			return columnsDataList[key];
         		}
         	});
-            var columnsList = [{
+            var columnsList = [
+                        {
                           class: 'fa',
-
                         },
                         {
                             field: 'site',
