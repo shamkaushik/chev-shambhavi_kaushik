@@ -47,7 +47,9 @@ require(["modernizr",
             salesModal: ".js-sales-modal",
             disputeModal: ".js-dispute-modal",
             disputedModal: ".js-disputed-modal",
-            printBtn: ".js-printBtn"
+            printBtn: ".js-printBtn",
+            saveBtn: ".save-btn",
+            disclaimerSection: ".disclaimer-section"
         };
 
         var srtByDdn = {
@@ -65,6 +67,36 @@ require(["modernizr",
             labelClass: "xs-mr-5",
             name: "sortByDdn",
             display: "displayInline"
+        };
+
+        var fireValidations = function(el) {
+            var rulVal = $(".actual-vol").val();
+            var actualVolumeVals = [];
+            $("input[type='text']").each(function() {
+                //var value = $(this).val() ? $(this).val() : null;
+                if ($(this).val()) {
+                    actualVolumeVals.push($(this).val());
+                    //$(this).val()
+                    if (($(this).val() - Math.floor($(this).val())) !== 0) {
+                        $(this).addClass("has-error");
+                    } else {
+                        $(this).removeClass("has-error");
+                    }
+                }
+            });
+            //higlighting the disclaimer section
+            // for (let index = 0; index < actualVolumeVals.length; index++) {
+            //     if ((actualVolumeVals[index] - Math.floor(actualVolumeVals[index])) !== 0) {
+            //         $(config.disclaimerSection).addClass("has-error");
+            //         break;
+            //     } else {
+            //         $(config.disclaimerSection).removeClass("has-error");
+            //     }
+            // }
+            //Total Vol discrepancy must exceed 500 
+
+            //Actual vol should be a whole no
+
         };
 
         var triggerAjaxRequest = function(data, type, url) {
@@ -309,6 +341,9 @@ require(["modernizr",
 
             $(document).on('click', config.selectedDisputeLink, function(e) {
                 var targetDataIndex = e.target.dataset.index;
+            });
+            $(document).on('click', config.saveBtn, function(e) {
+                fireValidations();
             });
         }
 
