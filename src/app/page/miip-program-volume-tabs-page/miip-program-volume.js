@@ -181,23 +181,7 @@ require(["modernizr",
                         sortable: true
                     }
                 ],
-                data: [{
-                    program: '6 Brand Retention Program',
-                    paymentStartDate: '01/2016',
-                    paymentEndDate: '05/2026',
-                    amortizationEndDate: '01/2027',
-                    totalPaid: '21,783.00',
-                    estimatedRepaymentAmount: '21,783.00',
-                    status: 'Active'
-                }, {
-                    program: '6 Brand Retention Program',
-                    paymentStartDate: '01/2016',
-                    paymentEndDate: '05/2026',
-                    amortizationEndDate: '01/2027',
-                    totalPaid: '21,783.00',
-                    estimatedRepaymentAmount: '21,783.00',
-                    status: 'Rollover'
-                }]
+                data: programTableData
             });
         }
 
@@ -257,34 +241,7 @@ require(["modernizr",
 
                     class: 'col-md-6',
                 }],
-                data: [{
-                    salesMonth: 'Sept 2017',
-                    rul: '70,460',
-                    mul: '90,123',
-                    pul: '69,279',
-                    total: '192,105',
-                    disputeVolume: 'Dispute',
-                    reason: '',
-                    status: ''
-                }, {
-                    salesMonth: 'Sept 2017',
-                    rul: '1234567890,1234567890,1234567890,1234567890',
-                    mul: '90,123',
-                    pul: '69,279',
-                    total: '192,105',
-                    disputeVolume: 'Dispute',
-                    reason: '',
-                    status: ''
-                }, {
-                    salesMonth: 'Oct 2017',
-                    rul: '1234567890',
-                    mul: '90,123',
-                    pul: '69,279',
-                    total: '192,105',
-                    disputeVolume: 'Disputed',
-                    reason: '',
-                    status: ''
-                }]
+                data: volumeTableDat
             });
         }
 
