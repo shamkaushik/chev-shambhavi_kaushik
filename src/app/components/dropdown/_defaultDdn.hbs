@@ -47,6 +47,6 @@
         name = "{{name}}"
         id = "{{name}}">
     {{#each options}}
-        <option {{#if this.isInGracePeriod}}data-icon="fa fa-exclamation-triangle graceIconColor"{{/if}} {{#if this.disabled}}data-customtitle="{{this.tooltip}}"{{/if}} value= "{{this.key}}" {{#if this.custom}}data-content="{{this.custom}}"{{/if}}{{#if this.disabled}}disabled{{/if}}{{#if this.customobj}}data-customobj="{{this.customobj}}"{{/if}}>{{this.value}}</option>
+        <option {{#if this.isInGracePeriod}}data-icon="fa fa-clock-o graceIconColor"{{/if}} {{#if this.disabled}}data-customtitle="{{this.tooltip}}"{{/if}} value= "{{this.key}}" {{#if this.custom}}data-content="{{this.custom}}"{{/if}}{{#if this.disabled}}disabled{{/if}}{{#if this.customobj}}data-customobj="{{this.customobj}}"{{/if}}>{{this.value}}</option>
     {{/each}}
 </select>
