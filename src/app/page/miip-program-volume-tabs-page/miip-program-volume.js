@@ -26,11 +26,16 @@ require(["modernizr",
     var compiledSalesModal = Handlebars.compile(_salesModalHBS);
     var compiledDisputeModal = Handlebars.compile(_disputeModalHBS);
     var compiledDisputedModal = Handlebars.compile(_disputedModalHBS);
-
     var miipProgramVolumePage = (function() {
 
         var volumeRowArray = [];
-
+        var actualVolumeVal = 0;
+        var rulValue = 0,
+            mulValue = 0,
+            pulValue = 0;
+        var isCalculatedTotalValValid = false;
+        var formIsValid = true;
+        var calculatedTotalValue;
         var config = {
             headerContainer: ".js-header",
             footerContainer: ".js-footer",
@@ -49,7 +54,13 @@ require(["modernizr",
             disputedModal: ".js-disputed-modal",
             printBtn: ".js-printBtn",
             saveBtn: ".save-btn",
-            disclaimerSection: ".disclaimer-section"
+            disclaimerSection: ".disclaimer-section",
+            actualVol: ".actual-vol",
+            totalValue: ".total-vol",
+            closBtn: ".clos-btn",
+            prevTotal: ".prev-total",
+            modal: '.modal',
+            jsSaveSuccess: '.js-save-success'
         };
 
         var srtByDdn = {
@@ -69,36 +80,61 @@ require(["modernizr",
             display: "displayInline"
         };
 
-        var fireValidations = function(el) {
+        var fireValidations = function(e) {
             var rulVal = $(".actual-vol").val();
             var actualVolumeVals = [];
-            $("input[type='text']").each(function() {
+            var prevTotalVal = '';
+            var actualVolumeVals = [];
+            var element = $(e.currentTarget.closest('.modal')).find('input');
+            //highlighting input fields
+            element.each(function() {
                 //var value = $(this).val() ? $(this).val() : null;
                 if ($(this).val()) {
                     actualVolumeVals.push($(this).val());
-                    //$(this).val()
+                    //If actual vol should is a whole no
                     if (($(this).val() - Math.floor($(this).val())) !== 0) {
                         $(this).addClass("has-error");
+                        $(config.totalValue).addClass("has-error");
+                        formIsValid = false;
                     } else {
                         $(this).removeClass("has-error");
+                        $(config.totalValue).removeClass("has-error");
+                        formIsValid = false;
                     }
                 }
             });
-            //higlighting the disclaimer section
-            // for (let index = 0; index < actualVolumeVals.length; index++) {
-            //     if ((actualVolumeVals[index] - Math.floor(actualVolumeVals[index])) !== 0) {
-            //         $(config.disclaimerSection).addClass("has-error");
-            //         break;
-            //     } else {
-            //         $(config.disclaimerSection).removeClass("has-error");
-            //     }
-            // }
-            //Total Vol discrepancy must exceed 500 
-
-            //Actual vol should be a whole no
-
+            $(e.currentTarget.closest(".modal")).find('.prev-total').text().split(',').map(function(val, index) {
+                prevTotalVal += val;
+            });
+            //Total Vol discrepancy must exceed 500 and check for required also
+            if (!calculatedTotalValue || !parseFloat(prevTotalVal) || (calculatedTotalValue - parseFloat(prevTotalVal)) < 500) {
+                //highlighting the disclaimer section               
+                $(config.disclaimerSection).addClass("has-error");
+                $(config.totalValue).addClass("has-error");
+                $("input[type='text']").each(function() {
+                    $(this).addClass("has-error");
+                    $(config.totalValue).addClass("has-error");
+                });
+                formIsValid = false;
+                return formIsValid;
+            } else {
+                $(config.disclaimerSection).removeClass("has-error");
+                $(config.totalValue).removeClass("has-error");
+                $("input[type='text']").each(function() {
+                    $(this).removeClass("has-error");
+                    $(config.totalValue).removeClass("has-error");
+                });
+                formIsValid = true;
+                return formIsValid;
+            }
+            return formIsValid;
+            //saveDispute();
         };
 
+        var saveDispute = function() {
+            $(config.jsSaveSuccess).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.successMsg);
+            $('.modal').modal('hide');
+        };
         var triggerAjaxRequest = function(data, type, url) {
             $(config.displaySpinner).show();
 
@@ -343,10 +379,32 @@ require(["modernizr",
                 var targetDataIndex = e.target.dataset.index;
             });
             $(document).on('click', config.saveBtn, function(e) {
-                fireValidations();
+                var isValid = fireValidations(e);
+                if (isValid)
+                    saveDispute();
+            });
+
+            $(document).on('focusout', config.actualVol, function(event) {
+                rulValue = $(this).hasClass("rul-val") ? parseFloat(event.currentTarget.value) : rulValue;
+                mulValue = $(this).hasClass("mul-val") ? parseFloat(event.currentTarget.value) : mulValue;
+                pulValue = $(this).hasClass("pul-val") ? parseFloat(event.currentTarget.value) : pulValue;
+                // isCalculatedTotalValValid = (rulValue + mulValue + pulValue) >= 500 ? true : false;
+                calculatedTotalValue = rulValue + mulValue + pulValue;
+                $(config.totalValue).text(calculatedTotalValue.toString());
+            });
+
+            $(".modal").on("hidden.bs.modal", function(e) {
+                // put your default event here
+                console.log("hidden: ", e.target);
+                resetModal(e);
+                //$(e.target).html('');
             });
         }
-
+        var resetModal = function(e) {
+            $(config.modal).find('input').val('').removeClass('has-error')
+            $(config.totalValue).text('').removeClass('has-error');
+            $(config.disclaimerSection).removeClass('has-error');
+        }
         var init = function() {
             loadingInitialHbsTemplates();
             initalizingTables();
