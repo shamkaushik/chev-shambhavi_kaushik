@@ -28,7 +28,7 @@ require(["modernizr",
         var init = function () {
             loadingInitialHbsTemplates();
             bindEvents();
-            populatingTable(cbp.miipVolumeDetailPage.miipVolumeDetailResponse.row,cbp.miipVolumeDetailPage.miipVolumeDetailResponse.columnMapping);
+            populatingTable(cbp.miipVolumeDetailPage.miipVolumeDetailResponse.rows,cbp.miipVolumeDetailPage.miipVolumeDetailResponse.columnMapping);
         };
         var loadingInitialHbsTemplates = function () {
             // Appending handlebar templates to HTML
@@ -44,7 +44,7 @@ require(["modernizr",
 
         var bindEvents = function () {
             $(document).on('click',config.backtoVolumeView,function(){
-                window.location.href=cbp.miipVolumeDetailPage.globalUrl.miisVolumeViewURL;
+                window.location.href=cbp.miipVolumeDetailPage.globalUrl.miipVolumeViewURL;
             });
         };
 
@@ -107,7 +107,7 @@ require(["modernizr",
         };
 
         var populatingTable = function (row , columnsDataList) {
-            if (cbp.miipVolumeDetailPage.miipVolumeDetailResponse.row === null) {
+            if (cbp.miipVolumeDetailPage.miipVolumeDetailResponse.rows === null) {
                 cbp.miipVolumeDetailPage.globalVars.tableLocales.noMatches = "";
             } else if (cbp.miipVolumeDetailPage.miipVolumeDetailResponse.resultCount === 0) {
                 cbp.miipVolumeDetailPage.globalVars.tableLocales.noMatches = cbp.miipVolumeDetailPage.globalVars.noMatches;
@@ -178,8 +178,8 @@ require(["modernizr",
         };
         $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
         cbp.miipVolumeDetailPage.miipVolumeDetailResponse = miipVolumeDetailResponse;
-        if (miipVolumeDetailResponse.row === undefined || miipVolumeDetailResponse.row === null) {
-            cbp.miipVolumeDetailPage.miipVolumeDetailResponse.row = [];
+        if (miipVolumeDetailResponse.rows === undefined || miipVolumeDetailResponse.rows === null) {
+            cbp.miipVolumeDetailPage.miipVolumeDetailResponse.rows = [];
         }
 
         if (cbp.miipVolumeDetailPage.miipVolumeDetailResponse.resultCount > 0 && cbp.miipVolumeDetailPage.miipVolumeDetailResponse.resultCount < maxResults) {
