@@ -7,16 +7,8 @@
     "eftSearchDataListA" : [],
     "accountDropdown" : [{
       "uid": "0676334614",
-      "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 AAAAAA"
-    }, {
-        "uid": "0912234461",
-        "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 AAAAAA"
-    }, {
-        "uid": "0176224612",
-        "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 AAAAAA"
-    }, {
-        "uid": "0116134113",
-        "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 AAAAAA"
+      "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 AAAAAA",
+      "isInGracePeriod" : true
     }],
     "eftSearchDataList": [{
       "eftNoticeNumberId" : "226710253",

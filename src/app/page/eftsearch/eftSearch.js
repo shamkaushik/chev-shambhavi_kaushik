@@ -143,7 +143,8 @@ require(["modernizr",
             searchInputEft: ".js-eftSearchPage-searchEft",
             soldToDdn: ".js-soldTo-ddn",
             daterangepickerContainer: '.daterangepicker',
-            soldToDropdown: "#soldToDropdown"
+            soldToDropdown: "#soldToDropdown",
+            advancedInputsContainer: ".js-advancedInputs-error"
         };
 
         var init = function () {
@@ -179,10 +180,14 @@ require(["modernizr",
                           $(config.eftSearchToggle).find('button').eq(2).trigger('click');
                         $(config.searchInputEft).val(eftObj.invoiceNumber);
                     }
+                    $(config.downloadStatusContainer).hide();
+                    $(config.printStatusContainer).hide();
+                }else{
+                    $(config.downloadStatusContainer).show();
+                    $(config.printStatusContainer).show();
+                    $(config.downloadStatusDdn).val(eftObj.downloadStatus).selectpicker('refresh');
+                    $(config.printStatusDdn).val(eftObj.printStatus).selectpicker('refresh');
                 }
-
-                $(config.downloadStatusDdn).val(eftObj.downloadStatus).selectpicker('refresh');
-                $(config.printStatusDdn).val(eftObj.printStatus).selectpicker('refresh');
 
                 localStorage.removeItem("eftObj");
                 $(config.searchButton).removeAttr("disabled");
@@ -341,9 +346,6 @@ require(["modernizr",
 
             var postData = {};
             postData.account = $(config.accountDdn).val();
-            /* end DSLEC-8*/
-            postData.downloadStatus = $(config.downloadStatusDdn).val();
-            postData.printStatus = $(config.printStatusDdn).val();
 
             if($.trim($(config.searchInputEft).val()).length!=0){
                 $("#eftSearchToggle input[type='hidden']").val() == 2 ?
@@ -352,6 +354,8 @@ require(["modernizr",
             }else{
                 postData.startDate = startDate ? startDate : cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
                 postData.endDate = endDate ? endDate : cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
+                postData.downloadStatus = $(config.downloadStatusDdn).val();
+                postData.printStatus = $(config.printStatusDdn).val();
             }
 
             postData.soldTo = $(config.soldToDropdown).val();
@@ -458,9 +462,10 @@ require(["modernizr",
                     $("#eftSearchToggle input[type='hidden']").val() == 2 ?
                            eftObj.eftNoticeNumber = $(config.searchInputEft).val()
                     : eftObj.invoiceNumber = $(config.searchInputEft).val();
+                }else{
+                    eftObj.downloadStatus = $("#downloadStatus").val();
+                    eftObj.printStatus = $("#printStatus").val();
                 }
-                eftObj.downloadStatus = $("#downloadStatus").val();
-                eftObj.printStatus = $("#printStatus").val();
                 eftObj.startDate = cbp.eftSearchPage.dateRange.startDate.format(cbp.eftSearchPage.dateRange.format);
                 eftObj.endDate = cbp.eftSearchPage.dateRange.endDate.format(cbp.eftSearchPage.dateRange.format);
                 console.log("eft Object >>>",eftObj);
@@ -487,6 +492,20 @@ require(["modernizr",
             //Search button functionality
             $(config.searchButton).on("click", function (e) {
                 selectedEFTs = [];
+                if($("#eftSearchToggle input[type='hidden']").val()==2){
+                    if($.trim($(config.searchInputEft).val()).length<=0){
+                        $(config.advancedInputsContainer).removeClass('hide');
+                        $(config.advancedInputsContainer).find('span.alert-message').text(cbp.eftSearchPage.globalVars.eftNumberVoidError);
+                        return;
+                    }
+                }else if($("#eftSearchToggle input[type='hidden']").val()==3){
+                    if($.trim($(config.searchInputEft).val()).length<=0){
+                        $(config.advancedInputsContainer).removeClass('hide');
+                        $(config.advancedInputsContainer).find('span.alert-message').text(cbp.eftSearchPage.globalVars.invoiceVoidError);
+                        return;
+                    }
+                }
+                $(config.advancedInputsContainer).addClass('hide');
                 triggerAjaxRequest();
             });
 
@@ -525,12 +544,18 @@ require(["modernizr",
                 if($(this).val()==2){
                     $(config.dateRangeContainer).addClass('hidden');
                     $(config.searchInputEft).removeClass('hidden').attr('placeholder','EFT Notice #');
+                    $(config.downloadStatusContainer).hide();
+                    $(config.printStatusContainer).hide();
                 }else if($(this).val()==3){
                     $(config.dateRangeContainer).addClass('hidden');
                     $(config.searchInputEft).removeClass('hidden').attr('placeholder','Invoice #');
+                    $(config.downloadStatusContainer).hide();
+                    $(config.printStatusContainer).hide();
                 }else{
                     $(config.dateRangeContainer).removeClass('hidden');
                     $(config.searchInputEft).addClass('hidden');
+                    $(config.downloadStatusContainer).show();
+                    $(config.printStatusContainer).show();
                 }
             });
 
