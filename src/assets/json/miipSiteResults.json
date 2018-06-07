@@ -10,7 +10,7 @@
                },
 
 
-               "miipSiteList": [{
+               "miipSiteViewDataList": [{
                    "site" :"dummy text",
                    "volumeDiscrepancy":"No",
                    "thruput" : "R",
