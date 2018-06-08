@@ -239,11 +239,11 @@ require(["modernizr",
             $(config.invoiceBasicToggle).find("input[type='hidden']").val("1");
             $(config.invoiceAdvancedToggle).find("input[type='hidden']").val("1");
             populatingCalendarComponent();
-            bindEvents();
             showHideView();
             showHideBasic();
             showHideAdvanced();
             $(config.advancedInputsError).addClass('hide');
+            bindEvents();
         };
 
         var showHideView = function(){
@@ -806,6 +806,7 @@ require(["modernizr",
                         if($.trim($(config.invoiceNumber).val()).length==0){
                             $(config.advancedInputsError).removeClass('hide');
                             $(config.advancedInputsError).find('span.alert-message').text(cbp.invoicesPage.globalVars.invoiceVoidMsg);
+                            $(config.invoiceNumber).addClass('redDanger');
                             return;
                         }else{
                             invoiceObj.invoiceNumber = $(config.invoiceNumber).val();
@@ -814,6 +815,7 @@ require(["modernizr",
                         if($.trim($(config.altRefNumber).val()).length==0){
                             $(config.advancedInputsError).removeClass('hide');
                             $(config.advancedInputsError).find('span.alert-message').text(cbp.invoicesPage.globalVars.altRefVoidMsg);
+                            $(config.altRefNumber).addClass('redDanger');
                             return;
                         }else{
                             invoiceObj.altRefNumber = $(config.altRefNumber).val();
@@ -822,6 +824,7 @@ require(["modernizr",
                         if($.trim($(config.originalDocNumber).val()).length==0){
                             $(config.advancedInputsError).removeClass('hide');
                             $(config.advancedInputsError).find('span.alert-message').text(cbp.invoicesPage.globalVars.oriDocVoidMsg);
+                            $(config.originalDocNumber).addClass('redDanger');
                             return;
                         }else{
                             invoiceObj.originalDocNumber = $(config.originalDocNumber).val()
@@ -845,6 +848,9 @@ require(["modernizr",
                 invoiceObj.shipTo = $("#shipToSelectDdn").val();
                 invoiceObj.soldTo = $("#locationSelectDdn").val();
                 $(".alert-danger").addClass("hide");
+                $(config.invoiceNumber).removeClass('redDanger');
+                $(config.altRefNumber).removeClass('redDanger');
+                $(config.originalDocNumber).removeClass('redDanger');
                 triggerAjaxRequest();
             });
 
@@ -896,6 +902,16 @@ require(["modernizr",
 
             $(document).on('click', config.toggleSwitchConfigForAdvanced + " button", function (e) {
                 showHideAdvanced();
+            });
+
+            
+
+            $(document).on('keyup',"#invoiceNumber,#altRefNumber,#originalDocNumber",function(e){
+                $(e.target).removeClass('redDanger');
+                $(".alert-danger").addClass("hide");
+                $(config.invoiceNumber).removeClass('redDanger');
+                $(config.altRefNumber).removeClass('redDanger');
+                $(config.originalDocNumber).removeClass('redDanger');
             });
         };
         

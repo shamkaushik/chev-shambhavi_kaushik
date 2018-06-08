@@ -496,16 +496,19 @@ require(["modernizr",
                     if($.trim($(config.searchInputEft).val()).length<=0){
                         $(config.advancedInputsContainer).removeClass('hide');
                         $(config.advancedInputsContainer).find('span.alert-message').text(cbp.eftSearchPage.globalVars.eftNumberVoidError);
+                        $(config.searchInputEft).addClass('redDanger');
                         return;
                     }
                 }else if($("#eftSearchToggle input[type='hidden']").val()==3){
                     if($.trim($(config.searchInputEft).val()).length<=0){
                         $(config.advancedInputsContainer).removeClass('hide');
                         $(config.advancedInputsContainer).find('span.alert-message').text(cbp.eftSearchPage.globalVars.invoiceVoidError);
+                        $(config.searchInputEft).addClass('redDanger');
                         return;
                     }
                 }
                 $(config.advancedInputsContainer).addClass('hide');
+                $(config.searchInputEft).removeClass('redDanger');
                 triggerAjaxRequest();
             });
 
@@ -574,6 +577,11 @@ require(["modernizr",
             $(document).on('change',config.soldToDropdown,function(){
                 setItalicsToThedefaultSelection();
                 populatePayer($(config.soldToDropdown).val());
+            });
+
+            $(document).on('keyup',config.searchInputEft,function(e){
+                $(".alert-danger").addClass("hide");
+                $(e.target).removeClass('redDanger');
             });
         };
 
