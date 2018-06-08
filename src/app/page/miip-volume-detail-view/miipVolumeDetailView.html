@@ -38,7 +38,13 @@
         <script type="text/javascript">
 
             var miipVolumeDetailResponse = {
-
+                "columnMapping" :{
+                    "salesDate" : "MIIP_VOLUME_DETAIL_SALESDATE_COLUMN",
+                    "rul" : "MIIP_VOLUME_DETAIL_RUL_COLUMN",
+                    "mul" : "MIIP_VOLUME_DETAIL_MUL_COLUMN",
+                    "pul" : "MIIP_VOLUME_DETAIL_PUL_COLUMN",
+                    "total" : "MIIP_VOLUME_DETAIL_TOTAL_COLUMN"
+                },
                 "header": {
                     "soldTo": "7063485 Cain Petroleum Incorporated, 4512 Sw Kelly Portland, OR 97239, United States",
                     "site": "209902 Cain Petroleum Incorporated, Glastone, 830 East Berkley, United States",
@@ -52,7 +58,7 @@
                     "totalPUL" : "701,936.154",
                     "total" : "101,936.088"
                 },
-                "row": [
+                "rows": [
                     {
                       "salesDate": "10/18/2017",
                       "rul": "7,460.019",
@@ -112,11 +118,11 @@
                 "miipVolumeDetailPage": {
 
                     "globalUrl": {
-                        "miisVolumeViewURL" : "/miip-site-view/miipSiteView.html"
+                        "miipVolumeViewURL" : "/miip-site-view/miipSiteView.html"
                     },
                     "globalVars": {
                       "volumeReturnView" : "Return to Volume View",
-                        "miisPrgDetailsSummary": "MIIP volume details summary",
+                        "miipPrgDetailsSummary": "MIIP volume details summary",
                         "soldTo": "Sold To:",
                         "account" : "Account",
                         "shipTo": "Ship To:",

@@ -15,6 +15,9 @@
             </header>
         </main>
         <section class='main-container'>
+            <div class="alert alert-success js-save-success hide">
+                <span class="alert-message"></span>
+            </div>
             <div class="content-box miip-program-volume-page">
                 <div class="row">
                     <div class="overlay-wrapper">
@@ -43,8 +46,7 @@
             <div class="js-disputed-modal">
             </div>
         </div>
-
-        <form id="miipVolumeForm" action="/miip-prog-detail-view/miipProgramDetailView.html" method="post">
+        <form id="CBPMIIPVolumeDetailForm" action="/app/page/miip-volume-detail-view/miipVolumeDetailView.html" method="post">
             <input type="hidden" name="volumeDetailFormData" id="volumeDetailFormData">
         </form>
 
@@ -59,7 +61,7 @@
 
                     },
                     "globalVars": {
-
+                        "successMsg": "Dispute successfully submitted."
                     }
                 }
             }
