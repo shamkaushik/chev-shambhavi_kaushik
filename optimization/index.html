@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Static HTML</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="www/css/app-na.css" rel="stylesheet" type="text/css">
+    <style media="screen">
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="body-wrapper">
+        <main>
+            <header class="main-header main-header-md js-header" style="">
+            </header>
+        </main>
+        <section class="main-container js-main-container">
+            <div class="content-box">
+                <h2 class="page-title">Static HTML</h2>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-24 col-sm-8">
+                        <div class="list-group">
+                            <h3><span class="list-group-item list-group-item-success">Fuels NA Pages</span></h3>
+                            <a href="www/home-page.html" target="_blank" class="list-group-item">Home Page</a>
+                            <a href="www-built/home-page.html" target="_blank" class="list-group-item">Home Page Optimized</a>
+                            <a href="www/invoices.html" target="_blank" class="list-group-item">Invoices Page</a>
+                            <a href="www-built/invoices.html" target="_blank" class="list-group-item">Invoices Optimized</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+    </div>
+    </section>
+    <script type="text/javascript">
+        var cbp = {
+            "staticBasePath": "/",
+            "indexPage": {
+                "globalVars": {
+                    "sortBy": "Sort by",
+                    "prdctNameAZ": "Product Name, A-Z",
+                    "prdctNameZA": "Product Name Z-A",
+                    "prdctCodeAsc": "Product Code Ascending",
+                    "prdctCodeDesc": "Product Code Descending",
+                    "purchaseVolume": "Purchased Volume",
+                    "printReport": "Print Report",
+                    "productsFound": "{0} Products found",
+                    "code": "Code",
+                    "product": "Product",
+                    "package": "Package",
+                    "volume": "Volume (Gal)",
+                    "indexPostURL": "/assets/json/tableDetailView.json",
+                    "method": "GET",
+                    "tableLocales": {
+                        "loadingMessage": "Loading, please wait...",
+                        "paginationSwitch": "Hide/Show pagination",
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+    <script src="/assets/js/requirejs.js"></script>
+    <script src="/assets/js/require_config.js"></script>
+    <script src="/app/components/header/header.js"></script>
+    <script src="/app/components/headerFooter/headerFooter.js"></script>
+    <!--<script src="index-style-guide.js"></script>-->
+    <footer id="footer" class="js-footer">
+    </footer>
+    </div>
+</body>
+
+</html>
