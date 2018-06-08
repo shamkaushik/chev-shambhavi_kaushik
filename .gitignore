@@ -1,5 +1,7 @@
+optimization/node_modules/**
 node_modules/**
 build/**
+optimization/www-built/**
 heroku/**
 heroku**
 out/**
