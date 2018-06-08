@@ -16,31 +16,34 @@
                 </div>
                 <table data-toggle="table" id="disputeTable">
                     <thead>
-                        <tr>
+                        <tr class="reported-vol-container">
                             <th></th>
-                            <th>RUL(GA)</th>
-                            <th>MUL(GA)</th>
-                            <th>PUL(GA)</th>
-                            <th>Total (GA)</th>
+                            <th> <span class="prev-rul">RUL(GA) </span></th>
+                            <th> <span class="prev-mul">MUL(GA)</span></th>
+                            <th><span class="prev-pul">PUL(GA) </span></th>
+                            <th><span>Total (GA)</span></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Reported Volume</td>
-                            <td class="prev-rul">75,432</td>
-                            <td class="prev-mul">12,675</td>
-                            <td class="prev-pul">11,523</td>
-                            <td class="prev-total">99,630</td>
+                        <tr class="reported-vol-container">
+                            <td><label>Reported Volume</label></td>
+                            <td><span class="prev-rul">75,432</span></td>
+                            <td><span class="prev-mul">12,675 </span></td>
+                            <td><span class="prev-pul">11,523 </span></td>
+                            <td><span class="prev-total">99,630</span></td>
                         </tr>
                         <tr>
-                            <td>Actual Volume</td>
-                            <td><input type="text" class="form-control rul-val actual-vol"></td>
-                            <td><input type="text" class="form-control actual-vol mul-val actual-vol"></td>
-                            <td><input type="text" class="form-control actual-vol pul-val actual-vol"></td>
-                            <td><span class="total-vol"> - </span></td>
+                            <td><label>Actual Volume</label></td>
+                            <td><input type="text" class="form-control rul-val actual-vol text-right sales-popup-input-text-large"></td>
+                            <td><input type="text" class="form-control actual-vol mul-val text-right sales-popup-input-text-large"></td>
+                            <td><input type="text" class="form-control actual-vol pul-val text-right sales-popup-input-text-large"></td>
+                            <td><span class="total-vol text-right sales-popup-input-text-large"> - </span></td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="alert alert-error js-save-error hide">
+                    <span class="alert-message"></span>
+                </div>
                 <div class="md-pt-15 md-pb-15 disclaimer-section">
                     <label>Disclaimer:</label> <br />
                     <span>
