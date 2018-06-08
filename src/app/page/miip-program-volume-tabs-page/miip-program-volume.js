@@ -36,7 +36,6 @@ require(["modernizr",
             mulValue = 0,
             pulValue = 0;
         var isCalculatedTotalValValid = false;
-        var formIsValid = true;
         var calculatedTotalValue;
         var volumeDetailFormObj = {};
 
@@ -66,7 +65,8 @@ require(["modernizr",
             modal: '.modal',
             jsSaveSuccess: '.js-save-success',
             programAnchor: ".js-program-anchor",
-            soldTo: ".js-soldTo-summary"
+            soldTo: ".js-soldTo-summary",
+            jsSaveError: "js-save-error"
         };
 
         var srtByDdn = {
@@ -86,14 +86,10 @@ require(["modernizr",
             display: "displayInline"
         };
 
-        var fireValidations = function(e) {
-            var rulVal = $(".actual-vol").val();
-            var actualVolumeVals = [];
-            var prevTotalVal = '';
-            var actualVolumeVals = [];
-            var element = $(e.currentTarget.closest('.modal')).find('input');
-            //highlighting input fields
+        var checkVolumeIsWholeNo = function(element) {
+            var formIsValid = false;
             element.each(function() {
+                var actualVolumeVals = [];
                 //var value = $(this).val() ? $(this).val() : null;
                 if ($(this).val()) {
                     actualVolumeVals.push($(this).val());
@@ -105,14 +101,25 @@ require(["modernizr",
                     } else {
                         $(this).removeClass("has-error");
                         $(config.totalValue).removeClass("has-error");
-                        formIsValid = false;
+                        //formIsValid = true;
+                        formIsValid = true;
                     }
                 }
             });
+
+            return formIsValid;
+        };
+
+        var removeCommaFromString = function(e) {
+            var prevTotalVal = '';
             $(e.currentTarget.closest(".modal")).find('.prev-total').text().split(',').map(function(val, index) {
                 prevTotalVal += val;
             });
-            //Total Vol discrepancy must exceed 500 and check for required also
+            return prevTotalVal;
+        };
+
+        var checkTotalVolDiscrepancy = function(prevTotalVal) {
+            var formIsValid = false;
             if (!calculatedTotalValue || !parseFloat(prevTotalVal) || (calculatedTotalValue - parseFloat(prevTotalVal)) < 500) {
                 //highlighting the disclaimer section               
                 $(config.disclaimerSection).addClass("has-error");
@@ -133,8 +140,24 @@ require(["modernizr",
                 formIsValid = true;
                 return formIsValid;
             }
-            return formIsValid;
-            //saveDispute();
+        }
+
+        var fireValidations = function(e) {
+            var rulVal = $(".actual-vol").val();
+            var actualVolumeVals = [];
+            var actualVolumeVals = [];
+            var element = $(e.currentTarget.closest('.modal')).find('input');
+            //check for a no is a whole or not
+            var isWholeNo = checkVolumeIsWholeNo(element);
+            isWholeNo ? $(config.jsSaveError).removeClass('hide') : $(config.jsSaveError).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.volumeWholeNoErrorMsg);
+            //getting the nos without the commas 
+            var prevTotalVal = removeCommaFromString(e);
+            //Total Vol must exceed 500 and check for required also
+            var totalVolDiscrepancy = checkTotalVolDiscrepancy(prevTotalVal);
+            if (isWholeNo && totalVolDiscrepancy) {
+                return true;
+            } else
+                return false;
         };
 
         var saveDispute = function() {
@@ -291,7 +314,7 @@ require(["modernizr",
                     sortable: true,
                     class: 'numberIcon col-md-6',
                     formatter: function(row, value) {
-                        return "<a href='#' class='js-program-anchor' data-uid='" + row + "'>" + row + "</a>";
+                        return "<a href='#' class='js-program-anchor sales-month' data-uid='" + row + "'>" + row + "</a>";
                     }
                 }, {
                     field: 'rul',
@@ -395,7 +418,8 @@ require(["modernizr",
                 pulValue = $(this).hasClass("pul-val") ? parseFloat(event.currentTarget.value) : pulValue;
                 // isCalculatedTotalValValid = (rulValue + mulValue + pulValue) >= 500 ? true : false;
                 calculatedTotalValue = rulValue + mulValue + pulValue;
-                $(config.totalValue).text(calculatedTotalValue.toString());
+                console.log('calculatedTotalValue: ', calculatedTotalValue);
+                calculatedTotalValue == 'Nan' ? $(config.totalValue).text('-') : $(config.totalValue).text(calculatedTotalValue.toString());
             });
 
             $(document).on("click", config.programAnchor, function(e) {
