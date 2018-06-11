@@ -60,7 +60,7 @@ require(["modernizr",
             disclaimerSection: ".disclaimer-section",
             actualVol: ".actual-vol",
             totalValue: ".total-vol",
-            closBtn: ".clos-btn",
+            closeBtn: ".clos-btn",
             prevTotal: ".prev-total",
             modal: '.modal',
             jsSaveSuccess: '.js-save-success',
@@ -88,9 +88,9 @@ require(["modernizr",
 
         var checkVolumeIsWholeNo = function(element) {
             var formIsValid = true;
-            $(config.jsSaveError).addClass('hide');
             var isValidFields = [];
             var actualVolumeVals = [];
+            $(config.disclaimerSection).removeClass("has-error");
             element.each(function() {
                 //var value = $(this).val() ? $(this).val() : null;
                 actualVolumeVals.push($(this).val());
@@ -109,7 +109,6 @@ require(["modernizr",
             //checking if all the fields are valid or no
             for (var index = 0; index < isValidFields.length; index++) {
                 if (!isValidFields[index]) {
-                    $(config.jsSaveError).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.volumeWholeNoErrorMsg);
                     formIsValid = false;
                     break;
                 }
@@ -157,15 +156,20 @@ require(["modernizr",
             //check for a no is a whole or not            
             var isWholeNo = checkVolumeIsWholeNo(element);
             if (isWholeNo) {
+                $(e.currentTarget).closest('.modal').find(config.jsSaveError).addClass('hide');
                 //getting the nos without the commas 
                 var prevTotalVal = removeCommaFromString(e);
                 //Total Vol must exceed 500 and check for required also
                 var totalVolDiscrepancy = checkTotalVolDiscrepancy(prevTotalVal);
                 if (totalVolDiscrepancy) {
                     return true;
-                } else
+                } else {
                     return false;
+                }
+
             } else {
+                $(e.currentTarget).closest('.modal').find(config.jsSaveError).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.volumeWholeNoErrorMsg);
+                // $(config.jsSaveError).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.volumeWholeNoErrorMsg);
                 return false;
             }
         };
