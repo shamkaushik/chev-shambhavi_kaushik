@@ -270,7 +270,7 @@ require(["modernizr",
                 ];
 
             for(var i=0;i<programColsOrder.length;i++){
-                for(key in programCoulumnMapping){
+                for(key in programColumnMapping){
                     if(programColsOrder[i] == key && programColumnMapping[key]){
                         colsToShow.push(programColsOrder[i]);
                     }
