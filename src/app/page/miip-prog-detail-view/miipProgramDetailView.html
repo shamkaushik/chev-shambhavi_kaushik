@@ -26,7 +26,7 @@
                     <div class="overlay-wrapper">
                     </div>
                     <div class='col-md-24 col-lg-24 right-pane'>
-                        <div class='top-summary js-miisPrgDetailPage-summary'>
+                        <div class='top-summary js-miipPrgDetailPage-summary'>
                         </div>
                         <div class='bottom-detail js-bottom-detail md-p-0 xs-pt-15'>
                         </div>
@@ -38,10 +38,15 @@
         <script type="text/javascript">
 
             var miipProgDetailResponse = {
-                "miipProgDetailsData": {
-                    "currency" : "USD"
+                "currency" : "USD",
+                "miipProgramDetailColumnMapping": {
+                  "amountPaid" : "test",
+                  "billingDocument" : "tes",
+                  "jiipInvoiceNumber" : "test",
+                  "paymentProcessingDate" : "fsfd",
+                  "salesMonth" : "tes"
                 },
-                "miipSummaryData": {
+                "miipProgramDetailSummaryData": {
                     "soldTo": "8106818 - Hanson Quarry Products (premix) Sdn, W501 Level 5, West Tower, Wisma Consplant 1 2 Jln Ss 16/4, MY", //Added for new detail page changes
                     "site": "8106818 - Hanson Quarry Products (premix) Sdn, W501 Level 5, West Tower, Wisma Consplant 1 2 Jln Ss 16/4, MY",
                     "program": "6 Brand Retention Program",
@@ -49,50 +54,50 @@
                     "paymentStartDate" : "01/2017",
                     "paymentEndDate" : "12/2026",
                     "amortizationEndDate" : "01/2027",
-                    "totalAmountPaid" : "31.926.43",
+                    "totalPaid" : "31.926.43",
                 },
-                "miisProgDetailDataList": [
+                "miipProgramDetailDataList": [
                     {
                       "salesMonth": "02/2018",
                       "paymentProcessingDate": "11/02/2018",
                       "amountPaid": "123.23",
-                      "invoice": "JIIP558571",
-                      "billingDoc": "0714525158",
+                      "jiipInvoiceNumber": "JIIP558571",
+                      "billingDocumentument": "0714525158",
                     },
                     {
                       "salesMonth": "02/2018",
                       "paymentProcessingDate": "11/02/2018",
                       "amountPaid": "123.23",
-                      "invoice": "JIIP558571",
-                      "billingDoc": "0714525158",
+                      "jiipInvoiceNumber": "JIIP558571",
+                      "billingDocument": "0714525158",
                     },
                     {
                       "salesMonth": "02/2018",
                       "paymentProcessingDate": "11/02/2018",
                       "amountPaid": "123.23",
-                      "invoice": "JIIP558571",
-                      "billingDoc": "0714525158",
+                      "jiipInvoiceNumber": "JIIP558571",
+                      "billingDocument": "0714525158",
                     },
                     {
                       "salesMonth": "02/2018",
                       "paymentProcessingDate": "11/02/2018",
                       "amountPaid": "123.23",
-                      "invoice": "JIIP558571",
-                      "billingDoc": "0714525158",
+                      "jiipInvoiceNumber": "JIIP558571",
+                      "billingDocument": "0714525158",
                     },
                     {
                       "salesMonth": "02/2018",
                       "paymentProcessingDate": "11/02/2018",
                       "amountPaid": "123.23",
-                      "invoice": "JIIP558571",
-                      "billingDoc": "0714525158",
+                      "jiipInvoiceNumber": "JIIP558571",
+                      "billingDocument": "0714525158",
                     },
                     {
                       "salesMonth": "02/2018",
                       "paymentProcessingDate": "11/02/2018",
                       "amountPaid": "123.23",
-                      "invoice": "JIIP558571",
-                      "billingDoc": "0714525158",
+                      "jiipInvoice": "JIIP558571",
+                      "billingDocument": "0714525158",
                     }
                 ]
             };
@@ -108,14 +113,14 @@
 
             var cbp = {
                 "staticBasePath": "/",
-                "miisPrgDetailPage": {
+                "miipPrgDetailPage": {
 
                     "globalUrl": {
-                        "miisProgViewURL" : "/miip-site-view/miipSiteView.html"
+                        "miipProgViewURL" : "/miip-site-view/miipSiteView.html"
                     },
                     "globalVars": {
                       "progReturnView" : "Return to Program View",
-                        "miisPrgDetailsSummary": "MIIP program details summary",
+                        "miipPrgDetailsSummary": "MIIP program details summary",
                         "soldTo": "Sold To:",
                         "account" : "Account",
                         "shipTo": "Ship To:",
