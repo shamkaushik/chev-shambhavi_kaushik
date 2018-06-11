@@ -205,8 +205,8 @@ require(["modernizr",
         var loadingDynamicHbsTemplates = function() {
             $(config.programViewSummaryConatiner).html(compiledProgramViewSummary(cbp.miipProgramVolumeDetailPage));
             $(config.programVolumeDetailsContainer).html(compiledProgramVolumeDetails());
-            $(config.programViewContainer).html(compiledProgramView());
-            $(config.volumeViewContainer).html(compiledVolumeView());
+            $(config.programViewContainer).html(compiledProgramView(cbp.miipProgramVolumeDetailPage));
+            $(config.volumeViewContainer).html(compiledVolumeView(cbp.miipProgramVolumeDetailPage));
             $(config.programVolumeHeadingContainer).html(compiledProgramVolumeHeading(cbp.miipProgramVolumeDetailPage));
             $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
             $(config.salesModal).html(compiledSalesModal());

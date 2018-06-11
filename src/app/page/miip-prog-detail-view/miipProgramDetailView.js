@@ -26,6 +26,7 @@ require(["modernizr",
             topSummaryLeftSection: ".topSummaryLeftSection",
             sortByDdnContainer: ".js-sortbyDdn",
             sortByDdn: "#sortByDdn",
+            sortByDdnContainer: ".js-sortbyDdn",
         };
 
         var init = function () {
@@ -43,40 +44,71 @@ require(["modernizr",
         var loadingDynamicHbsTemplates = function () {
             $(config.miipProgSummaryContainer).html(compiledMiipProgDetailSummary(cbp.miipPrgDetailPage));
             $(config.searchDetailContainer).html(compiledBottomDetail(cbp.miipPrgDetailPage));
+
+            var sortDdnOptions = generatingOptions(miipProgDetailResponse.miipProgramDetailColumnMapping);
+            srtByDdn["options"] = sortDdnOptions;
             $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
+            $(config.sortByDdnContainer).find(config.dropDownCommon).selectpicker('refresh');
+            enableMobileDefaultDropDown();
+            $(config.dropDownCommon).selectpicker('refresh');
         };
+
+        var enableMobileDefaultDropDown = function() {
+            //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                $('.selectpicker').selectpicker('mobile');
+            }
+        };
+
+        var generatingOptions = function(data){
+            globalSortList = [{
+                key: "salesMonth-asc",
+                value: cbp.miipPrgDetailPage.globalVars.salesMonthAsc
+              }, {
+              key: "salesMonth-desc",
+              value: cbp.miipPrgDetailPage.globalVars.salesMonthDesc
+            }
+          ];
+
+        var sortListMap = globalSortList.reduce(function (data, globalSortList) {
+            data[globalSortList.key] = globalSortList;
+            return data;
+          }, {});
+
+
+        var sortKey = Object.keys(sortListMap).filter(function(key) {
+            if(sortListMap[key]){
+                return sortListMap[key];
+            }
+        });
+
+        var receivedOrderKey = Object.keys(data).filter(function(key) {
+            if(data[key]){
+            return data[key];
+            }
+        });
+
+        var fnCheck = function fnCheck(item) {
+          return receivedOrderKey.indexOf(item.replace(/\-(asc|desc)/, "")) != -1;
+        };
+
+        var requestedOptions = sortKey.filter(function (s) {
+          return fnCheck(s);
+        });
+
+        var optionDropdown = [];
+        for(i=0;i<requestedOptions.length;i++){
+            var k = requestedOptions[i];
+            optionDropdown.push(sortListMap[k]);
+        }
+            return optionDropdown;
+        }
 
         var bindEvents = function () {
             $(document).on('click',config.backtoProgView,function(){
                 window.location.href=cbp.miipPrgDetailPage.globalUrl.miipProgViewURL;
             });
 
-        };
-
-        var srtByDdn = {
-            "options": [{
-                key: "sales-Month-az",
-                value: "Sales Month, Ascending",
-                id: 'status'
-            },{
-                key: "sales-Month-za",
-                value: "Sales Month, Descending",
-                id: 'salesMonth'
-            },
-            {
-                key: "payment-processing-az",
-                value: "Payment Processing Date, Ascending",
-                id: 'status'
-            },
-            {
-                key: "payment-processing-za",
-                value: "Payment Processing Date, Descending",
-                id: 'paymentProcessing'
-            }],
-            label: "Sort By",
-            labelClass: "xs-mr-5",
-            name: "sortByDdn",
-            display: "displayInline"
         };
 
         var generatingColumns = function(columnsDataList) {
@@ -136,7 +168,7 @@ require(["modernizr",
             data[columnsList.field] = columnsList;
             return data;
             }, {});
-            var orderKey = [ "salesMonth", "paymentProcessingDate", "amountPaid", "invoice", "billingDoc"]
+            var orderKey = [ "salesMonth", "paymentProcessingDate", "amountPaid", "jiipInvoiceNumber", "billingDocument"]
 
             var requestedCol = [];
             for(var i = 0; i< orderKey.length; i++){

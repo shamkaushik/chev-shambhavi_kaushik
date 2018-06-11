@@ -58,7 +58,7 @@
                 },
                 "miipProgramDetailDataList": [
                     {
-                      "salesMonth": "02/2018",
+                      "salesMonth": "02/2019",
                       "paymentProcessingDate": "11/02/2018",
                       "amountPaid": "123.23",
                       "jiipInvoiceNumber": "JIIP558571",
@@ -72,14 +72,14 @@
                       "billingDocument": "0714525158",
                     },
                     {
-                      "salesMonth": "02/2018",
+                      "salesMonth": "02/2017",
                       "paymentProcessingDate": "11/02/2018",
                       "amountPaid": "123.23",
                       "jiipInvoiceNumber": "JIIP558571",
                       "billingDocument": "0714525158",
                     },
                     {
-                      "salesMonth": "02/2018",
+                      "salesMonth": "02/2012",
                       "paymentProcessingDate": "11/02/2018",
                       "amountPaid": "123.23",
                       "jiipInvoiceNumber": "JIIP558571",
@@ -102,6 +102,13 @@
                 ]
             };
 
+            var srtByDdn = {
+                "options": [],
+                label: "Sort By",
+                labelClass: "xs-mr-5",
+                name: "sortByDdn",
+                display: "displayInline"
+            }
             var maxResults = 500;
             var maxResultText = '<div>{0} MIIP matching your search were found in the system.</div>' +
                 '<div>Please refine your search to return less than 500 results.</div><br>' +
@@ -138,6 +145,8 @@
                         "amountPaid": "Amount Paid",
                         "invoice": "Invoice #",
                         "billingDoc": "Billing Document",
+                        "salesMonthAsc" : "Sales Month, Ascending",
+                        "salesMonthDesc" : "Sales Month Descending",
                         "tableLocales": {
                             "loadingMessage": "Loading, please wait...",
                             "recordsPerPage": "{0} rows per page",
