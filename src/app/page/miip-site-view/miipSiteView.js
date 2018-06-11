@@ -111,7 +111,7 @@ require(["modernizr",
                 type: type,
                 data: data,
                 url: url,
-                contentType: contentType,
+                contentType: contType,
                 headers: {'CSRFToken':cbp.miipSite.globalVars.csrfToken},
                 success: successCallback,
                 error: errorCallback
@@ -246,10 +246,10 @@ require(["modernizr",
                 $(config.displaySpinner).hide();
                 $(config.searchDetailContainer).show();
                 $(config.miipSiteSummaryContainer).show();
-                cbp.miipSite.miipSiteResponse = result;
-                setSummaryValues();
+                cbp.miipSite.miipSiteResponse = result.searchResult;
+                populateSummaryDataOnLoad();
                 loadingDynamicHbsTemplates();
-                populatingTable(result, result.miipSiteColumnMapping);
+                populatingTable(result.searchResult, result.searchResult.miipSiteColumnMapping);
                 leftPaneExpandCollapse.resetSearchFormHeight();
               });
             };
@@ -290,7 +290,7 @@ require(["modernizr",
             });
         };
 
-        var generatingColumns = function(columnsDataList){
+        var generatingColumns = function(columnsDataList) {
         	var receivedOrderKey = Object.keys(columnsDataList).filter(function(key){
         		if(columnsDataList[key]){
         			return columnsDataList[key];

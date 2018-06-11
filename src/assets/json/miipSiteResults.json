@@ -1,61 +1,65 @@
-{              "currency": "USD",
-               "miipSiteColumnMapping": {
-                   "site" :"test",
-                   "volumeDiscrepancy":"fdgfdg",
-                   "thruput" : "gdfsgfsd",
-                   "rentFlag" : "rentdf",
-                   "brand" : "Chevron",
-                   "businessConsultant" : "dfgsad",
-                   "siteZone" : "dsfsadf"
-               },
+{
+  "currency": "USD",
+  "searchResult":{
+    "miipSiteColumnMapping": {
+       "site" :"test",
+       "volumeDiscrepancy":"fdgfdg",
+       "thruput" : "gdfsgfsd",
+       "rentFlag" : "rentdf",
+       "brand" : "Chevron",
+       "businessConsultant" : "dfgsad",
+       "siteZone" : "dsfsadf"
+   },
 
 
-               "miipSiteViewDataList": [{
-                   "site" :"dummy text",
-                   "volumeDiscrepancy":"No",
-                   "thruput" : "R",
-                   "rentFlag" : "No",
-                   "brand" : "Chevron",
-                   "businessConsultant" : "Kevin Maloney",
-                   "siteZone" : "4A"
-               },
-               {
-                   "site" :"201964 Redwood Oil Co. 4925 Sonama Highway",
-                   "volumeDiscrepancy":"Yes",
-                   "thruput" : "R",
-                   "rentFlag" : "No",
-                   "brand" : "Chevron",
-                   "businessConsultant" : "Kevin Maloney",
-                   "siteZone" : "4A"
-               },
-               {
-                   "site" :"202125 Redwood Oil Co. 830 Redwood DR.",
-                   "volumeDiscrepancy":"No",
-                   "thruput" : "R",
-                   "rentFlag" : "Yes",
-                   "brand" : "Chevron",
-                   "businessConsultant" : "Kevin Maloney",
-                   "siteZone" : "4A"
-               },
-               {
-                   "site" :"201964 Redwood Oil Co. 4925 Sonama Highway",
-                   "volumeDiscrepancy":"Yes",
-                   "thruput" : "R",
-                   "rentFlag" : "Yes",
-                   "brand" : "Chevron",
-                   "businessConsultant" : "Kevin Maloney",
-                   "siteZone" : "4A"
-               },
-               {
-                   "site" :"202125 Redwood Oil Co. 830 Redwood DR.",
-                   "volumeDiscrepancy":"No",
-                   "thruput" : "R",
-                   "rentFlag" : "No",
-                   "brand" : "brand",
-                   "businessConsultant" : "Kevin Maloney",
-                   "siteZone" : "4A"
-               }],
-               "resultCount": 3,
-               "multipleSoldTo": false,
-               "sort": null
-           }
+   "miipSiteViewDataList": [{
+       "site" :"dummy text",
+       "volumeDiscrepancy":"No",
+       "thruput" : "R",
+       "rentFlag" : "No",
+       "brand" : "Chevron",
+       "businessConsultant" : "Kevin Maloney",
+       "siteZone" : "4A"
+   },
+   {
+       "site" :"201964 Redwood Oil Co. 4925 Sonama Highway",
+       "volumeDiscrepancy":"Yes",
+       "thruput" : "R",
+       "rentFlag" : "No",
+       "brand" : "Chevron",
+       "businessConsultant" : "Kevin Maloney",
+       "siteZone" : "4A"
+   },
+   {
+       "site" :"202125 Redwood Oil Co. 830 Redwood DR.",
+       "volumeDiscrepancy":"No",
+       "thruput" : "R",
+       "rentFlag" : "Yes",
+       "brand" : "Chevron",
+       "businessConsultant" : "Kevin Maloney",
+       "siteZone" : "4A"
+   },
+   {
+       "site" :"201964 Redwood Oil Co. 4925 Sonama Highway",
+       "volumeDiscrepancy":"Yes",
+       "thruput" : "R",
+       "rentFlag" : "Yes",
+       "brand" : "Chevron",
+       "businessConsultant" : "Kevin Maloney",
+       "siteZone" : "4A"
+   },
+   {
+       "site" :"202125 Redwood Oil Co. 830 Redwood DR.",
+       "volumeDiscrepancy":"No",
+       "thruput" : "R",
+       "rentFlag" : "No",
+       "brand" : "brand",
+       "businessConsultant" : "Kevin Maloney",
+       "siteZone" : "4A"
+   }],
+   "resultCount": 3,
+   "multipleSoldTo": false,
+   "sort": null
+  }
+
+}
