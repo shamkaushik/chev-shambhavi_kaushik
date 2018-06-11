@@ -66,7 +66,9 @@ require(["modernizr",
             jsSaveSuccess: '.js-save-success',
             programAnchor: ".js-program-anchor",
             soldTo: ".js-soldTo-summary",
-            jsSaveError: ".js-save-error"
+            jsSaveError: ".js-save-error",
+            saveDisputeBtn: ".js-save-dispute-btn",
+            saveDisputedBtn: ".js-save-disputed-btn",
         };
 
         var srtByDdn = {
@@ -86,36 +88,7 @@ require(["modernizr",
             display: "displayInline"
         };
 
-        var checkVolumeIsWholeNo = function(element) {
-            var formIsValid = true;
-            var isValidFields = [];
-            var actualVolumeVals = [];
-            $(config.disclaimerSection).removeClass("has-error");
-            element.each(function() {
-                //var value = $(this).val() ? $(this).val() : null;
-                actualVolumeVals.push($(this).val());
-                //If actual vol should is a whole no
-                if (($(this).val() - Math.floor($(this).val())) !== 0) {
-                    $(this).addClass("has-error");
-                    $(config.totalValue).addClass("has-error");
-                    isValidFields.push(false);
-                } else {
-                    $(this).removeClass("has-error");
-                    $(config.totalValue).removeClass("has-error");
-                    //formIsValid = true;
-                    isValidFields.push(true);
-                }
-            });
-            //checking if all the fields are valid or no
-            for (var index = 0; index < isValidFields.length; index++) {
-                if (!isValidFields[index]) {
-                    formIsValid = false;
-                    break;
-                }
-            }
-            return formIsValid;
-        };
-
+        /* Function to remove the commas from the a string and concatenate it */
         var removeCommaFromString = function(e) {
             var prevTotalVal = '';
             $(e.currentTarget.closest(".modal")).find('.prev-total').text().split(',').map(function(val, index) {
@@ -124,61 +97,54 @@ require(["modernizr",
             return prevTotalVal;
         };
 
-        var checkTotalVolDiscrepancy = function(prevTotalVal) {
+        /*Function to check if the difference between total volume entered and existing total vol is greater that 500*/
+        var checkTotalVolDiscrepancy = function(prevTotalVal, element) {
             var formIsValid = false;
             if (!calculatedTotalValue || !parseFloat(prevTotalVal) || (calculatedTotalValue - parseFloat(prevTotalVal)) < 500) {
                 //highlighting the disclaimer section               
                 $(config.disclaimerSection).addClass("has-error");
                 $(config.totalValue).addClass("has-error");
-                $("input[type='text']").each(function() {
+                //Highlighting the error fields
+                element.each(function() {
                     $(this).addClass("has-error");
                     $(config.totalValue).addClass("has-error");
                 });
                 formIsValid = false;
-                return formIsValid;
             } else {
                 $(config.disclaimerSection).removeClass("has-error");
                 $(config.totalValue).removeClass("has-error");
-                $("input[type='text']").each(function() {
+                element.each(function() {
                     $(this).removeClass("has-error");
                     $(config.totalValue).removeClass("has-error");
                 });
                 formIsValid = true;
-                return formIsValid;
             }
-        }
+            return formIsValid;
+        };
 
-        var fireValidations = function(e) {
+        var triggerValidations = function(e) {
             var rulVal = $(".actual-vol").val();
             var actualVolumeVals = [];
             var actualVolumeVals = [];
             var element = $(e.currentTarget.closest('.modal')).find('input');
-            //check for a no is a whole or not            
-            var isWholeNo = checkVolumeIsWholeNo(element);
-            if (isWholeNo) {
-                $(e.currentTarget).closest('.modal').find(config.jsSaveError).addClass('hide');
-                //getting the nos without the commas 
-                var prevTotalVal = removeCommaFromString(e);
-                //Total Vol must exceed 500 and check for required also
-                var totalVolDiscrepancy = checkTotalVolDiscrepancy(prevTotalVal);
-                if (totalVolDiscrepancy) {
-                    return true;
-                } else {
-                    return false;
-                }
-
+            //getting the nos without the commas 
+            var prevTotalVal = removeCommaFromString(e);
+            //Total Vol must exceed 500 and check for required also
+            var totalVolDiscrepancy = checkTotalVolDiscrepancy(prevTotalVal, element);
+            if (totalVolDiscrepancy) {
+                return true;
             } else {
-                $(e.currentTarget).closest('.modal').find(config.jsSaveError).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.volumeWholeNoErrorMsg);
-                // $(config.jsSaveError).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.volumeWholeNoErrorMsg);
                 return false;
             }
         };
 
+        /* Saving the dispute */
         var saveDispute = function(e) {
             //resetModal(e);
             $(config.jsSaveSuccess).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.successMsg);
             $('.modal').modal('hide');
         };
+
         var triggerAjaxRequest = function(data, type, url) {
             $(config.displaySpinner).show();
 
@@ -424,8 +390,8 @@ require(["modernizr",
             $(document).on('click', config.selectedDisputeLink, function(e) {
                 var targetDataIndex = e.target.dataset.index;
             });
-            $(document).on('click', config.saveBtn, function(e) {
-                var isValid = fireValidations(e);
+            $(document).on('click', config.saveDisputeBtn, config.saveDisputedBtn, function(e) {
+                var isValid = triggerValidations(e);
                 if (isValid) {
                     saveDispute(e);
                 }

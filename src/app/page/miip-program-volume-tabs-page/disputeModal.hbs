@@ -34,9 +34,18 @@
                         </tr>
                         <tr>
                             <td><label>Actual Volume</label></td>
-                            <td><input type="text" class="form-control rul-val actual-vol text-right sales-popup-input-text-large"></td>
-                            <td><input type="text" class="form-control actual-vol mul-val text-right sales-popup-input-text-large"></td>
-                            <td><input type="text" class="form-control actual-vol pul-val text-right sales-popup-input-text-large"></td>
+                            <td>
+                                <input type="text" class="form-control rul-val actual-vol text-right sales-popup-input-text-large"
+                                 onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control actual-vol mul-val text-right sales-popup-input-text-large"
+                                 onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57">
+                                </td>
+                            <td>
+                                <input type="text" class="form-control actual-vol pul-val text-right sales-popup-input-text-large"
+                                 onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57">
+                            </td>
                             <td><span class="total-vol text-right sales-popup-input-text-large"> - </span></td>
                         </tr>
                     </tbody>
@@ -54,7 +63,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn clos-btn btn-default hidden-md-down" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary save-btn">Save Dispute</button>
+                <button type="button" class="btn btn-primary save-btn js-save-dispute-btn">Save Dispute</button>
             </div>
         </div>
     </div>
