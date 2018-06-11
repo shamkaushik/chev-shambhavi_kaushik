@@ -207,30 +207,20 @@ require(["modernizr",
             });
         }
 
-        var populateTable = function() {
-            $('#programTable').bootstrapTable({
-                classes: 'table table-no-bordered',
-                striped: true,
-                iconsPrefix: 'fa',
-                sortName: 'status',
-                sortOrder: 'asc',
-                sortName: 'status',
-                parentContainer: ".js-program-view",
-                responsive: true,
-                responsiveBreakPoint: 768,
-                responsiveClass: "bootstrap-table-cardview",
-                undefinedText: "",
-                columns: [{
-                        field: 'program',
-                        title: 'Program',
-                        class: 'text-wrap',
-                        formatter: function(row, value) {
+        var getProgramCols = function(){
+            var colsToShow = [];
+            var programColsOrder = ['program', 'paymentStartDate', 'paymentEndDate', 'amortizationEndDate', 'totalPaid', 'estimatedRepaymentAmount', 'status']
+            var programColumnList =  [{
+                    field: 'program',
+                    title: 'Program',
+                    class: 'text-wrap',
+                    formatter: function(row, value) {
                             if (value.status == 'Rollover') {
                                 return row;
                             } else {
                                 return '<a href="" class="programAnchor">' + row + '</a>';
                             }
-                        },
+                        }
                     }, {
                         field: 'paymentStartDate',
                         title: 'Payment Start Date',
@@ -258,26 +248,46 @@ require(["modernizr",
                         class: 'text-wrap',
                         sortable: true
                     }
-                ],
-                data: [{
-                    program: '6 Brand Retention Program',
-                    paymentStartDate: '01/2016',
-                    paymentEndDate: '05/2026',
-                    amortizationEndDate: '01/2027',
-                    totalPaid: '21,783.00',
-                    estimatedRepaymentAmount: '21,783.00',
-                    status: 'Active'
-                }, {
-                    program: '6 Brand Retention Program',
-                    paymentStartDate: '01/2016',
-                    paymentEndDate: '05/2026',
-                    amortizationEndDate: '01/2027',
-                    totalPaid: '21,783.00',
-                    estimatedRepaymentAmount: '21,783.00',
-                    status: 'Rollover'
-                }]
+                ];
+
+            for(var i=0;i<programColsOrder.length;i++){
+                for(key in programColumnMapping){
+                    if(programColsOrder[i] == key && programColumnMapping[key]){
+                        colsToShow.push(programColsOrder[i]);
+                    }
+                }
+            }
+
+            var programCols = colsToShow.map(function(value){
+                for(var i=0;i<programColumnList.length;i++){
+                    if(programColumnList[i].field === value){
+                        return programColumnList[i];
+                    }
+                }
             });
 
+            return programCols;
+        }
+
+        var populateProgramTable = function(){
+            $('#programTable').bootstrapTable({
+                classes: 'table table-no-bordered',
+                striped: true,
+                iconsPrefix: 'fa',
+                sortName: 'status',
+                sortOrder: 'asc',
+                sortName: 'status',
+                parentContainer: ".js-program-view",
+                responsive: true,
+                responsiveBreakPoint: 768,
+                responsiveClass: "bootstrap-table-cardview",
+                undefinedText: "",
+                columns: getProgramCols(),
+                data: programTableData
+            });
+        }
+
+        var populateVolumeTable = function(){
             $('#volumeTable').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
@@ -335,35 +345,13 @@ require(["modernizr",
 
                     class: 'col-md-6',
                 }],
-                data: [{
-                    salesMonth: 'Sept 2017',
-                    rul: '70,460',
-                    mul: '90,123',
-                    pul: '69,279',
-                    total: '192,105',
-                    disputeVolume: 'Dispute',
-                    reason: '',
-                    status: ''
-                }, {
-                    salesMonth: 'Sept 2017',
-                    rul: '1234567890,1234567890,1234567890,1234567890',
-                    mul: '90,123',
-                    pul: '69,279',
-                    total: '192,105',
-                    disputeVolume: 'Dispute',
-                    reason: '',
-                    status: ''
-                }, {
-                    salesMonth: 'Oct 2017',
-                    rul: '1234567890',
-                    mul: '90,123',
-                    pul: '69,279',
-                    total: '192,105',
-                    disputeVolume: 'Disputed',
-                    reason: '',
-                    status: ''
-                }]
+                data: volumeTableData
             });
+        }
+
+        var populateTable = function() {
+            populateProgramTable();
+            populateVolumeTable();
         }
 
         var bindEvents = function() {
