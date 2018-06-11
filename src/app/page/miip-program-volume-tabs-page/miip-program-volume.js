@@ -69,6 +69,7 @@ require(["modernizr",
             jsSaveError: ".js-save-error",
             saveDisputeBtn: ".js-save-dispute-btn",
             saveDisputedBtn: ".js-save-disputed-btn",
+            saveNewSalesMonthBtn: ".js-save-new-sales-month",
         };
 
         var srtByDdn = {
@@ -101,7 +102,7 @@ require(["modernizr",
         var checkTotalVolDiscrepancy = function(prevTotalVal, element) {
             var formIsValid = false;
             if (!calculatedTotalValue || !parseFloat(prevTotalVal) || (calculatedTotalValue - parseFloat(prevTotalVal)) < 500) {
-                //highlighting the disclaimer section               
+                //highlighting the disclaimer section
                 $(config.disclaimerSection).addClass("has-error");
                 $(config.totalValue).addClass("has-error");
                 //Highlighting the error fields
@@ -127,7 +128,7 @@ require(["modernizr",
             var actualVolumeVals = [];
             var actualVolumeVals = [];
             var element = $(e.currentTarget.closest('.modal')).find('input');
-            //getting the nos without the commas 
+            //getting the nos without the commas
             var prevTotalVal = removeCommaFromString(e);
             //Total Vol must exceed 500 and check for required also
             var totalVolDiscrepancy = checkTotalVolDiscrepancy(prevTotalVal, element);
@@ -144,6 +145,33 @@ require(["modernizr",
             $(config.jsSaveSuccess).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.successMsg);
             $('.modal').modal('hide');
         };
+
+        var setSalesMonthPayload =  function () {
+            var salesMonthVolumeObj = {};
+            var headersDataObj = {};
+            headersObj.soldTo =  cbp.volumeSummaryData.soldTo;
+            headersObj.siteZone = cbp.volumeSummaryData.siteZone;
+            headersObj.businessConsultant = cbp.volumeSummaryData.businessConsultant;
+            headersObj.site = cbp.volumeSummaryData.site;
+            headersObj.thruput = cbp.volumeSummaryData.thruput;
+            salesMonthVolumeObj.headersData = headersObj;
+            saveNewSalesMonthVolume(salesMonthVolumeObj);
+            console.log(salesMonthVolumeObj);
+          };
+          var saveNewSalesMonthVolume = function (data) {
+            $.when(triggerAjaxRequest(data,cbp.miipSite.globalUrl.method, cbp.miipSite.globalUrl.searchURL)).then(function(result) {
+            //  var totalResults =
+              $(config.displaySpinner).hide();
+              //$(config.searchDetailContainer).show();
+              //$(config.miipSiteSummaryContainer).show();
+            //  cbp.miipSite.miipSiteResponse = result;
+
+              setSummaryValues();
+              loadingDynamicHbsTemplates();
+            //  populatingTable(result, result.miipSiteColumnMapping );
+              leftPaneExpandCollapse.resetSearchFormHeight();
+            });
+          };
 
         var triggerAjaxRequest = function(data, type, url) {
             $(config.displaySpinner).show();
@@ -177,8 +205,8 @@ require(["modernizr",
         var loadingDynamicHbsTemplates = function() {
             $(config.programViewSummaryConatiner).html(compiledProgramViewSummary(cbp.miipProgramVolumeDetailPage));
             $(config.programVolumeDetailsContainer).html(compiledProgramVolumeDetails());
-            $(config.programViewContainer).html(compiledProgramView());
-            $(config.volumeViewContainer).html(compiledVolumeView());
+            $(config.programViewContainer).html(compiledProgramView(cbp.miipProgramVolumeDetailPage));
+            $(config.volumeViewContainer).html(compiledVolumeView(cbp.miipProgramVolumeDetailPage));
             $(config.programVolumeHeadingContainer).html(compiledProgramVolumeHeading(cbp.miipProgramVolumeDetailPage));
             $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
             $(config.salesModal).html(compiledSalesModal());
@@ -305,7 +333,7 @@ require(["modernizr",
                     sortable: true,
                     class: 'numberIcon col-md-6',
                     formatter: function(row, value) {
-                        return "<a href='#' class='js-program-anchor sales-month' data-sales-month='" + value + "'>" + row + "</a>";
+                        return "<a href='#' class='js-program-anchor sales-month' data-sales-month='" + row + "'>" + row + "</a>";
                     }
                 }, {
                     field: 'rul',
@@ -355,7 +383,6 @@ require(["modernizr",
         }
 
         var bindEvents = function() {
-
             $(document).on("click", config.printBtn, function(e) {
                 var programViewSummary = compiledProgramViewSummary(cbp.miipProgramVolumeDetailPage);
                 var win = window.open('', '_blank', 'PopUp' + ',width=1300,height=800');
@@ -385,6 +412,12 @@ require(["modernizr",
                 }
             });
 
+            $(document).on('click', config.saveNewSalesMonthBtn, function(e) {
+              triggerAddSalesMonthValidations();
+              setSalesMonthPayload();
+            });
+
+
             $(document).on('focusout', config.actualVol, function(event) {
                 //rulValue = ($(this).hasClass("rul-val") && $(this).val()) ? parseFloat(event.currentTarget.value) : rulValue;
                 rulValue = $(this).hasClass("rul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : rulValue = 0) : rulValue;
@@ -401,12 +434,12 @@ require(["modernizr",
                 e.preventDefault();
                 var saleMonth = $(e.target).attr('data-sales-month');
                 var salesMonthArr = saleMonth.split(" ");
-                volumeDetailFormObj.soldTo = $(config.soldTo).text();
-                volumeDetailFormObj.siteZone = $('.js-site-zone-summary').text();
-                volumeDetailFormObj.businessConsultant = $('.js-business-consultant-summary').text();
-                volumeDetailFormObj.site = $('.js-site-summary').text();
-                volumeDetailFormObj.thruput = $('.js-thruput-summary').text();
-                volumeDetailFormObj.brand = $('.js-brand-summary').text();
+                volumeDetailFormObj.soldTo = programSummaryData.soldTo;
+                volumeDetailFormObj.siteZone =  programSummaryData.siteZone;
+                volumeDetailFormObj.businessConsultant = programSummaryData.businessConsultant;
+                volumeDetailFormObj.site =  programSummaryData.site;
+                volumeDetailFormObj.thruput =  programSummaryData.thruput;
+                volumeDetailFormObj.brand =  programSummaryData.brand;
                 volumeDetailFormObj.month = moment().month(salesMonthArr[0]).format("MM");
                 volumeDetailFormObj.year = salesMonthArr[1];
                 volumeDetailFormObj = JSON.stringify(volumeDetailFormObj);
