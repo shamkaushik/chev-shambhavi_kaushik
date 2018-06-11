@@ -15,6 +15,9 @@
             </header>
         </main>
         <section class='main-container'>
+            <div class="alert alert-success js-save-success hide">
+                <span class="alert-message"></span>
+            </div>
             <div class="content-box miip-program-volume-page">
                 <div class="row">
                     <div class="overlay-wrapper">
@@ -43,6 +46,9 @@
             <div class="js-disputed-modal">
             </div>
         </div>
+        <form id="CBPMIIPVolumeDetailForm" action="/app/page/miip-volume-detail-view/miipVolumeDetailView.html" method="post">
+            <input type="hidden" name="volumeDetailFormData" id="volumeDetailFormData">
+        </form>
 
         <script type="text/javascript">
             var isASM = false;
@@ -124,7 +130,8 @@
 
                     },
                     "globalVars": {
-
+                        "successMsg": "Dispute successfully submitted.",
+                        "volumeWholeNoErrorMsg": "Volume must be a whole number (Example:  50000)"
                     }
                 }
             }

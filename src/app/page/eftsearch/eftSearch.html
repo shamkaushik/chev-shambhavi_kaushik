@@ -17,6 +17,9 @@
         </main>
         <section class='main-container'>
             <div class="content-box eftSearch-page">
+                <div class="alert alert-danger js-advancedInputs-error hide">
+                        <span class="alert-message"></span>
+                </div>
                 <div class="row">
                     <div class="col-sm-24">
                         <h2 class='page-title'>electronic funds transfer</h2>
@@ -122,15 +125,15 @@
                 "uid": "0676334614",
                 "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
                 "isInGracePeriod" : true
-            }, {
-                "uid": "0912234461",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }, {
-                "uid": "0176224612",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }, {
-                "uid": "0116134113",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            },
+            {
+                "uid": "0676334614",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
+                "isInGracePeriod" : true
+            },{
+                "uid": "0676334614",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
+                "isInGracePeriod" : true
             }];
 
             var soldToDropdown = [{
@@ -227,6 +230,7 @@
                     },
                     "globalUrl": {
                         "eftSearchPostURL": "/assets/json/eftSearch.json",
+                        "eftFetchPayerURL": "/assets/json/eftSearch.json",
                         "method": "GET"
                     },
                     "globalVars": {
@@ -266,6 +270,8 @@
                         "noMatchesMaxResults": maxResultText,
                         "eftNumberSwitchLabel" : "EFT #",
                         "invoiceNumberSwitchLabel" : "Invoice #",
+                        "eftNumberVoidError": "EFT Notice # is required",
+                        "invoiceVoidError": "Invoice Notice # is required",
                         "selectDdn": {
                             "noneSelectedText": "Nothing selected",
                             "noneResultsText": "No results for {0}",

@@ -44,7 +44,7 @@ require(["modernizr",
 
         var init = function () {
           populatingSoldTo(true);
-          populatingSite(locationDropDownOptions[0].key, "all", true);
+          populatingSite();
           populatingVolumeDiscrepancy();
           loadingInitialHbsTemplates();
           populatingTable(cbp.miipSite.miipSiteResponse, cbp.miipSite.miipSiteResponse.miipSiteColumnMapping );
@@ -65,12 +65,19 @@ require(["modernizr",
             $(config.soldToDdnContainer).html(compiledDefaultDdn(cbp.miipSite.locationDropDown));
             $(config.siteDdnContainer).html(compiledDefaultDdn(cbp.miipSite.siteDropDown));
             $(config.volumeDiscrepancyDdnContainer).html(compiledDefaultDdn(cbp.miipSite.volumeDiscrepancyDropDown));
-
             //Refresh dropdown at initial dispaly after loading templates
             enableMobileDefaultDropDown();
             loadingDynamicHbsTemplates();
-            setSummaryValues();
+            populateSummaryDataOnLoad();
             $(config.displaySpinner).hide();
+        };
+
+        var populateSummaryDataOnLoad = function () {
+            cbp.miipSite.summary = {};
+            cbp.miipSite.summary.soldTo = siteSummaryData.soldTo;
+            cbp.miipSite.summary.site = siteSummaryData.site;
+            cbp.miipSite.summary.volumeDiscrepancy = siteSummaryData.volumeDiscrepancy;
+            $(config.miipSiteSummaryContainer).html(compiledMiipSummary(cbp.miipSite));
         };
 
         var loadingDynamicHbsTemplates = function () {
@@ -93,40 +100,20 @@ require(["modernizr",
           $(config.miipSiteSummaryContainer).html(compiledMiipSummary(cbp.miipSite));
         };
 
-        var triggerAjaxRequest = function (data,type,url) {
-            $(config.displaySpinner).hide();
-            $.ajax({
+        var triggerAjaxRequest = function(data,type,url){
+            function successCallback(res){
+              return res;
+            }
+            function errorCallback(err){
+              return err;
+            }
+            return $.ajax({
                 type: type,
-                data: JSON.stringify(data),
+                data: data,
                 url: url,
-                contentType: "application/json",
-                dataType:"json",
                 success: successCallback,
                 error: errorCallback
             });
-        };
-
-      var successCallback = function (data) {
-            $(config.displaySpinner).hide();
-            $(config.searchDetailContainer).show();
-            $(config.miipSiteSummaryContainer).show();
-            cbp.miipSite.miipSiteResponse = data;
-            if (cbp.miipSite.miipSiteResponse.resultCount > 0) {
-                cbp.miipSite.globalVars.miipFoundVar = cbp.miipSite.globalVars.miipResultsFound.replace("{0}", cbp.miipSite.miipSiteResponse.resultCount);
-            } else {
-                cbp.miipSite.globalVars.miipFoundVar = cbp.miipSite.globalVars.miipResultsFound.replace("{0}", 0);
-            }
-            setSummaryValues();
-            loadingDynamicHbsTemplates();
-            populatingTable(data, data.miipSiteColumnMapping );
-            leftPaneExpandCollapse.resetSearchFormHeight();
-        };
-
-        var  errorCallback = function() {
-            $(config.displaySpinner).hide();
-            $(config.searchDetailContainer).show();
-            $(config.miipSiteSummaryContainer).show();
-            console.log("error");
         };
 
         var generatingOptions = function(data){
@@ -192,11 +179,6 @@ require(["modernizr",
                     value : val.displayName
                 };
             });
-
-            if(locationDropDownOptions.length>1)
-            {
-                locationDropDownOptions.unshift({key:"all",value:cbp.miipSite.globalVars.allTb});
-            }
             cbp.miipSite.locationDropDown["options"] = locationDropDownOptions;
             cbp.miipSite.locationDropDown.searchable = true;
         };
@@ -209,67 +191,21 @@ require(["modernizr",
               };
           });
 
-          if(volumeDiscrepancyDropDownOptions.length>1)
-          {
-              volumeDiscrepancyDropDownOptions.unshift({key:"all",value:cbp.miipSite.globalVars.allTb});
-          }
           cbp.miipSite.volumeDiscrepancyDropDown["options"] = volumeDiscrepancyDropDownOptions;
           cbp.miipSite.volumeDiscrepancyDropDown.searchable = true;
         };
 
-        var populatingSite = function(soldToId, siteId, pageLoadCheck) {
-            $(config.displaySpinner).show();
-            function successCallback(data) {
-                $(config.displaySpinner).hide();
-                var siteOptions = [];
-                var obj = {};
-                var site = data;
-                siteOptions = site.map(function(val,index){
-                    return {
-                        key : val['uid'],
-                        value : val['displayName']
-                    };
-                });
-                if(site.length == 1){
-                    cbp.miipSite.siteDropDown.singleOption = true;
-                }else if(site.length >= 1){
-                    obj["key"] = "all";
-                    obj["value"] = cbp.miipSite.globalVars.allTb;
-                    siteOptions.unshift(obj);
-                }
-                cbp.miipSite.siteDropDown["options"] = siteOptions;
-                cbp.miipSite.siteDropDown.searchable = true;
-
-                $(config.siteDdnContainer).html(compiledDefaultDdn(cbp.miipSite.siteDropDown));
-
-                $(config.siteDdn).selectpicker('refresh');
-
-                if(cbp.miipSite.siteDropDown["options"].length > 1){
-                    $(config.siteDdn).val(siteId).selectpicker('refresh');
-                }
-                if(pageLoadCheck === true){
-                  setSummaryValues();
-                }
-                enableMobileDefaultDropDown();
-            }
-
-            function errorCallback() {
-                $(config.displaySpinner).hide();
-                console.log("error");
-            }
-
-            $.ajax({
-               // async:false,
-                type: "GET",
-                data: {
-                    'soldToNumber' : soldToId
-                },
-                dataType:"json",
-                url: cbp.miipSite.globalUrl.siteURL,
-                success: successCallback,
-                error: errorCallback
-            });
-        };
+        var populatingSite = function () {
+          var options=[];
+          for (var i = 0; i < siteDropDown.length; i++) {
+              var obj1 = {};
+              obj1["key"] = siteDropDown[i].uid;
+              obj1["value"] = siteDropDown[i].displayName;
+              options.push(obj1);
+          }
+          cbp.miipSite.siteDropDown["options"] = options;
+          cbp.miipSite.siteDropDown.searchable = true;
+        }
 
         var bindEvents = function () {
             $(config.locationDdn).on('change', function (e) {
@@ -278,15 +214,15 @@ require(["modernizr",
                 } else {
                     $(config.searchButton).attr("disabled", "disabled");
                 }
-                populatingSite($(config.locationDdn).val(), "all");
+              getSiteDetails();
           });
 
             $(document).on('change', config.siteDdn, function(e) {
-                 if ($(this).val() !== "") {
-                     $(config.searchButton).removeAttr("disabled");
-                 } else {
-                     $(config.searchButton).attr("disabled", "disabled");
-                 }
+               if ($(this).val() !== "") {
+                   $(config.searchButton).removeAttr("disabled");
+               } else {
+                   $(config.searchButton).attr("disabled", "disabled");
+               }
             });
 
             //Search button functionality
@@ -299,8 +235,25 @@ require(["modernizr",
                 postData.site= $(config.siteDdn).val();
                 postData.soldTo = $(config.locationDdn).val();
                 postData.volumeDescrepency = $(config.volumeDiscDdn).val();
-                triggerAjaxRequest(postData,cbp.miipSite.globalUrl.method,cbp.miipSite.globalUrl.searchURL);
+                getTableData(postData)
+
             });
+
+            var getTableData = function (payLoad) {
+              $.when(triggerAjaxRequest(payLoad,cbp.miipSite.globalUrl.method, cbp.miipSite.globalUrl.searchURL)).then(function(result) {
+              //  var totalResults =
+                $(config.displaySpinner).hide();
+                $(config.searchDetailContainer).show();
+                $(config.miipSiteSummaryContainer).show();
+                cbp.miipSite.miipSiteResponse = result;
+
+                setSummaryValues();
+                loadingDynamicHbsTemplates();
+                populatingTable(result, result.miipSiteColumnMapping );
+                leftPaneExpandCollapse.resetSearchFormHeight();
+              });
+            };
+
 
             var valueOnSubmit = '.js-search-form input' + ","  +
                 config.soldToDdnContainer + "," ;
@@ -313,15 +266,38 @@ require(["modernizr",
             });
         };
 
+        var getSiteDetails = function() {
+            $.when(triggerAjaxRequest($(config.locationDdn).val(),cbp.miipSite.globalUrl.method, cbp.miipSite.globalUrl.siteURL)).then(function(result){
+              $(config.displaySpinner).hide();
+              var siteOptions = [];
+              var obj = {};
+              var site = result;
+              siteOptions = site.map(function(val,index){
+                  return {
+                      key : val['uid'],
+                      value : val['displayName']
+                  };
+              });
+              if(site.length == 1){
+                  cbp.miipSite.siteDropDown.singleOption = true;
+              }
+              cbp.miipSite.siteDropDown["options"] = siteOptions;
+              cbp.miipSite.siteDropDown.searchable = true;
+              $(config.siteDdnContainer).html(compiledDefaultDdn(cbp.miipSite.siteDropDown));
+              $(config.siteDdn).selectpicker('refresh');
+              enableMobileDefaultDropDown();
+            });
+        };
+
         var generatingColumns = function(columnsDataList){
         	var receivedOrderKey = Object.keys(columnsDataList).filter(function(key){
         		if(columnsDataList[key]){
         			return columnsDataList[key];
         		}
         	});
-            var columnsList = [{
+            var columnsList = [
+                        {
                           class: 'fa',
-
                         },
                         {
                             field: 'site',
@@ -393,18 +369,25 @@ require(["modernizr",
         }
 
         var populatingTable = function (miipViewData, columnsDataList) {
-            if (miipViewData.resultCount > maxResults && miipViewData.miipSiteList === null) {
-                cbp.miipSite.globalVars.tableLocales.noMatches = cbp.miipSite.globalVars.noMatchesMaxResults.replace('{0}', miipViewData.resultCount);
-                miipViewData.miipSiteList = [];
-            } else if (miipViewData.resultCount === 0) {
-                cbp.miipSite.globalVars.tableLocales.noMatches = cbp.miipSite.globalVars.noMatches;
-            } else if (miipViewData.resultCount > maxResults) {
-                cbp.miipSite.globalVars.tableLocales.noMatches = cbp.miipSite.globalVars.noMatchesMaxResults.replace('{0}', miipViewData.resultCount);
-                miipViewData.miipSiteList = [];
-            }
-            if (miipViewData.miipSiteList === null || miipViewData.miipSiteList === undefined) {
-                miipViewData.miipSiteList = [];
-            }
+            if(miipViewData.miipSiteViewDataList) {
+              if (miipViewData.miipSiteViewDataList.length > 0) {
+                  cbp.miipSite.globalVars.miipFoundVar = cbp.miipSite.globalVars.miipResultsFound.replace("{0}", miipViewData.miipSiteViewDataList.length);
+              } else {
+                  cbp.miipSite.globalVars.miipFoundVar = cbp.miipSite.globalVars.miipResultsFound.replace("{0}", 0);
+              }
+              if (miipViewData.miipSiteViewDataList.length > maxResults && miipViewData.miipSiteViewDataList === null) {
+                  cbp.miipSite.globalVars.tableLocales.noMatches = cbp.miipSite.globalVars.noMatchesMaxResults.replace('{0}',  miipViewData.miipSiteViewDataList.length);
+                  miipViewData.miipSiteViewDataList = [];
+              } else if (miipViewData.miipSiteViewDataList.length === 0) {
+                  cbp.miipSite.globalVars.tableLocales.noMatches = cbp.miipSite.globalVars.noMatches;
+              } else if (miipViewData.miipSiteViewDataList.length > maxResults) {
+                  cbp.miipSite.globalVars.tableLocales.noMatches = cbp.miipSite.globalVars.noMatchesMaxResults.replace('{0}',  miipViewData.miipSiteViewDataList.length);
+                  miipViewData.miipSiteViewDataList = [];
+              }
+          }
+          else {
+              miipViewData.miipSiteViewDataList = [];
+          }
             $(config.sortByDdn).val("invoiceId-desc").selectpicker('refresh');
             $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
@@ -418,7 +401,7 @@ require(["modernizr",
                 responsiveBreakPoint: 768,
                 responsiveClass: "bootstrap-table-cardview",
                 columns: generatingColumns(columnsDataList),
-                data: miipViewData.miipSiteList
+                data: miipViewData.miipSiteViewDataList
             });
         };
         return {
@@ -482,15 +465,18 @@ require(["modernizr",
         leftPaneExpandCollapse.init();
 
         cbp.miipSite.miipSiteResponse = miipSiteResponse;
-        if (miipSiteResponse.resultCount === undefined || miipSiteResponse.resultCount === null) {
+        if(miipSiteResponse.miipSiteViewDataList) {
+          if (miipSiteResponse.miipSiteViewDataList.length > 0) {
+              cbp.miipSite.globalVars.miipFoundVar = cbp.miipSite.globalVars.miipResultsFound.replace("{0}", miipSiteResponse.miipSiteViewDataList.length);
+
+          } else {
             cbp.miipSite.miipSiteResponse.resultCount = 0;
             cbp.miipSite.globalVars.miipFoundVar = cbp.miipSite.globalVars.miipResultsFound.replace("{0}", 0);
-        } else {
-            cbp.miipSite.globalVars.miipFoundVar = cbp.miipSite.globalVars.miipResultsFound.replace("{0}", miipSiteResponse.resultCount);
+          }
         }
 
-        if (miipSiteResponse.miipSiteList === undefined || miipSiteResponse.miipSiteList === null) {
-            cbp.miipSite.miipSiteResponse.miipSiteList = [];
+        if (miipSiteResponse.miipSiteViewDataList === undefined || miipSiteResponse.miipSiteViewDataList === null) {
+            cbp.miipSite.miipSiteResponse.miipSiteViewDataList = [];
         }
         miipSite.init();
     });

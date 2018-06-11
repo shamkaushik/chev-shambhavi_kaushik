@@ -16,36 +16,39 @@
                 </div>
                 <table data-toggle="table" id="disputeTable">
                     <thead>
-                        <tr>
+                        <tr class="reported-vol-container">
                             <th></th>
-                            <th>RUL(GA)</th>
-                            <th>MUL(GA)</th>
-                            <th>PUL(GA)</th>
-                            <th>Total (GA)</th>
+                            <th> <span class="prev-rul">RUL(GA) </span></th>
+                            <th> <span class="prev-mul">MUL(GA)</span></th>
+                            <th><span class="prev-pul">PUL(GA) </span></th>
+                            <th><span>Total (GA)</span></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Reported Volume</td>
-                            <td>75,432</td>
-                            <td>12,675</td>
-                            <td>11,523</td>
-                            <td>99,630</td>
+                        <tr class="reported-vol-container">
+                            <td><label>Reported Volume</label></td>
+                            <td><span class="prev-rul">75,432</span></td>
+                            <td><span class="prev-mul">12,675 </span></td>
+                            <td><span class="prev-pul">11,523 </span></td>
+                            <td><span class="prev-total">99,630</span></td>
                         </tr>
                         <tr>
-                            <td>Actual Volume</td>
-                            <td><input type="text" class="form-control"></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td>-</td>
+                            <td><label>Actual Volume</label></td>
+                            <td><input type="text" class="form-control rul-val actual-vol text-right sales-popup-input-text-large"></td>
+                            <td><input type="text" class="form-control actual-vol mul-val text-right sales-popup-input-text-large"></td>
+                            <td><input type="text" class="form-control actual-vol pul-val text-right sales-popup-input-text-large"></td>
+                            <td><span class="total-vol text-right sales-popup-input-text-large"> - </span></td>
                         </tr>
                     </tbody>
                 </table>
-                <div class="md-pt-15 md-pb-15">
+                <div class="alert alert-error js-save-error hide">
+                    <span class="alert-message"></span>
+                </div>
+                <div class="md-pt-15 md-pb-15 disclaimer-section">
                     <label>Disclaimer:</label> <br />
                     <span>
-                        Total volume discrepancy must exceed 500 gallons.
-                        If you dispute a volume, please enter total volumes for all three products.
+                        <span>Total volume discrepancy must exceed 500 gallons.</span> <br />
+                        <span>If you dispute a volume, please enter total volumes for all three products.</span>
                     </span>
                 </div>
             </div>

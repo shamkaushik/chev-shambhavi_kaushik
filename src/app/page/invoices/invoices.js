@@ -197,19 +197,35 @@ require(["modernizr",
             if (localStorage.getItem("invoiceObj") === undefined || localStorage.getItem("invoiceObj") === null ){
             	populatingTable(cbp.invoicesPage.invoicesResponse, cbp.invoicesPage.invoicesResponse.invoiceColumnMapping );
             } else {
+               $(config.locationDdn).val(invoiceObj.soldTo).selectpicker('refresh');
                 var invoiceObj = JSON.parse(localStorage.getItem("invoiceObj"));
-                startDate = invoiceObj.startDate;
-                endDate = invoiceObj.endDate;
-                cbp.invoicesPage.dateRange.startDate = moment(startDate, cbp.invoicesPage.dateRange.format, true);
-                cbp.invoicesPage.dateRange.endDate = moment(endDate, cbp.invoicesPage.dateRange.format, true);
-                
-                $(config.invoiceNumber).val(invoiceObj.invoiceNumber);
-                $(config.orderNumber).val(invoiceObj.salesOrderNumber);
-                $(config.poNumber).val(invoiceObj.poNumber);
-                $(config.invoiceTypeDdn).val(invoiceObj.invoiceTypes).selectpicker('refresh');
-                $(config.downloadStatusDdn).val(invoiceObj.downloadStatus).selectpicker('refresh');
-                $(config.printStatusDdn).val(invoiceObj.printStatus).selectpicker('refresh');
-                $(config.locationDdn).val(invoiceObj.soldTo).selectpicker('refresh');
+                if((invoiceObj.startDate || invoiceObj.endDate) || invoiceObj.invoiceTypes){
+                    $(config.invoiceViewToggle).find('.toggleSwitchConfigForView').find('button.btn').eq(1).trigger('click');
+                    $(config.downloadStatusDdn).val(invoiceObj.downloadStatus).selectpicker('refresh');
+                    $(config.printStatusDdn).val(invoiceObj.printStatus).selectpicker('refresh');
+                    if((invoiceObj.startDate || invoiceObj.endDate)){
+                        $(config.invoiceBasicToggle).find(".toggleSwitchConfigForBasic").find('button.btn').eq(1).trigger('click');
+                        startDate = invoiceObj.startDate;
+                        endDate = invoiceObj.endDate;
+                        cbp.invoicesPage.dateRange.startDate = moment(startDate, cbp.invoicesPage.dateRange.format, true);
+                        cbp.invoicesPage.dateRange.endDate = moment(endDate, cbp.invoicesPage.dateRange.format, true);
+                    }else{
+                        $(config.invoiceBasicToggle).find(".toggleSwitchConfigForBasic").find('button.btn').eq(2).trigger('click');
+                        $(config.invoiceTypeDdn).val(invoiceObj.invoiceTypes).selectpicker('refresh');
+                    }
+                }else{
+                    $(config.invoiceViewToggle).find('.toggleSwitchConfigForView').find('button.btn').eq(2).trigger('click');
+                    if(invoiceObj.invoiceNumber){
+                        $(config.invoiceAdvancedToggle).find('.toggleSwitchConfigForAdvanced').find('button.btn').eq(1).trigger('click');
+                        $(config.invoiceNumber).val(invoiceObj.invoiceNumber);
+                    }else if(invoiceObj.altRefNumber){
+                        $(config.invoiceAdvancedToggle).find('.toggleSwitchConfigForAdvanced').find('button.btn').eq(2).trigger('click');
+                        $(config.altRefNumber).val(invoiceObj.altRefNumber);
+                    }else if(invoiceObj.originalDocNumber){
+                        $(config.invoiceAdvancedToggle).find('.toggleSwitchConfigForAdvanced').find('button.btn').eq(3).trigger('click');
+                        $(config.originalDocNumber).val(invoiceObj.originalDocNumber)
+                    }
+                }
                 
                 $.when(populatingShipTo(invoiceObj.soldTo, invoiceObj.shipTo)).then(function(data){
                     triggerAjaxRequest();
@@ -223,11 +239,11 @@ require(["modernizr",
             $(config.invoiceBasicToggle).find("input[type='hidden']").val("1");
             $(config.invoiceAdvancedToggle).find("input[type='hidden']").val("1");
             populatingCalendarComponent();
-            bindEvents();
             showHideView();
             showHideBasic();
             showHideAdvanced();
             $(config.advancedInputsError).addClass('hide');
+            bindEvents();
         };
 
         var showHideView = function(){
@@ -638,6 +654,7 @@ require(["modernizr",
                 var  obj = {};
                 obj["key"] = shipToList[i].uid;
                 obj["value"] = shipToList[i].displayName;
+                obj["isInGracePeriod"] = shipToList[i].inGracePeriod ? shipToList[i].inGracePeriod : false;
                 shipToOptions.push(obj);
             }
             cbp.invoicesPage.shipToDropDown["options"] = shipToOptions;
@@ -664,7 +681,8 @@ require(["modernizr",
                 shipToOptions = shipTo.map(function(val,index){
                     return {
                         key : val['uid'],
-                        value : val['displayName']
+                        value : val['displayName'],
+                        isInGracePeriod : val['inGracePeriod'] ? val['inGracePeriod'] : false
                     };
                 });
                 
@@ -784,11 +802,11 @@ require(["modernizr",
             $(config.searchButton).on("click", function (e) {
                 var advancedHiddenInput = $(config.invoiceAdvancedToggle).find("input[type='hidden']");
                 if($(config.invoiceViewToggle).find("input[type='hidden']").val()!=1){
-                    console.log(">>>>>> if",$(config.invoiceViewToggle).find("input[type='hidden']").val());
                     if(advancedHiddenInput.val()==1){
                         if($.trim($(config.invoiceNumber).val()).length==0){
                             $(config.advancedInputsError).removeClass('hide');
                             $(config.advancedInputsError).find('span.alert-message').text(cbp.invoicesPage.globalVars.invoiceVoidMsg);
+                            $(config.invoiceNumber).addClass('redDanger');
                             return;
                         }else{
                             invoiceObj.invoiceNumber = $(config.invoiceNumber).val();
@@ -797,6 +815,7 @@ require(["modernizr",
                         if($.trim($(config.altRefNumber).val()).length==0){
                             $(config.advancedInputsError).removeClass('hide');
                             $(config.advancedInputsError).find('span.alert-message').text(cbp.invoicesPage.globalVars.altRefVoidMsg);
+                            $(config.altRefNumber).addClass('redDanger');
                             return;
                         }else{
                             invoiceObj.altRefNumber = $(config.altRefNumber).val();
@@ -805,13 +824,13 @@ require(["modernizr",
                         if($.trim($(config.originalDocNumber).val()).length==0){
                             $(config.advancedInputsError).removeClass('hide');
                             $(config.advancedInputsError).find('span.alert-message').text(cbp.invoicesPage.globalVars.oriDocVoidMsg);
+                            $(config.originalDocNumber).addClass('redDanger');
                             return;
                         }else{
                             invoiceObj.originalDocNumber = $(config.originalDocNumber).val()
                         }
                     }
                 }else{
-                    console.log(">>>>>> else",$(config.invoiceViewToggle).find("input[type='hidden']").val());
                     if($(config.invoiceBasicToggle).find("input[type='hidden']").val()==1){
                         invoiceObj.startDate = startDate;
                         invoiceObj.endDate = endDate;
@@ -829,6 +848,9 @@ require(["modernizr",
                 invoiceObj.shipTo = $("#shipToSelectDdn").val();
                 invoiceObj.soldTo = $("#locationSelectDdn").val();
                 $(".alert-danger").addClass("hide");
+                $(config.invoiceNumber).removeClass('redDanger');
+                $(config.altRefNumber).removeClass('redDanger');
+                $(config.originalDocNumber).removeClass('redDanger');
                 triggerAjaxRequest();
             });
 
@@ -880,6 +902,16 @@ require(["modernizr",
 
             $(document).on('click', config.toggleSwitchConfigForAdvanced + " button", function (e) {
                 showHideAdvanced();
+            });
+
+            
+
+            $(document).on('keyup',"#invoiceNumber,#altRefNumber,#originalDocNumber",function(e){
+                $(e.target).removeClass('redDanger');
+                $(".alert-danger").addClass("hide");
+                $(config.invoiceNumber).removeClass('redDanger');
+                $(config.altRefNumber).removeClass('redDanger');
+                $(config.originalDocNumber).removeClass('redDanger');
             });
         };
         

@@ -2,6 +2,7 @@ require(["modernizr",
     "jquery",
     "bootstrap",
     "handlebars",
+    "moment",
     "bootstrap-select",
     "bootstrap-table",
     "text!app/components/dropdown/_defaultDdn.hbs",
@@ -14,7 +15,7 @@ require(["modernizr",
     "text!app/page/miip-program-volume-tabs-page/disputeModal.hbs",
     "text!app/page/miip-program-volume-tabs-page/disputedModal.hbs",
 
-], function(modernizr, $, bootstrap, Handlebars, bootstrapSelect, bootstrapTable, _defaultDdnHBS, _programViewSummaryHBS, _programVolumeDetailsHBS, _programViewHBS, _volumeViewHBS, _programVolumeHeadingHBS, _salesModalHBS, _disputeModalHBS, _disputedModalHBS) {
+], function(modernizr, $, bootstrap, Handlebars, moment, bootstrapSelect, bootstrapTable, _defaultDdnHBS, _programViewSummaryHBS, _programVolumeDetailsHBS, _programViewHBS, _volumeViewHBS, _programVolumeHeadingHBS, _salesModalHBS, _disputeModalHBS, _disputedModalHBS) {
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
@@ -30,6 +31,13 @@ require(["modernizr",
     var miipProgramVolumePage = (function() {
 
         var volumeRowArray = [];
+        var actualVolumeVal = 0;
+        var rulValue = 0,
+            mulValue = 0,
+            pulValue = 0;
+        var isCalculatedTotalValValid = false;
+        var calculatedTotalValue;
+        var volumeDetailFormObj = {};
 
         var config = {
             headerContainer: ".js-header",
@@ -47,7 +55,18 @@ require(["modernizr",
             salesModal: ".js-sales-modal",
             disputeModal: ".js-dispute-modal",
             disputedModal: ".js-disputed-modal",
-            printBtn: ".js-printBtn"
+            printBtn: ".js-printBtn",
+            saveBtn: ".save-btn",
+            disclaimerSection: ".disclaimer-section",
+            actualVol: ".actual-vol",
+            totalValue: ".total-vol",
+            closBtn: ".clos-btn",
+            prevTotal: ".prev-total",
+            modal: '.modal',
+            jsSaveSuccess: '.js-save-success',
+            programAnchor: ".js-program-anchor",
+            soldTo: ".js-soldTo-summary",
+            jsSaveError: "js-save-error"
         };
 
         var srtByDdn = {
@@ -67,6 +86,84 @@ require(["modernizr",
             display: "displayInline"
         };
 
+        var checkVolumeIsWholeNo = function(element) {
+            var formIsValid = false;
+            element.each(function() {
+                var actualVolumeVals = [];
+                //var value = $(this).val() ? $(this).val() : null;
+                if ($(this).val()) {
+                    actualVolumeVals.push($(this).val());
+                    //If actual vol should is a whole no
+                    if (($(this).val() - Math.floor($(this).val())) !== 0) {
+                        $(this).addClass("has-error");
+                        $(config.totalValue).addClass("has-error");
+                        formIsValid = false;
+                    } else {
+                        $(this).removeClass("has-error");
+                        $(config.totalValue).removeClass("has-error");
+                        //formIsValid = true;
+                        formIsValid = true;
+                    }
+                }
+            });
+
+            return formIsValid;
+        };
+
+        var removeCommaFromString = function(e) {
+            var prevTotalVal = '';
+            $(e.currentTarget.closest(".modal")).find('.prev-total').text().split(',').map(function(val, index) {
+                prevTotalVal += val;
+            });
+            return prevTotalVal;
+        };
+
+        var checkTotalVolDiscrepancy = function(prevTotalVal) {
+            var formIsValid = false;
+            if (!calculatedTotalValue || !parseFloat(prevTotalVal) || (calculatedTotalValue - parseFloat(prevTotalVal)) < 500) {
+                //highlighting the disclaimer section               
+                $(config.disclaimerSection).addClass("has-error");
+                $(config.totalValue).addClass("has-error");
+                $("input[type='text']").each(function() {
+                    $(this).addClass("has-error");
+                    $(config.totalValue).addClass("has-error");
+                });
+                formIsValid = false;
+                return formIsValid;
+            } else {
+                $(config.disclaimerSection).removeClass("has-error");
+                $(config.totalValue).removeClass("has-error");
+                $("input[type='text']").each(function() {
+                    $(this).removeClass("has-error");
+                    $(config.totalValue).removeClass("has-error");
+                });
+                formIsValid = true;
+                return formIsValid;
+            }
+        }
+
+        var fireValidations = function(e) {
+            var rulVal = $(".actual-vol").val();
+            var actualVolumeVals = [];
+            var actualVolumeVals = [];
+            var element = $(e.currentTarget.closest('.modal')).find('input');
+            //check for a no is a whole or not
+            var isWholeNo = checkVolumeIsWholeNo(element);
+            isWholeNo ? $(config.jsSaveError).removeClass('hide') : $(config.jsSaveError).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.volumeWholeNoErrorMsg);
+            //getting the nos without the commas 
+            var prevTotalVal = removeCommaFromString(e);
+            //Total Vol must exceed 500 and check for required also
+            var totalVolDiscrepancy = checkTotalVolDiscrepancy(prevTotalVal);
+            if (isWholeNo && totalVolDiscrepancy) {
+                return true;
+            } else
+                return false;
+        };
+
+        var saveDispute = function() {
+            $(config.jsSaveSuccess).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.successMsg);
+            $('.modal').modal('hide');
+        };
         var triggerAjaxRequest = function(data, type, url) {
             $(config.displaySpinner).show();
 
@@ -227,7 +324,7 @@ require(["modernizr",
                     sortable: true,
                     class: 'numberIcon col-md-6',
                     formatter: function(row, value) {
-                        return '<a href="">' + row + '</a>';
+                        return "<a href='#' class='js-program-anchor sales-month' data-uid='" + row + "'>" + row + "</a>";
                     }
                 }, {
                     field: 'rul',
@@ -297,8 +394,52 @@ require(["modernizr",
             $(document).on('click', config.selectedDisputeLink, function(e) {
                 var targetDataIndex = e.target.dataset.index;
             });
+            $(document).on('click', config.saveBtn, function(e) {
+                var isValid = fireValidations(e);
+                if (isValid)
+                    saveDispute();
+            });
+
+            $(document).on('focusout', config.actualVol, function(event) {
+                rulValue = $(this).hasClass("rul-val") ? parseFloat(event.currentTarget.value) : rulValue;
+                mulValue = $(this).hasClass("mul-val") ? parseFloat(event.currentTarget.value) : mulValue;
+                pulValue = $(this).hasClass("pul-val") ? parseFloat(event.currentTarget.value) : pulValue;
+                // isCalculatedTotalValValid = (rulValue + mulValue + pulValue) >= 500 ? true : false;
+                calculatedTotalValue = rulValue + mulValue + pulValue;
+                console.log('calculatedTotalValue: ', calculatedTotalValue);
+                calculatedTotalValue == 'Nan' ? $(config.totalValue).text('-') : $(config.totalValue).text(calculatedTotalValue.toString());
+            });
+
+            $(document).on("click", config.programAnchor, function(e) {
+                e.preventDefault();
+                var saleMonth = $(e.target).attr('data-uid');
+                var salesMonthArr = saleMonth.split(" ");
+                volumeDetailFormObj.soldTo = $(config.soldTo).text();
+                volumeDetailFormObj.siteZone = $('.js-site-zone-summary').text();
+                volumeDetailFormObj.businessConsultant = $('.js-business-consultant-summary').text();
+                volumeDetailFormObj.site = $('.js-site-summary').text();
+                volumeDetailFormObj.thruput = $('.js-thruput-summary').text();
+                volumeDetailFormObj.brand = $('.js-brand-summary').text();
+                volumeDetailFormObj.month = moment().month(salesMonthArr[0]).format("MM");
+                volumeDetailFormObj.year = salesMonthArr[1];
+                volumeDetailFormObj = JSON.stringify(volumeDetailFormObj);
+                $('#CBPMIIPVolumeDetailForm #volumeDetailFormData').val(volumeDetailFormObj);
+                $('#CBPMIIPVolumeDetailForm').submit();
+            });
         }
 
+        $(".modal").on("hidden.bs.modal", function(e) {
+            // put your default event here
+            console.log("hidden: ", e.target);
+            resetModal(e);
+            //$(e.target).html('');
+        });
+
+        var resetModal = function(e) {
+            $(config.modal).find('input').val('').removeClass('has-error')
+            $(config.totalValue).text('').removeClass('has-error');
+            $(config.disclaimerSection).removeClass('has-error');
+        }
         var init = function() {
             loadingInitialHbsTemplates();
             initalizingTables();
@@ -310,7 +451,6 @@ require(["modernizr",
             init: init
         };
     })();
-
     $(document).ready(function() {
         miipProgramVolumePage.init();
     });
