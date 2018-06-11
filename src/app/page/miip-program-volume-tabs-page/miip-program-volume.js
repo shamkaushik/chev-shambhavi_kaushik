@@ -129,30 +129,20 @@ require(["modernizr",
             });
         }
 
-        var populateProgramTable = function(){
-            $('#programTable').bootstrapTable({
-                classes: 'table table-no-bordered',
-                striped: true,
-                iconsPrefix: 'fa',
-                sortName: 'status',
-                sortOrder: 'asc',
-                sortName: 'status',
-                parentContainer: ".js-program-view",
-                responsive: true,
-                responsiveBreakPoint: 768,
-                responsiveClass: "bootstrap-table-cardview",
-                undefinedText: "",
-                columns: [{
-                        field: 'program',
-                        title: 'Program',
-                        class: 'text-wrap',
-                        formatter: function(row, value) {
+        var getProgramCols = function(){
+            var colsToShow = [];
+            var programColsOrder = ['program', 'paymentStartDate', 'paymentEndDate', 'amortizationEndDate', 'totalPaid', 'estimatedRepaymentAmount', 'status']
+            var programColumnList =  [{
+                    field: 'program',
+                    title: 'Program',
+                    class: 'text-wrap',
+                    formatter: function(row, value) {
                             if (value.status == 'Rollover') {
                                 return row;
                             } else {
                                 return '<a href="" class="programAnchor">' + row + '</a>';
                             }
-                        },
+                        }
                     }, {
                         field: 'paymentStartDate',
                         title: 'Payment Start Date',
@@ -180,7 +170,41 @@ require(["modernizr",
                         class: 'text-wrap',
                         sortable: true
                     }
-                ],
+                ];
+
+            for(var i=0;i<programColsOrder.length;i++){
+                for(key in programCoulumnMapping){
+                    if(programColsOrder[i] == key && programColumnMapping[key]){
+                        colsToShow.push(programColsOrder[i]);
+                    }
+                }
+            }
+
+            var programCols = colsToShow.map(function(value){
+                for(var i=0;i<programColumnList.length;i++){
+                    if(programColumnList[i].field === value){
+                        return programColumnList[i];
+                    }
+                }
+            });
+
+            return programCols;
+        }
+
+        var populateProgramTable = function(){
+            $('#programTable').bootstrapTable({
+                classes: 'table table-no-bordered',
+                striped: true,
+                iconsPrefix: 'fa',
+                sortName: 'status',
+                sortOrder: 'asc',
+                sortName: 'status',
+                parentContainer: ".js-program-view",
+                responsive: true,
+                responsiveBreakPoint: 768,
+                responsiveClass: "bootstrap-table-cardview",
+                undefinedText: "",
+                columns: getProgramCols(),
                 data: programTableData
             });
         }
@@ -221,7 +245,6 @@ require(["modernizr",
                     field: 'disputeVolume',
                     title: 'Dispute Volume',
                     formatter: function(row, value, index) {
-                        console.log(value);
                         if ($.inArray(value, volumeRowArray) < 0) {
                             volumeRowArray.splice(index, 0, value);
                         }
@@ -241,7 +264,7 @@ require(["modernizr",
 
                     class: 'col-md-6',
                 }],
-                data: volumeTableDat
+                data: volumeTableData
             });
         }
 
