@@ -60,13 +60,15 @@ require(["modernizr",
             disclaimerSection: ".disclaimer-section",
             actualVol: ".actual-vol",
             totalValue: ".total-vol",
-            closBtn: ".clos-btn",
+            closeBtn: ".clos-btn",
             prevTotal: ".prev-total",
             modal: '.modal',
             jsSaveSuccess: '.js-save-success',
             programAnchor: ".js-program-anchor",
             soldTo: ".js-soldTo-summary",
-            jsSaveError: "js-save-error"
+            jsSaveError: ".js-save-error",
+            saveDisputeBtn: ".js-save-dispute-btn",
+            saveDisputedBtn: ".js-save-disputed-btn",
         };
 
         var srtByDdn = {
@@ -86,30 +88,7 @@ require(["modernizr",
             display: "displayInline"
         };
 
-        var checkVolumeIsWholeNo = function(element) {
-            var formIsValid = false;
-            element.each(function() {
-                var actualVolumeVals = [];
-                //var value = $(this).val() ? $(this).val() : null;
-                if ($(this).val()) {
-                    actualVolumeVals.push($(this).val());
-                    //If actual vol should is a whole no
-                    if (($(this).val() - Math.floor($(this).val())) !== 0) {
-                        $(this).addClass("has-error");
-                        $(config.totalValue).addClass("has-error");
-                        formIsValid = false;
-                    } else {
-                        $(this).removeClass("has-error");
-                        $(config.totalValue).removeClass("has-error");
-                        //formIsValid = true;
-                        formIsValid = true;
-                    }
-                }
-            });
-
-            return formIsValid;
-        };
-
+        /* Function to remove the commas from the a string and concatenate it */
         var removeCommaFromString = function(e) {
             var prevTotalVal = '';
             $(e.currentTarget.closest(".modal")).find('.prev-total').text().split(',').map(function(val, index) {
@@ -118,52 +97,54 @@ require(["modernizr",
             return prevTotalVal;
         };
 
-        var checkTotalVolDiscrepancy = function(prevTotalVal) {
+        /*Function to check if the difference between total volume entered and existing total vol is greater that 500*/
+        var checkTotalVolDiscrepancy = function(prevTotalVal, element) {
             var formIsValid = false;
             if (!calculatedTotalValue || !parseFloat(prevTotalVal) || (calculatedTotalValue - parseFloat(prevTotalVal)) < 500) {
                 //highlighting the disclaimer section               
                 $(config.disclaimerSection).addClass("has-error");
                 $(config.totalValue).addClass("has-error");
-                $("input[type='text']").each(function() {
+                //Highlighting the error fields
+                element.each(function() {
                     $(this).addClass("has-error");
                     $(config.totalValue).addClass("has-error");
                 });
                 formIsValid = false;
-                return formIsValid;
             } else {
                 $(config.disclaimerSection).removeClass("has-error");
                 $(config.totalValue).removeClass("has-error");
-                $("input[type='text']").each(function() {
+                element.each(function() {
                     $(this).removeClass("has-error");
                     $(config.totalValue).removeClass("has-error");
                 });
                 formIsValid = true;
-                return formIsValid;
             }
-        }
+            return formIsValid;
+        };
 
-        var fireValidations = function(e) {
+        var triggerValidations = function(e) {
             var rulVal = $(".actual-vol").val();
             var actualVolumeVals = [];
             var actualVolumeVals = [];
             var element = $(e.currentTarget.closest('.modal')).find('input');
-            //check for a no is a whole or not
-            var isWholeNo = checkVolumeIsWholeNo(element);
-            isWholeNo ? $(config.jsSaveError).removeClass('hide') : $(config.jsSaveError).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.volumeWholeNoErrorMsg);
             //getting the nos without the commas 
             var prevTotalVal = removeCommaFromString(e);
             //Total Vol must exceed 500 and check for required also
-            var totalVolDiscrepancy = checkTotalVolDiscrepancy(prevTotalVal);
-            if (isWholeNo && totalVolDiscrepancy) {
+            var totalVolDiscrepancy = checkTotalVolDiscrepancy(prevTotalVal, element);
+            if (totalVolDiscrepancy) {
                 return true;
-            } else
+            } else {
                 return false;
+            }
         };
 
-        var saveDispute = function() {
+        /* Saving the dispute */
+        var saveDispute = function(e) {
+            //resetModal(e);
             $(config.jsSaveSuccess).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.successMsg);
             $('.modal').modal('hide');
         };
+
         var triggerAjaxRequest = function(data, type, url) {
             $(config.displaySpinner).show();
 
@@ -324,7 +305,7 @@ require(["modernizr",
                     sortable: true,
                     class: 'numberIcon col-md-6',
                     formatter: function(row, value) {
-                        return "<a href='#' class='js-program-anchor sales-month' data-uid='" + row + "'>" + row + "</a>";
+                        return "<a href='#' class='js-program-anchor sales-month' data-sales-month='" + value + "'>" + row + "</a>";
                     }
                 }, {
                     field: 'rul',
@@ -345,9 +326,12 @@ require(["modernizr",
                         if ($.inArray(value, volumeRowArray) < 0) {
                             volumeRowArray.splice(index, 0, value);
                         }
-
+                        var rowData = value;
+                        console.log("value:", volumeRowArray);
+                        console.log("row:", row);
+                        console.log("index:", index);
                         if (value.disputeVolume === 'Disputed') {
-                            return '<a href="" data-toggle="modal" data-target="#disputedModal" data-index=' + index + '>' + row + '</a>';
+                            return '<a href="" data-toggle="modal" data-target="#disputedModal" data-index=' + index + '>' + row + '</a>'
                         } else {
                             return '<a href="" data-toggle="modal" data-target="#disputeModal" data-index=' + index + '>' + row + '</a>';
                         }
@@ -394,25 +378,28 @@ require(["modernizr",
             $(document).on('click', config.selectedDisputeLink, function(e) {
                 var targetDataIndex = e.target.dataset.index;
             });
-            $(document).on('click', config.saveBtn, function(e) {
-                var isValid = fireValidations(e);
-                if (isValid)
-                    saveDispute();
+            $(document).on('click', config.saveDisputeBtn, config.saveDisputedBtn, function(e) {
+                var isValid = triggerValidations(e);
+                if (isValid) {
+                    saveDispute(e);
+                }
             });
 
             $(document).on('focusout', config.actualVol, function(event) {
-                rulValue = $(this).hasClass("rul-val") ? parseFloat(event.currentTarget.value) : rulValue;
-                mulValue = $(this).hasClass("mul-val") ? parseFloat(event.currentTarget.value) : mulValue;
-                pulValue = $(this).hasClass("pul-val") ? parseFloat(event.currentTarget.value) : pulValue;
-                // isCalculatedTotalValValid = (rulValue + mulValue + pulValue) >= 500 ? true : false;
+                //rulValue = ($(this).hasClass("rul-val") && $(this).val()) ? parseFloat(event.currentTarget.value) : rulValue;
+                rulValue = $(this).hasClass("rul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : rulValue = 0) : rulValue;
+                mulValue = $(this).hasClass("mul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : mulValue = 0) : mulValue;
+                pulValue = $(this).hasClass("pul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : pulValue = 0) : pulValue;
+                // mulValue = ($(this).hasClass("mul-val") && $(this).val()) ? parseFloat(event.currentTarget.value) : mulValue;
+                // pulValue = ($(this).hasClass("pul-val") && $(this).val()) ? parseFloat(event.currentTarget.value) : pulValue;
                 calculatedTotalValue = rulValue + mulValue + pulValue;
                 console.log('calculatedTotalValue: ', calculatedTotalValue);
-                calculatedTotalValue == 'Nan' ? $(config.totalValue).text('-') : $(config.totalValue).text(calculatedTotalValue.toString());
+                $(config.totalValue).text(calculatedTotalValue.toString());
             });
 
             $(document).on("click", config.programAnchor, function(e) {
                 e.preventDefault();
-                var saleMonth = $(e.target).attr('data-uid');
+                var saleMonth = $(e.target).attr('data-sales-month');
                 var salesMonthArr = saleMonth.split(" ");
                 volumeDetailFormObj.soldTo = $(config.soldTo).text();
                 volumeDetailFormObj.siteZone = $('.js-site-zone-summary').text();
@@ -426,19 +413,25 @@ require(["modernizr",
                 $('#CBPMIIPVolumeDetailForm #volumeDetailFormData').val(volumeDetailFormObj);
                 $('#CBPMIIPVolumeDetailForm').submit();
             });
+            $(".modal").on("shown.bs.modal", function(e) {
+                // put your default event here
+                console.log("modal shown!");
+            });
+            $(".modal").on("hidden.bs.modal", function(e) {
+                // put your default event here
+                console.log("hidden: ", e.target);
+                resetModal(e);
+                //$(e.target).html('');
+            });
         }
-
-        $(".modal").on("hidden.bs.modal", function(e) {
-            // put your default event here
-            console.log("hidden: ", e.target);
-            resetModal(e);
-            //$(e.target).html('');
-        });
 
         var resetModal = function(e) {
             $(config.modal).find('input').val('').removeClass('has-error')
             $(config.totalValue).text('').removeClass('has-error');
             $(config.disclaimerSection).removeClass('has-error');
+            $(config.jsSaveError).hide();
+            calculatedTotalValue = 0;
+            rulValue = 0, mulValue = 0, pulValue = 0;
         }
         var init = function() {
             loadingInitialHbsTemplates();
