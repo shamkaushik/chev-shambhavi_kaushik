@@ -61,7 +61,7 @@ require(["modernizr",
                         class:'hidden-xs',
                         width:'30%'
                     }],
-                        data: data.accountBalanceDataList
+                        data: data.balances
                         });
                     };
                 return {

@@ -1,0 +1,23 @@
+
+{
+    "columnMapping":{
+        "account":"uhdfuiweh",
+        "accountBalance":"gyewyg"
+    },
+"accountBalanceDataList": [{
+    "account": "212047 - Redwood Oil Company, Inc., 7716 Old Redwood Hwy ",
+    "accountBalance": "0.0"
+},
+{
+    "account": "212047 - Redwood Oil Company, Inc., 7716 Old Redwood Hwy ",
+    "accountBalance": "16,918,900.0"
+},
+{
+    "account": "212047 - Redwood Oil Company, Inc., 7716 Old Redwood Hwy ",
+    "accountBalance": "24,901.96"
+}],
+"reportNotes":{
+"effectiveDate":"January 4, 2018",
+"effectiveTime":"02:00:10 PT"
+}
+}
