@@ -100,7 +100,7 @@ require(["modernizr",
           $(config.miipSiteSummaryContainer).html(compiledMiipSummary(cbp.miipSite));
         };
 
-        var triggerAjaxRequest = function(data,type,url){
+        var triggerAjaxRequest = function(data,type,url,contType){
             function successCallback(res){
               return res;
             }
@@ -111,6 +111,8 @@ require(["modernizr",
                 type: type,
                 data: data,
                 url: url,
+                contentType: contType,
+                headers: {'CSRFToken':cbp.miipSite.globalVars.csrfToken},
                 success: successCallback,
                 error: errorCallback
             });
@@ -232,28 +234,25 @@ require(["modernizr",
                 $(config.searchDetailContainer).hide();
                 leftPaneExpandCollapse.hideSearchBar();
                 var postData = {};
-                postData.site= $(config.siteDdn).val();
-                postData.soldTo = $(config.locationDdn).val();
-                postData.volumeDescrepency = $(config.volumeDiscDdn).val();
+                postData.businessLocation = $(config.siteDdn).val() === null ? "null" : $(config.siteDdn).val().toString();
+                postData.soldTo = $(config.locationDdn).val() === null ? "null" : $(config.locationDdn).val().toString();
+                postData.volumeDiscrepancy = $(config.volumeDiscDdn).val() === null ? "null" : $(config.volumeDiscDdn).val().toString();
+                postData = JSON.stringify(postData);
                 getTableData(postData)
-
             });
 
             var getTableData = function (payLoad) {
-              $.when(triggerAjaxRequest(payLoad,cbp.miipSite.globalUrl.method, cbp.miipSite.globalUrl.searchURL)).then(function(result) {
-              //  var totalResults =
+              $.when(triggerAjaxRequest(payLoad,cbp.miipSite.globalUrl.method, cbp.miipSite.globalUrl.searchURL,"application/json")).then(function(result) {
                 $(config.displaySpinner).hide();
                 $(config.searchDetailContainer).show();
                 $(config.miipSiteSummaryContainer).show();
-                cbp.miipSite.miipSiteResponse = result;
-
-                setSummaryValues();
+                cbp.miipSite.miipSiteResponse = result.searchResult;
+                populateSummaryDataOnLoad();
                 loadingDynamicHbsTemplates();
-                populatingTable(result, result.miipSiteColumnMapping );
+                populatingTable(result.searchResult, result.searchResult.miipSiteColumnMapping);
                 leftPaneExpandCollapse.resetSearchFormHeight();
               });
             };
-
 
             var valueOnSubmit = '.js-search-form input' + ","  +
                 config.soldToDdnContainer + "," ;
@@ -267,7 +266,9 @@ require(["modernizr",
         };
 
         var getSiteDetails = function() {
-            $.when(triggerAjaxRequest($(config.locationDdn).val(),cbp.miipSite.globalUrl.method, cbp.miipSite.globalUrl.siteURL)).then(function(result){
+            var postData= {};
+            postData.soldTo = $(config.locationDdn).val() === null ? "null" : $(config.locationDdn).val().toString();
+            $.when(triggerAjaxRequest(postData,cbp.miipSite.globalUrl.method, cbp.miipSite.globalUrl.siteURL)).then(function(result){
               $(config.displaySpinner).hide();
               var siteOptions = [];
               var obj = {};
@@ -289,7 +290,7 @@ require(["modernizr",
             });
         };
 
-        var generatingColumns = function(columnsDataList){
+        var generatingColumns = function(columnsDataList) {
         	var receivedOrderKey = Object.keys(columnsDataList).filter(function(key){
         		if(columnsDataList[key]){
         			return columnsDataList[key];

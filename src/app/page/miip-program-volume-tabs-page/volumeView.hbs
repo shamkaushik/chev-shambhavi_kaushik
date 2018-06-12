@@ -1,8 +1,11 @@
 <div class="row xs-mb-5">
     <div class="col-lg-4 col-md-5 col-xs-24">
-        <button class="btn btn-primary xs-mr-15" data-toggle="modal" data-target="#addSalesModal">Add New Sales Month Volume</button>
+        <button class="btn btn-primary xs-pl-25 xs-pr-25" data-toggle="modal" data-target="#addSalesModal">
+            <span class="fa fa-plus-square-o"></span>
+             Add New Sales Month Volume
+        </button>
         {{!-- <span class="result-count display-desktop">20 result(s) found</span> --}}
-    </div>        
+    </div>
     <div class="col-lg-20 col-md-19 col-xs-24 xs-pt-15 md-pt-0">
         <span class="result-count">20 result(s) found</span>
         <div class="js-miip-sortbyDdn form-group pull-right">
@@ -16,6 +19,6 @@
 </div>
 <div class="row">
     <div class="col-xs-24">
-        <a href="">Return to Site View</a>
+        <a href="{{globalUrl.miipSiteViewURL}}">{{globalVars.returnToSiteView}}</a>
     </div>
 </div>

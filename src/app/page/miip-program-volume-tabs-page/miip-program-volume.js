@@ -60,13 +60,16 @@ require(["modernizr",
             disclaimerSection: ".disclaimer-section",
             actualVol: ".actual-vol",
             totalValue: ".total-vol",
-            closBtn: ".clos-btn",
+            closeBtn: ".clos-btn",
             prevTotal: ".prev-total",
             modal: '.modal',
             jsSaveSuccess: '.js-save-success',
             programAnchor: ".js-program-anchor",
             soldTo: ".js-soldTo-summary",
-            jsSaveError: "js-save-error"
+            jsSaveError: ".js-save-error",
+            saveDisputeBtn: ".js-save-dispute-btn",
+            saveDisputedBtn: ".js-save-disputed-btn",
+            saveNewSalesMonthBtn: ".js-save-new-sales-month",
         };
 
         var srtByDdn = {
@@ -86,30 +89,7 @@ require(["modernizr",
             display: "displayInline"
         };
 
-        var checkVolumeIsWholeNo = function(element) {
-            var formIsValid = false;
-            element.each(function() {
-                var actualVolumeVals = [];
-                //var value = $(this).val() ? $(this).val() : null;
-                if ($(this).val()) {
-                    actualVolumeVals.push($(this).val());
-                    //If actual vol should is a whole no
-                    if (($(this).val() - Math.floor($(this).val())) !== 0) {
-                        $(this).addClass("has-error");
-                        $(config.totalValue).addClass("has-error");
-                        formIsValid = false;
-                    } else {
-                        $(this).removeClass("has-error");
-                        $(config.totalValue).removeClass("has-error");
-                        //formIsValid = true;
-                        formIsValid = true;
-                    }
-                }
-            });
-
-            return formIsValid;
-        };
-
+        /* Function to remove the commas from the a string and concatenate it */
         var removeCommaFromString = function(e) {
             var prevTotalVal = '';
             $(e.currentTarget.closest(".modal")).find('.prev-total').text().split(',').map(function(val, index) {
@@ -118,52 +98,81 @@ require(["modernizr",
             return prevTotalVal;
         };
 
-        var checkTotalVolDiscrepancy = function(prevTotalVal) {
+        /*Function to check if the difference between total volume entered and existing total vol is greater that 500*/
+        var checkTotalVolDiscrepancy = function(prevTotalVal, element) {
             var formIsValid = false;
             if (!calculatedTotalValue || !parseFloat(prevTotalVal) || (calculatedTotalValue - parseFloat(prevTotalVal)) < 500) {
-                //highlighting the disclaimer section               
+                //highlighting the disclaimer section
                 $(config.disclaimerSection).addClass("has-error");
                 $(config.totalValue).addClass("has-error");
-                $("input[type='text']").each(function() {
+                //Highlighting the error fields
+                element.each(function() {
                     $(this).addClass("has-error");
                     $(config.totalValue).addClass("has-error");
                 });
                 formIsValid = false;
-                return formIsValid;
             } else {
                 $(config.disclaimerSection).removeClass("has-error");
                 $(config.totalValue).removeClass("has-error");
-                $("input[type='text']").each(function() {
+                element.each(function() {
                     $(this).removeClass("has-error");
                     $(config.totalValue).removeClass("has-error");
                 });
                 formIsValid = true;
-                return formIsValid;
             }
-        }
+            return formIsValid;
+        };
 
-        var fireValidations = function(e) {
+        var triggerValidations = function(e) {
             var rulVal = $(".actual-vol").val();
             var actualVolumeVals = [];
             var actualVolumeVals = [];
             var element = $(e.currentTarget.closest('.modal')).find('input');
-            //check for a no is a whole or not
-            var isWholeNo = checkVolumeIsWholeNo(element);
-            isWholeNo ? $(config.jsSaveError).removeClass('hide') : $(config.jsSaveError).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.volumeWholeNoErrorMsg);
-            //getting the nos without the commas 
+            //getting the nos without the commas
             var prevTotalVal = removeCommaFromString(e);
             //Total Vol must exceed 500 and check for required also
-            var totalVolDiscrepancy = checkTotalVolDiscrepancy(prevTotalVal);
-            if (isWholeNo && totalVolDiscrepancy) {
+            var totalVolDiscrepancy = checkTotalVolDiscrepancy(prevTotalVal, element);
+            if (totalVolDiscrepancy) {
                 return true;
-            } else
+            } else {
                 return false;
+            }
         };
 
-        var saveDispute = function() {
+        /* Saving the dispute */
+        var saveDispute = function(e) {
+            //resetModal(e);
             $(config.jsSaveSuccess).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.successMsg);
             $('.modal').modal('hide');
         };
+
+        var setSalesMonthPayload =  function () {
+            var salesMonthVolumeObj = {};
+            var headersDataObj = {};
+            headersObj.soldTo =  cbp.volumeSummaryData.soldTo;
+            headersObj.siteZone = cbp.volumeSummaryData.siteZone;
+            headersObj.businessConsultant = cbp.volumeSummaryData.businessConsultant;
+            headersObj.site = cbp.volumeSummaryData.site;
+            headersObj.thruput = cbp.volumeSummaryData.thruput;
+            salesMonthVolumeObj.headersData = headersObj;
+            saveNewSalesMonthVolume(salesMonthVolumeObj);
+            console.log(salesMonthVolumeObj);
+          };
+          var saveNewSalesMonthVolume = function (data) {
+            $.when(triggerAjaxRequest(data,cbp.miipSite.globalUrl.method, cbp.miipSite.globalUrl.searchURL)).then(function(result) {
+            //  var totalResults =
+              $(config.displaySpinner).hide();
+              //$(config.searchDetailContainer).show();
+              //$(config.miipSiteSummaryContainer).show();
+            //  cbp.miipSite.miipSiteResponse = result;
+
+              setSummaryValues();
+              loadingDynamicHbsTemplates();
+            //  populatingTable(result, result.miipSiteColumnMapping );
+              leftPaneExpandCollapse.resetSearchFormHeight();
+            });
+          };
+
         var triggerAjaxRequest = function(data, type, url) {
             $(config.displaySpinner).show();
 
@@ -196,8 +205,8 @@ require(["modernizr",
         var loadingDynamicHbsTemplates = function() {
             $(config.programViewSummaryConatiner).html(compiledProgramViewSummary(cbp.miipProgramVolumeDetailPage));
             $(config.programVolumeDetailsContainer).html(compiledProgramVolumeDetails());
-            $(config.programViewContainer).html(compiledProgramView());
-            $(config.volumeViewContainer).html(compiledVolumeView());
+            $(config.programViewContainer).html(compiledProgramView(cbp.miipProgramVolumeDetailPage));
+            $(config.volumeViewContainer).html(compiledVolumeView(cbp.miipProgramVolumeDetailPage));
             $(config.programVolumeHeadingContainer).html(compiledProgramVolumeHeading(cbp.miipProgramVolumeDetailPage));
             $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
             $(config.salesModal).html(compiledSalesModal());
@@ -226,30 +235,20 @@ require(["modernizr",
             });
         }
 
-        var populateTable = function() {
-            $('#programTable').bootstrapTable({
-                classes: 'table table-no-bordered',
-                striped: true,
-                iconsPrefix: 'fa',
-                sortName: 'status',
-                sortOrder: 'asc',
-                sortName: 'status',
-                parentContainer: ".js-program-view",
-                responsive: true,
-                responsiveBreakPoint: 768,
-                responsiveClass: "bootstrap-table-cardview",
-                undefinedText: "",
-                columns: [{
-                        field: 'program',
-                        title: 'Program',
-                        class: 'text-wrap',
-                        formatter: function(row, value) {
+        var getProgramCols = function(){
+            var colsToShow = [];
+            var programColsOrder = ['program', 'paymentStartDate', 'paymentEndDate', 'amortizationEndDate', 'totalPaid', 'estimatedRepaymentAmount', 'status']
+            var programColumnList =  [{
+                    field: 'program',
+                    title: 'Program',
+                    class: 'text-wrap',
+                    formatter: function(row, value) {
                             if (value.status == 'Rollover') {
                                 return row;
                             } else {
                                 return '<a href="" class="programAnchor">' + row + '</a>';
                             }
-                        },
+                        }
                     }, {
                         field: 'paymentStartDate',
                         title: 'Payment Start Date',
@@ -277,26 +276,46 @@ require(["modernizr",
                         class: 'text-wrap',
                         sortable: true
                     }
-                ],
-                data: [{
-                    program: '6 Brand Retention Program',
-                    paymentStartDate: '01/2016',
-                    paymentEndDate: '05/2026',
-                    amortizationEndDate: '01/2027',
-                    totalPaid: '21,783.00',
-                    estimatedRepaymentAmount: '21,783.00',
-                    status: 'Active'
-                }, {
-                    program: '6 Brand Retention Program',
-                    paymentStartDate: '01/2016',
-                    paymentEndDate: '05/2026',
-                    amortizationEndDate: '01/2027',
-                    totalPaid: '21,783.00',
-                    estimatedRepaymentAmount: '21,783.00',
-                    status: 'Rollover'
-                }]
+                ];
+
+            for(var i=0;i<programColsOrder.length;i++){
+                for(key in programColumnMapping){
+                    if(programColsOrder[i] == key && programColumnMapping[key]){
+                        colsToShow.push(programColsOrder[i]);
+                    }
+                }
+            }
+
+            var programCols = colsToShow.map(function(value){
+                for(var i=0;i<programColumnList.length;i++){
+                    if(programColumnList[i].field === value){
+                        return programColumnList[i];
+                    }
+                }
             });
 
+            return programCols;
+        }
+
+        var populateProgramTable = function(){
+            $('#programTable').bootstrapTable({
+                classes: 'table table-no-bordered',
+                striped: true,
+                iconsPrefix: 'fa',
+                sortName: 'status',
+                sortOrder: 'asc',
+                sortName: 'status',
+                parentContainer: ".js-program-view",
+                responsive: true,
+                responsiveBreakPoint: 768,
+                responsiveClass: "bootstrap-table-cardview",
+                undefinedText: "",
+                columns: getProgramCols(),
+                data: programTableData
+            });
+        }
+
+        var populateVolumeTable = function(){
             $('#volumeTable').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
@@ -314,7 +333,7 @@ require(["modernizr",
                     sortable: true,
                     class: 'numberIcon col-md-6',
                     formatter: function(row, value) {
-                        return "<a href='#' class='js-program-anchor sales-month' data-uid='" + row + "'>" + row + "</a>";
+                        return "<a href='#' class='js-program-anchor sales-month' data-sales-month='" + row + "'>" + row + "</a>";
                     }
                 }, {
                     field: 'rul',
@@ -335,9 +354,12 @@ require(["modernizr",
                         if ($.inArray(value, volumeRowArray) < 0) {
                             volumeRowArray.splice(index, 0, value);
                         }
-
+                        var rowData = value;
+                        console.log("value:", volumeRowArray);
+                        console.log("row:", row);
+                        console.log("index:", index);
                         if (value.disputeVolume === 'Disputed') {
-                            return '<a href="" data-toggle="modal" data-target="#disputedModal" data-index=' + index + '>' + row + '</a>';
+                            return '<a href="" data-toggle="modal" data-target="#disputedModal" data-index=' + index + '>' + row + '</a>'
                         } else {
                             return '<a href="" data-toggle="modal" data-target="#disputeModal" data-index=' + index + '>' + row + '</a>';
                         }
@@ -351,39 +373,16 @@ require(["modernizr",
 
                     class: 'col-md-6',
                 }],
-                data: [{
-                    salesMonth: 'Sept 2017',
-                    rul: '70,460',
-                    mul: '90,123',
-                    pul: '69,279',
-                    total: '192,105',
-                    disputeVolume: 'Dispute',
-                    reason: '',
-                    status: ''
-                }, {
-                    salesMonth: 'Sept 2017',
-                    rul: '1234567890,1234567890,1234567890,1234567890',
-                    mul: '90,123',
-                    pul: '69,279',
-                    total: '192,105',
-                    disputeVolume: 'Dispute',
-                    reason: '',
-                    status: ''
-                }, {
-                    salesMonth: 'Oct 2017',
-                    rul: '1234567890',
-                    mul: '90,123',
-                    pul: '69,279',
-                    total: '192,105',
-                    disputeVolume: 'Disputed',
-                    reason: '',
-                    status: ''
-                }]
+                data: volumeTableData
             });
         }
 
-        var bindEvents = function() {
+        var populateTable = function() {
+            populateProgramTable();
+            populateVolumeTable();
+        }
 
+        var bindEvents = function() {
             $(document).on("click", config.printBtn, function(e) {
                 var programViewSummary = compiledProgramViewSummary(cbp.miipProgramVolumeDetailPage);
                 var win = window.open('', '_blank', 'PopUp' + ',width=1300,height=800');
@@ -406,51 +405,66 @@ require(["modernizr",
             $(document).on('click', config.selectedDisputeLink, function(e) {
                 var targetDataIndex = e.target.dataset.index;
             });
-            $(document).on('click', config.saveBtn, function(e) {
-                var isValid = fireValidations(e);
-                if (isValid)
-                    saveDispute();
+            $(document).on('click', config.saveDisputeBtn, config.saveDisputedBtn, function(e) {
+                var isValid = triggerValidations(e);
+                if (isValid) {
+                    saveDispute(e);
+                }
             });
 
+            $(document).on('click', config.saveNewSalesMonthBtn, function(e) {
+              triggerAddSalesMonthValidations();
+              setSalesMonthPayload();
+            });
+
+
             $(document).on('focusout', config.actualVol, function(event) {
-                rulValue = $(this).hasClass("rul-val") ? parseFloat(event.currentTarget.value) : rulValue;
-                mulValue = $(this).hasClass("mul-val") ? parseFloat(event.currentTarget.value) : mulValue;
-                pulValue = $(this).hasClass("pul-val") ? parseFloat(event.currentTarget.value) : pulValue;
-                // isCalculatedTotalValValid = (rulValue + mulValue + pulValue) >= 500 ? true : false;
+                //rulValue = ($(this).hasClass("rul-val") && $(this).val()) ? parseFloat(event.currentTarget.value) : rulValue;
+                rulValue = $(this).hasClass("rul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : rulValue = 0) : rulValue;
+                mulValue = $(this).hasClass("mul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : mulValue = 0) : mulValue;
+                pulValue = $(this).hasClass("pul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : pulValue = 0) : pulValue;
+                // mulValue = ($(this).hasClass("mul-val") && $(this).val()) ? parseFloat(event.currentTarget.value) : mulValue;
+                // pulValue = ($(this).hasClass("pul-val") && $(this).val()) ? parseFloat(event.currentTarget.value) : pulValue;
                 calculatedTotalValue = rulValue + mulValue + pulValue;
                 console.log('calculatedTotalValue: ', calculatedTotalValue);
-                calculatedTotalValue == 'Nan' ? $(config.totalValue).text('-') : $(config.totalValue).text(calculatedTotalValue.toString());
+                $(config.totalValue).text(calculatedTotalValue.toString());
             });
 
             $(document).on("click", config.programAnchor, function(e) {
                 e.preventDefault();
-                var saleMonth = $(e.target).attr('data-uid');
+                var saleMonth = $(e.target).attr('data-sales-month');
                 var salesMonthArr = saleMonth.split(" ");
-                volumeDetailFormObj.soldTo = $(config.soldTo).text();
-                volumeDetailFormObj.siteZone = $('.js-site-zone-summary').text();
-                volumeDetailFormObj.businessConsultant = $('.js-business-consultant-summary').text();
-                volumeDetailFormObj.site = $('.js-site-summary').text();
-                volumeDetailFormObj.thruput = $('.js-thruput-summary').text();
-                volumeDetailFormObj.brand = $('.js-brand-summary').text();
+                volumeDetailFormObj.soldTo = programSummaryData.soldTo;
+                volumeDetailFormObj.siteZone =  programSummaryData.siteZone;
+                volumeDetailFormObj.businessConsultant = programSummaryData.businessConsultant;
+                volumeDetailFormObj.site =  programSummaryData.site;
+                volumeDetailFormObj.thruput =  programSummaryData.thruput;
+                volumeDetailFormObj.brand =  programSummaryData.brand;
                 volumeDetailFormObj.month = moment().month(salesMonthArr[0]).format("MM");
                 volumeDetailFormObj.year = salesMonthArr[1];
                 volumeDetailFormObj = JSON.stringify(volumeDetailFormObj);
                 $('#CBPMIIPVolumeDetailForm #volumeDetailFormData').val(volumeDetailFormObj);
                 $('#CBPMIIPVolumeDetailForm').submit();
             });
+            $(".modal").on("shown.bs.modal", function(e) {
+                // put your default event here
+                console.log("modal shown!");
+            });
+            $(".modal").on("hidden.bs.modal", function(e) {
+                // put your default event here
+                console.log("hidden: ", e.target);
+                resetModal(e);
+                //$(e.target).html('');
+            });
         }
-
-        $(".modal").on("hidden.bs.modal", function(e) {
-            // put your default event here
-            console.log("hidden: ", e.target);
-            resetModal(e);
-            //$(e.target).html('');
-        });
 
         var resetModal = function(e) {
             $(config.modal).find('input').val('').removeClass('has-error')
             $(config.totalValue).text('').removeClass('has-error');
             $(config.disclaimerSection).removeClass('has-error');
+            $(config.jsSaveError).hide();
+            calculatedTotalValue = 0;
+            rulValue = 0, mulValue = 0, pulValue = 0;
         }
         var init = function() {
             loadingInitialHbsTemplates();
