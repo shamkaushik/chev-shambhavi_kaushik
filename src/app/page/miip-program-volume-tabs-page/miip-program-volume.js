@@ -205,7 +205,7 @@ require(["modernizr",
             }
             console.log("dateGreaterThanCurrentDate", dateGreaterThanCurrentDate);
             console.log("dateEqualTableDate", dateEqualTableDate);
-            if (dateGreaterThanCurrentDate && dateEqualTableDate) {
+            if (dateGreaterThanCurrentDate || dateEqualTableDate) {
                 //highlight the fields and show the error span
                 return false;
             } else {
@@ -502,9 +502,7 @@ require(["modernizr",
             });
 
             $(document).on('click', config.saveNewSalesMonthBtn, function(e) {
-                var x = triggerAddSalesMonthValidations(e);
-                console.log("x is ", x);
-                if (x) {
+                if (triggerAddSalesMonthValidations(e)) {
                     $('.modal').modal('hide');
                     setSalesMonthPayload(event);
                 }
