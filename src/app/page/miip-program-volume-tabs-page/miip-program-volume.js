@@ -64,16 +64,17 @@ require(["modernizr",
             prevTotal: ".prev-total",
             modal: '.modal',
             jsSaveSuccess: '.js-save-success',
-            programAnchor: ".js-program-anchor",
+            programAnchor: ".js-volume-anchor",
             soldTo: ".js-soldTo-summary",
             jsSaveError: ".js-save-error",
             saveDisputeBtn: ".js-save-dispute-btn",
             saveDisputedBtn: ".js-save-disputed-btn",
             saveNewSalesMonthBtn: ".js-save-new-sales-month",
-            quantityInput: ".js-quantity-input",
-            totalVolume: ".js-total-volume",
             salesMonth: ".sales-month",
-            salesYear: ".sales-year"
+            salesYear: ".sales-year",
+            quantityInput: ".js-quantity-input",
+            totalVolume : ".total-volume",
+
         };
 
         var srtByDdn = {
@@ -158,8 +159,8 @@ require(["modernizr",
             });
             console.log("isValidFields: ", isValidFields);
             //validating if any of the input fields are null then return false immediately
-            for (var index = 0; isValidFields < isValidFields.length; index++) {
-                if (!isValidFields[index]) {
+            for (var i = 0; i < isValidFields.length; i++) {
+                if (!isValidFields[i]) {
                     formIsRequired = false;
                     break;
                 } else {
@@ -173,13 +174,13 @@ require(["modernizr",
             var isTotalValueValid = true;
             if (parseInt($(config.totalVolume).text()) <= 0) {
                 isTotalValueValid = false;
-                $(e.currentTarget).closest('modal').find('.total-vol').addClass('has-error');
-                $(e.currentTarget).closest('modal').find('.total-vol-error').removeClass('hide');
+                $('.total-volume').addClass('has-error');
+                $('.total-vol-error').removeClass('hide');
 
             } else {
                 isTotalValueValid = true;
-                $(e.currentTarget).closest('modal').find('.total-vol').removeClass('has-error');
-                $(e.currentTarget).closest('modal').find('.total-vol-error').addClass('hide');
+                $('.total-volume').removeClass('has-error');
+                $('.total-vol-error').addClass('hide');
             }
             return isTotalValueValid;
         };
@@ -202,7 +203,9 @@ require(["modernizr",
                     break;
                 }
             }
-            if (dateGreaterThanCurrentDate || dateEqualTableDate) {
+            console.log("dateGreaterThanCurrentDate",dateGreaterThanCurrentDate);
+              console.log("dateEqualTableDate",dateEqualTableDate);
+            if (dateGreaterThanCurrentDate && dateEqualTableDate) {
                 //highlight the fields and show the error span
                 return false;
             } else {
@@ -213,51 +216,52 @@ require(["modernizr",
 
         var triggerAddSalesMonthValidations = function(e) {
             var inputFields = $(e.currentTarget.closest('.modal')).find('input');
-            var isTotalValueValid = true;
-            //var isRequiredFieldsValid = ;
             var tableData = $('#volumeTable').bootstrapTable('getData');
             var userEnteredSalesMonth = $(e.currentTarget).closest(".modal").find(config.salesMonth).val();
             var userEnteredSalesYear = $(e.currentTarget).closest(".modal").find(config.salesYear).val();
-            console.log("tableData : ", tableData);
+
+
             if (validateRequiredFields(e, inputFields)) {
                 (validateSalesTotalVolume(e) && validateSalesDate(e, tableData, userEnteredSalesMonth, userEnteredSalesYear)) ? isValidForm = true: isValidForm = false;
             } else {
                 isValidForm = false;
             }
+
             return isValidForm;
         }
 
         /* Saving the dispute */
         var saveDispute = function(e) {
-            //resetModal(e);
-            $(config.jsSaveSuccess).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.successMsg);
+            $(config.jsSaveSuccess).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.disputeSuccessMsg);
             $('.modal').modal('hide');
         };
 
-        var setSalesMonthPayload = function() {
+        var setSalesMonthPayload = function(e) {
             var salesMonthVolumeObj = {};
             var headersDataObj = {};
-            headersObj.soldTo = cbp.volumeSummaryData.soldTo;
-            headersObj.siteZone = cbp.volumeSummaryData.siteZone;
-            headersObj.businessConsultant = cbp.volumeSummaryData.businessConsultant;
-            headersObj.site = cbp.volumeSummaryData.site;
-            headersObj.thruput = cbp.volumeSummaryData.thruput;
-            salesMonthVolumeObj.headersData = headersObj;
+            headersDataObj.soldTo =  volumeSummaryData.soldTo;
+            headersDataObj.siteZone = volumeSummaryData.siteZone;
+            headersDataObj.businessConsultant = volumeSummaryData.businessConsultant;
+            headersDataObj.site = volumeSummaryData.site;
+            headersDataObj.thruput = volumeSummaryData.thruput;
+            headersDataObj.brand = volumeSummaryData.brand;
+            salesMonthVolumeObj.headerData = headersDataObj;
+            salesMonthVolumeObj.month =  $(e.target.closest(".modal")).find('.sales-month').val();
+            salesMonthVolumeObj.year =  $(e.target.closest(".modal")).find('.sales-year').val();
+            salesMonthVolumeObj.mul =  $(e.target.closest(".modal")).find('.mul-quantity').val();
+            salesMonthVolumeObj.rul =  $(e.target.closest(".modal")).find('.rul-quantity ').val();
+            salesMonthVolumeObj.pul =  $(e.target.closest(".modal")).find('.pul-quantity ').val();
+            salesMonthVolumeObj.total =  $(e.target.closest(".modal")).find('.total-volume').text();
             saveNewSalesMonthVolume(salesMonthVolumeObj);
             console.log(salesMonthVolumeObj);
         };
-        var saveNewSalesMonthVolume = function(data) {
-            $.when(triggerAjaxRequest(data, cbp.miipSite.globalUrl.method, cbp.miipSite.globalUrl.searchURL)).then(function(result) {
-                //  var totalResults =
-                $(config.displaySpinner).hide();
-                //$(config.searchDetailContainer).show();
-                //$(config.miipSiteSummaryContainer).show();
-                //  cbp.miipSite.miipSiteResponse = result;
 
-                setSummaryValues();
+        var saveNewSalesMonthVolume = function(data) {
+            $.when(triggerAjaxRequest(data,cbp.miipProgramVolumeDetailPage.globalUrl.method, cbp.miipProgramVolumeDetailPage.globalUrl.addNewVolumeURL)).then(function(result) {
+                $(config.jsSaveSuccess).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.salesVolumeSuccessMsg);
+                $(config.displaySpinner).hide();
+                populatingTable(result, result.miipSiteColumnMapping );
                 loadingDynamicHbsTemplates();
-                //  populatingTable(result, result.miipSiteColumnMapping );
-                leftPaneExpandCollapse.resetSearchFormHeight();
             });
         };
 
@@ -421,7 +425,7 @@ require(["modernizr",
                     sortable: true,
                     class: 'numberIcon col-md-6',
                     formatter: function(row, value) {
-                        return "<a href='#' class='js-program-anchor sales-month' data-sales-month='" + row + "'>" + row + "</a>";
+                      return "<a href='#' class='js-volume-anchor sales-month' data-sales-month='" + row + "'>" + row + "</a>";
                     }
                 }, {
                     field: 'rul',
@@ -443,9 +447,6 @@ require(["modernizr",
                             volumeRowArray.splice(index, 0, value);
                         }
                         var rowData = value;
-                        console.log("value:", volumeRowArray);
-                        console.log("row:", row);
-                        console.log("index:", index);
                         if (value.disputeVolume === 'Disputed') {
                             return '<a href="" data-toggle="modal" data-target="#disputedModal" data-index=' + index + '>' + row + '</a>'
                         } else {
@@ -501,14 +502,17 @@ require(["modernizr",
             });
 
             $(document).on('click', config.saveNewSalesMonthBtn, function(e) {
-                if (triggerAddSalesMonthValidations(e)) {
-                    setSalesMonthPayload();
+              var x = triggerAddSalesMonthValidations(e);
+              console.log("x is ",x);
+                if (x) {
+                    $('.modal').modal('hide');
+                    setSalesMonthPayload(event);
                 }
             });
 
+
             //calculating the total volume for dispute and disputed popup
             $(document).on('focusout', config.actualVol, function(event) {
-                console.log("inside focusout");
                 rulValue = $(this).hasClass("rul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : rulValue = 0) : rulValue;
                 mulValue = $(this).hasClass("mul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : mulValue = 0) : mulValue;
                 pulValue = $(this).hasClass("pul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : pulValue = 0) : pulValue;
@@ -541,15 +545,9 @@ require(["modernizr",
                 $('#CBPMIIPVolumeDetailForm #volumeDetailFormData').val(volumeDetailFormObj);
                 $('#CBPMIIPVolumeDetailForm').submit();
             });
-            $(".modal").on("shown.bs.modal", function(e) {
-                // put your default event here
-                console.log("modal shown!");
-            });
+
             $(".modal").on("hidden.bs.modal", function(e) {
-                // put your default event here
-                console.log("hidden: ", e.target);
                 resetModal(e);
-                //$(e.target).html('');
             });
         }
 
@@ -560,7 +558,10 @@ require(["modernizr",
             $(config.jsSaveError).hide();
             calculatedTotalValue = 0;
             rulValue = 0, mulValue = 0, pulValue = 0;
+            $(e.target.closest(".modal")).find('.js-quantity-input').val(0);
+            $(e.target.closest(".modal")).find('.total-volume').text(0);
         }
+
         var init = function() {
             loadingInitialHbsTemplates();
             initalizingTables();
