@@ -1,0 +1,258 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css' />
+    <link href='/assets/css/app-na.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <div class='body-wrapper'>
+        <main>
+            <header class="main-header main-header-md js-header" style="">
+            </header>
+        </main>
+        <section class='main-container'>
+            <div class="content-box usmr-page-add-new-user">
+                <div class="row">
+                    <div class="col-sm-24">
+                        <h2 class='page-title'>add new user</h2>
+                    </div>
+                </div>
+                <div class='row xs-m-0 position-relative'>
+                    <div class="overlay-wrapper">
+                    </div>
+                    <div class='col-md-24 col-lg-24 right-pane'>
+                        <div class='top-summary js-usmr-userForm'>
+                        </div>
+                        <div class='bottom-detail js-bottom-detail'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <input type="hidden" id="contextPath" value="/sf/businessPoint/en/USD">
+        <input type="hidden" id="isInternalUser" value="false">
+        <form id="eftDetailsForm" action="/app/page/order-details/order-details.html" method="get" target="_blank">
+            <input type="hidden" name="eftNoticeNumberId" id="eftNoticeNumberId">
+        </form>
+        <!-- form for invoice pdf -->
+        <form id="eftSearchPDFForm" action="/eftSearch/eftSearchPDF" method="post" target="_blank">
+            <input type="hidden" name="eftNoticeNumberId" id="eftNoticeNumberId">
+            <input type="hidden" name="eftPrint" id="eftPrint">
+        </form>
+
+        <form id="eftForm" method="POST" action="/sf/eftSearch/eftCSV">
+            <input name="selectedEFTs" id="selectedEFTs" type="hidden">
+        </form>
+
+        <form id="eftNoticeForm" action="${request.getContextPath()}/EftDetails/results" method="POST">
+           <input type="hidden" name="eftNoticeid" id="eftNoticeid" />
+        </form>
+
+        <script type="text/javascript">
+            var inASMSession = "false";
+
+            var internalUser = false;
+
+            var allEftFlow = "false"; //invoicesAttention
+
+            var usmrUserData = {
+                "fromDate": "22-03-2015",
+                "toDate": "29-08-2016",
+                "currency": "USD",
+                "payer" : "7901220, DISMACOR S.A. K 16 NRO 20-56, BUCARAMANGA, Colombia",
+                "soldTo" : "7901220, DISMACOR S.A. K 16 NRO 20-56, BUCARAMANGA, Colombia",
+                "region" : "America",
+                "language" : "English",
+                "cssSearchDataList": [{
+                    "eftNoticeNumber":"936710253",
+                    "noticeDate":"02-12-2016",
+                    "accountNumber":"7901220, DISMACOR S.A., K 16 NRO 20-56, BUCARAMANGA, Colombia",
+                    "settlementDate":"13-06-2016",
+                    "total": -8919237.0,
+                    "eftNoticeNumberId": "936710253",
+                    "downloaded": true,
+                    "printed": false,
+                    "displayTotal": "-8.919.237"
+                }],
+                "ccsSearchDataListMapping" : {
+                    "status" : "EFT_EFTSTATUS_COLOUMN",
+                    "checkbox" : "EFT_EFTCHECKBOX_COLOUMN",
+                    "eftNoticeNumber":"EFT_EFTNO_COLOUMN",
+                    "noticeDate":"EFT_EFTDATE_COLOUMN",
+                    "accountNumber":"EFT_EFTACCOUNTNUMBER_COLOUMN",
+                    "settlementDate":"EFT_EFTSETTLEMENTDATE_COLOUMN",
+                    "total": "EFT_EFTTOTAL_COLOUMN",
+                    "eftNoticeNumberId": "EFT_EFTNOTICENO_COLOUMN",
+                    "displayTotal": "EFT_EFTDISPLAYTOTAL_COLOUMN"
+                },
+                "resultCount": 1,
+                "multipleSoldTo": false,
+                "sort": null
+            };
+
+            var maxResults = 500;
+            
+            var eftSearchCurrency = "USD";
+
+            var CSRFToken = "";
+
+             var soldToDropdown = [{
+                "uid": "0676334614",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "uid": "0912234461",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "uid": "0176224612",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "uid": "0116134113",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }];
+
+            var siteDropdown = [{
+                "uid": "0676334614",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
+                "isInGracePeriod" : true
+            }, {
+                "uid": "0912234461",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "uid": "0176224612",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "uid": "0116134113",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }];
+
+            var pyDropdown = [{
+                "uid": "2017",
+                "displayName": "2017"
+            }, {
+                "uid": "2018",
+                "displayName": "2018"
+            }, {
+                "uid": "2019",
+                "displayName": "2019"
+            }];
+
+            var statusUserDdn = [{
+                "uid" : "active",
+                "displayName" : "Active"
+            },{
+                "uid" : "inactive",
+                "displayName" : "Inactive"
+            }];
+
+            var userCountryDddn = [{
+                "uid" : "NA",
+                "displayName" : "North America"
+            },{
+                "uid" : "TST",
+                "displayName" : "Test Country"
+            }];
+
+            var maxResultText = '<div>{0} EFTs matching your search were found in the system.</div>' +
+                '<div>Please refine your search to return less than 500 results.</div><br>' +
+                '<div><b>Suggestions:</b></div>' +
+                '<ul>' +
+                '<li>Enter additional search criteria.</li>' +
+                '<li>Select a shorter date range.</li>' +
+                '</ul>';
+
+            var cbp = {
+                "staticBasePath": "/",
+                "usmrPageAddNew": {
+                    "statusUserDdn": {
+                        "options": [],
+                        "label": "Status",
+                        "title": "",
+                        "name": "statusUserDdn",
+                        "showOptions": 10,
+                        "singleOption": true
+                    },
+                    "userCountryDddn": {
+                        "options": [],
+                        "label": "Country",
+                        "title": "",
+                        "name": "userCountryDddn",
+                        "showOptions": 10,
+                        "singleOption": true
+                    },
+                    "pyDropdown": {
+                        "options": [],
+                        "label": "Program Year",
+                        "title": "",
+                        "name": "pyDropdownSelector",
+                        "showOptions": 10,
+                        "singleOption": true
+                    },
+                    "globalUrl": {
+                        "eftSearchPostURL": "/assets/json/ccsSearch.json",
+                        "ccsFetchSiteURL" : "/assets/json/ccsSearch.json",
+                        "method": "GET"
+                    },
+                    "globalVars": {
+                        "searchTxt": "Search",
+                        "allAccount": "All",
+                        "userAddNewCaption" : "user Details",
+                        "userID" : "User ID",
+                        "regionCaption" : "Region",
+                        "language" : "Language",
+                        "status" : "Status",
+                        "fName" : "First Name",
+                        "lName" : "Last Name",
+                        "email" : "E-mail Address",
+                        "phone" : "Phone #",
+                        "addressLineFirst" : "Address Line 1",
+                        "addressLineSecond" : "Address Line 2",
+                        "userCity" : "City",
+                        "stateProvince" : "State / Province",
+                        "zipPostalCode" : "Zip/Postal Code",
+                        "country" : "Country",
+                        "selectDdn": {
+                            "noneSelectedText": "Nothing selected",
+                            "noneResultsText": "No results for {0}",
+                            "selectAllText": "Select All",
+                            "deselectAllText": "Deselect All",
+                            "itemSelected": "{0} item selected",
+                            "itemSelected1": "{0} items selected",
+                            "limitReached": "Limit reached ({n} item max)",
+                            "limitReached1": "Limit reached ({n} items max)",
+                            "groupLimit": "Group limit reached ({n} item max)",
+                            "groupLimit1": "Group limit reached ({n} items max)"
+                        },
+                        "tableLocales": {
+                            "loadingMessage": "Loading, please wait...",
+                            "recordsPerPage": "{0} rows per page",
+                            "showingRows": "Showing {0} to {1} of {2} rows",
+                            "search": "Search",
+                            "noMatches": "<div class='alert alert-danger'><span class='alert-message'>No EFTs found. Please change your search</span></div>",
+                            "paginationSwitch": "Hide/Show pagination",
+                            "refresh": "Refresh",
+                            "toggle": "Toggle",
+                            "columns": "Columns",
+                            "allRows": "All"
+                        }
+                    }
+                }
+            }
+
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="usmr.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+    </div>
+</body>
+
+</html>
