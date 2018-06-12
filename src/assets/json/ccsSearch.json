@@ -4,13 +4,23 @@
     "currency": "USD",
     "fromDate": "22-03-2015",
     "toDate": "29-08-2016",
-    "eftSearchDataListA" : [],
-    "accountDropdown" : [{
+    "cssSearchDataListA" : [],
+    "siteDropdown" : [{
       "uid": "0676334614",
-      "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 AAAAAA",
+      "displayName": "6227166 - Redwood Oil Co. Inc, 50 Professional CTR Dr. Suite 100 Tohnert Park, Ca 94928, United States",
       "isInGracePeriod" : true
+    }, {
+        "uid": "0912234461",
+        "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 AAAAAA"
+    }, {
+        "uid": "0176224612",
+        "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 AAAAAA"
+    }, {
+        "uid": "0116134113",
+        "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 AAAAAA",
+        "isInGracePeriod" : true
     }],
-    "eftSearchDataList": [{
+    "cssSearchDataList": [{
       "eftNoticeNumberId" : "226710253",
       "eftNoticeNumber":"226710253",
       "noticeDate":"03-12-2016",
@@ -61,7 +71,7 @@
       "printed": true,
       "displayTotal": "-12.392.370"
     }],
-    "eftSearchDataListMapping" : {
+    "ccsSearchDataListMapping" : {
       "status" : "EFT_EFTSTATUS_COLOUMN",
       "checkbox" : "EFT_EFTCHECKBOX_COLOUMN",
       "eftNoticeNumber":"EFT_EFTNO_COLOUMN",

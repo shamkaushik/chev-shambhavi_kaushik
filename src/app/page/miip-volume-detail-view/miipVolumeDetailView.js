@@ -17,7 +17,7 @@ require(["modernizr",
 
     var miipVolumeDetailPage = (function () {
         var config = {
-            miipVolumeSummaryContainer: ".js-miisVolumeDetailPage-summary",
+            miipVolumeSummaryContainer: ".js-miipVolumeDetailPage-summary",
             searchDetailContainer: ".js-bottom-detail",
             tabelRow: "#table tbody tr",
             displaySpinner: ".overlay-wrapper",
@@ -28,7 +28,7 @@ require(["modernizr",
         var init = function () {
             loadingInitialHbsTemplates();
             bindEvents();
-            populatingTable(cbp.miisVolumeDetailPage.miipVolumeDetailResponse.miisVolumeDetailDataList);
+            populatingTable(cbp.miipVolumeDetailPage.miipVolumeDetailResponse.rows,cbp.miipVolumeDetailPage.miipVolumeDetailResponse.columnMapping);
         };
         var loadingInitialHbsTemplates = function () {
             // Appending handlebar templates to HTML
@@ -38,30 +38,87 @@ require(["modernizr",
         };
 
         var loadingDynamicHbsTemplates = function () {
-            $(config.miipVolumeSummaryContainer).html(compiledMiipVolumeDetailSummary(cbp.miisVolumeDetailPage));
-            $(config.searchDetailContainer).html(compiledBottomDetail(cbp.miisVolumeDetailPage));
+            $(config.miipVolumeSummaryContainer).html(compiledMiipVolumeDetailSummary(cbp.miipVolumeDetailPage));
+            $(config.searchDetailContainer).html(compiledBottomDetail(cbp.miipVolumeDetailPage));
         };
 
         var bindEvents = function () {
             $(document).on('click',config.backtoVolumeView,function(){
-                window.location.href=cbp.miisVolumeDetailPage.globalUrl.miisVolumeViewURL;
+                window.location.href=cbp.miipVolumeDetailPage.globalUrl.miipVolumeViewURL;
             });
-
         };
 
-        var populatingTable = function (miisVolumeDetailDataList) {
-            if (cbp.miisVolumeDetailPage.miipVolumeDetailResponse.miisVolumeDetailDataList === null) {
-                cbp.miisVolumeDetailPage.globalVars.tableLocales.noMatches = "";
-            } else if (cbp.miisVolumeDetailPage.miipVolumeDetailResponse.resultCount === 0) {
-                cbp.miisVolumeDetailPage.globalVars.tableLocales.noMatches = cbp.miisVolumeDetailPage.globalVars.noMatches;
-            } else if (cbp.miisVolumeDetailPage.miipVolumeDetailResponse.resultCount > maxResults) {
-                cbp.miisVolumeDetailPage.globalVars.tableLocales.noMatches = cbp.miisVolumeDetailPage.globalVars.noMatchesMaxResults.replace('{0}', cbp.miisVolumeDetailPage.miipVolumeDetailResponse.resultCount);
-                miisVolumeDetailDataList = [];
+        var generatingColumns = function(columnsDataList){
+          var receivedOrderKey = Object.keys(columnsDataList).filter(function(key){
+            if(columnsDataList[key]){
+              return columnsDataList[key];
+            }
+          });
+            var columnsList = [
+                {
+                  class: 'fa',
+                },
+                {
+                  field: 'salesDate',
+                  title: cbp.miipVolumeDetailPage.globalVars.salesDate,
+                  titleTooltip: cbp.miipVolumeDetailPage.globalVars.salesDate,
+                },
+                {
+                  field: 'rul',
+                  title: cbp.miipVolumeDetailPage.globalVars.rul,
+                  titleTooltip: cbp.miipVolumeDetailPage.globalVars.rul,
+                },
+                {
+                  field: 'mul',
+                  title: cbp.miipVolumeDetailPage.globalVars.mul,
+                  titleTooltip: cbp.miipVolumeDetailPage.globalVars.mul,
+                  align: 'right',
+                },
+                {
+                  field: 'pul',
+                  title: cbp.miipVolumeDetailPage.globalVars.pul,
+                  titleTooltip: cbp.miipVolumeDetailPage.globalVars.pul,
+                  align: 'right',
+                },
+                {
+                  field: 'total',
+                  title: cbp.miipVolumeDetailPage.globalVars.total,
+                  titleTooltip: cbp.miipVolumeDetailPage.globalVars.total,
+                  class: 'numberIcon text-nowrap col-md-5',
+                  align: 'right',
+                }];
+
+            var columnsListMap = columnsList.reduce(function (data, columnsList) {
+                data[columnsList.field] = columnsList;
+                return data;
+            }, {});
+            var orderKey = [ "salesDate", "rul", "mul", "pul", "total"]
+            var requestedCol = [];
+            for(var i = 0; i< orderKey.length; i++){
+              for(var j = 0; j<receivedOrderKey.length; j++){
+                if(orderKey[i]==receivedOrderKey[j])
+                {
+                    var k = orderKey[i];
+                    requestedCol.push(columnsListMap[k]);
+                }
+              }
+            }
+            return requestedCol;
+        };
+
+        var populatingTable = function (row , columnsDataList) {
+            if (cbp.miipVolumeDetailPage.miipVolumeDetailResponse.rows === null) {
+                cbp.miipVolumeDetailPage.globalVars.tableLocales.noMatches = "";
+            } else if (cbp.miipVolumeDetailPage.miipVolumeDetailResponse.resultCount === 0) {
+                cbp.miipVolumeDetailPage.globalVars.tableLocales.noMatches = cbp.miipVolumeDetailPage.globalVars.noMatches;
+            } else if (cbp.miipVolumeDetailPage.miipVolumeDetailResponse.resultCount > maxResults) {
+                cbp.miipVolumeDetailPage.globalVars.tableLocales.noMatches = cbp.miipVolumeDetailPage.globalVars.noMatchesMaxResults.replace('{0}', cbp.miipVolumeDetailPage.miipVolumeDetailResponse.resultCount);
+                row = [];
             }
 
-            if (miisVolumeDetailDataList === null || miisVolumeDetailDataList === undefined) {
-                miisVolumeDetailDataList = [];
-           }
+            if (row === null || row === undefined) {
+                row = [];
+            }
             $(config.sortByDdn).val("referenceDate-desc").selectpicker('refresh');
 
             $('#table').bootstrapTable({
@@ -76,45 +133,8 @@ require(["modernizr",
                 responsive: true,
                 responsiveBreakPoint: 768,
                 responsiveClass: "bootstrap-table-cardview",
-                columns: [{
-                    field: 'salesDate',
-                    title: cbp.miisVolumeDetailPage.globalVars.salesDate,
-                    titleTooltip: cbp.miisVolumeDetailPage.globalVars.salesDate,
-                    class: 'text-nowrap numberIcon',
-                    sortable: true,
-
-                },{
-                    field: 'rul',
-                    title: cbp.miisVolumeDetailPage.globalVars.rul,
-                    titleTooltip: cbp.miisVolumeDetailPage.globalVars.rul,
-                    class: 'numberIcon text-nowrap',
-                    sortable: true,
-
-                }, {
-                    field: 'mul',
-                    title: cbp.miisVolumeDetailPage.globalVars.mul,
-                    titleTooltip: cbp.miisVolumeDetailPage.globalVars.mul,
-                    class: 'numberIcon',
-                    sortable: true,
-                    align: 'right',
-
-                }, {
-                    field: 'pul',
-                    title: cbp.miisVolumeDetailPage.globalVars.pul,
-                    titleTooltip: cbp.miisVolumeDetailPage.globalVars.pul,
-                    class: 'numberIcon text-nowrap',
-                    sortable: true,
-                    align: 'right',
-
-                }, {
-                    field: 'total',
-                    title: cbp.miisVolumeDetailPage.globalVars.total,
-                    titleTooltip: cbp.miisVolumeDetailPage.globalVars.total,
-                    class: 'numberIcon text-nowrap col-md-5',
-                    sortable: true,
-                    align: 'right',
-                }],
-                data: miisVolumeDetailDataList
+                columns: generatingColumns(columnsDataList),
+                data: row
             });
         };
         return {
@@ -126,46 +146,46 @@ require(["modernizr",
         // Localization setup for dropdown & table
         $.fn.bootstrapTable.locales = {
             formatLoadingMessage: function () {
-                return cbp.miisVolumeDetailPage.globalVars.tableLocales.loadingMessage;
+                return cbp.miipVolumeDetailPage.globalVars.tableLocales.loadingMessage;
             },
             formatRecordsPerPage: function (pageNumber) {
-                return cbp.miisVolumeDetailPage.globalVars.tableLocales.recordsPerPage.replace('{0}', pageNumber);
+                return cbp.miipVolumeDetailPage.globalVars.tableLocales.recordsPerPage.replace('{0}', pageNumber);
             },
             formatShowingRows: function (pageFrom, pageTo, totalRows) {
-                return cbp.miisVolumeDetailPage.globalVars.tableLocales.showingRows.replace('{0}', pageFrom).replace('{1}', pageTo).replace('{2}', totalRows);
+                return cbp.miipVolumeDetailPage.globalVars.tableLocales.showingRows.replace('{0}', pageFrom).replace('{1}', pageTo).replace('{2}', totalRows);
             },
             formatSearch: function () {
-                return cbp.miisVolumeDetailPage.globalVars.tableLocales.search;
+                return cbp.miipVolumeDetailPage.globalVars.tableLocales.search;
             },
             formatNoMatches: function () {
-                return cbp.miisVolumeDetailPage.globalVars.tableLocales.noMatches;
+                return cbp.miipVolumeDetailPage.globalVars.tableLocales.noMatches;
             },
             formatPaginationSwitch: function () {
-                return cbp.miisVolumeDetailPage.globalVars.tableLocales.paginationSwitch;
+                return cbp.miipVolumeDetailPage.globalVars.tableLocales.paginationSwitch;
             },
             formatRefresh: function () {
-                return cbp.miisVolumeDetailPage.globalVars.tableLocales.refresh;
+                return cbp.miipVolumeDetailPage.globalVars.tableLocales.refresh;
             },
             formatToggle: function () {
-                return cbp.miisVolumeDetailPage.globalVars.tableLocales.toggle;
+                return cbp.miipVolumeDetailPage.globalVars.tableLocales.toggle;
             },
             formatColumns: function () {
-                return cbp.miisVolumeDetailPage.globalVars.tableLocales.columns;
+                return cbp.miipVolumeDetailPage.globalVars.tableLocales.columns;
             },
             formatAllRows: function () {
-                return cbp.miisVolumeDetailPage.globalVars.tableLocales.allRows;
+                return cbp.miipVolumeDetailPage.globalVars.tableLocales.allRows;
             }
         };
         $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
-        cbp.miisVolumeDetailPage.miipVolumeDetailResponse = miipVolumeDetailResponse;
-        if (miipVolumeDetailResponse.miisVolumeDetailDataList === undefined || miipVolumeDetailResponse.miisVolumeDetailDataList === null) {
-            cbp.miisVolumeDetailPage.miipVolumeDetailResponse.miisVolumeDetailDataList = [];
+        cbp.miipVolumeDetailPage.miipVolumeDetailResponse = miipVolumeDetailResponse;
+        if (miipVolumeDetailResponse.rows === undefined || miipVolumeDetailResponse.rows === null) {
+            cbp.miipVolumeDetailPage.miipVolumeDetailResponse.rows = [];
         }
 
-        if (cbp.miisVolumeDetailPage.miipVolumeDetailResponse.resultCount > 0 && cbp.miisVolumeDetailPage.miipVolumeDetailResponse.resultCount < maxResults) {
-            cbp.miisVolumeDetailPage.showDebitCredit = true;
+        if (cbp.miipVolumeDetailPage.miipVolumeDetailResponse.resultCount > 0 && cbp.miipVolumeDetailPage.miipVolumeDetailResponse.resultCount < maxResults) {
+            cbp.miipVolumeDetailPage.showDebitCredit = true;
         } else {
-            cbp.miisVolumeDetailPage.showDebitCredit = false;
+            cbp.miipVolumeDetailPage.showDebitCredit = false;
         }
         miipVolumeDetailPage.init();
     });

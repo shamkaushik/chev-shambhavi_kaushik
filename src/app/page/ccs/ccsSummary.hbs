@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-xs-24">
+        <span class="sub-heading">{{globalVars.ccsSummary}}</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-24">
+        <div class="row xs-mt-10">
+            <div class="col-md-8 col-xs-24 md-pb-0 xs-pb-10">
+                <span>
+                    <strong>{{globalVars.soldTo}}</strong>
+                </span>
+                <br/>
+                <span id="eftSearchSoldTo">{{ccsSearchResponse.soldTo}}</span>
+            </div>
+            <div class="col-md-8 col-xs-24 md-pb-0 xs-pb-10">
+                <span>
+                    <strong>{{globalVars.account}}</strong>
+                </span>
+                <br/>
+                <span id="eftSearchPayer">{{ccsSearchResponse.payer}}</span>
+            </div>
+        </div>
+    </div>
+    {{#if ccsSearchResponse.fromDate}}
+    <div class="col-md-24 col-xs-24 md-pb-0 xs-pb-10">
+        <br/>
+        <span id="eftSearchDateRange">{{globalVars.summaryfromAndToVar}}</span>
+    </div>
+    {{/if}}
+</div>

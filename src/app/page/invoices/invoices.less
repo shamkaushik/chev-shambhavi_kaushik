@@ -130,6 +130,75 @@
 			 }
 		}
 	}
+
+	#invoiceViewToggle,#invoiceBasicToggle,#invoiceAdvancedToggle{
+		label{
+			margin:0px !important;
+			width: 0px !important;
+			height: 0px !important;
+			display: none !important;
+		}
+	}
+
+	.toggleSwitchConfigForView,.toggleSwitchConfigForBasic,.toggleSwitchConfigForAdvanced{
+		.btn-default{
+			background: #dbdcdd;
+			color: #383838;
+			&:hover{
+				background: #dbdcdd;
+			}
+		}
+	}
+
+	.toggleSwitchConfigForView{
+		&.btn-group {
+			.btn{
+				padding: 6px 37px;
+			}
+		}
+	}
+
+	.toggleSwitchConfigForBasic{
+		&.btn-group {
+			.btn{
+				padding: 6px 25px;
+			}
+		}
+	}
+
+	.toggleSwitchConfigForAdvanced{
+		&.btn-group {
+			.btn{
+				padding: 6px 13px;
+			}
+		}
+
+		.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+			border-right:1px solid #ededed;
+		}
+		
+		.btn:not(:first-child):not(:last-child):not(.dropdown-toggle){
+			border-right:1px solid #ededed;
+		}
+	}
+
+	.basicToggle{
+		label{
+			display: none;
+		}
+		#calendar{
+			width:100%;
+		}
+	}
+
+	.js-invoicesType-ddn{
+		height:31px;
+	}
+
+	.redDanger{
+		border: 1px solid @brand-danger;
+		background-color: @brand-danger-light;
+	}
 }
 @media (max-width: @screen-xs){
 	.invoices-page{

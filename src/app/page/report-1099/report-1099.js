@@ -110,7 +110,8 @@ require(["modernizr",
                 options = response.map(function(val, index){
                     return {
                         key: val.uid,
-                        value: val.displayName
+                        value: val.displayName,
+                        isInGracePeriod : val.inGracePeriod ? val.inGracePeriod : false
                     }
                 });
                 if(options.length>1)

@@ -19,7 +19,7 @@
             <div class="content-box miipSiteView">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h2 class='page-title'>MIIP site view</h2>
+                        <h2 class='page-title page-heading'>MIIP site view</h2>
                     </div>
                 </div>
                 <div class='row xs-m-0 position-relative'>
@@ -66,10 +66,16 @@
                 display: "displayInline"
             }
 
+            var siteSummaryData = {
+              "soldTo":"All",
+              "site":"All",
+              "volumeDiscrepancy":"All"
+            };
+
             var miipSiteResponse = {
                 "miipSiteColumnMapping": {
-                    "siteName" :"test",
-                    "volumeDiscrepency":"fdgfdg",
+                    "site" :"test",
+                    "volumeDiscrepancy":"fdgfdg",
                     "thruput" : "gdfsgfsd",
                     "rentFlag" : "rentdf",
                     "brand" : "Chevron",
@@ -77,9 +83,9 @@
                     "siteZone" : "dsfsadf",
                 },
 
-                "miipSiteList": [{
-                    "siteName" :"201154 Redwood Oil CO 39103 Highway 299",
-                    "volumeDiscrepency":"No",
+                "miipSiteViewDataList": [{
+                    "site" :"201154 Redwood Oil CO 39103 Highway 299",
+                    "volumeDiscrepancy":"No",
                     "thruput" : "R",
                     "rentFlag" : "No",
                     "brand" : "Chevron",
@@ -87,8 +93,8 @@
                     "siteZone" : "4A",
                 },
                 {
-                    "siteName" :"201964 Redwood Oil Co. 4925 Sonama Highway",
-                    "volumeDiscrepency":"Yes",
+                    "site" :"201964 Redwood Oil Co. 4925 Sonama Highway",
+                    "volumeDiscrepancy":"Yes",
                     "thruput" : "R",
                     "rentFlag" : "No",
                     "brand" : "Chevron",
@@ -96,8 +102,8 @@
                     "siteZone" : "4A",
                 },
                 {
-                    "siteName" :"202125 Redwood Oil Co. 830 Redwood DR.",
-                    "volumeDiscrepency":"No",
+                    "site" :"202125 Redwood Oil Co. 830 Redwood DR.",
+                    "volumeDiscrepancy":"No",
                     "thruput" : "R",
                     "rentFlag" : "Yes",
                     "brand" : "Chevron",
@@ -105,8 +111,8 @@
                     "siteZone" : "4A",
                 },
                 {
-                    "siteName" :"201964 Redwood Oil Co. 4925 Sonama Highway",
-                    "volumeDiscrepency":"Yes",
+                    "site" :"201964 Redwood Oil Co. 4925 Sonama Highway",
+                    "volumeDiscrepancy":"Yes",
                     "thruput" : "R",
                     "rentFlag" : "Yes",
                     "brand" : "Chevron",
@@ -114,8 +120,8 @@
                     "siteZone" : "4A",
                 },
                 {
-                    "siteName" :"202125 Redwood Oil Co. 830 Redwood DR.",
-                    "volumeDiscrepency":"No",
+                    "site" :"202125 Redwood Oil Co. 830 Redwood DR.",
+                    "volumeDiscrepancy":"No",
                     "thruput" : "R",
                     "rentFlag" : "No",
                     "brand" : "brand",
@@ -123,7 +129,6 @@
                     "siteZone" : "4A",
                 },
                 ],
-                "resultCount": 3,
                 "multipleSoldTo": false,
                 "sort": null
             };
@@ -141,16 +146,33 @@
                 "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
             }];
 
-            var volumeDiscrepencyDropDown = [
+            var volumeDiscrepancyDropDown = [
               {
                 "key": "Yes",
-                "displayName": "Yes"
+                "displayName": "Volume Discrepancy"
               },
               {
                 "key": "No",
-                "displayName": "No"
+                "displayName": "No Volume Discrepancy"
               },
             ];
+
+            var siteDropDown = [{
+                "uid": "793346",
+                "displayName": "7933464,DISMACOR S.A. BARBOSA, K 10 NRO 20  11, BARBOSA, Colombia"
+            }, {
+                "uid": "3436466",
+                "displayName": "3436466,DISMACOR S.A. BARRANQUILLA, CL 45 NRO 33 - 40, BARRANQUILLA, Colombia"
+            }, {
+                "uid": "8213629",
+                "displayName": "8213629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
+            }, {
+                "uid": "9313629",
+                "displayName": "9313629,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
+            }, {
+                "uid": "1217829",
+                "displayName": "1217829,DISMACOR S.A. BOG VD, AVD CIUDAD DE QUITO NRO 78-40, BOGOTA, Colombia"
+            }];
 
             var maxResultText = '<div>{0} miip Site matching your search were found in the system.</div>' +
                 '<div>Please refine your search to return less than 500 results.</div><br>' +
@@ -178,9 +200,9 @@
                         "showOptions": 10,
                         "singleOption": false
                     },
-                    "volumeDiscrepencyDropDown": {
+                    "volumeDiscrepancyDropDown": {
                         "options": [],
-                        "label": "Volume Discrepency",
+                        "label": "Volume Discrepancy",
                         "title": "",
                         "name": "volumeSelectDdn",
                         "showOptions": 10,
@@ -192,6 +214,7 @@
                         "method": "GET",
                     },
                     "globalVars": {
+                        "csrfToken" : "${CSRFToken.token}",
                         "searchTxt": "Search",
                         "allTb": "All",
                         "fromAndTo": "{0} - {1}",
@@ -200,24 +223,16 @@
                         "miipSiteSummary": "MIIP site view summary",
                         "miipResultsFound": "{0} result(s) found",
                         "statustb": "Status",
-                        "siteSortAsc": "Site, Newest to Oldest",
-                        "siteSortDesc": "Site, Oldest to Newest",
-                        "volumeDesAsc": "Volume descrepency, Ascending",
-                        "volumeDesDesc": "Volume descrepency, Descending",
-                        "thruputAsc": "Thruput , Ascending",
-                        "thruputDesc": "Thruput , Descending",
-                        "rentFlagAsc": "Rent Flag , Ascending",
-                        "rentFlagDesc": "Rent Flag #, Descending",
+                        "siteSortAsc": "Site, Ascending",
+                        "siteSortDesc": "Site, Descending",
+                        "volumeDesAsc": "Volume Discrepancy, Ascending",
+                        "volumeDesDesc": "Volume Discrepancy, Descending",
                         "brandAsc": "Brand, Ascending",
-                        "brandDesc": "Total, Descending",
-                        "businessConsultantAsc": "businessConsultant, Ascending",
-                        "businessConsultantDesc": "businessConsultant, Descending",
-                        "siteZoneAsc": "Site Zone, Ascending",
-                        "siteZoneDesc": "site Zone, Descending",
+                        "brandDesc": "Brand, Descending",
                         "siteZone": "Site Zone",
                         "soldTo": "Sold To",
                         "site": "Site",
-                        "volumeDiscrepency": "Volume Discrepency",
+                        "volumeDiscrepancy": "Volume Discrepancy",
                         "thruput": "Thruput",
                         "rentFlag": "Rent Flag",
                         "brand" : "Brand",

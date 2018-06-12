@@ -422,7 +422,8 @@ require(["modernizr",
                 accountOptions = account.map(function(val,index){
                     return {
                         key : val['uid'],
-                        value : val['displayName']
+                        value : val['displayName'],
+                        isInGracePeriod : val['inGracePeriod'] ? val['inGracePeriod'] : false
                     };
                 });                
                 if(account.length == 1){

@@ -1,6 +1,6 @@
 <div class="bg-forms fuel-type-container xs-mt-15 xs-p-10"> 
    <span> {{globalVars.formDesc}} </span>
-    <div class="row xs-pb-15">
+    <div class="row xs-pb-15 xs-pt-15">
         <div class="col-xs-24 xs-pb-15">
             <label for="stationAccntNo">
                 {{globalVars.pop.stationAccountLabel}}
@@ -53,9 +53,9 @@
         <div class="col-xs-24 xs-pb-15">
             <label for="brand">{{globalVars.pop.brandLabel}}</label> <br/>
             <span id="brand" class="input-element">
-                <input type="radio" id="chev" name="brand" data-parsley-required="" class="radio-btn-space"/> {{globalVars.pop.chevronLabel}}
-                <input type="radio" id="tex" name="brand" data-parsley-required="" class="radio-btn-space"/> {{globalVars.pop.texacoLabel}}
-                <input type="radio" id="all" name="brand" data-parsley-required="" class="radio-btn-space"/> {{globalVars.pop.allLabel}}
+                <span class="radio-btn-space"><input type="radio" id="chev" name="brand" data-parsley-required=""/> {{globalVars.pop.chevronLabel}} </span>
+                <span class="radio-btn-space"><input type="radio" id="tex" name="brand" data-parsley-required="" class="radio-btn-space"/> {{globalVars.pop.texacoLabel}} </span>
+                <span class="radio-btn-space"><input type="radio" id="all" name="brand" data-parsley-required="" class="radio-btn-space"/> {{globalVars.pop.allLabel}} </span>
             </span>            
         </div>   
         <div class="col-xs-24 xs-pb-15">

@@ -4,49 +4,49 @@
             <span class="sub-heading">MIIP program view summary</span>
         </div>
     </div>
-    <div class="row xs-mb-15">
-        <div class="col-sm-8">
+    <div class="row">
+        <div class="col-sm-6 xs-mb-15">
             <span><strong>Sold To</strong></span><br/>
-            <span>7063485 Cain Petroleum Incorporated, 4512 Sw Kelly Portland, OR 97239, United States</span>
+            <span>{{programSummaryData.soldTo}}</span>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-6 col-sm-offset-2">
             <span><strong>Site</strong></span><br/>
-            <span>209902 Cain Petroleum Incorporated, Glastone, 830 East Berkley, United States</span>
+            <span>{{programSummaryData.site}}</span>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-24 col-sm-4">
+        <div class="col-xs-24 col-sm-4 xs-mb-15 sm-mb-0">
             <span><strong>Site Zone</strong></span><br/>
-            <span>4A</span>
+            <span>{{programSummaryData.siteZone}}</span>
         </div>
-        <div class="col-xs-24 col-sm-4">
+        <div class="col-xs-24 col-sm-4 xs-mb-15 sm-mb-0">
             <span><strong>Business Consultant</strong></span><br/>
-            <span>Kevin Maloney</span>
+            <span>{{programSummaryData.businessConsultant}}</span>
         </div>
-        <div class="col-xs-24 col-sm-4">
+        <div class="col-xs-24 col-sm-4 xs-mb-15 sm-mb-0">
             <span><strong>Thruput Method/ Equipment</strong></span><br/>
-            <span>R/Wincor Beetle MI</span>
+            <span>{{programSummaryData.thruput}}</span>
         </div>
-        <div class="col-xs-4 col-sm-4">
+        <div class="col-xs-24 col-sm-4 xs-mb-15 sm-mb-0">
             <span><strong>Brand</strong></span><br/>
-            <span>Chevron</span>
+            <span>{{programSummaryData.brand}}</span>
         </div>
-        <div class="col-xs-20 col-sm-8">
+        <div class="col-xs-24 col-sm-8 xs-mb-15 sm-mb-0">
             {{#if programView}}
-                <div class="text-right">
-                    <div>
-                        <span><strong>Total Paid (USD)</strong></span><span class="xs-ml-15">4,167,651</span>
+                <div class="text-right prog-right-summary-data">
+                    <div class="md-pb-10">
+                        <span><strong>Total Paid (USD)</strong></span><span class="xs-ml-15">{{programSummaryData.totalPaid}}</span>
                     </div>
                     <div>
-                        <span><strong>Estimated Repayment Amount (USD)</strong></span><span class="xs-ml-15">701,936</span>
+                        <span><strong>Estimated Repayment Amount (USD)</strong></span><span class="xs-ml-15 ">{{programSummaryData.estimatedRepaymentAmount}}</span>
                     </div>
                 </div>
             {{else}}
-                <div class="text-right">
-                    <div>
+                <div class="text-right vol-right-summary-data">
+                    <div class="md-pb-5">
                         <span><strong>Total RUL (GA)</strong></span><span class="xs-ml-15">856,724</span>
                     </div>
-                    <div>
+                    <div class="md-pb-5">
                         <span><strong>Total MUL (GA)</strong></span><span class="xs-ml-15">4,167,651</span>
                     </div>
                     <div>

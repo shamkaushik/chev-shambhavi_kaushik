@@ -1,10 +1,118 @@
 .miip-program-volume-page{
     .sub-heading{
         font-weight: normal;
+    } 
+    .prog-right-summary-data{
+        margin-top: -10px;
+    } 
+    .vol-right-summary-data{
+        margin-top: -35px;
+    }  
+}
+.miip-modals{
+    .popup-sub-title{
+        padding-bottom:12px;
+    }
+    .sales-popup-input-text-small{
+        width:39px;
+    }
+    .sales-popup-input-text-medium{
+        width:53px;
+    }
+    .sales-popup-input-text-large{
+        width:67px;
+    }
+    .total-vol{
+        display: block;
+        height: 30px;
+        padding:6px 8px;
+    }
+    .has-error,.total-vol.has-error{
+        border:solid 1px @brand-danger;
+        color:@brand-danger;
+    }    
+    .disclaimer-section.has-error{
+        color:@brand-danger;
+        border:0 none;
+    }
+    .reported-vol-container td span.prev-rul,.reported-vol-container td span.prev-mul,.reported-vol-container td span.prev-pul,
+    .th-inner{        
+        width: 65px;
+        display: inline-block;
+        text-align: right;
+    }
+    .error-msg-container{
+        background-color: #fff;
+        padding: 15px 0 0 0;
+        line-height: 1;
+        margin-bottom: 0;
     }
 }
-@media print{
-    .summary-print{
-        -webkit-print-color-adjust: exact;
+
+.miip-program-volume-page{
+        .result-count{
+        line-height: 2.5;
     }
+}
+@media (max-width: @screen-xs) {
+    .miip-program-volume-page {
+        .card-view .title {
+            word-wrap: break-word;
+            width: 50% !important;
+            min-width: 40%;
+        }
+    
+        .card-view .value {
+            width: 50% !important;
+        }
+    
+        .programAnchor {
+            color: @table-body-bg;
+        }
+        .sales-month{
+            color:@component-active-color;
+        }
+    }
+
+    /*Modal Popup changes*/
+    .miip-modals{
+        #myModal .modal-dialog, .modal .modal-dialog, .bootstrap-dialog .modal-dialog{
+            position: relative;
+            height:100vh;
+            width:100%;
+        }        
+        .modal-content {
+            position: fixed;
+            height: 100vh;
+            width: 100%;
+            overflow: scroll;
+        } 
+        .save-btn{
+            width:100%;
+        }  
+        button.btn.clos-btn.btn-default{
+            display:none;
+        }       
+    }    
+}
+
+@media (max-width: @screen-sm-max) {
+    .miip-modals{
+        .modal-dialog{
+            width:100%;
+            height:100%;
+        }
+        button.btn.clos-btn.btn-default{
+            display:none;
+        }
+        .save-btn{
+            width:100%;
+        }
+    }   
+}
+
+@media print{
+  .summary-print{
+    -webkit-print-color-adjust: exact;
+  }
 }

@@ -3,40 +3,67 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="disputeModalLabel">Dispute title</h4>
+                <h4 class="modal-title" id="disputeModalLabel">Dispute Volume</h4>
             </div>
             <div class="modal-body">
+                <div class="popup-sub-title">
+                    <label>
+                    Sales Month
+                    </label> <br />
+                    <span>
+                        Sep 2017
+                    </span>
+                </div>
                 <table data-toggle="table" id="disputeTable">
                     <thead>
-                        <tr>
+                        <tr class="reported-vol-container">
                             <th></th>
-                            <th>RUL(GA)</th>
-                            <th>MUL(GA)</th>
-                            <th>PUL(GA)</th>
-                            <th>Total (GA)</th>
+                            <th> <span class="prev-rul">RUL(GA) </span></th>
+                            <th> <span class="prev-mul">MUL(GA)</span></th>
+                            <th><span class="prev-pul">PUL(GA) </span></th>
+                            <th><span>Total (GA)</span></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Reported Volume</td>
-                            <td>75,432</td>
-                            <td>12,675</td>
-                            <td>11,523</td>
-                            <td>99,630</td>
+                        <tr class="reported-vol-container">
+                            <td><label>Reported Volume</label></td>
+                            <td><span class="prev-rul">75,432</span></td>
+                            <td><span class="prev-mul">12,675 </span></td>
+                            <td><span class="prev-pul">11,523 </span></td>
+                            <td class="sales-popup-input-text-large text-right"><span class="prev-total">99,630</span></td>
                         </tr>
                         <tr>
-                            <td>Actual Volume</td>
-                            <td><input type="text" class="form-control"></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td>-</td>
+                            <td><label>Actual Volume</label></td>
+                            <td>
+                                <input type="text" class="form-control rul-val actual-vol text-right sales-popup-input-text-large"
+                                 onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control actual-vol mul-val text-right sales-popup-input-text-large"
+                                 onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57">
+                                </td>
+                            <td>
+                                <input type="text" class="form-control actual-vol pul-val text-right sales-popup-input-text-large"
+                                 onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57">
+                            </td>
+                            <td><span class="total-vol text-right sales-popup-input-text-large"> - </span></td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="alert alert-danger js-save-error error-msg-container hide">
+                    <span class="alert-message"></span>
+                </div>
+                <div class="md-pt-15 md-pb-15 disclaimer-section">
+                    <label>Disclaimer:</label> <br />
+                    <span>
+                        <span>Total volume discrepancy must exceed 500 gallons.</span> <br />
+                        <span>If you dispute a volume, please enter total volumes for all three products.</span>
+                    </span>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn clos-btn btn-default hidden-md-down" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary save-btn js-save-dispute-btn">Save Dispute</button>
             </div>
         </div>
     </div>

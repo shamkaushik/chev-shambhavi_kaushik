@@ -1,4 +1,4 @@
-<!Doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -15,6 +15,9 @@
             </header>
         </main>
         <section class='main-container'>
+            <div class="alert alert-success js-save-success hide">
+                <span class="alert-message"></span>
+            </div>
             <div class="content-box miip-program-volume-page">
                 <div class="row">
                     <div class="overlay-wrapper">
@@ -33,27 +36,104 @@
             </div>
         </section>
 
-        <div class="js-sales-modal">
-        </div>
+        <div class="miip-modals">
+            <div class="js-sales-modal">
+            </div>
 
-        <div class="js-dispute-modal">
-        </div>
+            <div class="js-dispute-modal">
+            </div>
 
-        <div class="js-disputed-modal">
+            <div class="js-disputed-modal">
+            </div>
         </div>
+        <form id="CBPMIIPVolumeDetailForm" action="/app/page/miip-volume-detail-view/miipVolumeDetailView.html" method="post">
+            <input type="hidden" name="volumeDetailFormData" id="volumeDetailFormData">
+        </form>
 
         <script type="text/javascript">
             var isASM = false;
+
+            var programSummaryData = {
+                soldTo: '7063485 Cain Petroleum Incorporated, 4512 Sw Kelly Portland, OR 97239, United States',
+                site: '209902 Cain Petroleum Incorporated, Glastone, 830 East Berkley, United States',
+                siteZone: '4A',
+                businessConsultant: 'Kevin Maloney',
+                thruput: 'R/Wincor Beetle MI',
+                brand: 'Chevron',
+                totalPaid: '4,167,651',
+                estimatedRepaymentAmount: '701,936'
+            };
+
+            var programColumnMapping = {
+                program: true,
+                paymentStartDate: true,
+                paymentEndDate: true,
+                amortizationEndDate: null,
+                totalPaid: true,
+                estimatedRepaymentAmount: true,
+                status: true
+            }
+
+            var programTableData = [{
+                    program: '6 Brand Retention Program',
+                    paymentStartDate: '01/2016',
+                    paymentEndDate: '05/2026',
+                    amortizationEndDate: '01/2027',
+                    totalPaid: '21,783.00',
+                    estimatedRepaymentAmount: '21,783.00',
+                    status: 'Active'
+                }, {
+                    program: '6 Brand Retention Program',
+                    paymentStartDate: '01/2016',
+                    paymentEndDate: '05/2026',
+                    amortizationEndDate: '01/2027',
+                    totalPaid: '21,783.00',
+                    estimatedRepaymentAmount: '21,783.00',
+                    status: 'Rollover'
+                }];
+
+            var volumeTableData = [{
+                    salesMonth: 'Sept 2017',
+                    rul: '70,460',
+                    mul: '90,123',
+                    pul: '69,279',
+                    total: '192,105',
+                    disputeVolume: 'Dispute',
+                    reason: '',
+                    status: ''
+                }, {
+                    salesMonth: 'Sept 2017',
+                    rul: '1234567890,1234567890,1234567890,1234567890',
+                    mul: '90,123',
+                    pul: '69,279',
+                    total: '192,105',
+                    disputeVolume: 'Dispute',
+                    reason: '',
+                    status: ''
+                }, {
+                    salesMonth: 'Oct 2017',
+                    rul: '1234567890',
+                    mul: '90,123',
+                    pul: '69,279',
+                    total: '192,105',
+                    disputeVolume: 'Disputed',
+                    reason: '',
+                    status: ''
+                }];
 
             var cbp = {
                 "staticBasePath": "/",
                 "miipProgramVolumeDetailPage": {
                     "programView": true,
+                    "programSummaryData": programSummaryData,
                     "globalUrl": {
-                        
+                      "miipSiteViewURL" : "/app/page/miip-site-view/miipSiteView.html"
                     },
                     "globalVars": {
-
+                        "successMsg": "Dispute successfully submitted.",
+                        "volumeWholeNoErrorMsg": "Volume must be a whole number (Example:  50000)",
+                        "returnToSiteView": "Return to Site View",
+                        "print" : "Print"
                     }
                 }
             }
@@ -68,4 +148,5 @@
         </footer>
     </div>
 </body>
+
 </html>

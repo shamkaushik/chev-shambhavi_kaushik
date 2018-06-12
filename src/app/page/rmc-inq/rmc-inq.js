@@ -14,7 +14,7 @@ require(["modernizr",
     "text!app/page/rmc-inq/fuelInvoiceInquiryForm.hbs",
     "text!app/page/rmc-inq/uclForm.hbs",
     "text!app/page/rmc-inq/popForm.hbs",
-    "text!app/page/rmc-inq/chargebackInquiryForm.hbs"
+    "text!app/page/rmc-inq/chargebackInquiryForm.hbs",
 
 ], function(modernizr, $, bootstrap, Handlebars, moment, calendar, bootstrapSelect, bootstrapTable, parsley, _defaultDdnHBS, _calenderHBS, _userInfo, _eftInquiryForm, _fuelInvoiceInquiryForm,
     _uclForm, _popForm, _chargebackInquiryForm) {
@@ -45,7 +45,8 @@ require(["modernizr",
             calendar: "#calendar",
             parsleyErrorsList: ".parsley-errors-list",
             formInput: "#inquiryForm .input-element",
-            resetBtn: "#resetBtn"
+            resetBtn: "#resetBtn",
+            calendarIcon: ".calendar-icon"
         };
 
 
@@ -59,12 +60,6 @@ require(["modernizr",
         //To trigger parsely from validation
 
         var triggerParselyFormValidation = function(el) {
-            window.ParsleyValidator.addValidator('checkvaliddate',
-                    function(value, requirement) {
-                        console.log("Custom Validator!!", value);
-                        return false;
-                    }, 32)
-                .addMessage('en', 'checkvaliddate', 'my validator failed');
             $(el).parsley().on('field:success', function() {
                 if ($('#inquiryForm').parsley().isValid()) {
                     $('#inquiryForm #submitBtn').removeClass('disabled').removeAttr('disabled');
@@ -169,9 +164,13 @@ require(["modernizr",
                 loadingDynamicHbsTemplates(inquiryTypeValue);
             });
 
-            $(document).on('focusout blur', config.formInput, function(event) {
+            $(document).on('focusout', config.formInput, function(event) {
                 triggerParselyFormValidation(event.target);
                 event.target.value !== "" ? $('#inquiryForm #resetBtn').removeClass('disabled').removeAttr('disabled') : $('#inquiryForm #resetBtn').addClass('disabled').attr('disabled');
+            });
+
+            $(document).on('click', config.calendarIcon, function(event) {
+               $(config.pickDeliveryDateContainer).trigger('focus'); 
             });
         };
         return {

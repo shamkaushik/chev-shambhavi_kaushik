@@ -1,47 +1,43 @@
 .miip-prog-detail {
-	.page-title {
-			text-transform: none;
-	}
-	.prog-detail-table {
-		margin-top: 5px;
-	}
+  .sub-heading {
+    font-weight: normal;
+  }
+  .page-title {
+    text-transform: none;
+  }
+  .prog-detail-table {
+    margin-top: 5px;
+  }
+  .prog-return-view {
+    color: @brand-primary;
+  }
+  .amount-paid-column {
+    padding-right: 200px !important;
+  }
+}
 
-	.prog-return-view {
-		a {
-			color: #009dd9;
-		}
-	}
+@media (max-width: @screen-xs) {
+  .miip-prog-detail {
+    .fixed-table-body  {
+      .card-view .title {
+        word-wrap: break-word;
+        width: 50% !important;
+        min-width: 40%;
+      }
+      .card-view .value {
+        width: 50% !important;
+      }
+    }
+  }
+}
 
-	.bootstrap-table-cardview{
-		.table.table-no-bordered {
-			> tbody {
-				> tr {
-					> td {
-						> div:first-child {
-							background-color: @brand-primary !important;
-							color: #ffffff !important;
-							a{
-								color:#FFFFFF !important;
-							}
-						}
-					}
-				}
-			}
-		}
-		.card-view{
-			.title{
-				font-weight: normal;
-				display: inline-block;
-				width: 30%;
-				text-align: left !important;
-				vertical-align: top;
-			}
-			.value{
-				display: inline-block;
-				width: 65%;
-				margin-left:10px;
-			}
-		}
-	}
-
+@media (max-width: @screen-xs) {
+  .miip-prog-detail {
+    .js-sortbyDdn.form-group {
+      float: right !important;
+      .bootstrap-select {
+        width: auto !important;
+      }
+    }
+  }
 }
