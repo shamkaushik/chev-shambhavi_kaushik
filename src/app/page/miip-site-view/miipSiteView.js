@@ -244,7 +244,7 @@ require(["modernizr",
             var getTableData = function (payLoad) {
               $.when(triggerAjaxRequest(payLoad,cbp.miipSite.globalUrl.method, cbp.miipSite.globalUrl.searchURL,"application/json")).then(function(result) {
                 $(config.displaySpinner).hide();
-                $(config.searchDetailContainer).show();
+                //$(config.searchDetailContainer).show();
                 $(config.miipSiteSummaryContainer).show();
                 cbp.miipSite.miipSiteResponse = result.searchResult;
                 populateSummaryDataOnLoad();
