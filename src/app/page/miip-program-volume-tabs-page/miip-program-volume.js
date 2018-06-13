@@ -296,7 +296,7 @@ require(["modernizr",
 
         var loadingDynamicHbsTemplates = function() {
             $(config.programViewSummaryConatiner).html(compiledProgramViewSummary(cbp.miipProgramVolumeDetailPage));
-            $(config.programVolumeDetailsContainer).html(compiledProgramVolumeDetails());
+            $(config.programVolumeDetailsContainer).html(compiledProgramVolumeDetails(cbp.miipProgramVolumeDetailPage.globalVars));
             $(config.programViewContainer).html(compiledProgramView(cbp.miipProgramVolumeDetailPage));
             $(config.volumeViewContainer).html(compiledVolumeView(cbp.miipProgramVolumeDetailPage));
             $(config.programVolumeHeadingContainer).html(compiledProgramVolumeHeading(cbp.miipProgramVolumeDetailPage));
@@ -423,7 +423,7 @@ require(["modernizr",
                     field: 'salesMonth',
                     title: 'Sales Month',
                     sortable: true,
-                    class: 'numberIcon col-md-6',
+                    class: 'numberIcon',
                     formatter: function(row, value) {
                         return "<a href='#' class='js-volume-anchor sales-month' data-sales-month='" + row + "'>" + row + "</a>";
                     }
@@ -455,12 +455,11 @@ require(["modernizr",
                     }
                 }, {
                     field: 'reason',
-                    title: 'Reason'
+                    title: 'Reason',
+                    width: '20%'
                 }, {
                     field: 'status',
-                    title: 'Status',
-
-                    class: 'col-md-6',
+                    title: 'Status'
                 }],
                 data: volumeTableData
             });
