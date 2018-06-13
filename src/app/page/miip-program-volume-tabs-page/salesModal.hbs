@@ -29,13 +29,15 @@
                                   class="form-control sales-popup-input-text-large js-quantity-input mul-quantity text-right" value="0"></td>
                               <td><input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
                                   class="form-control sales-popup-input-text-large js-quantity-input pul-quantity text-right" value="0"></td>
-                              <td class="text-right"><span class="total-volume xs-mr-10">0</span></td>
+                              <td class="text-right"><span class="total-volume total-volume-field-style xs-mr-10">0</span></td>
                       </tr>
                     </tbody>
                 </table>
                 <div class="alert alert-danger add-new-volume-errors error-msg-container">
-                    <span class="alert-message hide total-vol-error">Total Volume should be greater than zero </span>
-                    <span class="alert-message hide">Please enter a valid date</span>
+                    <span class="alert-message error-msg-total-element hide">Total Volume should be greater than zero </span>                    
+                </div>
+                <div class="alert alert-danger add-new-volume-errors error-msg-container">
+                    <span class="alert-message error-msg-date-element hide"></span>
                 </div>
               </div>
               <div class="modal-footer">

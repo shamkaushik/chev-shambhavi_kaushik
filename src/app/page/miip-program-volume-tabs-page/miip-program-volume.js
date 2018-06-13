@@ -157,7 +157,6 @@ require(["modernizr",
                     isValidFields.push(true);
                 }
             });
-            console.log("isValidFields: ", isValidFields);
             //validating if any of the input fields are null then return false immediately
             for (var i = 0; i < isValidFields.length; i++) {
                 if (!isValidFields[i]) {
@@ -172,15 +171,20 @@ require(["modernizr",
 
         var validateSalesTotalVolume = function(e) {
             var isTotalValueValid = true;
+            var errorMsg = "Total Volume should be greater than zero";
+            var element = $(e.currentTarget).closest(".modal").find(".error-msg-total-element");
             if (parseInt($(config.totalVolume).text()) <= 0) {
                 isTotalValueValid = false;
                 $('.total-volume').addClass('has-error');
                 $('.total-vol-error').removeClass('hide');
-
+                //show error msg fields 
+                showErrorMessage(errorMsg, element, true);
             } else {
                 isTotalValueValid = true;
                 $('.total-volume').removeClass('has-error');
                 $('.total-vol-error').addClass('hide');
+                //hide error msg fields 
+                showErrorMessage(errorMsg, element, false);
             }
             return isTotalValueValid;
         };
@@ -191,6 +195,8 @@ require(["modernizr",
             var tableDataLength = tableData.length;
             var dateGreaterThanCurrentDate = false;
             var dateEqualTableDate = false;
+            var element = $(e.currentTarget).closest('.modal').find('.error-msg-date-element');
+            var errorMsg = "Please enter a valid date";
             //checking if user entered date is greater than or equal to the current date
             if (parseInt(userEnteredSalesYear) >= currentYear && parseInt(userEnteredSalesMonth) >= currentMonth + 1) {
                 dateGreaterThanCurrentDate = true;
@@ -203,13 +209,13 @@ require(["modernizr",
                     break;
                 }
             }
-            console.log("dateGreaterThanCurrentDate", dateGreaterThanCurrentDate);
-            console.log("dateEqualTableDate", dateEqualTableDate);
             if (dateGreaterThanCurrentDate || dateEqualTableDate) {
-                //highlight the fields and show the error span
+                //highlight the error msg fields 
+                showErrorMessage(errorMsg, element, true);
                 return false;
             } else {
-                //remove highlight of fields and hide the error span
+                //remove highlight of the error msg fields 
+                showErrorMessage(errorMsg, element, false);
                 return true;
             }
         };
@@ -219,16 +225,16 @@ require(["modernizr",
             var tableData = $('#volumeTable').bootstrapTable('getData');
             var userEnteredSalesMonth = $(e.currentTarget).closest(".modal").find(config.salesMonth).val();
             var userEnteredSalesYear = $(e.currentTarget).closest(".modal").find(config.salesYear).val();
-
-
+            var isSalesTotalValid = validateSalesTotalVolume(e);
+            var isSalesDateValid = validateSalesDate(e, tableData, userEnteredSalesMonth, userEnteredSalesYear);
             if (validateRequiredFields(e, inputFields)) {
-                (validateSalesTotalVolume(e) && validateSalesDate(e, tableData, userEnteredSalesMonth, userEnteredSalesYear)) ? isValidForm = true: isValidForm = false;
+                //(validateSalesTotalVolume(e) || validateSalesDate(e, tableData, userEnteredSalesMonth, userEnteredSalesYear)) ? isValidForm = true: isValidForm = false;
+                (isSalesTotalValid && isSalesDateValid) ? isValidForm = true: isValidForm = false;
             } else {
                 isValidForm = false;
             }
-
             return isValidForm;
-        }
+        };
 
         /* Saving the dispute */
         var saveDispute = function(e) {
@@ -263,6 +269,11 @@ require(["modernizr",
                 populatingTable(result, result.miipSiteColumnMapping);
                 loadingDynamicHbsTemplates();
             });
+        };
+
+        var showErrorMessage = function(errorMsg, element, displayError) {
+            element.text(errorMsg);
+            displayError ? element.removeClass('hide') : element.addClass('hide');
         };
 
         var triggerAjaxRequest = function(data, type, url) {
@@ -558,6 +569,8 @@ require(["modernizr",
             rulValue = 0, mulValue = 0, pulValue = 0;
             $(e.target.closest(".modal")).find('.js-quantity-input').val(0);
             $(e.target.closest(".modal")).find('.total-volume').text(0);
+            $(e.target.closest(".modal")).find('.total-volume-field-style').removeClass("has-error");
+            $(e.target.closest(".modal")).find('.error-msg-container span').addClass('hide');
         }
 
         var init = function() {
