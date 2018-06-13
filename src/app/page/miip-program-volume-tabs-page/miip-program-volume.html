@@ -18,6 +18,9 @@
             <div class="alert alert-success js-save-success hide">
                 <span class="alert-message">New Volume Saved Successfully</span>
             </div>
+            <div class="alert alert-danger js-save-failure hide">
+                <span class="alert-message">Sample error/warning message.</span>
+            </div>
             <div class="content-box miip-program-volume-page">
                 <div class="row">
                     <div class="overlay-wrapper">
@@ -141,7 +144,7 @@
                     "globalUrl": {
                       "miipSiteViewURL" : "/app/page/miip-site-view/miipSiteView.html",
                       "addNewVolumeURL" : "/assets/json/addNewVolumeResponse.json",
-                      "method" : "GET"
+                      "method" : "POST"
                      },
                     "globalVars": {
                         "disputeSuccessMsg": "Dispute successfully submitted.",

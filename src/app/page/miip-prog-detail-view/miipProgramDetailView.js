@@ -64,11 +64,19 @@ require(["modernizr",
             globalSortList = [{
                 key: "salesMonth-asc",
                 value: cbp.miipPrgDetailPage.globalVars.salesMonthAsc
-              }, {
-              key: "salesMonth-desc",
-              value: cbp.miipPrgDetailPage.globalVars.salesMonthDesc
-            }
-          ];
+            },
+            {
+                key: "salesMonth-desc",
+                value: cbp.miipPrgDetailPage.globalVars.salesMonthDesc
+            },
+            {
+                key: "paymentProcessingDate-asc",
+                value: cbp.miipPrgDetailPage.globalVars.paymentProcessingDateAsc
+            },
+            {
+                key: "paymentProcessingDate-desc",
+                value: cbp.miipPrgDetailPage.globalVars.paymentProcessingDateDesc
+            }];
 
         var sortListMap = globalSortList.reduce(function (data, globalSortList) {
             data[globalSortList.key] = globalSortList;
@@ -159,9 +167,10 @@ require(["modernizr",
                             class: 'numberIcon text-nowrap col-md-5',
                             width:"10%",
                             formatter: function LinkFormatter(value, row, index) {
-                                return "<a href='#' class='js-prg-billingDoc'>" + value + "</a>";
+                              if(value && value !="null"){
+                                  return "<a href='#' class='js-prg-billingDoc'>" + value + "</a>";
+                              }
                             }
-
                         }];
 
             var columnsListMap = columnsList.reduce(function (data, columnsList) {
@@ -184,13 +193,12 @@ require(["modernizr",
         };
 
         var populatingTable = function (miipProgramDetailDataList,columnsDataList) {
-          console.log("col",columnsDataList);
             $(config.sortByDdn).val("referenceDate-desc").selectpicker('refresh');
             $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
                 sortName: 'referenceDate',
-                sortOrder: 'desc',
+                sortOrder: 'asc',
                 iconsPrefix: 'fa',
                 sortable: true,
                 parentContainer: ".js-bottom-detail",

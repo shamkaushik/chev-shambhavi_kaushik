@@ -74,7 +74,7 @@ require(["modernizr",
             salesYear: ".sales-year",
             quantityInput: ".js-quantity-input",
             totalVolume: ".total-volume",
-
+            saveFailure: ".js-save-failure"
         };
 
         var srtByDdn = {
@@ -177,13 +177,13 @@ require(["modernizr",
                 isTotalValueValid = false;
                 $('.total-volume').addClass('has-error');
                 $('.total-vol-error').removeClass('hide');
-                //show error msg fields 
+                //show error msg fields
                 showErrorMessage(errorMsg, element, true);
             } else {
                 isTotalValueValid = true;
                 $('.total-volume').removeClass('has-error');
                 $('.total-vol-error').addClass('hide');
-                //hide error msg fields 
+                //hide error msg fields
                 showErrorMessage(errorMsg, element, false);
             }
             return isTotalValueValid;
@@ -198,7 +198,7 @@ require(["modernizr",
             var element = $(e.currentTarget).closest('.modal').find('.error-msg-date-element');
             var errorMsg = "Please enter a valid date";
             //checking if user entered date is greater than or equal to the current date
-            if (parseInt(userEnteredSalesYear) >= currentYear && parseInt(userEnteredSalesMonth) >= currentMonth + 1) {
+            if (parseInt(userEnteredSalesYear) === currentYear && parseInt(userEnteredSalesMonth) >= currentMonth + 1) {
                 dateGreaterThanCurrentDate = true;
             }
             for (var i = 0; i < tableDataLength; i++) {
@@ -210,11 +210,11 @@ require(["modernizr",
                 }
             }
             if (dateGreaterThanCurrentDate || dateEqualTableDate) {
-                //highlight the error msg fields 
+                //highlight the error msg fields
                 showErrorMessage(errorMsg, element, true);
                 return false;
             } else {
-                //remove highlight of the error msg fields 
+                //remove highlight of the error msg fields
                 showErrorMessage(errorMsg, element, false);
                 return true;
             }
@@ -263,11 +263,16 @@ require(["modernizr",
         };
 
         var saveNewSalesMonthVolume = function(data) {
-            $.when(triggerAjaxRequest(data, cbp.miipProgramVolumeDetailPage.globalUrl.method, cbp.miipProgramVolumeDetailPage.globalUrl.addNewVolumeURL)).then(function(result) {
+            $.when(triggerAjaxRequest(data, cbp.miipProgramVolumeDetailPage.globalUrl.method, cbp.miipProgramVolumeDetailPage.globalUrl.addNewVolumeURL)).then(function(result)
+            {
                 $(config.jsSaveSuccess).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.salesVolumeSuccessMsg);
                 $(config.displaySpinner).hide();
-                populatingTable(result, result.miipSiteColumnMapping);
                 loadingDynamicHbsTemplates();
+            },
+            function(failure) {
+                $(config.displaySpinner).hide();
+                $(config.saveFailure).removeClass('hide').find('span').text(failure.message);
+                $(config.jsSaveSuccess).addClass('hide');
             });
         };
 
@@ -519,7 +524,6 @@ require(["modernizr",
                 }
             });
 
-
             //calculating the total volume for dispute and disputed popup
             $(document).on('focusout', config.actualVol, function(event) {
                 rulValue = $(this).hasClass("rul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : rulValue = 0) : rulValue;
@@ -567,8 +571,6 @@ require(["modernizr",
             $(config.jsSaveError).hide();
             calculatedTotalValue = 0;
             rulValue = 0, mulValue = 0, pulValue = 0;
-            $(e.target.closest(".modal")).find('.js-quantity-input').val(0);
-            $(e.target.closest(".modal")).find('.total-volume').text(0);
             $(e.target.closest(".modal")).find('.total-volume-field-style').removeClass("has-error");
             $(e.target.closest(".modal")).find('.error-msg-container span').addClass('hide');
         }
