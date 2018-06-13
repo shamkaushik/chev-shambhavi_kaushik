@@ -159,11 +159,15 @@ require(["modernizr",
             });
             //validating if any of the input fields are null then return false immediately
             for (var i = 0; i < isValidFields.length; i++) {
+              var element = $(e.currentTarget).closest('.modal').find('.error-msg-required');
+              var errorMsg = "Fields highlighted in red should be required";
                 if (!isValidFields[i]) {
+                    showErrorMessage(errorMsg, element, true);
                     formIsRequired = false;
                     break;
                 } else {
                     formIsRequired = true;
+                    showErrorMessage(errorMsg, element, false);
                 }
             }
             return formIsRequired;
