@@ -93,6 +93,7 @@ require(["modernizr",
             countryUserDdnContainer: ".js-userCountry-ddn",
             soldToicon : ".soldToicon",
             searchDetailContainer: ".js-bottom-detail",
+            shiptoListContainer : ".shiptoListContainer",
             sortByDdnContainer: ".js-sortbyDdn",
             dropDownCommon: ".selectpicker",
             searchButton: "#ccsSearchBtn",
@@ -313,9 +314,19 @@ require(["modernizr",
                 populateSite($(config.soldToDropdownSelector).val());
             });
 
-            $(document).on('click',config.soldToicon,function(){
+            $(document).on('click',config.soldToicon,function(e){
                 if($(this).hasClass('down')==true){
-
+                    $(config.soldToicon+".down").addClass('active');
+                    $(config.soldToicon+".up").removeClass('active');
+                    $(this).removeClass('active').next().addClass('active');
+                    $(config.shiptoListContainer).addClass('hide');
+                    $('.shiptoContainer-'+$(this).data('index')).removeClass('hide');
+                }else{
+                    $(config.soldToicon+".down").addClass('active');
+                    $(config.soldToicon+".up").removeClass('active');
+                    $(this).removeClass('active').prev().addClass('active');
+                    $(config.shiptoListContainer).addClass('hide');
+                    $('.shiptoContainer-'+$(this).data('index')).addClass('hide');
                 }
             });
         };

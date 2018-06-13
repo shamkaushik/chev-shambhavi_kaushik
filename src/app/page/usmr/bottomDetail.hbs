@@ -16,16 +16,16 @@
             </div>
             <div class="col-md-20 col-xs-21">
               <div class="checkbox soldToSelectorCheckbox">
-                <input type="checkbox" name="soldtoSelctor" id="soldtoSelctor" data-soldToId="{{this.uid}}"/>
-                <label for="soldtoSelctor">{{this.displayName}}</label>
+                <input type="checkbox" name="soldtoSelctor" id="soldtoSelctor-{{this.uid}}" data-soldToId="{{this.uid}}"/>
+                <label for="soldtoSelctor-{{this.uid}}">{{this.displayName}}</label>
               </div>
-              <div class="row shhiptoContainer-{{@index}}">
+              <div class="row shiptoListContainer hide shiptoContainer-{{@index}}">
                 <label class="md-mr-15 xs-mr-10 md-mb-5 xs-mb-5">Associates Ship Tos</label>
                 {{#each this.associatedShiptos}}
                 <div class="col-xs-24 shipToIterator">
                   <div class="checkbox shipToSelectorCheckbox">
-                    <input type="checkbox" name="shipTotoSelctor" id="shipTotoSelctor" data-shipToId="{{this.uid}}"/>
-                    <label for="shipTotoSelctor">{{this.displayName}}</label>
+                    <input type="checkbox" name="shipTotoSelctor" id="shipTotoSelctor-{{this.uid}}" data-shipToId="{{this.uid}}"/>
+                    <label for="shipTotoSelctor-{{this.uid}}">{{this.displayName}}</label>
                   </div>
                 </div>
                 {{/each}}
