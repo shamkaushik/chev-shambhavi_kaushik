@@ -38,6 +38,7 @@ require(["modernizr",
         var isCalculatedTotalValValid = false;
         var calculatedTotalValue;
         var volumeDetailFormObj = {};
+        const calendarMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
         var config = {
             headerContainer: ".js-header",
@@ -50,6 +51,7 @@ require(["modernizr",
             volumeViewContainer: ".js-volume-view",
             programVolumeHeadingContainer: ".js-program-volume-heading",
             sortByDdnContainer: ".js-miip-sortbyDdn",
+            sortByDdnVolumeContainer: ".js-miip-sortbyDdn-volume",
             selectedTabs: '.content-tabs .nav-tabs a[data-toggle="tab"]',
             selectedDisputeLink: 'a[data-target="#disputeModal"]',
             salesModal: ".js-sales-modal",
@@ -79,11 +81,11 @@ require(["modernizr",
 
         var srtByDdn = {
             "options": [{
-                key: "status",
+                key: "status-asc",
                 value: "Status, A to Z",
                 id: 'status'
             }, {
-                key: "status",
+                key: "status-desc",
                 value: "Status, Z to A",
                 id: 'status'
             }],
@@ -91,6 +93,23 @@ require(["modernizr",
             //title: cbp.ohPage.globalVars.docDateAsc,
             labelClass: "xs-mr-5",
             name: "sortByDdn",
+            display: "displayInline"
+        };
+
+        var srtByDdnVolume = {
+            "options": [{
+                key: "salesMonth-asc",
+                value: "Sales Month, A to Z",
+                id: 'salesMonth'
+            }, {
+                key: "salesMonth-desc",
+                value: "Sales Month, Z to A",
+                id: 'salesMonth'
+            }],
+            label: "Sort by",
+            //title: cbp.ohPage.globalVars.docDateAsc,
+            labelClass: "xs-mr-5",
+            name: "sortByDdnVolume",
             display: "displayInline"
         };
 
@@ -301,6 +320,7 @@ require(["modernizr",
             $(config.volumeViewContainer).html(compiledVolumeView(cbp.miipProgramVolumeDetailPage));
             $(config.programVolumeHeadingContainer).html(compiledProgramVolumeHeading(cbp.miipProgramVolumeDetailPage));
             $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
+            $(config.sortByDdnVolumeContainer).html(compiledDefaultDdn(srtByDdnVolume));
             $(config.salesModal).html(compiledSalesModal());
             $(config.disputeModal).html(compiledDisputeModal());
             $(config.disputedModal).html(compiledDisputedModal());
@@ -413,9 +433,11 @@ require(["modernizr",
                 classes: 'table table-no-bordered',
                 striped: true,
                 iconsPrefix: 'fa',
+                sortable: true,
                 sortName: 'salesMonth',
-                sortOrder: 'desc',
-                parentContainer: ".js-program-view",
+                sortOrder: 'asc',
+                sortByDropdownId: "#sortByDdnVolume",
+                parentContainer: ".js-volume-view",
                 responsive: true,
                 responsiveBreakPoint: 768,
                 responsiveClass: "bootstrap-table-cardview",
@@ -424,9 +446,12 @@ require(["modernizr",
                     field: 'salesMonth',
                     title: 'Sales Month',
                     sortable: true,
-                    class: 'numberIcon',
+                    //class: 'numberIcon',
                     formatter: function(row, value) {
-                        return "<a href='#' class='js-volume-anchor sales-month' data-sales-month='" + row + "'>" + row + "</a>";
+                        var salesDate = new Date(row);
+                        var month = calendarMonths[salesDate.getMonth()];
+                        var year = salesDate.getFullYear();
+                        return "<a href='#' class='js-volume-anchor sales-month' data-sales-month='" + row + "'>" + month + " " + year + "</a>";
                     }
                 }, {
                     field: 'rul',
@@ -460,7 +485,8 @@ require(["modernizr",
                     width: '20%'
                 }, {
                     field: 'status',
-                    title: 'Status'
+                    title: 'Status',
+                    sortable: true
                 }],
                 data: volumeTableData
             });
