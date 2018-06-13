@@ -423,7 +423,7 @@ require(["modernizr",
                     field: 'salesMonth',
                     title: 'Sales Month',
                     sortable: true,
-                    class: 'numberIcon col-md-6',
+                    class: 'numberIcon',
                     formatter: function(row, value) {
                         return "<a href='#' class='js-volume-anchor sales-month' data-sales-month='" + row + "'>" + row + "</a>";
                     }
@@ -455,12 +455,11 @@ require(["modernizr",
                     }
                 }, {
                     field: 'reason',
-                    title: 'Reason'
+                    title: 'Reason',
+                    width: '20%'
                 }, {
                     field: 'status',
-                    title: 'Status',
-
-                    class: 'col-md-6',
+                    title: 'Status'
                 }],
                 data: volumeTableData
             });
