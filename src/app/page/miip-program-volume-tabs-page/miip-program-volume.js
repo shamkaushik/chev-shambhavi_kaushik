@@ -79,11 +79,11 @@ require(["modernizr",
 
         var srtByDdn = {
             "options": [{
-                key: "status",
+                key: "status-asc",
                 value: "Status, A to Z",
                 id: 'status'
             }, {
-                key: "status",
+                key: "status-desc",
                 value: "Status, Z to A",
                 id: 'status'
             }],

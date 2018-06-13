@@ -181,7 +181,34 @@
 
     .js-userStatus-ddn,.js-userCountry-ddn{
         width: 176px;
-    }
+	}
+	
+	.soldToHeader{
+		 background-color: #009dd9;
+		 height: 36px;
+		 color:#FFFFFF;
+		 line-height: 36px;
+	}
+
+	.soldToicon{
+		display:none;
+		margin-top: 12px;
+		color: #8c8f93;
+		cursor: pointer;
+		&.active{
+			display:block;
+		}
+	}
+
+	.iconContainerForRow{
+		min-height: 36px;
+	}
+
+	.soldToSelectorCheckbox{
+		label::before{
+			margin-right: 15px;
+		}
+	}
 }
 
 @media (min-width: @screen-md-max) {
