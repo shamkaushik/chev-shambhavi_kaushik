@@ -296,7 +296,7 @@ require(["modernizr",
 
         var loadingDynamicHbsTemplates = function() {
             $(config.programViewSummaryConatiner).html(compiledProgramViewSummary(cbp.miipProgramVolumeDetailPage));
-            $(config.programVolumeDetailsContainer).html(compiledProgramVolumeDetails());
+            $(config.programVolumeDetailsContainer).html(compiledProgramVolumeDetails(cbp.miipProgramVolumeDetailPage.globalVars));
             $(config.programViewContainer).html(compiledProgramView(cbp.miipProgramVolumeDetailPage));
             $(config.volumeViewContainer).html(compiledVolumeView(cbp.miipProgramVolumeDetailPage));
             $(config.programVolumeHeadingContainer).html(compiledProgramVolumeHeading(cbp.miipProgramVolumeDetailPage));

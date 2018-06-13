@@ -6,51 +6,51 @@
     </div>
     <div class="row">
         <div class="col-sm-6 xs-mb-15">
-            <span><strong>Sold To</strong></span><br/>
+            <span><strong>{{globalVars.soldTo}}</strong></span><br/>
             <span>{{programSummaryData.soldTo}}</span>
         </div>
         <div class="col-sm-6 col-sm-offset-2">
-            <span><strong>Site</strong></span><br/>
+            <span><strong>{{globalVars.site}}</strong></span><br/>
             <span>{{programSummaryData.site}}</span>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-24 col-sm-4 xs-mb-15 sm-mb-0">
-            <span><strong>Site Zone</strong></span><br/>
+            <span><strong>{{globalVars.siteZone}}</strong></span><br/>
             <span>{{programSummaryData.siteZone}}</span>
         </div>
         <div class="col-xs-24 col-sm-4 xs-mb-15 sm-mb-0">
-            <span><strong>Business Consultant</strong></span><br/>
+            <span><strong>{{globalVars.businessConsultant}}</strong></span><br/>
             <span>{{programSummaryData.businessConsultant}}</span>
         </div>
         <div class="col-xs-24 col-sm-4 xs-mb-15 sm-mb-0">
-            <span><strong>Thruput Method/ Equipment</strong></span><br/>
+            <span><strong>{{globalVars.thruput}}</strong></span><br/>
             <span>{{programSummaryData.thruput}}</span>
         </div>
         <div class="col-xs-24 col-sm-4 xs-mb-15 sm-mb-0">
-            <span><strong>Brand</strong></span><br/>
+            <span><strong>{{globalVars.brand}}</strong></span><br/>
             <span>{{programSummaryData.brand}}</span>
         </div>
         <div class="col-xs-24 col-sm-8 xs-mb-15 sm-mb-0">
             {{#if programView}}
                 <div class="text-right prog-right-summary-data">
                     <div class="md-pb-10">
-                        <span><strong>Total Paid (USD)</strong></span><span class="xs-ml-15">{{programSummaryData.totalPaid}}</span>
+                        <span><strong>{{globalVars.totalPaid}} (USD)</strong></span><span class="xs-ml-15">{{programSummaryData.totalPaid}}</span>
                     </div>
                     <div>
-                        <span><strong>Estimated Repayment Amount (USD)</strong></span><span class="xs-ml-15 ">{{programSummaryData.estimatedRepaymentAmount}}</span>
+                        <span><strong>{{globalVars.estimatedRepaymentAmount}} (USD)</strong></span><span class="xs-ml-15 ">{{programSummaryData.estimatedRepaymentAmount}}</span>
                     </div>
                 </div>
             {{else}}
                 <div class="text-right vol-right-summary-data">
                     <div class="md-pb-5">
-                        <span><strong>Total RUL (GA)</strong></span><span class="xs-ml-15">856,724</span>
+                        <span><strong>{{globalVars.rul}} (GA)</strong></span><span class="xs-ml-15">856,724</span>
                     </div>
                     <div class="md-pb-5">
-                        <span><strong>Total MUL (GA)</strong></span><span class="xs-ml-15">4,167,651</span>
+                        <span><strong>{{globalVars.mul}} (GA)</strong></span><span class="xs-ml-15">4,167,651</span>
                     </div>
                     <div>
-                        <span><strong>Total PUL (GA)</strong></span><span class="xs-ml-15">701,936</span>
+                        <span><strong>{{globalVars.pul}} (GA)</strong></span><span class="xs-ml-15">701,936</span>
                     </div>
                 </div>
             {{/if}}
