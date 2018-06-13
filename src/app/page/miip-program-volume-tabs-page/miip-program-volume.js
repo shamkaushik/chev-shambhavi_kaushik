@@ -64,21 +64,26 @@ require(["modernizr",
             prevTotal: ".prev-total",
             modal: '.modal',
             jsSaveSuccess: '.js-save-success',
-            programAnchor: ".js-program-anchor",
+            programAnchor: ".js-volume-anchor",
             soldTo: ".js-soldTo-summary",
             jsSaveError: ".js-save-error",
             saveDisputeBtn: ".js-save-dispute-btn",
             saveDisputedBtn: ".js-save-disputed-btn",
             saveNewSalesMonthBtn: ".js-save-new-sales-month",
+            salesMonth: ".sales-month",
+            salesYear: ".sales-year",
+            quantityInput: ".js-quantity-input",
+            totalVolume: ".total-volume",
+
         };
 
         var srtByDdn = {
             "options": [{
-                key: "status-za",
+                key: "status",
                 value: "Status, A to Z",
                 id: 'status'
             }, {
-                key: "status-az",
+                key: "status",
                 value: "Status, Z to A",
                 id: 'status'
             }],
@@ -139,39 +144,126 @@ require(["modernizr",
             }
         };
 
+        var validateRequiredFields = function(e, inputFields) {
+            var isValidFields = [];
+            var formIsRequired = true;
+            //checking if the the input fields values are empty
+            inputFields.each(function() {
+                if (!$(this).val()) {
+                    $(this).addClass('has-error');
+                    isValidFields.push(false);
+                } else {
+                    $(this).removeClass('has-error');
+                    isValidFields.push(true);
+                }
+            });
+            console.log("isValidFields: ", isValidFields);
+            //validating if any of the input fields are null then return false immediately
+            for (var i = 0; i < isValidFields.length; i++) {
+                if (!isValidFields[i]) {
+                    formIsRequired = false;
+                    break;
+                } else {
+                    formIsRequired = true;
+                }
+            }
+            return formIsRequired;
+        };
+
+        var validateSalesTotalVolume = function(e) {
+            var isTotalValueValid = true;
+            if (parseInt($(config.totalVolume).text()) <= 0) {
+                isTotalValueValid = false;
+                $('.total-volume').addClass('has-error');
+                $('.total-vol-error').removeClass('hide');
+
+            } else {
+                isTotalValueValid = true;
+                $('.total-volume').removeClass('has-error');
+                $('.total-vol-error').addClass('hide');
+            }
+            return isTotalValueValid;
+        };
+
+        var validateSalesDate = function(e, tableData, userEnteredSalesMonth, userEnteredSalesYear) {
+            var currentYear = new Date().getFullYear();
+            var currentMonth = new Date().getMonth();
+            var tableDataLength = tableData.length;
+            var dateGreaterThanCurrentDate = false;
+            var dateEqualTableDate = false;
+            //checking if user entered date is greater than or equal to the current date
+            if (parseInt(userEnteredSalesYear) >= currentYear && parseInt(userEnteredSalesMonth) >= currentMonth + 1) {
+                dateGreaterThanCurrentDate = true;
+            }
+            for (var i = 0; i < tableDataLength; i++) {
+                var month = moment().month(tableData[i].salesMonth).format("MM");
+                var year = tableData[i].salesMonth.split(" ")[1];
+                if (userEnteredSalesYear === year && userEnteredSalesMonth === month) {
+                    dateEqualTableDate = true;
+                    break;
+                }
+            }
+            console.log("dateGreaterThanCurrentDate", dateGreaterThanCurrentDate);
+            console.log("dateEqualTableDate", dateEqualTableDate);
+            if (dateGreaterThanCurrentDate && dateEqualTableDate) {
+                //highlight the fields and show the error span
+                return false;
+            } else {
+                //remove highlight of fields and hide the error span
+                return true;
+            }
+        };
+
+        var triggerAddSalesMonthValidations = function(e) {
+            var inputFields = $(e.currentTarget.closest('.modal')).find('input');
+            var tableData = $('#volumeTable').bootstrapTable('getData');
+            var userEnteredSalesMonth = $(e.currentTarget).closest(".modal").find(config.salesMonth).val();
+            var userEnteredSalesYear = $(e.currentTarget).closest(".modal").find(config.salesYear).val();
+
+
+            if (validateRequiredFields(e, inputFields)) {
+                (validateSalesTotalVolume(e) && validateSalesDate(e, tableData, userEnteredSalesMonth, userEnteredSalesYear)) ? isValidForm = true: isValidForm = false;
+            } else {
+                isValidForm = false;
+            }
+
+            return isValidForm;
+        }
+
         /* Saving the dispute */
         var saveDispute = function(e) {
-            //resetModal(e);
-            $(config.jsSaveSuccess).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.successMsg);
+            $(config.jsSaveSuccess).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.disputeSuccessMsg);
             $('.modal').modal('hide');
         };
 
-        var setSalesMonthPayload =  function () {
+        var setSalesMonthPayload = function(e) {
             var salesMonthVolumeObj = {};
             var headersDataObj = {};
-            headersObj.soldTo =  cbp.volumeSummaryData.soldTo;
-            headersObj.siteZone = cbp.volumeSummaryData.siteZone;
-            headersObj.businessConsultant = cbp.volumeSummaryData.businessConsultant;
-            headersObj.site = cbp.volumeSummaryData.site;
-            headersObj.thruput = cbp.volumeSummaryData.thruput;
-            salesMonthVolumeObj.headersData = headersObj;
+            headersDataObj.soldTo = volumeSummaryData.soldTo;
+            headersDataObj.siteZone = volumeSummaryData.siteZone;
+            headersDataObj.businessConsultant = volumeSummaryData.businessConsultant;
+            headersDataObj.site = volumeSummaryData.site;
+            headersDataObj.thruput = volumeSummaryData.thruput;
+            headersDataObj.brand = volumeSummaryData.brand;
+            salesMonthVolumeObj.headerData = headersDataObj;
+            salesMonthVolumeObj.month = $(e.target.closest(".modal")).find('.sales-month').val();
+            salesMonthVolumeObj.year = $(e.target.closest(".modal")).find('.sales-year').val();
+            salesMonthVolumeObj.mul = $(e.target.closest(".modal")).find('.mul-quantity').val();
+            salesMonthVolumeObj.rul = $(e.target.closest(".modal")).find('.rul-quantity ').val();
+            salesMonthVolumeObj.pul = $(e.target.closest(".modal")).find('.pul-quantity ').val();
+            salesMonthVolumeObj.total = $(e.target.closest(".modal")).find('.total-volume').text();
             saveNewSalesMonthVolume(salesMonthVolumeObj);
             console.log(salesMonthVolumeObj);
-          };
-          var saveNewSalesMonthVolume = function (data) {
-            $.when(triggerAjaxRequest(data,cbp.miipSite.globalUrl.method, cbp.miipSite.globalUrl.searchURL)).then(function(result) {
-            //  var totalResults =
-              $(config.displaySpinner).hide();
-              //$(config.searchDetailContainer).show();
-              //$(config.miipSiteSummaryContainer).show();
-            //  cbp.miipSite.miipSiteResponse = result;
+        };
 
-              setSummaryValues();
-              loadingDynamicHbsTemplates();
-            //  populatingTable(result, result.miipSiteColumnMapping );
-              leftPaneExpandCollapse.resetSearchFormHeight();
+        var saveNewSalesMonthVolume = function(data) {
+            $.when(triggerAjaxRequest(data, cbp.miipProgramVolumeDetailPage.globalUrl.method, cbp.miipProgramVolumeDetailPage.globalUrl.addNewVolumeURL)).then(function(result) {
+                $(config.jsSaveSuccess).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.salesVolumeSuccessMsg);
+                $(config.displaySpinner).hide();
+                populatingTable(result, result.miipSiteColumnMapping);
+                loadingDynamicHbsTemplates();
             });
-          };
+        };
 
         var triggerAjaxRequest = function(data, type, url) {
             $(config.displaySpinner).show();
@@ -204,7 +296,7 @@ require(["modernizr",
 
         var loadingDynamicHbsTemplates = function() {
             $(config.programViewSummaryConatiner).html(compiledProgramViewSummary(cbp.miipProgramVolumeDetailPage));
-            $(config.programVolumeDetailsContainer).html(compiledProgramVolumeDetails());
+            $(config.programVolumeDetailsContainer).html(compiledProgramVolumeDetails(cbp.miipProgramVolumeDetailPage.globalVars));
             $(config.programViewContainer).html(compiledProgramView(cbp.miipProgramVolumeDetailPage));
             $(config.volumeViewContainer).html(compiledVolumeView(cbp.miipProgramVolumeDetailPage));
             $(config.programVolumeHeadingContainer).html(compiledProgramVolumeHeading(cbp.miipProgramVolumeDetailPage));
@@ -235,60 +327,60 @@ require(["modernizr",
             });
         }
 
-        var getProgramCols = function(){
+        var getProgramCols = function() {
             var colsToShow = [];
             var programColsOrder = ['program', 'paymentStartDate', 'paymentEndDate', 'amortizationEndDate', 'totalPaid', 'estimatedRepaymentAmount', 'status']
-            var programColumnList =  [{
+            var programColumnList = [{
                     field: 'program',
                     title: 'Program',
                     class: 'text-wrap',
                     formatter: function(row, value) {
-                            if (value.status == 'Rollover') {
-                                return row;
-                            } else {
-                                return '<a href="" class="programAnchor">' + row + '</a>';
-                            }
+                        if (value.status == 'Rollover') {
+                            return row;
+                        } else {
+                            return '<a href="" class="programAnchor">' + row + '</a>';
                         }
-                    }, {
-                        field: 'paymentStartDate',
-                        title: 'Payment Start Date',
-                        class: 'text-wrap'
-                    }, {
-                        field: 'paymentEndDate',
-                        title: 'Payment End Date',
-                        class: 'text-wrap'
-                    }, {
-                        field: 'amortizationEndDate',
-                        title: 'Amortization End Date',
-                        class: 'text-wrap break-word',
-                    }, {
-                        field: 'totalPaid',
-                        title: 'Total Paid (USD)',
-                        class: 'text-right text-wrap '
-                    },
-                    {
-                        field: 'estimatedRepaymentAmount',
-                        title: 'Estimated Repayment Amount (USD)',
-                        class: 'text-right text-wrap'
-                    }, {
-                        field: 'status',
-                        title: 'Status',
-                        class: 'text-wrap',
-                        sortable: true
                     }
-                ];
+                }, {
+                    field: 'paymentStartDate',
+                    title: 'Payment Start Date',
+                    class: 'text-wrap'
+                }, {
+                    field: 'paymentEndDate',
+                    title: 'Payment End Date',
+                    class: 'text-wrap'
+                }, {
+                    field: 'amortizationEndDate',
+                    title: 'Amortization End Date',
+                    class: 'text-wrap break-word',
+                }, {
+                    field: 'totalPaid',
+                    title: 'Total Paid (USD)',
+                    class: 'text-right text-wrap '
+                },
+                {
+                    field: 'estimatedRepaymentAmount',
+                    title: 'Estimated Repayment Amount (USD)',
+                    class: 'text-right text-wrap'
+                }, {
+                    field: 'status',
+                    title: 'Status',
+                    class: 'text-wrap',
+                    sortable: true
+                }
+            ];
 
-            for(var i=0;i<programColsOrder.length;i++){
-                for(key in programColumnMapping){
-                    if(programColsOrder[i] == key && programColumnMapping[key]){
+            for (var i = 0; i < programColsOrder.length; i++) {
+                for (key in programColumnMapping) {
+                    if (programColsOrder[i] == key && programColumnMapping[key]) {
                         colsToShow.push(programColsOrder[i]);
                     }
                 }
             }
 
-            var programCols = colsToShow.map(function(value){
-                for(var i=0;i<programColumnList.length;i++){
-                    if(programColumnList[i].field === value){
+            var programCols = colsToShow.map(function(value) {
+                for (var i = 0; i < programColumnList.length; i++) {
+                    if (programColumnList[i].field === value) {
                         return programColumnList[i];
                     }
                 }
@@ -297,14 +389,15 @@ require(["modernizr",
             return programCols;
         }
 
-        var populateProgramTable = function(){
+        var populateProgramTable = function() {
             $('#programTable').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
                 iconsPrefix: 'fa',
-                sortName: 'status',
+                sortable: true,
                 sortOrder: 'asc',
                 sortName: 'status',
+                sortByDropdownId: "#sortByDdn",
                 parentContainer: ".js-program-view",
                 responsive: true,
                 responsiveBreakPoint: 768,
@@ -315,7 +408,7 @@ require(["modernizr",
             });
         }
 
-        var populateVolumeTable = function(){
+        var populateVolumeTable = function() {
             $('#volumeTable').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
@@ -331,9 +424,9 @@ require(["modernizr",
                     field: 'salesMonth',
                     title: 'Sales Month',
                     sortable: true,
-                    class: 'numberIcon col-md-6',
+                    class: 'numberIcon',
                     formatter: function(row, value) {
-                        return "<a href='#' class='js-program-anchor sales-month' data-sales-month='" + row + "'>" + row + "</a>";
+                        return "<a href='#' class='js-volume-anchor sales-month' data-sales-month='" + row + "'>" + row + "</a>";
                     }
                 }, {
                     field: 'rul',
@@ -355,9 +448,6 @@ require(["modernizr",
                             volumeRowArray.splice(index, 0, value);
                         }
                         var rowData = value;
-                        console.log("value:", volumeRowArray);
-                        console.log("row:", row);
-                        console.log("index:", index);
                         if (value.disputeVolume === 'Disputed') {
                             return '<a href="" data-toggle="modal" data-target="#disputedModal" data-index=' + index + '>' + row + '</a>'
                         } else {
@@ -366,12 +456,11 @@ require(["modernizr",
                     }
                 }, {
                     field: 'reason',
-                    title: 'Reason'
+                    title: 'Reason',
+                    width: '20%'
                 }, {
                     field: 'status',
-                    title: 'Status',
-
-                    class: 'col-md-6',
+                    title: 'Status'
                 }],
                 data: volumeTableData
             });
@@ -413,21 +502,31 @@ require(["modernizr",
             });
 
             $(document).on('click', config.saveNewSalesMonthBtn, function(e) {
-              triggerAddSalesMonthValidations();
-              setSalesMonthPayload();
+                var x = triggerAddSalesMonthValidations(e);
+                console.log("x is ", x);
+                if (x) {
+                    $('.modal').modal('hide');
+                    setSalesMonthPayload(event);
+                }
             });
 
 
+            //calculating the total volume for dispute and disputed popup
             $(document).on('focusout', config.actualVol, function(event) {
-                //rulValue = ($(this).hasClass("rul-val") && $(this).val()) ? parseFloat(event.currentTarget.value) : rulValue;
                 rulValue = $(this).hasClass("rul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : rulValue = 0) : rulValue;
                 mulValue = $(this).hasClass("mul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : mulValue = 0) : mulValue;
                 pulValue = $(this).hasClass("pul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : pulValue = 0) : pulValue;
-                // mulValue = ($(this).hasClass("mul-val") && $(this).val()) ? parseFloat(event.currentTarget.value) : mulValue;
-                // pulValue = ($(this).hasClass("pul-val") && $(this).val()) ? parseFloat(event.currentTarget.value) : pulValue;
                 calculatedTotalValue = rulValue + mulValue + pulValue;
-                console.log('calculatedTotalValue: ', calculatedTotalValue);
                 $(config.totalValue).text(calculatedTotalValue.toString());
+            });
+
+            //calculating the total volume for sales popup
+            $(document).on("focusout", config.quantityInput, function(e) {
+                var sum = 0;
+                $(config.quantityInput).each(function() {
+                    sum += Number($(this).val());
+                });
+                $(config.totalVolume).text(sum.toString());
             });
 
             $(document).on("click", config.programAnchor, function(e) {
@@ -435,26 +534,20 @@ require(["modernizr",
                 var saleMonth = $(e.target).attr('data-sales-month');
                 var salesMonthArr = saleMonth.split(" ");
                 volumeDetailFormObj.soldTo = programSummaryData.soldTo;
-                volumeDetailFormObj.siteZone =  programSummaryData.siteZone;
+                volumeDetailFormObj.siteZone = programSummaryData.siteZone;
                 volumeDetailFormObj.businessConsultant = programSummaryData.businessConsultant;
-                volumeDetailFormObj.site =  programSummaryData.site;
-                volumeDetailFormObj.thruput =  programSummaryData.thruput;
-                volumeDetailFormObj.brand =  programSummaryData.brand;
+                volumeDetailFormObj.site = programSummaryData.site;
+                volumeDetailFormObj.thruput = programSummaryData.thruput;
+                volumeDetailFormObj.brand = programSummaryData.brand;
                 volumeDetailFormObj.month = moment().month(salesMonthArr[0]).format("MM");
                 volumeDetailFormObj.year = salesMonthArr[1];
                 volumeDetailFormObj = JSON.stringify(volumeDetailFormObj);
                 $('#CBPMIIPVolumeDetailForm #volumeDetailFormData').val(volumeDetailFormObj);
                 $('#CBPMIIPVolumeDetailForm').submit();
             });
-            $(".modal").on("shown.bs.modal", function(e) {
-                // put your default event here
-                console.log("modal shown!");
-            });
+
             $(".modal").on("hidden.bs.modal", function(e) {
-                // put your default event here
-                console.log("hidden: ", e.target);
                 resetModal(e);
-                //$(e.target).html('');
             });
         }
 
@@ -465,7 +558,10 @@ require(["modernizr",
             $(config.jsSaveError).hide();
             calculatedTotalValue = 0;
             rulValue = 0, mulValue = 0, pulValue = 0;
+            $(e.target.closest(".modal")).find('.js-quantity-input').val(0);
+            $(e.target.closest(".modal")).find('.total-volume').text(0);
         }
+
         var init = function() {
             loadingInitialHbsTemplates();
             initalizingTables();
