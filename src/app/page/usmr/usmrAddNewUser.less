@@ -204,16 +204,51 @@
 		min-height: 36px;
 	}
 
-	.soldToSelectorCheckbox{
-		label::before{
-			margin-right: 15px;
+	bold{
+		font-weight: bold;
+	}
+
+	.rowIterator{
+		&:nth-child(even){
+			background-color: #f2f2f2;
 		}
 	}
 }
 
-@media (min-width: @screen-md-max) {
-	.ccs-page {
+@media (max-width: @screen-sm-max) {
+	.soldToSelectorCheckbox{
+		label {
+			&::before{
+				margin-right: 5px;
+			}
+		}
+	}
+
+	.shipToSelectorCheckbox{
+		label {
+			&::before{
+				margin-right: 5px;
+			}
+		}
 	}
 }
 
+
+@media (min-width: @screen-md-min) {
+	.soldToSelectorCheckbox{
+		label {
+			&::before{
+				margin-right: 15px;
+			}
+		}
+	}
+
+	.shipToSelectorCheckbox{
+		label {
+			&::before{
+				margin-right: 15px;
+			}
+		}
+	}
+}
 

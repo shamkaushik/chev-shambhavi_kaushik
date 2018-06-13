@@ -157,6 +157,34 @@
                 "displayName" : "Test Country"
             }];
 
+            var soldToOptions = [{
+                "uid": "0676334614",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
+                "associatedShiptos": [{
+                            "uid": "0676334615",
+                            "displayName": "XYZ Marketers Distribution, 123 Main Street, Anytown CA 94583",
+                            "isInGracePeriod" : true
+                        }, {
+                            "uid": "0912234461000",
+                            "displayName": "EFG Marketers Distribution, 123 Main Street, Anytown CA 94583"
+                        }, {
+                            "uid": "0176224612000",
+                            "displayName": "HIK Marketers Distribution, 123 Main Street, Anytown CA 94583"
+                        }, {
+                            "uid": "0116134113",
+                            "displayName": "LMN Marketers Distribution, 123 Main Street, Anytown CA 94583"
+                        }]
+            }, {
+                "uid": "0912234461",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "uid": "0176224612",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "uid": "0116134113",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }];
+
             var maxResultText = '<div>{0} EFTs matching your search were found in the system.</div>' +
                 '<div>Please refine your search to return less than 500 results.</div><br>' +
                 '<div><b>Suggestions:</b></div>' +
@@ -215,6 +243,7 @@
                         "stateProvince" : "State / Province",
                         "zipPostalCode" : "Zip/Postal Code",
                         "country" : "Country",
+                        "asSoldToShiptos" : "associated sold to/ship to",
                         "selectDdn": {
                             "noneSelectedText": "Nothing selected",
                             "noneResultsText": "No results for {0}",

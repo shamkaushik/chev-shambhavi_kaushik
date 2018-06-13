@@ -91,9 +91,7 @@ require(["modernizr",
             addNewUserFormContainer: ".js-usmr-userForm",
             statusUserDdnContainer : ".js-userStatus-ddn",
             countryUserDdnContainer: ".js-userCountry-ddn",
-            siteDdnContainer : ".js-site-ddn",
-            pyDdnContainer : ".js-py-ddn",
-            searchFormContainer: ".js-search-form",
+            soldToicon : ".soldToicon",
             searchDetailContainer: ".js-bottom-detail",
             sortByDdnContainer: ".js-sortbyDdn",
             dropDownCommon: ".selectpicker",
@@ -313,6 +311,12 @@ require(["modernizr",
 
             $(document).on('change',config.soldToDropdownSelector,function(){
                 populateSite($(config.soldToDropdownSelector).val());
+            });
+
+            $(document).on('click',config.soldToicon,function(){
+                if($(this).hasClass('down')==true){
+
+                }
             });
         };
 
@@ -605,6 +609,7 @@ require(["modernizr",
         cbp.usmrPageAddNew.showSoldTo = true;
 
         cbp.usmrPageAddNew.usmrUserData = usmrUserData;
+        cbp.usmrPageAddNew.soldToOptions = soldToOptions;
         // if (usmrUserData.resultCount === undefined || usmrUserData.resultCount === null) {
         //     cbp.usmrPageAddNew.usmrUserData.resultCount = 0;
         //     cbp.usmrPageAddNew.globalVars.eftsFoundVar = cbp.usmrPageAddNew.globalVars.eftsFound.replace("{0}", 0);
