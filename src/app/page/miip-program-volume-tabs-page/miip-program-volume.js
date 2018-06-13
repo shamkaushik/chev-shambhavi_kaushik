@@ -79,11 +79,11 @@ require(["modernizr",
 
         var srtByDdn = {
             "options": [{
-                key: "status-za",
+                key: "status",
                 value: "Status, A to Z",
                 id: 'status'
             }, {
-                key: "status-az",
+                key: "status",
                 value: "Status, Z to A",
                 id: 'status'
             }],
@@ -394,9 +394,10 @@ require(["modernizr",
                 classes: 'table table-no-bordered',
                 striped: true,
                 iconsPrefix: 'fa',
-                sortName: 'status',
+                sortable: true,
                 sortOrder: 'asc',
                 sortName: 'status',
+                sortByDropdownId: "#sortByDdn",
                 parentContainer: ".js-program-view",
                 responsive: true,
                 responsiveBreakPoint: 768,
