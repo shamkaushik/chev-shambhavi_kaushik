@@ -160,14 +160,13 @@ require(["modernizr",
             //validating if any of the input fields are null then return false immediately
             for (var i = 0; i < isValidFields.length; i++) {
               var element = $(e.currentTarget).closest('.modal').find('.error-msg-required');
-              var errorMsg = "Fields highlighted in red should be required";
                 if (!isValidFields[i]) {
-                    showErrorMessage(errorMsg, element, true);
+                    showErrorMessage(cbp.miipProgramVolumeDetailPage.globalVars.requiredFiledErrorMsg, element, true);
                     formIsRequired = false;
                     break;
                 } else {
                     formIsRequired = true;
-                    showErrorMessage(errorMsg, element, false);
+                    showErrorMessage(cbp.miipProgramVolumeDetailPage.globalVars.requiredFiledErrorMsg, element, false);
                 }
             }
             return formIsRequired;
@@ -175,53 +174,66 @@ require(["modernizr",
 
         var validateSalesTotalVolume = function(e) {
             var isTotalValueValid = true;
-            var errorMsg = "Total Volume should be greater than zero";
             var element = $(e.currentTarget).closest(".modal").find(".error-msg-total-element");
             if (parseInt($(config.totalVolume).text()) <= 0) {
                 isTotalValueValid = false;
                 $('.total-volume').addClass('has-error');
                 $('.total-vol-error').removeClass('hide');
                 //show error msg fields
-                showErrorMessage(errorMsg, element, true);
+                showErrorMessage(cbp.miipProgramVolumeDetailPage.globalVars.totalVolumeErrorMsg, element, true);
             } else {
                 isTotalValueValid = true;
                 $('.total-volume').removeClass('has-error');
                 $('.total-vol-error').addClass('hide');
                 //hide error msg fields
-                showErrorMessage(errorMsg, element, false);
+                showErrorMessage(cbp.miipProgramVolumeDetailPage.globalVars.totalVolumeErrorMsg, element, false);
             }
             return isTotalValueValid;
         };
 
-        var validateSalesDate = function(e, tableData, userEnteredSalesMonth, userEnteredSalesYear) {
-            var currentYear = new Date().getFullYear();
-            var currentMonth = new Date().getMonth();
-            var tableDataLength = tableData.length;
-            var dateGreaterThanCurrentDate = false;
-            var dateEqualTableDate = false;
-            var element = $(e.currentTarget).closest('.modal').find('.error-msg-date-element');
-            var errorMsg = "Please enter a valid date";
-            //checking if user entered date is greater than or equal to the current date
-            if (parseInt(userEnteredSalesYear) === currentYear && parseInt(userEnteredSalesMonth) >= currentMonth + 1) {
-                dateGreaterThanCurrentDate = true;
+        var isvalidSalesDate = function(e, tableData, userEnteredSalesMonth, userEnteredSalesYear) {
+          var element = $(e.currentTarget).closest('.modal').find('.error-msg-date-element');
+          if(isDateMatchingCurrentAndFutureMonth(userEnteredSalesMonth,userEnteredSalesYear) ||
+           isDateMatchingWithExistingData(userEnteredSalesMonth,userEnteredSalesYear,tableData) ||  userEnteredSalesMonth > 12)
+          {
+             showErrorMessage(cbp.miipProgramVolumeDetailPage.globalVars.validDateErrorMsg, element, true);
+              return false;
+          }
+          else {
+              showErrorMessage(cbp.miipProgramVolumeDetailPage.globalVars.validDateErrorMsg, element, false);
+              return true;
+          }
+        };
+
+        var isDateMatchingCurrentAndFutureMonth = function (userEnteredSalesMonth,userEnteredSalesYear) {
+          var currentYear = new Date().getFullYear();
+          var currentMonth = new Date().getMonth();
+            if(userEnteredSalesYear == currentYear) {
+              if(userEnteredSalesMonth != currentMonth+1 && userEnteredSalesMonth != currentMonth+2){
+                return false
+              }
             }
-            for (var i = 0; i < tableDataLength; i++) {
-                var month = moment().month(tableData[i].salesMonth).format("MM");
-                var year = tableData[i].salesMonth.split(" ")[1];
-                if (userEnteredSalesYear === year && userEnteredSalesMonth === month) {
-                    dateEqualTableDate = true;
-                    break;
-                }
+            else {
+              return false
             }
-            if (dateGreaterThanCurrentDate || dateEqualTableDate) {
-                //highlight the error msg fields
-                showErrorMessage(errorMsg, element, true);
-                return false;
-            } else {
-                //remove highlight of the error msg fields
-                showErrorMessage(errorMsg, element, false);
+            return true;
+        };
+
+        var isDateMatchingWithExistingData = function (userEnteredSalesMonth,userEnteredSalesYear,tableData) {
+          for (var i = 0; i<tableData.length;i++) {
+            var month = moment().month(tableData[i].salesMonth).format("MM");
+            var year = tableData[i].salesMonth.split(" ")[1];
+            if(userEnteredSalesYear == year) {
+              if(userEnteredSalesMonth == month) {
                 return true;
+                break;
+              }
             }
+            else {
+              return false;
+            }
+          }
+          return false;
         };
 
         var triggerAddSalesMonthValidations = function(e) {
@@ -230,9 +242,8 @@ require(["modernizr",
             var userEnteredSalesMonth = $(e.currentTarget).closest(".modal").find(config.salesMonth).val();
             var userEnteredSalesYear = $(e.currentTarget).closest(".modal").find(config.salesYear).val();
             var isSalesTotalValid = validateSalesTotalVolume(e);
-            var isSalesDateValid = validateSalesDate(e, tableData, userEnteredSalesMonth, userEnteredSalesYear);
+            var isSalesDateValid = isvalidSalesDate(e, tableData, userEnteredSalesMonth, userEnteredSalesYear);
             if (validateRequiredFields(e, inputFields)) {
-                //(validateSalesTotalVolume(e) || validateSalesDate(e, tableData, userEnteredSalesMonth, userEnteredSalesYear)) ? isValidForm = true: isValidForm = false;
                 (isSalesTotalValid && isSalesDateValid) ? isValidForm = true: isValidForm = false;
             } else {
                 isValidForm = false;
@@ -263,15 +274,15 @@ require(["modernizr",
             salesMonthVolumeObj.pul = $(e.target.closest(".modal")).find('.pul-quantity ').val();
             salesMonthVolumeObj.total = $(e.target.closest(".modal")).find('.total-volume').text();
             saveNewSalesMonthVolume(salesMonthVolumeObj);
-            console.log(salesMonthVolumeObj);
         };
 
-        var saveNewSalesMonthVolume = function(data) {
-            $.when(triggerAjaxRequest(data, cbp.miipProgramVolumeDetailPage.globalUrl.method, cbp.miipProgramVolumeDetailPage.globalUrl.addNewVolumeURL)).then(function(result)
+        var saveNewSalesMonthVolume = function(result) {
+            $.when(triggerAjaxRequest(result, cbp.miipProgramVolumeDetailPage.globalUrl.method, cbp.miipProgramVolumeDetailPage.globalUrl.addNewVolumeURL)).then(function(result)
             {
                 $(config.jsSaveSuccess).removeClass('hide').find('span').text(cbp.miipProgramVolumeDetailPage.globalVars.salesVolumeSuccessMsg);
                 $(config.displaySpinner).hide();
-                loadingDynamicHbsTemplates();
+                //loadingDynamicHbsTemplates();
+                //populateVolumeTable(result.rows,result.columnMapping);
             },
             function(failure) {
                 $(config.displaySpinner).hide();
@@ -527,7 +538,6 @@ require(["modernizr",
                     setSalesMonthPayload(event);
                 }
             });
-
             //calculating the total volume for dispute and disputed popup
             $(document).on('focusout', config.actualVol, function(event) {
                 rulValue = $(this).hasClass("rul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : rulValue = 0) : rulValue;
