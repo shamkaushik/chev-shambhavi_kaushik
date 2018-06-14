@@ -84,7 +84,6 @@ require(["modernizr",
             $(config.searchDetailContainer).html(compiledBottomDetail(cbp.miipSite));
             $(config.miipSiteSummaryContainer).html(compiledMiipSummary(cbp.miipSite));
             var sortDdnOptions = generatingOptions(cbp.miipSite.miipSiteResponse.miipSiteColumnMapping);
-            $(config.soldToDdnContainer).html(compiledDefaultDdn(cbp.miipSite.locationDropDown));
             srtByDdn["options"] = sortDdnOptions;
             $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
             $(config.sortByDdnContainer).find(config.dropDownCommon).selectpicker('refresh');
@@ -244,11 +243,10 @@ require(["modernizr",
             var getTableData = function (payLoad) {
               $.when(triggerAjaxRequest(payLoad,cbp.miipSite.globalUrl.method, cbp.miipSite.globalUrl.searchURL,"application/json")).then(function(result) {
                 $(config.displaySpinner).hide();
-                //$(config.searchDetailContainer).show();
+                $(config.searchDetailContainer).show();
                 $(config.miipSiteSummaryContainer).show();
                 cbp.miipSite.miipSiteResponse = result.searchResult;
                 populateSummaryDataOnLoad();
-                loadingDynamicHbsTemplates();
                 populatingTable(result.searchResult, result.searchResult.miipSiteColumnMapping);
                 leftPaneExpandCollapse.resetSearchFormHeight();
               });
@@ -385,7 +383,9 @@ require(["modernizr",
                   cbp.miipSite.globalVars.tableLocales.noMatches = cbp.miipSite.globalVars.noMatchesMaxResults.replace('{0}',  miipViewData.miipSiteViewDataList.length);
                   miipViewData.miipSiteViewDataList = [];
               }
+              loadingDynamicHbsTemplates();
           }
+
           else {
               miipViewData.miipSiteViewDataList = [];
           }
