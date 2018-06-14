@@ -30,6 +30,8 @@
                         </div>
                         <div class='bottom-detail js-bottom-detail'>
                         </div>
+                        <div class='bottom-detail js-permission-selection'>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -68,16 +70,9 @@
                 "soldTo" : "7901220, DISMACOR S.A. K 16 NRO 20-56, BUCARAMANGA, Colombia",
                 "region" : "America",
                 "language" : "English",
-                "cssSearchDataList": [{
-                    "eftNoticeNumber":"936710253",
-                    "noticeDate":"02-12-2016",
-                    "accountNumber":"7901220, DISMACOR S.A., K 16 NRO 20-56, BUCARAMANGA, Colombia",
-                    "settlementDate":"13-06-2016",
-                    "total": -8919237.0,
-                    "eftNoticeNumberId": "936710253",
-                    "downloaded": true,
-                    "printed": false,
-                    "displayTotal": "-8.919.237"
+                "permissionsDataList": [{
+                    "permission" : "1099 Report",
+                    "desc" : "Provides functionality for Customers to view and download their 1099 Report."
                 }],
                 "ccsSearchDataListMapping" : {
                     "status" : "EFT_EFTSTATUS_COLOUMN",
@@ -263,8 +258,8 @@
                         "singleOption": true
                     },
                     "globalUrl": {
-                        "eftSearchPostURL": "/assets/json/ccsSearch.json",
-                        "ccsFetchSiteURL" : "/assets/json/ccsSearch.json",
+                        "eftSearchPostURL": "/assets/json/permissionMR.json",
+                        "ccsFetchSiteURL" : "/assets/json/permissionMR.json",
                         "method": "GET"
                     },
                     "globalVars": {

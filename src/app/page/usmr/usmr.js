@@ -11,9 +11,10 @@ require(["modernizr",
     "text!app/components/dropdown/_defaultDdn.hbs",
     "text!app/page/usmr/searchForm.hbs",
     "text!app/page/usmr/addNewUserForm.hbs",
-    "text!app/page/usmr/bottomDetail.hbs"
+    "text!app/page/usmr/bottomDetail.hbs",
+    "text!app/page/usmr/permissionsSelection.hbs"
 
-], function (modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _addNewUserForm, _bottomDetailHBS) {
+], function (modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _addNewUserForm, _bottomDetailHBS, _permissionsSelection) {
 
     var statusUserDdnOptions = [],userCountryDddnOptions = [],siteDropdownOptions = [],pyDropdownOptions = [], eftObj = {},startDateDT = '',endDateDT = '';
 
@@ -25,6 +26,7 @@ require(["modernizr",
     var compiledsearchForm = Handlebars.compile(_searchFormHBS);
     var compiledUserForm = Handlebars.compile(_addNewUserForm);
     var compiledBottomDetail = Handlebars.compile(_bottomDetailHBS);
+    var compiledPermissionsSelection = Handlebars.compile(_permissionsSelection);
 
     var usmrPageAddNew = (function () {
         var startDate, endDate;
@@ -108,6 +110,7 @@ require(["modernizr",
             squareUnchecked: "fa-square-o",
             squareChecked: "fa-check-square-o",
             downloadIcon: ".iconsPrintDownload",
+            permissionSelection: ".js-permission-selection"
         };
 
         var init = function () {
@@ -142,8 +145,7 @@ require(["modernizr",
         var loadingDynamicHbsTemplates = function () {
             $(config.addNewUserFormContainer).html(compiledUserForm(cbp.usmrPageAddNew));
             $(config.searchDetailContainer).html(compiledBottomDetail(cbp.usmrPageAddNew));
-            $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
-            $(config.sortByDdnContainer).find(config.dropDownCommon).selectpicker('refresh');
+            $(config.permissionSelection).html(compiledPermissionsSelection(cbp.usmrPageAddNew));
             $(config.statusUserDdnContainer).html(compiledDefaultDdn(cbp.usmrPageAddNew.statusUserDdn));
             $(config.countryUserDdnContainer).html(compiledDefaultDdn(cbp.usmrPageAddNew.userCountryDddn));
             $(config.dropDownCommon).selectpicker('refresh');
@@ -209,7 +211,7 @@ require(["modernizr",
                 }
 
                 loadingDynamicHbsTemplates();
-                populatingTable(cbp.usmrPageAddNew.usmrUserData.cssSearchDataList,cbp.usmrPageAddNew.usmrUserData.ccsSearchDataListMapping);
+                populatingTable(cbp.usmrPageAddNew.usmrUserData.permissionsDataList);
                 leftPaneExpandCollapse.resetSearchFormHeight();
             }
 
@@ -364,151 +366,13 @@ require(["modernizr",
             });
         };
 
-        var generatingColumns = function (columnsDataList) {
-            console.log("columnsDataList >>>",columnsDataList);
-            var receivedOrderKey = Object.keys(columnsDataList).filter(function (key) {
-                if (columnsDataList[key]) {
-                    return columnsDataList[key];
-                }
-            });
-
-            var columnsList = [{
-                field: 'checkbox',
-                checkbox: true,
-                class: 'fa'
-            }, {
-                field: 'status',
-                title: cbp.usmrPageAddNew.globalVars.statustb,
-                titleTooltip: cbp.usmrPageAddNew.globalVars.statustb,
-                class: 'text-nowrap',
-                formatter: function LinkFormatter(value, row, index) {
-                    var downloadReport, printReport;
-                    var downloaded = "",
-                        printed = "";
-                    if (row.downloaded) {
-                        downloaded = "success-icon";
-                    }
-                    if (row.printed) {
-                        printed = "success-icon";
-                    }
-                    downloadReport = "<span class='fa fa-download iconsPrintDownload xs-pr-10 " + downloaded + "' data-eftNoticeNumberId='" + row.eftNoticeNumberId + "'>" + "</span>";
-                    printReport = "<span class='fa fa-print iconsEftPrint " + printed + "' data-eftNoticeNumberId='" + row.eftNoticeNumberId + "'>" + "</span>";
-                    return downloadReport + printReport;
-                }
-            },{
-                field: 'accountNumber',
-                title: cbp.usmrPageAddNew.globalVars.accountNumbertb,
-                titleTooltip: cbp.usmrPageAddNew.globalVars.accountNumbertb,
-                class: 'numberIcon col-md-6',
-                sortable: true
-            }, {
-                field: 'eftNoticeNumber',
-                title: cbp.usmrPageAddNew.globalVars.eftNoticeNumbertb,
-                titleTooltip: cbp.usmrPageAddNew.globalVars.eftNoticeNumbertb,
-                class: 'numberIcon',
-                sortable: true,
-                formatter: function LinkFormatter(value, row, index) {
-                        return "<a href='#' class='js-eft-NoticeNumber' data-uid='" + row.eftNoticeNumberId + "'>" + value + "</a>";
-                }
-            }, {
-                field: 'noticeDate',
-                title: cbp.usmrPageAddNew.globalVars.noticeDatetb,
-                titleTooltip: cbp.usmrPageAddNew.globalVars.noticeDatetb,
-                class: 'numberIcon text-nowrap',
-                sorter: function dateSort(a, b) {
-                    a = moment(a, cbp.usmrPageAddNew.dateRange.format, true).format();
-                    b = moment(b, cbp.usmrPageAddNew.dateRange.format, true).format();
-
-                    if (a < b) {
-                        return -1;
-                    }
-                    if (a > b) {
-                        return 1;
-                    }
-                    return 0;
-                },
-                sortable: true
-            }, {
-                field: 'settlementDate',
-                title: cbp.usmrPageAddNew.globalVars.settlementDatetb,
-                titleTooltip: cbp.usmrPageAddNew.globalVars.settlementDatetb,
-                class: 'numberIcon text-nowrap',
-                sortable: true
-            }, {
-                field: 'total',
-                title: cbp.usmrPageAddNew.globalVars.totaltb + " (" + eftSearchCurrency + ")",
-                titleTooltip: cbp.usmrPageAddNew.globalVars.totaltb + " (" + eftSearchCurrency + ")",
-                class: 'numberIcon text-nowrap',
-                sortable: true,
-                align: 'right',
-                sorter: function priceSort(a, b) {
-                    if (a !== null && b !== null) {
-                        a = parseFloat(a);
-                        b = parseFloat(b);
-                    }
-
-                    if (a < b) {
-                        return -1;
-                    }
-                    if (a > b) {
-                        return 1;
-                    }
-                    return 0;
-                },
-                formatter: function LinkFormatter(value, row, index) {
-                    return row.displayTotal;
-                }
-            }];
-
-            var columnsListMap = columnsList.reduce(function (data, columnsList) {
-                data[columnsList.field] = columnsList;
-                return data;
-            }, {});
-
-            var orderKey = ["checkbox", "status", "accountNumber", "eftNoticeNumber", "noticeDate", "settlementDate", "total"]
-
-            var requestedCol = [];
-            for (var i = 0; i < orderKey.length; i++) {
-                for (var j = 0; j < receivedOrderKey.length; j++) {
-                    if (orderKey[i] == receivedOrderKey[j]) {
-                        var k = orderKey[i];
-                        requestedCol.push(columnsListMap[k]);
-                    }
-                }
-
-            }
-
-            console.log("requestedCol >>>",requestedCol);
-
-            return requestedCol;
-
-        };
-
-        var populatingTable = function (eftSearchDataList,columnsDataList) {
-            var eftStatusCount = 0;
-            if (cbp.usmrPageAddNew.usmrUserData.eftSearchDataList === null) {
-                cbp.usmrPageAddNew.globalVars.tableLocales.noMatches = "";
-            } else if (cbp.usmrPageAddNew.usmrUserData.resultCount === 0) {
-//                cbp.usmrPageAddNew.globalVars.tableLocales.noMatches = cbp.usmrPageAddNew.globalVars.noMatches;
-            } else if (cbp.usmrPageAddNew.usmrUserData.resultCount > maxResults && allEftFlow != "true") {
-                cbp.usmrPageAddNew.globalVars.tableLocales.noMatches = cbp.usmrPageAddNew.globalVars.noMatchesMaxResults.replace('{0}', cbp.usmrPageAddNew.usmrUserData.resultCount);
-                eftSearchDataList = [];
-            }
-
-            if (eftSearchDataList === null || eftSearchDataList === undefined) {
-                eftSearchDataList = [];
-            }
-
-            $(config.sortByDdn).val("eftNoticeNumber-desc").selectpicker('refresh');
-
+        var populatingTable = function (dataList) {
            $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'eftNoticeNumber',
-                sortOrder: 'desc',
                 iconsPrefix: 'fa',
                 sortable: true,
-                parentContainer: ".js-bottom-detail",
+                parentContainer: ".js-permission-selection",
                 sortByDropdownId: "#sortByDdn",
                 responsive: true,
                 responsiveBreakPoint: 768,
@@ -550,8 +414,22 @@ require(["modernizr",
                     disablePrintDownloadButtons();
 
                 },
-                columns: generatingColumns(columnsDataList),
-                data: eftSearchDataList
+                columns: [{
+                    field: 'checkbox',
+                    checkbox: true,
+                    class: 'fa'
+                }, {
+                    field: 'permission',
+                    title: cbp.usmrPageAddNew.globalVars.statustb,
+                    titleTooltip: cbp.usmrPageAddNew.globalVars.statustb,
+                    class: 'text-nowrap',
+                },{
+                    field: 'description',
+                    title: cbp.usmrPageAddNew.globalVars.accountNumbertb,
+                    titleTooltip: cbp.usmrPageAddNew.globalVars.accountNumbertb,
+                    class: 'numberIcon col-md-6'
+                }],
+                data: dataList
             });
 
         };
@@ -621,21 +499,9 @@ require(["modernizr",
 
         cbp.usmrPageAddNew.usmrUserData = usmrUserData;
         cbp.usmrPageAddNew.soldToOptions = soldToOptions;
-        // if (usmrUserData.resultCount === undefined || usmrUserData.resultCount === null) {
-        //     cbp.usmrPageAddNew.usmrUserData.resultCount = 0;
-        //     cbp.usmrPageAddNew.globalVars.eftsFoundVar = cbp.usmrPageAddNew.globalVars.eftsFound.replace("{0}", 0);
-        // } else {
-        //     cbp.usmrPageAddNew.globalVars.eftsFoundVar = cbp.usmrPageAddNew.globalVars.eftsFound.replace("{0}", usmrUserData.resultCount);
-        // }
 
-        if (usmrUserData.eftSearchDataList === undefined || usmrUserData.eftSearchDataList === null) {
-            cbp.usmrPageAddNew.usmrUserData.eftSearchDataList = [];
-        }
-
-        if (cbp.usmrPageAddNew.usmrUserData.resultCount > 0 && cbp.usmrPageAddNew.usmrUserData.resultCount < maxResults) {
-            cbp.usmrPageAddNew.showDebitCredit = true;
-        } else {
-            cbp.usmrPageAddNew.showDebitCredit = false;
+        if (usmrUserData.permissionsDataList === undefined || usmrUserData.permissionsDataList === null) {
+            cbp.usmrPageAddNew.usmrUserData.permissionsDataList = [];
         }
 
         usmrPageAddNew.init();
