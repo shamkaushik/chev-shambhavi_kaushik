@@ -18,7 +18,7 @@ require(["modernizr",
 
     var miipProgDetailPage = (function () {
         var config = {
-            miipProgSummaryContainer: ".js-miisPrgDetailPage-summary",
+            miipProgSummaryContainer: ".js-miipPrgDetailPage-summary",
             searchDetailContainer: ".js-bottom-detail",
             tabelRow: "#table tbody tr",
             displaySpinner: ".overlay-wrapper",
@@ -26,12 +26,13 @@ require(["modernizr",
             topSummaryLeftSection: ".topSummaryLeftSection",
             sortByDdnContainer: ".js-sortbyDdn",
             sortByDdn: "#sortByDdn",
+            sortByDdnContainer: ".js-sortbyDdn",
         };
 
         var init = function () {
             loadingInitialHbsTemplates();
             bindEvents();
-            populatingTable(cbp.miisPrgDetailPage.miipProgDetailResponse.miisProgDetailDataList);
+            populatingTable(cbp.miipPrgDetailPage.miipProgDetailResponse.miipProgramDetailDataList , cbp.miipPrgDetailPage.miipProgDetailResponse.miipProgramDetailColumnMapping);
         };
         var loadingInitialHbsTemplates = function () {
             // Appending handlebar templates to HTML
@@ -41,64 +42,163 @@ require(["modernizr",
         };
 
         var loadingDynamicHbsTemplates = function () {
-            $(config.miipProgSummaryContainer).html(compiledMiipProgDetailSummary(cbp.miisPrgDetailPage));
-            $(config.searchDetailContainer).html(compiledBottomDetail(cbp.miisPrgDetailPage));
+            $(config.miipProgSummaryContainer).html(compiledMiipProgDetailSummary(cbp.miipPrgDetailPage));
+            $(config.searchDetailContainer).html(compiledBottomDetail(cbp.miipPrgDetailPage));
+
+            var sortDdnOptions = generatingOptions(miipProgDetailResponse.miipProgramDetailColumnMapping);
+            srtByDdn["options"] = sortDdnOptions;
             $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
+            $(config.sortByDdnContainer).find(config.dropDownCommon).selectpicker('refresh');
+            enableMobileDefaultDropDown();
+            $(config.dropDownCommon).selectpicker('refresh');
         };
+
+        var enableMobileDefaultDropDown = function() {
+            //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                $('.selectpicker').selectpicker('mobile');
+            }
+        };
+
+        var generatingOptions = function(data){
+            globalSortList = [{
+                key: "salesMonth-asc",
+                value: cbp.miipPrgDetailPage.globalVars.salesMonthAsc
+            },
+            {
+                key: "salesMonth-desc",
+                value: cbp.miipPrgDetailPage.globalVars.salesMonthDesc
+            },
+            {
+                key: "paymentProcessingDate-asc",
+                value: cbp.miipPrgDetailPage.globalVars.paymentProcessingDateAsc
+            },
+            {
+                key: "paymentProcessingDate-desc",
+                value: cbp.miipPrgDetailPage.globalVars.paymentProcessingDateDesc
+            }];
+
+        var sortListMap = globalSortList.reduce(function (data, globalSortList) {
+            data[globalSortList.key] = globalSortList;
+            return data;
+          }, {});
+
+
+        var sortKey = Object.keys(sortListMap).filter(function(key) {
+            if(sortListMap[key]){
+                return sortListMap[key];
+            }
+        });
+
+        var receivedOrderKey = Object.keys(data).filter(function(key) {
+            if(data[key]){
+            return data[key];
+            }
+        });
+
+        var fnCheck = function fnCheck(item) {
+          return receivedOrderKey.indexOf(item.replace(/\-(asc|desc)/, "")) != -1;
+        };
+
+        var requestedOptions = sortKey.filter(function (s) {
+          return fnCheck(s);
+        });
+
+        var optionDropdown = [];
+        for(i=0;i<requestedOptions.length;i++){
+            var k = requestedOptions[i];
+            optionDropdown.push(sortListMap[k]);
+        }
+            return optionDropdown;
+        }
 
         var bindEvents = function () {
             $(document).on('click',config.backtoProgView,function(){
-                window.location.href=cbp.miisPrgDetailPage.globalUrl.miisProgViewURL;
+                window.location.href=cbp.miipPrgDetailPage.globalUrl.miipProgViewURL;
             });
 
         };
 
-        var srtByDdn = {
-            "options": [{
-                key: "sales-Month-az",
-                value: "Sales Month, Ascending",
-                id: 'status'
-            },{
-                key: "sales-Month-za",
-                value: "Sales Month, Descending",
-                id: 'salesMonth'
-            },
-            {
-                key: "payment-processing-az",
-                value: "Payment Processing Date, Ascending",
-                id: 'status'
-            },
-            {
-                key: "payment-processing-za",
-                value: "Payment Processing Date, Descending",
-                id: 'paymentProcessing'
-            }],
-            label: "Sort By",
-            labelClass: "xs-mr-5",
-            name: "sortByDdn",
-            display: "displayInline"
+        var generatingColumns = function(columnsDataList) {
+          var receivedOrderKey = Object.keys(columnsDataList).filter(function(key){
+            if(columnsDataList[key]){
+              return columnsDataList[key];
+            }
+          });
+            var columnsList = [
+                        {
+                          class: 'fa',
+                        },
+                        {
+                            field: 'salesMonth',
+                            title: cbp.miipPrgDetailPage.globalVars.salesMonth,
+                            titleTooltip: cbp.miipPrgDetailPage.globalVars.salesMonth,
+                            width: "40%",
+                            class: 'text-nowrap numberIcon',
+                            sortable: true,
+                            width:"20%",
+                        },
+                        {
+                          field: 'paymentProcessingDate',
+                          title: cbp.miipPrgDetailPage.globalVars.paymentProcessingDate,
+                          titleTooltip: cbp.miipPrgDetailPage.globalVars.paymentProcessingDate,
+                          width:"20%",
+                          sortable:true,
+                          class: 'text-nowrap numberIcon',
+
+                        }, {
+                            field: 'amountPaid',
+                            title: cbp.miipPrgDetailPage.globalVars.amountPaid + " (" + cbp.miipPrgDetailPage.miipProgDetailResponse.currency+ ")",
+                            titleTooltip: cbp.miipPrgDetailPage.globalVars.amountPaid + " (" + cbp.miipPrgDetailPage.miipProgDetailResponse.currency+ ")",
+                            align:'right',
+                            width:"10%",
+                            class: 'amount-paid-column',
+                        }, {
+                            field: 'jiipInvoiceNumber',
+                            title: cbp.miipPrgDetailPage.globalVars.invoice,
+                            titleTooltip: cbp.miipPrgDetailPage.globalVars.invoice,
+                            class: 'numberIcon text-nowrap',
+                            width:"20%",
+
+                        }, {
+                            field: 'billingDocument',
+                            title: cbp.miipPrgDetailPage.globalVars.billingDoc,
+                            titleTooltip: cbp.miipPrgDetailPage.globalVars.billingDoc,
+                            class: 'numberIcon text-nowrap col-md-5',
+                            width:"10%",
+                            formatter: function LinkFormatter(value, row, index) {
+                              if(value && value !="null"){
+                                  return "<a href='#' class='js-prg-billingDoc'>" + value + "</a>";
+                              }
+                            }
+                        }];
+
+            var columnsListMap = columnsList.reduce(function (data, columnsList) {
+            data[columnsList.field] = columnsList;
+            return data;
+            }, {});
+            var orderKey = [ "salesMonth", "paymentProcessingDate", "amountPaid", "jiipInvoiceNumber", "billingDocument"]
+
+            var requestedCol = [];
+            for(var i = 0; i< orderKey.length; i++){
+                for(var j = 0; j<receivedOrderKey.length; j++){
+                    if(orderKey[i]==receivedOrderKey[j])
+                    {
+                        var k = orderKey[i];
+                        requestedCol.push(columnsListMap[k]);
+                    }
+                }
+            }
+            return requestedCol;
         };
 
-        var populatingTable = function (miisProgDetailDataList) {
-            if (cbp.miisPrgDetailPage.miipProgDetailResponse.miisProgDetailDataList === null) {
-                cbp.miisPrgDetailPage.globalVars.tableLocales.noMatches = "";
-            } else if (cbp.miisPrgDetailPage.miipProgDetailResponse.resultCount === 0) {
-                cbp.miisPrgDetailPage.globalVars.tableLocales.noMatches = cbp.miisPrgDetailPage.globalVars.noMatches;
-            } else if (cbp.miisPrgDetailPage.miipProgDetailResponse.resultCount > maxResults) {
-                cbp.miisPrgDetailPage.globalVars.tableLocales.noMatches = cbp.miisPrgDetailPage.globalVars.noMatchesMaxResults.replace('{0}', cbp.miisPrgDetailPage.miipProgDetailResponse.resultCount);
-                miisProgDetailDataList = [];
-            }
-
-            if (miisProgDetailDataList === null || miisProgDetailDataList === undefined) {
-                miisProgDetailDataList = [];
-           }
+        var populatingTable = function (miipProgramDetailDataList,columnsDataList) {
             $(config.sortByDdn).val("referenceDate-desc").selectpicker('refresh');
-
             $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
                 sortName: 'referenceDate',
-                sortOrder: 'desc',
+                sortOrder: 'asc',
                 iconsPrefix: 'fa',
                 sortable: true,
                 parentContainer: ".js-bottom-detail",
@@ -107,46 +207,8 @@ require(["modernizr",
                 responsiveBreakPoint: 768,
                 sortName: 'salesMonth',
                 responsiveClass: "bootstrap-table-cardview",
-                columns: [{
-                    field: 'salesMonth',
-                    title: cbp.miisPrgDetailPage.globalVars.salesMonth,
-                    titleTooltip: cbp.miisPrgDetailPage.globalVars.salesMonth,
-                    class: 'text-nowrap numberIcon',
-                    sortable: true,
-                    width:"20%",
-
-                },{
-                    field: 'paymentProcessingDate',
-                    title: cbp.miisPrgDetailPage.globalVars.paymentProcessingDate,
-                    titleTooltip: cbp.miisPrgDetailPage.globalVars.paymentProcessingDate,
-                    width:"20%",
-                    sortable:true,
-                    class: 'text-nowrap numberIcon',
-                }, {
-                    field: 'amountPaid',
-                    title: cbp.miisPrgDetailPage.globalVars.amountPaid + " (" + cbp.miisPrgDetailPage.miipProgDetailResponse.miipProgDetailsData.currency+ ")",
-                    titleTooltip: cbp.miisPrgDetailPage.globalVars.amountPaid + " (" + cbp.miisPrgDetailPage.miipProgDetailResponse.miipProgDetailsData.currency+ ")",
-                    align:'right',
-                    width:"10%",
-                    class: 'amount-paid-column',
-                }, {
-                    field: 'invoice',
-                    title: cbp.miisPrgDetailPage.globalVars.invoice,
-                    titleTooltip: cbp.miisPrgDetailPage.globalVars.invoice,
-                    class: 'numberIcon text-nowrap',
-                    width:"20%",
-
-                }, {
-                    field: 'billingDoc',
-                    title: cbp.miisPrgDetailPage.globalVars.billingDoc,
-                    titleTooltip: cbp.miisPrgDetailPage.globalVars.billingDoc,
-                    class: 'numberIcon text-nowrap col-md-5',
-                    width:"10%",
-                    formatter: function LinkFormatter(value, row, index) {
-                        return "<a href='#' class='js-prg-billingDoc'>" + value + "</a>";
-                    }
-                }],
-                data: miisProgDetailDataList
+                columns: generatingColumns(columnsDataList),
+                data: miipProgramDetailDataList
             });
         };
         return {
@@ -158,46 +220,46 @@ require(["modernizr",
         // Localization setup for dropdown & table
         $.fn.bootstrapTable.locales = {
             formatLoadingMessage: function () {
-                return cbp.miisPrgDetailPage.globalVars.tableLocales.loadingMessage;
+                return cbp.miipPrgDetailPage.globalVars.tableLocales.loadingMessage;
             },
             formatRecordsPerPage: function (pageNumber) {
-                return cbp.miisPrgDetailPage.globalVars.tableLocales.recordsPerPage.replace('{0}', pageNumber);
+                return cbp.miipPrgDetailPage.globalVars.tableLocales.recordsPerPage.replace('{0}', pageNumber);
             },
             formatShowingRows: function (pageFrom, pageTo, totalRows) {
-                return cbp.miisPrgDetailPage.globalVars.tableLocales.showingRows.replace('{0}', pageFrom).replace('{1}', pageTo).replace('{2}', totalRows);
+                return cbp.miipPrgDetailPage.globalVars.tableLocales.showingRows.replace('{0}', pageFrom).replace('{1}', pageTo).replace('{2}', totalRows);
             },
             formatSearch: function () {
-                return cbp.miisPrgDetailPage.globalVars.tableLocales.search;
+                return cbp.miipPrgDetailPage.globalVars.tableLocales.search;
             },
             formatNoMatches: function () {
-                return cbp.miisPrgDetailPage.globalVars.tableLocales.noMatches;
+                return cbp.miipPrgDetailPage.globalVars.tableLocales.noMatches;
             },
             formatPaginationSwitch: function () {
-                return cbp.miisPrgDetailPage.globalVars.tableLocales.paginationSwitch;
+                return cbp.miipPrgDetailPage.globalVars.tableLocales.paginationSwitch;
             },
             formatRefresh: function () {
-                return cbp.miisPrgDetailPage.globalVars.tableLocales.refresh;
+                return cbp.miipPrgDetailPage.globalVars.tableLocales.refresh;
             },
             formatToggle: function () {
-                return cbp.miisPrgDetailPage.globalVars.tableLocales.toggle;
+                return cbp.miipPrgDetailPage.globalVars.tableLocales.toggle;
             },
             formatColumns: function () {
-                return cbp.miisPrgDetailPage.globalVars.tableLocales.columns;
+                return cbp.miipPrgDetailPage.globalVars.tableLocales.columns;
             },
             formatAllRows: function () {
-                return cbp.miisPrgDetailPage.globalVars.tableLocales.allRows;
+                return cbp.miipPrgDetailPage.globalVars.tableLocales.allRows;
             }
         };
         $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
-        cbp.miisPrgDetailPage.miipProgDetailResponse = miipProgDetailResponse;
-        if (miipProgDetailResponse.miisProgDetailDataList === undefined || miipProgDetailResponse.miisProgDetailDataList === null) {
-            cbp.miisPrgDetailPage.miipProgDetailResponse.miisProgDetailDataList = [];
+        cbp.miipPrgDetailPage.miipProgDetailResponse = miipProgDetailResponse;
+        if (miipProgDetailResponse.miipProgramDetailDataList === undefined || miipProgDetailResponse.miipProgramDetailDataList === null) {
+            cbp.miipPrgDetailPage.miipProgDetailResponse.miipProgramDetailDataList = [];
         }
 
-        if (cbp.miisPrgDetailPage.miipProgDetailResponse.resultCount > 0 && cbp.miisPrgDetailPage.miipProgDetailResponse.resultCount < maxResults) {
-            cbp.miisPrgDetailPage.showDebitCredit = true;
+        if (cbp.miipPrgDetailPage.miipProgDetailResponse.resultCount > 0 && cbp.miipPrgDetailPage.miipProgDetailResponse.resultCount < maxResults) {
+            cbp.miipPrgDetailPage.showDebitCredit = true;
         } else {
-            cbp.miisPrgDetailPage.showDebitCredit = false;
+            cbp.miipPrgDetailPage.showDebitCredit = false;
         }
         miipProgDetailPage.init();
     });

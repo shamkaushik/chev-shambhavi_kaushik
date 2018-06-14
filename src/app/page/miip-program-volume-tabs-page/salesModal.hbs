@@ -6,7 +6,7 @@
                 <h4 class="modal-title" id="addSalesModalLabel">Add New Sales Month Volume</h4>
             </div>
             <div class="modal-body">
-                <table data-toggle="table" id="addSalesTable">
+                <table data-toggle="table" id="addSalesTable" class="table">
                     <thead>
                         <tr>
                             <th>Sales Month</th>
@@ -19,21 +19,28 @@
                     <tbody>
                         <tr>
                             <td>
-                                <input type="text" class="form-control pull-left xs-mr-5 sales-popup-input-text-small" placeholder="MM"> 
-                                <input type="text" class="form-control sales-popup-input-text-medium" placeholder="YYYY">
+                              <input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control pull-left xs-mr-5 sales-popup-input-text-small sales-month text-right" placeholder="MM" maxlength="2" >
+                              <input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control sales-popup-input-text-medium sales-year text-right" placeholder="YYYY" maxlength="4">
                             </td>
-                            <td><input type="text" class="form-control sales-popup-input-text-large"></td>
-                            <td><input type="text" class="form-control sales-popup-input-text-large"></td>
-                            <td><input type="text" class="form-control sales-popup-input-text-large"></td>
-                            <td>-</td>
+                              <td><input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                class="form-control sales-popup-input-text-large js-quantity-input rul-quantity text-right"></td>
+                              <td><input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                  class="form-control sales-popup-input-text-large js-quantity-input mul-quantity text-right"></td>
+                              <td><input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                  class="form-control sales-popup-input-text-large js-quantity-input pul-quantity text-right"></td>
+                              <td class="text-right"><span class="total-volume total-volume-field-style xs-mr-10"></span></td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn clos-btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary save-btn">Save</button>
-            </div>
-        </div>
+                <div class="alert alert-danger error-msg-container ">
+                    <span class="alert-message error-msg-total-element xs-pb-5 hide"></span>
+                    <span class="alert-message error-msg-date-element xs-pb-5 hide"></span>
+                    <span class="alert-message error-msg-required xs-pb-5 hide"></span>
+                </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn clos-btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-primary js-save-new-sales-month">Save</button>
+              </div>
+      </div>
     </div>
 </div>

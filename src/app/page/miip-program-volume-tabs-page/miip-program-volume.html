@@ -16,7 +16,10 @@
         </main>
         <section class='main-container'>
             <div class="alert alert-success js-save-success hide">
-                <span class="alert-message"></span>
+                <span class="alert-message">New Volume Saved Successfully</span>
+            </div>
+            <div class="alert alert-danger js-save-failure hide">
+                <span class="alert-message">Sample error/warning message.</span>
             </div>
             <div class="content-box miip-program-volume-page">
                 <div class="row">
@@ -54,6 +57,17 @@
             var isASM = false;
 
             var programSummaryData = {
+                soldTo: '7063485 Cain Petroleum Incorporated, 4512 Sw Kelly Portland, OR 97239, United States',
+                site: '209902 Cain Petroleum Incorporated, Glastone, 830 East Berkley, United States',
+                siteZone: '4A',
+                businessConsultant: 'Kevin Maloney',
+                thruput: 'R/Wincor Beetle MI',
+                brand: 'Chevron',
+                totalPaid: '4,167,651',
+                estimatedRepaymentAmount: '701,936'
+            };
+
+            var volumeSummaryData = {
                 soldTo: '7063485 Cain Petroleum Incorporated, 4512 Sw Kelly Portland, OR 97239, United States',
                 site: '209902 Cain Petroleum Incorporated, Glastone, 830 East Berkley, United States',
                 siteZone: '4A',
@@ -103,7 +117,8 @@
                     status: ''
                 }, {
                     salesMonth: 'Sept 2017',
-                    rul: '1234567890,1234567890,1234567890,1234567890',
+                    //rul: '1234567890,1234567890,1234567890,1234567890',
+                    rul: '1234567890',
                     mul: '90,123',
                     pul: '69,279',
                     total: '192,105',
@@ -127,11 +142,33 @@
                     "programView": true,
                     "programSummaryData": programSummaryData,
                     "globalUrl": {
-
-                    },
+                      "miipSiteViewURL" : "/app/page/miip-site-view/miipSiteView.html",
+                      "addNewVolumeURL" : "/assets/json/addNewVolumeResponse.json",
+                      "method" : "POST"
+                     },
                     "globalVars": {
-                        "successMsg": "Dispute successfully submitted.",
-                        "volumeWholeNoErrorMsg": "Volume must be a whole number (Example:  50000)"
+                        "disputeSuccessMsg": "Dispute successfully submitted.",
+                        "salesVolumeSuccessMsg" : "Sales Volume Successfully Submitted",
+                        "volumeWholeNoErrorMsg": "Volume must be a whole number (Example:  50000)",
+                        "returnToSiteView": "Return to Site View",
+                        "print" : "Print",
+                        "miipProgramViewSummary": "MIIP program view summary",
+                        "programTabTitle": "program view",
+                        "volumeTabTitle": "Volume View",
+                        "soldTo": "Sold To",
+                        "site": "Site",
+                        "siteZone": "Site Zone",
+                        "businessConsultant": "Business Consultant",
+                        "thruput": "Thruput Method/ Equipment",
+                        "brand": "Brand",
+                        "totalPaid": "Total Paid",
+                        "estimatedRepaymentAmount": "Estimated Repayment Amount",
+                        "rul": "Rul",
+                        "mul": "Mul",
+                        "pul": "Pul",
+                        "requiredFiledErrorMsg" :"Fields highlighted in red should be required",
+                        "totalVolumeErrorMsg" :"Total Volume should be greater than zero",
+                        "validDateErrorMsg" : "Please enter a valid date"
                     }
                 }
             }
