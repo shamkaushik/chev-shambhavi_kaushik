@@ -374,7 +374,7 @@ require(["modernizr",
                 sortable: true,
                 parentContainer: ".js-permission-selection",
                 sortByDropdownId: "#sortByDdn",
-                responsive: true,
+                responsive: false,
                 responsiveBreakPoint: 768,
                 responsiveClass: "bootstrap-table-cardview",
                 onCheck: function (row, $element) {
