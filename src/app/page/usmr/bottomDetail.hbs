@@ -1,38 +1,40 @@
-<div class="row tableContainer">
-    <div class="col-xs-24 md-mb-15 xs-mb-15">
-      <span class="sub-heading">{{globalVars.asSoldToShiptos}}</span>
-    </div>
-    <div class="col-xs-24">
-      <div class="row soldToHeader">
-          <div class="col-md-1 hidden-xs hidden-sm">&nbsp;</div>
-          <div class="col-md-22 col-xs-24">Sold To</div>
+<div class="col-xs-24">
+  <div class="row tableContainer">
+      <div class="col-xs-24 md-mb-15 xs-mb-15">
+        <span class="sub-heading">{{globalVars.asSoldToShiptos}}</span>
       </div>
-      <div class="row">
-        {{#each soldToOptions}}
-          <div class="row rowIterator">
-            <div class="col-md-1 col-xs-1 iconContainerForRow md-mr-5 xs-mr-20">
-                <div class="col-md-4 fa fa-chevron-down soldToicon down active md-ml-10 xs-ml-10" data-index="{{@index}}"></div>
-                <div class="col-md-4 fa fa-chevron-up soldToicon up md-ml-10 xs-ml-10" data-index="{{@index}}"></div>
-            </div>
-            <div class="col-md-20 col-xs-21">
-              <div class="checkbox soldToSelectorCheckbox">
-                <input type="checkbox" name="soldtoSelctor" id="soldtoSelctor-{{this.uid}}" data-soldToId="{{this.uid}}"/>
-                <label for="soldtoSelctor-{{this.uid}}">{{this.displayName}}</label>
+      <div class="col-xs-24">
+        <div class="row soldToHeader">
+            <div class="col-md-1 hidden-xs hidden-sm">&nbsp;</div>
+            <div class="col-md-22 col-xs-24">Sold To</div>
+        </div>
+        <div class="row">
+          {{#each soldToOptions}}
+            <div class="row rowIterator">
+              <div class="col-md-1 col-xs-1 iconContainerForRow md-mr-5 xs-mr-20">
+                  <div class="col-md-4 fa fa-chevron-down soldToicon down active md-ml-10 xs-ml-10" data-index="{{@index}}"></div>
+                  <div class="col-md-4 fa fa-chevron-up soldToicon up md-ml-10 xs-ml-10" data-index="{{@index}}"></div>
               </div>
-              <div class="row shiptoListContainer hide shiptoContainer-{{@index}}">
-                <label class="md-mr-15 xs-mr-10 md-mb-5 xs-mb-5">Associates Ship Tos</label>
-                {{#each this.associatedShiptos}}
-                <div class="col-xs-24 shipToIterator">
-                  <div class="checkbox shipToSelectorCheckbox">
-                    <input type="checkbox" name="shipTotoSelctor" id="shipTotoSelctor-{{this.uid}}" data-shipToId="{{this.uid}}"/>
-                    <label for="shipTotoSelctor-{{this.uid}}">{{this.displayName}}</label>
-                  </div>
+              <div class="col-md-20 col-xs-21">
+                <div class="checkbox soldToSelectorCheckbox">
+                  <input type="checkbox" name="soldtoSelctor" id="soldtoSelctor-{{this.uid}}" data-soldToId="{{this.uid}}"/>
+                  <label for="soldtoSelctor-{{this.uid}}">{{this.displayName}}</label>
                 </div>
-                {{/each}}
+                <div class="row shiptoListContainer hide shiptoContainer-{{@index}}">
+                  <label class="md-mr-15 xs-mr-10 md-mb-5 xs-mb-5">Associates Ship Tos</label>
+                  {{#each this.associatedShiptos}}
+                  <div class="col-xs-24 shipToIterator">
+                    <div class="checkbox shipToSelectorCheckbox">
+                      <input type="checkbox" name="shipTotoSelctor" id="shipTotoSelctor-{{this.uid}}" data-shipToId="{{this.uid}}"/>
+                      <label for="shipTotoSelctor-{{this.uid}}">{{this.displayName}}</label>
+                    </div>
+                  </div>
+                  {{/each}}
+                </div>
               </div>
             </div>
-          </div>
-           {{/each}}
+            {{/each}}
+        </div>
       </div>
-    </div>
+  </div>
 </div>

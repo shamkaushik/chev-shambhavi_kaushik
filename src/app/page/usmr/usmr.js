@@ -422,12 +422,12 @@ require(["modernizr",
                     field: 'permission',
                     title: cbp.usmrPageAddNew.globalVars.permissonCaption,
                     titleTooltip: cbp.usmrPageAddNew.globalVars.permissonCaption,
-                    class: 'text-nowrap',
+                    class: 'text-nowrap col-md-4',
                 },{
                     field: 'desc',
                     title: cbp.usmrPageAddNew.globalVars.descCaption,
                     titleTooltip: cbp.usmrPageAddNew.globalVars.descCaption,
-                    class: 'numberIcon col-md-6'
+                    class: 'numberIcon col-md-15'
                 }],
                 data: dataList
             });
