@@ -13,8 +13,10 @@
         </div>
         <div class="row">
             <table id="table"></table>
+            <div class="" id="permission-errorMsg-holder"></div>
         </div>
     </div>
+    </form>
     <div class="row md-mt-15 xs-mt-15">
         <div class="col-md-5 col-xs-24 returnToMRLink">
             <a href="{{globalUrl.returnURL}}">
@@ -22,8 +24,8 @@
             </a>
         </div>
         <div class="col-md-15 col-xs-24 buttonsForAddingResetUser pull-right md-mt-10 xs-mt-15 text-right">
-            <button class="btn btn-default">{{globalVars.resetButton}}</button>
-            <button class="btn btn-primary">{{globalVars.createNewUser}}</button>
+            <button class="btn btn-default" id="resetUserForm">{{globalVars.resetButton}}</button>
+            <button class="btn btn-primary" id="createNewUserForm">{{globalVars.createNewUser}}</button>
         </div>
     </div>
 </div>

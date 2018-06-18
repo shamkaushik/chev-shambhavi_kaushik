@@ -16,16 +16,16 @@
                   <div class="col-md-4 fa fa-chevron-up soldToicon up md-ml-10 xs-ml-10" data-index="{{@index}}"></div>
               </div>
               <div class="col-md-20 col-xs-21">
-                <div class="checkbox soldToSelectorCheckbox">
-                  <input type="checkbox" name="soldtoSelctor" id="soldtoSelctor-{{this.uid}}" data-soldToId="{{this.uid}}"/>
+                <div class="checkbox soldToSelectorCheckbox">{{globalVars.errorMessagesSoldToShipTo}}
+                  <input type="checkbox" name="soldtoSelctor" id="soldtoSelctor-{{this.uid}}" data-soldToId="{{this.uid}}" name="d-s-c-{{this.uid}}" data-parsley-multiple="d-s-c" data-parsley-required-message="{{globalVars.errorMessagesSoldToShipTo}}" required data-parsley-errors-container="#message-holder"/>
                   <label for="soldtoSelctor-{{this.uid}}">{{this.displayName}}</label>
                 </div>
-                <div class="row shiptoListContainer hide shiptoContainer-{{@index}}">
+                <div class="row shiptoListContainer md-mt-10 xs-mt-10 hide shiptoContainer-{{@index}}">
                   <label class="md-mr-15 xs-mr-10 md-mb-5 xs-mb-5">Associates Ship Tos</label>
                   {{#each this.associatedShiptos}}
                   <div class="col-xs-24 shipToIterator">
                     <div class="checkbox shipToSelectorCheckbox">
-                      <input type="checkbox" name="shipTotoSelctor" id="shipTotoSelctor-{{this.uid}}" data-shipToId="{{this.uid}}"/>
+                      <input type="checkbox" name="shipTotoSelctor" id="shipTotoSelctor-{{this.uid}}" name="d-s-c-{{this.uid}}" data-parsley-multiple="d-s-c" data-shipToId="{{this.uid}}"/>
                       <label for="shipTotoSelctor-{{this.uid}}">{{this.displayName}}</label>
                     </div>
                   </div>
@@ -36,5 +36,6 @@
             {{/each}}
         </div>
       </div>
+      <div id="message-holder"></div>
   </div>
 </div>
