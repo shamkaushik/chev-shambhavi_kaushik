@@ -449,7 +449,9 @@ require(["modernizr",
                     //class: 'numberIcon',
                     formatter: function(row, value) {
                         var salesDate = new Date(row);
+                        console.log(salesDate);
                         var month = calendarMonths[salesDate.getMonth()];
+                        console.log('month',salesDate.getMonth());
                         var year = salesDate.getFullYear();
                         return "<a href='#' class='js-volume-anchor sales-month' data-sales-month='" + row + "'>" + month + " " + year + "</a>";
                     }
