@@ -397,7 +397,7 @@ require(["modernizr",
                 columns: [{
                     field: 'checkbox',
                     checkbox: true,
-                    class: 'fa'
+                    class: 'fa',
                 }, {
                     field: 'permission',
                     title: cbp.usmrPageAddNew.globalVars.permissonCaption,
@@ -407,7 +407,7 @@ require(["modernizr",
                     field: 'desc',
                     title: cbp.usmrPageAddNew.globalVars.descCaption,
                     titleTooltip: cbp.usmrPageAddNew.globalVars.descCaption,
-                    class: 'numberIcon col-md-15'
+                    class: 'numberIcon col-md-18'
                 }],
                 data: dataList
             });
