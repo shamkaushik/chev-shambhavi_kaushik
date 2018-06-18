@@ -420,13 +420,13 @@ require(["modernizr",
                     class: 'fa'
                 }, {
                     field: 'permission',
-                    title: cbp.usmrPageAddNew.globalVars.statustb,
-                    titleTooltip: cbp.usmrPageAddNew.globalVars.statustb,
+                    title: cbp.usmrPageAddNew.globalVars.permissonCaption,
+                    titleTooltip: cbp.usmrPageAddNew.globalVars.permissonCaption,
                     class: 'text-nowrap',
                 },{
-                    field: 'description',
-                    title: cbp.usmrPageAddNew.globalVars.accountNumbertb,
-                    titleTooltip: cbp.usmrPageAddNew.globalVars.accountNumbertb,
+                    field: 'desc',
+                    title: cbp.usmrPageAddNew.globalVars.descCaption,
+                    titleTooltip: cbp.usmrPageAddNew.globalVars.descCaption,
                     class: 'numberIcon col-md-6'
                 }],
                 data: dataList
