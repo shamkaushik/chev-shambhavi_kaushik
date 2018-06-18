@@ -4,6 +4,8 @@
     "currency": "USD",
     "fromDate": "22-03-2015",
     "toDate": "29-08-2016",
+    "region" : "America",
+    "language" : "English",
     "eftSearchDataListA" : [],
     "accountDropdown" : [{
       "uid": "0676334614",
