@@ -4,6 +4,7 @@ require(["modernizr",
     "handlebars",
     "moment",
     "calendar",
+    "parsley",
     "bootstrap-select",
     "bootstrap-table",
     "toggleSwitch",
@@ -14,7 +15,7 @@ require(["modernizr",
     "text!app/page/usmr/bottomDetail.hbs",
     "text!app/page/usmr/permissionsSelection.hbs"
 
-], function (modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _addNewUserForm, _bottomDetailHBS, _permissionsSelection) {
+], function (modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, calendar, parsley, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _addNewUserForm, _bottomDetailHBS, _permissionsSelection) {
 
     var statusUserDdnOptions = [],userCountryDddnOptions = [],siteDropdownOptions = [],pyDropdownOptions = [], eftObj = {},startDateDT = '',endDateDT = '';
 
@@ -89,6 +90,17 @@ require(["modernizr",
             cbp.usmrPageAddNew[dropDownName].searchable = true;
         };
 
+        var triggerParselyFormValidation = function(el) {
+            $(el).parsley().on('field:success', function() {
+                // if ($('#inquiryForm').parsley().isValid()) {
+                //     $('#inquiryForm #submitBtn').removeClass('disabled').removeAttr('disabled');
+                // }
+            }).on('field:error', function(field) {
+                field.$element.context.nextElementSibling.classList.add("error-msg");
+                // $('#inquiryForm #submitBtn').addClass('disabled').attr('disabled');
+            }).validate();
+        };
+
         var config = {
             addNewUserFormContainer: ".js-usmr-userForm",
             statusUserDdnContainer : ".js-userStatus-ddn",
@@ -110,7 +122,9 @@ require(["modernizr",
             squareUnchecked: "fa-square-o",
             squareChecked: "fa-check-square-o",
             downloadIcon: ".iconsPrintDownload",
-            permissionSelection: ".js-permission-selection"
+            permissionSelection: ".js-permission-selection",
+            formInput: "#addNewUserForm .input-element",
+            createNewUserForm: "#createNewUserForm"
         };
 
         var init = function () {
@@ -150,6 +164,7 @@ require(["modernizr",
             $(config.countryUserDdnContainer).html(compiledDefaultDdn(cbp.usmrPageAddNew.userCountryDddn));
             $(config.dropDownCommon).selectpicker('refresh');
             enableMobileDefaultDropDown();
+            addingParseLeyValidationToSite();
         };
 
         var enableMobileDefaultDropDown = function () {
@@ -244,8 +259,35 @@ require(["modernizr",
         var enablePrintDownloadButtons = function () {
             $(config.downloadBtn).removeClass("disabled");
         };
+
         var disablePrintDownloadButtons = function () {
             $(config.downloadBtn).addClass("disabled");
+        };
+
+        var addingParseLeyValidationToTable = function(){
+            $('#table tr td input[type="checkbox"]').eq(0).attr({
+                "data-parsley-multiple" : "s-s-c", 
+                "data-parsley-required-message" : cbp.usmrPageAddNew.globalVars.errorMessagesPermissions ,
+                "required" : "", 
+                "data-parsley-errors-container" : "#permission-errorMsg-holder"
+            });
+
+            $('#table tr td checkbox').each(function(index,value){
+                $(this).attr("name","s-s-c-"+index);
+            });
+        };
+
+        var addingParseLeyValidationToSite = function(){
+            $(config.searchDetailContainer+' input[type="checkbox"]').eq(0).attr({
+                "data-parsley-multiple" : "d-s-c", 
+                "data-parsley-required-message" : cbp.usmrPageAddNew.globalVars.errorMessagesSoldToShipTo ,
+                "required" : "", 
+                "data-parsley-errors-container" : "#message-holder"
+            });
+
+            $('#table tr td checkbox').each(function(index,value){
+                $(this).attr("name","d-s-c-"+index);
+            });
         };
 
         var bindEvents = function () {
@@ -257,40 +299,6 @@ require(["modernizr",
                 $(config.downloadBtn).addClass("disabled");
               }
             });
-
-            $(document).on("click", config.eftNoticeLink, function(e){
-                // e.preventDefault();
-                // console.log("In Link CLick >>>");
-                // var eftNoticeUid = $(e.target).attr('data-uid');
-                // eftObj.account = $("#accountSelectDdn").val();
-                // if($.trim($(config.searchInputEft).val()).length!=0){
-                //     $("#eftSearchToggle input[type='hidden']").val() == 2 ?
-                //            eftObj.eftNoticeNumber = $(config.searchInputEft).val()
-                //     : eftObj.invoiceNumber = $(config.searchInputEft).val();
-                // }
-                // eftObj.downloadStatus = $("#downloadStatus").val();
-                // eftObj.printStatus = $("#printStatus").val();
-                // eftObj.startDate = cbp.usmrPageAddNew.dateRange.startDate.format(cbp.usmrPageAddNew.dateRange.format);
-                // eftObj.endDate = cbp.usmrPageAddNew.dateRange.endDate.format(cbp.usmrPageAddNew.dateRange.format);
-                // console.log("eft Object >>>",eftObj);
-                // localStorage.setItem("eftObj", JSON.stringify(eftObj));
-                // $('#eftDetailsForm #eftNoticeid').val(eftNoticeUid);
-                // $('#eftDetailsForm').submit();
-              });
-
-            $(document).on('click', config.downloadIcon, function (evnt) {
-                var isInternalUser = $("#isInternalUser").val();
-                if (isInternalUser != "true" && inASMSession !== "true")
-                    $(evnt.target).addClass("success-icon");
-                downloadForm($(evnt.target).attr("data-eftNoticeNumberId"));
-            });
-
-            //Search button functionality
-            $(config.searchButton).on("click", function (e) {
-                selectedEFTs = [];
-                triggerAjaxRequest();
-            });
-
 
             var validatefields = config.eftNoticeNumber + "," + config.invoiceNumber + "";
 
@@ -312,10 +320,6 @@ require(["modernizr",
                 setItalicsToThedefaultSelection();
             });
 
-            $(document).on('change',config.soldToDropdownSelector,function(){
-                populateSite($(config.soldToDropdownSelector).val());
-            });
-
             $(document).on('click',config.soldToicon,function(e){
                 if($(this).hasClass('down')==true){
                     $(config.soldToicon+".down").addClass('active');
@@ -331,38 +335,14 @@ require(["modernizr",
                     $('.shiptoContainer-'+$(this).data('index')).addClass('hide');
                 }
             });
-        };
 
-        var populateSite = function(soldto){
-            siteDropdownOptions = [];
-            function successCallback(data) {
-                $(config.displaySpinner).hide();
-                leftPaneExpandCollapse.resetSearchFormHeight();
-                populateDropDowns(data.siteDropdown,siteDropdownOptions,"siteDropdown");
-                $(config.siteDdnContainer).html(compiledDefaultDdn(cbp.usmrPageAddNew.siteDropdown));
-                //Refresh dropdown at initial dispaly after loading templates
-                $(config.dropDownCommon).selectpicker('refresh');
-                enableMobileDefaultDropDown();
-                setItalicsToThedefaultSelection();
-            }
+            $(document).on('focusout', config.formInput, function(event) {
+                //triggerParselyFormValidation(event.target);
+            });
 
-            function errorCallback() {
-                $(config.displaySpinner).hide();
-                $(config.searchDetailContainer).show();
-                $(config.ccsSummaryContainer).show();
-                console.log("error");
-            }
-
-            $.ajax({
-                type: cbp.usmrPageAddNew.globalUrl.method,
-                headers: {'CSRFToken':CSRFToken},
-               	data: {
-                    'soldToNumber' : soldto
-                },
-                dataType:"json",
-                url: cbp.usmrPageAddNew.globalUrl.ccsFetchSiteURL,
-                success: successCallback,
-                error: errorCallback
+            $(document).on('focusout', config.createNewUserForm, function(event) {
+                event.preventDefault();
+                triggerParselyFormValidation(event.target);
             });
         };
 
@@ -432,6 +412,7 @@ require(["modernizr",
                 data: dataList
             });
 
+            addingParseLeyValidationToTable();
         };
 
         return {
