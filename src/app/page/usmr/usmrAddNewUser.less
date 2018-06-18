@@ -113,10 +113,13 @@
 				> tr {
 					> td {
 						> div:first-child {
-							display: none !important;
+							// display: none !important;
+							background: none !important;
+							color: #383838 !important;
+							border: 0px !important; 
 						}
 						> div:nth-child(2) {
-							display: none !important;
+							// display: none !important;
 						}
 						> div:nth-child(3) {
 							background-color: @brand-primary !important;
@@ -212,6 +215,28 @@
 		&:nth-child(even){
 			background-color: #f2f2f2;
 		}
+	}
+
+	.permissionsCaption{
+		background-color: @state-info-bg;
+		padding: 15px 10px;
+	}
+
+	.clear{
+		clear: both;
+		display: block;
+	}
+
+	.defaultLoadIcon{
+		position: relative;
+		top:-1px;
+		img{
+			width: 12px;			
+		}
+	}
+
+	.setToDefaultPermsBtn{
+		cursor: pointer;
 	}
 }
 
