@@ -164,6 +164,7 @@ require(["modernizr",
                 iconClass: cbp.delDocPage.dateRange.iconClass,
                 id: cbp.delDocPage.dateRange.id
             }));
+            console.log("hsbdcisd",compiledsearchForm(cbp.delDocPage));
             populatingCalendarComponent();
          
             //Refresh dropdown at initial dispaly after loading templates

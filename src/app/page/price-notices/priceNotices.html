@@ -1,0 +1,192 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css' />
+    <link href='/assets/css/app-na.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <div class='body-wrapper'>
+        <main>
+            <header class="main-header main-header-md js-header">
+            </header>
+        </main>
+        <section class='main-container'>
+            <div class="content-box price-notices-page">
+                <div class="row">
+                    <div class="col-sm-24">
+                        <h2 class='page-title'>price notices</h2>
+                    </div>
+                </div>
+                <div class='row xs-m-0 position-relative'>
+                    <div class="overlay-wrapper">
+                    </div>
+                    <div class='col-md-1 left-pane visible-md-inline-block search-collapse text-center'>
+                        <div class='search-content'>
+                            <span class="fa fa-sliders"></span>
+                        </div>
+                    </div>
+                    <div class='col-md-5 left-pane hidden-md search'>
+                        <div class='search-content'>
+                            <div class='sub-heading-thin hidden-sm hidden-xs'>
+                                view
+                                <span class='fa fa-close visible-md-inline'></span>
+                            </div>
+                            <div class="col-xs-24 col-sm-24 xs-mt-10 xs-pl-0 xs-pr-0 xs-mb-10 xs-pt-5 xs-pb-10 borderEFTToogle">
+                                <div id="priceNoticesViewToggle"></div>
+                            </div>
+                            <div class='sub-heading-thin hidden-sm hidden-xs'>
+                                search
+                                <span class='fa fa-close visible-md-inline'></span>
+                            </div>
+                            <div class='sub-heading-thin hidden-lg hidden-md toggle-search-mobile'>
+                                <span class='fa fa-sliders'></span> search
+                                <span class='fa fa-chevron-down pull-right'></span>
+                            </div>
+                            <div class='search-form js-search-form'>
+                                </div>
+                        </div>
+                    </div>
+                    <div class='col-md-23 col-lg-19 right-pane'>
+                            <div class='top-summary js-price-notices-summary'>
+                                </div>
+                                <div class='bottom-detail js-price-notices-bottom-detail'>
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script type="text/javascript">
+            var srtByDdn = {
+                "options": [],
+                label: "Sort By",
+                labelClass: "xs-mr-5",
+                name: "sortByDdn",
+                display: "displayInline"
+            }
+            var cbp = {
+                "staticBasePath": "/",
+                "pricenoticesPage": {
+                    "soldToDropDown": {
+                        "options": [],
+                        "label": "Sold To",
+                        "name": "soldToSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": true
+                    },
+                    "accountDropDown": {
+                        "options": [],
+                        "label": "Account",
+                        "name": "accountSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": true
+                    },
+                    "yearDropDown": {
+                        "options": [],
+                        "label": "Year",
+                        "name": "yearSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": true
+                    },
+                    "qtrDropDown": {
+                        "options": [],
+                        "label": "Quarter",
+                        "name": "qtrSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": true
+                    },
+                    "downloadStatusDropDown": {
+                        "options": [{
+                            key: 'all',
+                            value: 'All'
+                        }, {
+                            key: 'downloaded',
+                            value: 'Downloaded'
+                        }, {
+                            key: 'notdownloaded',
+                            value: 'Not Downloaded'
+                        }],
+                        "label": "Download Status",
+                        "name": "dnldStatusSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": false
+                    },
+                    "globalUrl": {
+                        "searchReportsURL": "/assets/json/1099SearchResults.json",
+                        "downloadReportsURL": "/assets/json/1099downloadResults.json",
+                        "accountDdnURL": "/assets/json/1099accountDdn.json",
+                        "method": "GET"
+                    },
+                    "globalVars": {
+                        "january": "January",
+                        "february": "February",
+                        "march": "March",
+                        "april": "April",
+                        "may": "May",
+                        "june": "June",
+                        "july": "July",
+                        "august": "August",
+                        "september": "September",
+                        "october": "October",
+                        "november": "November",
+                        "december": "December",
+                        "status": "Status",
+                        "site": "Site",
+                        "yearToDate": "Year To Date",
+                        "total": "Total",
+                        "note": "Note",
+                        "notemsg": "Please note the download file contains all year to date payment card transaction data by facility, by month.",
+                        "pageTitle": "1099 report summary",
+                        "soldTo": "Sold To",
+                        "account": "Account",
+                        "year": "Year",
+                        "quarter": "Quarter",
+                        "allTb": "All",
+                        "resultCount": "result(s) found",
+                        "priceNoticeType": "Price Notice Type",
+                        "detail": "Detail",
+                        "pickDateRange": "Published Date",
+                        "searchTxt": "Search",
+                        "pricenoticesSummary": "price notices summary",
+                        "publishedDate": "Published Date",
+                        "summaryfromAndTo": "{0} to {1}",
+                        "pricenoticesDefault": "Set as Default View",
+                        "priceNoticesFound": "{0} Price Notice(s) found",
+                    },
+                    "dateRange": {
+                        "maxMonth": 18,
+                        "format": "DD-MM-YYYY",
+                        "today": "Today",
+                        "yesterday": "Yesterday",
+                        "last7Days": "Last 7 Days",
+                        "last30Days": "Last 30 Days",
+                        "thisMonth": "This Month",
+                        "lastMonth": "Last Month",
+                        "customRange": "Custom Range",
+                        "cancel": "Cancel",
+                        "apply": "Apply",
+                        "iconClass": "fa fa-calendar pull-right",
+                        "id": "calendar"
+                    },
+                    "searchResponse": {}
+                }
+            }
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="priceNotices.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+
+    </div>
+
+</body>
+
+</html>
