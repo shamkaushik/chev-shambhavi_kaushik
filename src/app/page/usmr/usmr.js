@@ -19,7 +19,7 @@ require(["modernizr",
 
     var statusUserDdnOptions = [],userCountryDddnOptions = [],siteDropdownOptions = [],pyDropdownOptions = [], eftObj = {},startDateDT = '',endDateDT = '';
 
-    var selectedPermissions = [],selectedSite = [];
+    var selectedPermissions = [],selectedSites = [];
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
@@ -71,13 +71,6 @@ require(["modernizr",
         };
 
         var populateDropDowns = function(dropDownList,dropDownListOptions,dropDownName){
-            if (dropDownList.length > 1) {
-                var obj = {};
-                obj["key"] = "all";
-                obj["value"] = cbp.usmrPageAddNew.globalVars.allAccount;
-                dropDownListOptions.push(obj);
-            }
-
             for (var i = 0; i < dropDownList.length; i++) {
                 var obj = {};
                 obj["key"] = dropDownList[i].uid;
@@ -91,11 +84,17 @@ require(["modernizr",
         };
 
         var triggerParselyFormValidation = function(el) {
-            $(el).parsley().on('field:success', function() {
-                triggerAjaxRequest();
-            }).on('field:error', function(field) {
-                field.$element.context.nextElementSibling.classList.add("error-msg");
-            }).validate();
+            if(el){
+                $(el).parsley().on('field:success', function() {
+                }).on('field:error', function(field) {
+                    field.$element.context.nextElementSibling.classList.add("error-msg");
+                }).validate();
+            }else{
+                $(config.addNewUserForm).parsley().on('form:success', function() {
+                    console.log("Here >>>");
+                }).on('field:error', function(field) {
+                }).validate();
+            }
         };
 
         var config = {
@@ -115,17 +114,30 @@ require(["modernizr",
             permissionSelection: ".js-permission-selection",
             formInput: "#addNewUserForm .input-element",
             createNewUserForm: "#createNewUserForm",
-            permissionsTableContainer: ".permissionsTableContainer"
+            permissionsTableContainer: ".permissionsTableContainer",
+            userIsDelAdmin : "#userIsDelAdmin",
+            userID : "#userID",
+            statusUserDdn : "#statusUserDdn",
+            fName : "#fName",
+            lName : "#lName",
+            email : "#email",
+            phone : "#phone",
+            addressLineFirst : "#addressLineFirst",
+            addressLineSecond : "#addressLineSecond",
+            userCity : "#userCity",
+            stateProvince : "#stateProvince",
+            zipPostalCode : "#zipPostalCode",
+            userCountryDddn : "#userCountryDddn",
+            addNewUserForm : "#addNewUserForm",
+            siteSelection : ".siteSelection"
         };
 
         var init = function () {
             populateDropDowns(statusUserDdn,statusUserDdnOptions,"statusUserDdn");
             populateDropDowns(userCountryDddn,userCountryDddnOptions,"userCountryDddn");
-            // populateDropDowns(pyDropdown,pyDropdownOptions,"pyDropdown");
             loadingInitialHbsTemplates();
             bindEvents();
-            populatingTable(cbp.usmrPageAddNew.usmrUserData.permissionsDataList);
-            //triggerAjaxRequest();
+            populatingTable(cbp.usmrPageAddNew.usmrUserData.permissions);
             setItalicsToThedefaultSelection();
         };
 
@@ -174,6 +186,16 @@ require(["modernizr",
             });
         };
 
+        var generateSelectedSites = function(){
+            selectedSites = [];
+            $(config.siteSelection).find("input[type='checkbox']").each(function(){
+                if($(this).prop('checked')==true){
+                    selectedSites.push($(this).data('siteId'));
+                }
+            });
+            return selectedSites;
+        };
+
         var triggerAjaxRequest = function () {
             var selectorCalendar = $(config.ordercalendar).find('span'), hiddenInputForToggleSwitch = $("#eftSearchToggle input[type='hidden']");
             $(config.displaySpinner).show();
@@ -200,8 +222,8 @@ require(["modernizr",
                         }
                     }
                 },
-                "b2bUnits": ["1234SH","567721SH","878878SH"],
-                "permissions": ["invoice","soa","account_balance"]
+                "b2bUnits": generateSelectedSites(),
+                "permissions": selectedPermissions
             };
 
             function successCallback(data) {
@@ -240,7 +262,7 @@ require(["modernizr",
                 "data-parsley-errors-container" : "#permission-errorMsg-holder"
             });
 
-            $('#table tr td checkbox').each(function(index,value){
+            $(config.permissionsTableContainer+' #table tr td input[type="checkbox"]').each(function(index,value){
                 $(this).attr("name","s-s-c-"+index);
             });
         };
@@ -253,7 +275,7 @@ require(["modernizr",
                 "data-parsley-errors-container" : "#message-holder"
             });
 
-            $('#table tr td checkbox').each(function(index,value){
+            $(config.permissionsTableContainer +' #table tr td input[type="checkbox"]').each(function(index,value){
                 $(this).attr("name","d-s-c-"+index);
             });
         };
@@ -297,17 +319,28 @@ require(["modernizr",
             });
 
             $(document).on('focusout', config.formInput, function(event) {
-                //triggerParselyFormValidation(event.target);
+                triggerParselyFormValidation(event.target);
             });
 
-            $(document).on('focusout', config.createNewUserForm, function(event) {
+            $(document).on('click', config.createNewUserForm, function(event) {
                 event.preventDefault();
                 triggerParselyFormValidation();
+                if ($(config.addNewUserForm).parsley().isValid()) {
+                    triggerAjaxRequest();
+                }
+            });
+
+            $(document).on('click', config.userIsDelAdmin, function(event) {
+                console.log("$(event.target).prop('checked') >>>",$(event.target),$(event.target).prop('checked'));
+                $(event.target).prop('checked')==true ? 
+                ($(config.siteSelection).find("input[type='checkbox']").attr('disabled',true),
+                $(config.siteSelection).find("input[type='checkbox']").prop('checked',false))
+                :$(config.siteSelection).find("input[type='checkbox']").attr('disabled',false)
             });
         };
 
         var populatingTable = function (dataList) {
-           $('#table').bootstrapTable({
+           $(config.permissionsTableContainer+' #table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
                 iconsPrefix: 'fa',
@@ -320,19 +353,13 @@ require(["modernizr",
                 onCheck: function (row, $element) {
                     // enable button
                     selectedPermissions.push(row.uid);
-                    enablePrintDownloadButtons();
                 },
                 onCheckAll: function (rows) {
-                    // enable button
                     selectedPermissions = [];
                     var len = rows.length;
 
                     for (var i = 0; i < len; i++) {
                         selectedPermissions.push(rows[i].uid);
-                    }
-
-                    if (rows.length) {
-                        enablePrintDownloadButtons();
                     }
                 },
                 onUncheck: function (row, $element) {
@@ -342,17 +369,9 @@ require(["modernizr",
                     if (index > -1) {
                         selectedPermissions.splice(index, 1);
                     }
-
-                    if (!($(config.tabelRow).hasClass('selected'))) {
-                        disablePrintDownloadButtons();
-                    }
-
                 },
                 onUncheckAll: function (rows) {
-                    //disable button
                     selectedPermissions = [];
-                    disablePrintDownloadButtons();
-
                 },
                 columns: [{
                     field: 'checkbox',
@@ -373,6 +392,13 @@ require(["modernizr",
             });
 
             addingParseLeyValidationToTable();
+            dataList.map(function(val,index){
+                console.log("val.checked >>>,index >>>>",val,val.checked,index);
+                if(val.checked==true){
+                    $(config.permissionsTableContainer+" #table .bs-checkbox").find('[data-index="'+index+'"]').trigger('click');
+                    $(config.permissionsTableContainer+" #table").bootstrapTable("check", index);
+                }
+            });
         };
 
         return {
@@ -436,10 +462,7 @@ require(["modernizr",
 
         leftPaneExpandCollapse.init();
 
-        cbp.usmrPageAddNew.showSoldTo = true;
-
         cbp.usmrPageAddNew.usmrUserData = usmrUserData;
-        cbp.usmrPageAddNew.soldToOptions = soldToOptions;
 
         if (usmrUserData.permissionsDataList === undefined || usmrUserData.permissionsDataList === null) {
             cbp.usmrPageAddNew.usmrUserData.permissionsDataList = [];
