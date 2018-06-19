@@ -6,7 +6,7 @@
       <div class="col-xs-24">
         <div class="row soldToHeader">
             <div class="col-md-1 hidden-xs hidden-sm">&nbsp;</div>
-            <div class="col-md-22 col-xs-24">Sold To</div>
+            <div class="col-md-22 col-xs-24">{{globalVars.soldToCaption}}</div>
         </div>
         <div class="row">
           {{#each usmrUserData.availableSites}}
@@ -21,7 +21,7 @@
                   <label for="soldtoSelctor-{{this.uid}}">{{this.displayName}}</label>
                 </div>
                 <div class="row shiptoListContainer md-mt-10 xs-mt-10 md-mb-10 xs-mb-10 hide shiptoContainer-{{@index}}">
-                  <label class="md-mr-15 xs-mr-10 md-mb-5 xs-mb-5">Associates Ship Tos</label>
+                  <label class="md-mr-15 xs-mr-10 md-mb-5 xs-mb-5">{{globalVars.ascShiptoCaption}}</label>
                   {{#each this.associatedB2BUnit}}
                   <div class="col-xs-24 shipToIterator">
                     <div class="checkbox shipToSelectorCheckbox">

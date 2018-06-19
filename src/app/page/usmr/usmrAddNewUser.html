@@ -149,10 +149,10 @@
             var CSRFToken = "";
 
             var statusUserDdn = [{
-                "uid" : "active",
+                "uid" : true,
                 "displayName" : "Active"
             },{
-                "uid" : "inactive",
+                "uid" : false,
                 "displayName" : "Inactive"
             }];
 
@@ -191,14 +191,6 @@
                         "showOptions": 10,
                         "singleOption": true
                     },
-                    "pyDropdown": {
-                        "options": [],
-                        "label": "Program Year",
-                        "title": "",
-                        "name": "pyDropdownSelector",
-                        "showOptions": 10,
-                        "singleOption": true
-                    },
                     "globalUrl": {
                         "eftSearchPostURL": "/assets/json/permissionMR.json",
                         "ccsFetchSiteURL" : "/assets/json/permissionMR.json",
@@ -224,6 +216,8 @@
                         "zipPostalCode" : "Zip/Postal Code",
                         "country" : "Country",
                         "ascSoldToShiptos" : "associated sold to/ship to",
+                        "soldToCaption" : "Sold To",
+                        "ascShiptoCaption":"Associated Ship Tos",
                         "permissonCaption" : "Permission",
                         "descCaption" : "Description",
                         "permissonsSectionCaption" : "permissions",
