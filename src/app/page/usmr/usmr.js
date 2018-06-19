@@ -91,7 +91,6 @@ require(["modernizr",
                 }).validate();
             }else{
                 $(config.addNewUserForm).parsley().on('form:success', function() {
-                    console.log("Here >>>");
                 }).on('field:error', function(field) {
                 }).validate();
             }
@@ -190,7 +189,7 @@ require(["modernizr",
             selectedSites = [];
             $(config.siteSelection).find("input[type='checkbox']").each(function(){
                 if($(this).prop('checked')==true){
-                    selectedSites.push($(this).data('siteId'));
+                    selectedSites.push($(this).data('siteid'));
                 }
             });
             return selectedSites;
@@ -331,7 +330,6 @@ require(["modernizr",
             });
 
             $(document).on('click', config.userIsDelAdmin, function(event) {
-                console.log("$(event.target).prop('checked') >>>",$(event.target),$(event.target).prop('checked'));
                 $(event.target).prop('checked')==true ? 
                 ($(config.siteSelection).find("input[type='checkbox']").attr('disabled',true),
                 $(config.siteSelection).find("input[type='checkbox']").prop('checked',false))
@@ -393,7 +391,6 @@ require(["modernizr",
 
             addingParseLeyValidationToTable();
             dataList.map(function(val,index){
-                console.log("val.checked >>>,index >>>>",val,val.checked,index);
                 if(val.checked==true){
                     $(config.permissionsTableContainer+" #table .bs-checkbox").find('[data-index="'+index+'"]').trigger('click');
                     $(config.permissionsTableContainer+" #table").bootstrapTable("check", index);
