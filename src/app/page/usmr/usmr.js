@@ -91,11 +91,18 @@ require(["modernizr",
         };
 
         var triggerParselyFormValidation = function(el) {
-            $(el).parsley().on('field:success', function() {
-                triggerAjaxRequest();
-            }).on('field:error', function(field) {
-                field.$element.context.nextElementSibling.classList.add("error-msg");
-            }).validate();
+            if(el){
+                $(el).parsley().on('field:success', function() {
+                    triggerAjaxRequest();
+                }).on('field:error', function(field) {
+                    field.$element.context.nextElementSibling.classList.add("error-msg");
+                }).validate();
+            }else{
+                $(config.addNewUserForm).parsley().on('field:success', function() {
+                    triggerAjaxRequest();
+                }).on('field:error', function(field) {
+                }).validate();
+            }
         };
 
         var config = {
@@ -128,7 +135,8 @@ require(["modernizr",
             userCity : "#userCity",
             stateProvince : "#stateProvince",
             zipPostalCode : "#zipPostalCode",
-            userCountryDddn : "#userCountryDddn"
+            userCountryDddn : "#userCountryDddn",
+            addNewUserForm : "#addNewUserForm"
         };
 
         var init = function () {
@@ -261,7 +269,7 @@ require(["modernizr",
                 "data-parsley-errors-container" : "#permission-errorMsg-holder"
             });
 
-            $(config.permissionsTableContainer+' #table tr td checkbox').each(function(index,value){
+            $(config.permissionsTableContainer+' #table tr td input[type="checkbox"]').each(function(index,value){
                 $(this).attr("name","s-s-c-"+index);
             });
         };
@@ -274,7 +282,7 @@ require(["modernizr",
                 "data-parsley-errors-container" : "#message-holder"
             });
 
-            $(config.permissionsTableContainer +' #table tr td checkbox').each(function(index,value){
+            $(config.permissionsTableContainer +' #table tr td input[type="checkbox"]').each(function(index,value){
                 $(this).attr("name","d-s-c-"+index);
             });
         };
@@ -318,10 +326,10 @@ require(["modernizr",
             });
 
             $(document).on('focusout', config.formInput, function(event) {
-                //triggerParselyFormValidation(event.target);
+                triggerParselyFormValidation(event.target);
             });
 
-            $(document).on('focusout', config.createNewUserForm, function(event) {
+            $(document).on('click', config.createNewUserForm, function(event) {
                 event.preventDefault();
                 triggerParselyFormValidation();
             });
@@ -338,10 +346,6 @@ require(["modernizr",
                 responsive: false,
                 responsiveBreakPoint: 768,
                 responsiveClass: "bootstrap-table-cardview",
-                onLoadSuccess : function(row){
-                    console.log("row >>>",row);
-                    $(config.permissionsTableContainer+" #table").bootstrapTable("check", 0);
-                },
                 onCheck: function (row, $element) {
                     // enable button
                     selectedPermissions.push(row.uid);
@@ -362,17 +366,10 @@ require(["modernizr",
                     if (index > -1) {
                         selectedPermissions.splice(index, 1);
                     }
-
-                    if (!($(config.tabelRow).hasClass('selected'))) {
-                        disablePrintDownloadButtons();
-                    }
-
                 },
                 onUncheckAll: function (rows) {
                     //disable button
                     selectedPermissions = [];
-                    disablePrintDownloadButtons();
-
                 },
                 columns: [{
                     field: 'checkbox',
@@ -393,10 +390,10 @@ require(["modernizr",
             });
 
             addingParseLeyValidationToTable();
-
             dataList.map(function(val,index){
-                console.log("val.checked >>>,index >>>>",val.checked,index);
+                console.log("val.checked >>>,index >>>>",val,val.checked,index);
                 if(val.checked==true){
+                    $(config.permissionsTableContainer+" #table .bs-checkbox").find('[data-index="'+index+'"]').trigger('click');
                     $(config.permissionsTableContainer+" #table").bootstrapTable("check", index);
                 }
             });
