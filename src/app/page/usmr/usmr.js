@@ -19,7 +19,7 @@ require(["modernizr",
 
     var statusUserDdnOptions = [],userCountryDddnOptions = [],siteDropdownOptions = [],pyDropdownOptions = [], eftObj = {},startDateDT = '',endDateDT = '';
 
-    var selectedEFTs = [],selectedProduct = [],selectedEftStatus = [];
+    var selectedPermissions = [],selectedSite = [];
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
@@ -92,12 +92,9 @@ require(["modernizr",
 
         var triggerParselyFormValidation = function(el) {
             $(el).parsley().on('field:success', function() {
-                // if ($('#inquiryForm').parsley().isValid()) {
-                //     $('#inquiryForm #submitBtn').removeClass('disabled').removeAttr('disabled');
-                // }
+                triggerAjaxRequest();
             }).on('field:error', function(field) {
                 field.$element.context.nextElementSibling.classList.add("error-msg");
-                // $('#inquiryForm #submitBtn').addClass('disabled').attr('disabled');
             }).validate();
         };
 
@@ -108,23 +105,17 @@ require(["modernizr",
             soldToicon : ".soldToicon",
             searchDetailContainer: ".js-bottom-detail",
             shiptoListContainer : ".shiptoListContainer",
-            sortByDdnContainer: ".js-sortbyDdn",
             dropDownCommon: ".selectpicker",
             searchButton: "#ccsSearchBtn",
             tabelRow: "#table tbody tr",
-            downloadBtn: ".js-downloadBtn",
-            soldToDropdownSelector: "#soldToDropdownSelector",
-            siteDropdownSelector: "#siteDropdownSelector",
-            pyDropdownSelector: "#pyDropdownSelector",
-            sortByDdn: "#sortByDdn",
             displaySpinner: ".overlay-wrapper",
             dropdownSelect: ".dropdown-menu .toggle-select",
             squareUnchecked: "fa-square-o",
             squareChecked: "fa-check-square-o",
-            downloadIcon: ".iconsPrintDownload",
             permissionSelection: ".js-permission-selection",
             formInput: "#addNewUserForm .input-element",
-            createNewUserForm: "#createNewUserForm"
+            createNewUserForm: "#createNewUserForm",
+            permissionsTableContainer: ".permissionsTableContainer"
         };
 
         var init = function () {
@@ -133,7 +124,8 @@ require(["modernizr",
             // populateDropDowns(pyDropdown,pyDropdownOptions,"pyDropdown");
             loadingInitialHbsTemplates();
             bindEvents();
-            triggerAjaxRequest();
+            populatingTable(cbp.usmrPageAddNew.usmrUserData.permissionsDataList);
+            //triggerAjaxRequest();
             setItalicsToThedefaultSelection();
         };
 
@@ -182,51 +174,41 @@ require(["modernizr",
             });
         };
 
-        var downloadBtnSelected = function () {
-            $('#eftForm #selectedEFTs').val(selectedEFTs.toString());
-            for (var i = 0; len = selectedEFTs.length, i < len; i++) {
-                $(".iconsPrintDownload[data-eftNoticeNumberId='" + selectedEFTs[i] + "']").addClass("success-icon");
-            }
-            $("#eftForm").submit();
-        };
-
         var triggerAjaxRequest = function () {
             var selectorCalendar = $(config.ordercalendar).find('span'), hiddenInputForToggleSwitch = $("#eftSearchToggle input[type='hidden']");
             $(config.displaySpinner).show();
-            $(config.ccsSummaryContainer).hide();
-            $(config.searchDetailContainer).hide();
 
             leftPaneExpandCollapse.hideSearchBar();
 
-            var postData = {};
-            postData.account = $(config.accountDdn).val();
-
-            postData.soldTo = $(config.soldToDropdown).val();
-
-            /* end DSLEC-120*/
-
-            if ($(config.accountDdn).val() != 'all') {
-                cbp.usmrPageAddNew.showSoldTo = false;
-            } else {
-                cbp.usmrPageAddNew.showSoldTo = true;
-            }
+            var postData = {
+                "userInfo": {
+                    "delegatedAdmin": $(config.userIsDelAdmin).prop('checked')==true ? true : false,
+                    "uid": $(config.userID).val(),
+                    "active": $(config.statusUserDdn).val(),
+                    "firstName": $(config.fName).val(),
+                    "lastName": $(config.lName).val(),
+                    "email": $(config.email).val(),
+                    "contactNumber": $(config.phone).val(),
+                    "defaultAddress": {
+                        "line1": $(config.addressLineFirst).val(),
+                        "line2": $(config.addressLineSecond).val(),
+                        "town": $(config.userCity).val(),
+                        "freetextregion": $(config.stateProvince).val(),
+                        "postalCode": $(config.zipPostalCode).val(),
+                        "country": {
+                            "isoCode": $(config.userCountryDddn).val()
+                        }
+                    }
+                },
+                "b2bUnits": ["1234SH","567721SH","878878SH"],
+                "permissions": ["invoice","soa","account_balance"]
+            };
 
             function successCallback(data) {
                 $(config.displaySpinner).hide();
                 $(config.searchDetailContainer).show();
                 $(config.ccsSummaryContainer).show();
                 cbp.usmrPageAddNew.usmrUserData = data;
-
-                if (cbp.usmrPageAddNew.usmrUserData.resultCount === undefined || cbp.usmrPageAddNew.usmrUserData.resultCount === null) {
-                    cbp.usmrPageAddNew.usmrUserData.resultCount = 0;
-                }
-
-                if (cbp.usmrPageAddNew.usmrUserData.eftSearchDataList === undefined || cbp.usmrPageAddNew.usmrUserData.eftSearchDataList === null) {
-                    cbp.usmrPageAddNew.usmrUserData.eftSearchDataList = [];
-                }
-
-                loadingDynamicHbsTemplates();
-                populatingTable(cbp.usmrPageAddNew.usmrUserData.permissionsDataList);
                 leftPaneExpandCollapse.resetSearchFormHeight();
             }
 
@@ -250,22 +232,8 @@ require(["modernizr",
 
         };
 
-        var downloadForm = function (eftNoticeNumberId) {
-            var loc = $("#contextPath").val();
-            var formTemplate = "<form id='downloadForm' method='POST' action='" + loc + "/eft/eftCSV'><input type='hidden' name='selectedEFTs' value='" + eftNoticeNumberId + "'/><input name='CSRFToken' id='CSRFToken' type='hidden' value='" + CSRFToken + "'/></form>";
-            $(formTemplate).appendTo("body").submit().remove();
-        };
-
-        var enablePrintDownloadButtons = function () {
-            $(config.downloadBtn).removeClass("disabled");
-        };
-
-        var disablePrintDownloadButtons = function () {
-            $(config.downloadBtn).addClass("disabled");
-        };
-
         var addingParseLeyValidationToTable = function(){
-            $('#table tr td input[type="checkbox"]').eq(0).attr({
+            $(config.permissionsTableContainer+' #table tr td input[type="checkbox"]').eq(0).attr({
                 "data-parsley-multiple" : "s-s-c", 
                 "data-parsley-required-message" : cbp.usmrPageAddNew.globalVars.errorMessagesPermissions ,
                 "required" : "", 
@@ -312,14 +280,6 @@ require(["modernizr",
                 return false;
             });
 
-            $(document).on("click", config.downloadBtn, function(){
-                downloadBtnSelected();
-            });
-
-            $(document).on('click',config.daterangepickerContainer+' .ranges ul li',function(){
-                setItalicsToThedefaultSelection();
-            });
-
             $(document).on('click',config.soldToicon,function(e){
                 if($(this).hasClass('down')==true){
                     $(config.soldToicon+".down").addClass('active');
@@ -342,7 +302,7 @@ require(["modernizr",
 
             $(document).on('focusout', config.createNewUserForm, function(event) {
                 event.preventDefault();
-                triggerParselyFormValidation(event.target);
+                triggerParselyFormValidation();
             });
         };
 
@@ -359,16 +319,16 @@ require(["modernizr",
                 responsiveClass: "bootstrap-table-cardview",
                 onCheck: function (row, $element) {
                     // enable button
-                    selectedEFTs.push(row.eftNoticeNumberId);
+                    selectedPermissions.push(row.uid);
                     enablePrintDownloadButtons();
                 },
                 onCheckAll: function (rows) {
                     // enable button
-                    selectedEFTs = [];
+                    selectedPermissions = [];
                     var len = rows.length;
 
                     for (var i = 0; i < len; i++) {
-                        selectedEFTs.push(rows[i].eftNoticeNumberId);
+                        selectedPermissions.push(rows[i].uid);
                     }
 
                     if (rows.length) {
@@ -377,10 +337,10 @@ require(["modernizr",
                 },
                 onUncheck: function (row, $element) {
                     // write logic..as not sure if all unselected
-                    var index = selectedEFTs.indexOf(row.eftNoticeNumberId);
+                    var index = selectedPermissions.indexOf(row.uid);
 
                     if (index > -1) {
-                        selectedEFTs.splice(index, 1);
+                        selectedPermissions.splice(index, 1);
                     }
 
                     if (!($(config.tabelRow).hasClass('selected'))) {
@@ -390,7 +350,7 @@ require(["modernizr",
                 },
                 onUncheckAll: function (rows) {
                     //disable button
-                    selectedEFTs = [];
+                    selectedPermissions = [];
                     disablePrintDownloadButtons();
 
                 },
@@ -399,12 +359,12 @@ require(["modernizr",
                     checkbox: true,
                     class: 'fa',
                 }, {
-                    field: 'permission',
+                    field: 'name',
                     title: cbp.usmrPageAddNew.globalVars.permissonCaption,
                     titleTooltip: cbp.usmrPageAddNew.globalVars.permissonCaption,
                     class: 'text-nowrap col-md-4',
                 },{
-                    field: 'desc',
+                    field: 'description',
                     title: cbp.usmrPageAddNew.globalVars.descCaption,
                     titleTooltip: cbp.usmrPageAddNew.globalVars.descCaption,
                     class: 'numberIcon col-md-18'
