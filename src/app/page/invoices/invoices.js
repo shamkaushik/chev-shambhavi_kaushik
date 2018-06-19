@@ -434,10 +434,8 @@ require(["modernizr",
             if($(config.invoiceViewToggle).find("input[type='hidden']").val()!=1){
                 if(advancedHiddenInput.val()==1){
                     postData.invoiceNumber = $(config.invoiceNumber).val().trim();
-                    postData.invoiceNumber = parseInt(postData.invoiceNumber,10);
-                    $(config.invoiceNumber).val(postData.invoiceNumber);
                 }else if(advancedHiddenInput.val()==2){
-                    postData.altRefNumber = $(config.invoiceNumber).val().trim();
+                    postData.altRefNumber = $(config.altRefNumber).val().trim();
                 }else{
                     postData.originalDocNumber = $(config.originalDocNumber).val().trim();
                 }
