@@ -71,13 +71,6 @@ require(["modernizr",
         };
 
         var populateDropDowns = function(dropDownList,dropDownListOptions,dropDownName){
-            if (dropDownList.length > 1) {
-                var obj = {};
-                obj["key"] = "all";
-                obj["value"] = cbp.usmrPageAddNew.globalVars.allAccount;
-                dropDownListOptions.push(obj);
-            }
-
             for (var i = 0; i < dropDownList.length; i++) {
                 var obj = {};
                 obj["key"] = dropDownList[i].uid;
@@ -93,13 +86,12 @@ require(["modernizr",
         var triggerParselyFormValidation = function(el) {
             if(el){
                 $(el).parsley().on('field:success', function() {
-                    triggerAjaxRequest();
                 }).on('field:error', function(field) {
                     field.$element.context.nextElementSibling.classList.add("error-msg");
                 }).validate();
             }else{
-                $(config.addNewUserForm).parsley().on('field:success', function() {
-                    triggerAjaxRequest();
+                $(config.addNewUserForm).parsley().on('form:success', function() {
+                    console.log("Here >>>");
                 }).on('field:error', function(field) {
                 }).validate();
             }
@@ -136,7 +128,8 @@ require(["modernizr",
             stateProvince : "#stateProvince",
             zipPostalCode : "#zipPostalCode",
             userCountryDddn : "#userCountryDddn",
-            addNewUserForm : "#addNewUserForm"
+            addNewUserForm : "#addNewUserForm",
+            siteSelection : ".siteSelection"
         };
 
         var init = function () {
@@ -332,6 +325,17 @@ require(["modernizr",
             $(document).on('click', config.createNewUserForm, function(event) {
                 event.preventDefault();
                 triggerParselyFormValidation();
+                if ($(config.addNewUserForm).parsley().isValid()) {
+                    triggerAjaxRequest();
+                }
+            });
+
+            $(document).on('click', config.userIsDelAdmin, function(event) {
+                console.log("$(event.target).prop('checked') >>>",$(event.target),$(event.target).prop('checked'));
+                $(event.target).prop('checked')==true ? 
+                ($(config.siteSelection).find("input[type='checkbox']").attr('disabled',true),
+                $(config.siteSelection).find("input[type='checkbox']").prop('checked',false))
+                :$(config.siteSelection).find("input[type='checkbox']").attr('disabled',false)
             });
         };
 
@@ -351,7 +355,6 @@ require(["modernizr",
                     selectedPermissions.push(row.uid);
                 },
                 onCheckAll: function (rows) {
-                    // enable button
                     selectedPermissions = [];
                     var len = rows.length;
 
@@ -368,7 +371,6 @@ require(["modernizr",
                     }
                 },
                 onUncheckAll: function (rows) {
-                    //disable button
                     selectedPermissions = [];
                 },
                 columns: [{
