@@ -67,8 +67,8 @@
             var usmrUserData = {
                 "userInfo": {
                     "delegatedAdmin": false,
-                    "preferredLanguage": "language",
-                    "businessRegion": "region",
+                    "preferredLanguage": "English",
+                    "businessRegion": "North America",
                     "uid": "test1234",
                     "active": true,
                     "firstName": "Test",
@@ -128,15 +128,15 @@
                 ],
                 "permissions": [
                     {
-                        "uid": "uid",
-                        "name": "name",
-                        "description": "description",
+                        "uid": "123",
+                        "name": "1099 Report",
+                        "description": "Persmissions description for 1099 Report, Test Test Test Test Test Test",
                         "checked": true
                     },
                     {
-                        "uid": "uid",
-                        "name": "name",
-                        "description": "description",
+                        "uid": "456",
+                        "name": "Invoice",
+                        "description": "Persmissions description for invoices, Test Test Test Test Test Test",
                         "checked": true
                     }
                 ]
@@ -147,46 +147,6 @@
             var eftSearchCurrency = "USD";
 
             var CSRFToken = "";
-
-             var soldToDropdown = [{
-                "uid": "0676334614",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }, {
-                "uid": "0912234461",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }, {
-                "uid": "0176224612",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }, {
-                "uid": "0116134113",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }];
-
-            var siteDropdown = [{
-                "uid": "0676334614",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                "isInGracePeriod" : true
-            }, {
-                "uid": "0912234461",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }, {
-                "uid": "0176224612",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }, {
-                "uid": "0116134113",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }];
-
-            var pyDropdown = [{
-                "uid": "2017",
-                "displayName": "2017"
-            }, {
-                "uid": "2018",
-                "displayName": "2018"
-            }, {
-                "uid": "2019",
-                "displayName": "2019"
-            }];
 
             var statusUserDdn = [{
                 "uid" : "active",
@@ -202,76 +162,6 @@
             },{
                 "uid" : "TST",
                 "displayName" : "Test Country"
-            }];
-
-            var soldToOptions = [{
-                "uid": "0676334613",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                "associatedShiptos": [{
-                            "uid": "0676334615",
-                            "displayName": "XYZ Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                            "isInGracePeriod" : true
-                        }, {
-                            "uid": "0912234461000",
-                            "displayName": "EFG Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "01762246120001",
-                            "displayName": "HIK Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "011613411323",
-                            "displayName": "LMN Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }]
-            }, {
-                "uid": "0912234461",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                "associatedShiptos": [{
-                            "uid": "0676334615",
-                            "displayName": "XYZ Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                            "isInGracePeriod" : true
-                        }, {
-                            "uid": "0912234461000",
-                            "displayName": "EFG Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "01762246120001",
-                            "displayName": "HIK Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "011613411323",
-                            "displayName": "LMN Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }]
-            }, {
-                "uid": "0176224612",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                "associatedShiptos": [{
-                            "uid": "0676334615",
-                            "displayName": "XYZ Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                            "isInGracePeriod" : true
-                        }, {
-                            "uid": "0912234461000",
-                            "displayName": "EFG Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "01762246120001",
-                            "displayName": "HIK Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "011613411323",
-                            "displayName": "LMN Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }]
-            }, {
-                "uid": "0116134113",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                "associatedShiptos": [{
-                            "uid": "0676334615",
-                            "displayName": "XYZ Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                            "isInGracePeriod" : true
-                        }, {
-                            "uid": "0912234461000",
-                            "displayName": "EFG Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "0176224612000",
-                            "displayName": "HIK Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "0116134113",
-                            "displayName": "LMN Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }]
             }];
 
             var maxResultText = '<div>{0} EFTs matching your search were found in the system.</div>' +

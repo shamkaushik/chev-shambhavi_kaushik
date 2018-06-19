@@ -19,7 +19,7 @@ require(["modernizr",
 
     var statusUserDdnOptions = [],userCountryDddnOptions = [],siteDropdownOptions = [],pyDropdownOptions = [], eftObj = {},startDateDT = '',endDateDT = '';
 
-    var selectedPermissions = [],selectedSite = [];
+    var selectedPermissions = [],selectedSites = [];
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
@@ -115,17 +115,28 @@ require(["modernizr",
             permissionSelection: ".js-permission-selection",
             formInput: "#addNewUserForm .input-element",
             createNewUserForm: "#createNewUserForm",
-            permissionsTableContainer: ".permissionsTableContainer"
+            permissionsTableContainer: ".permissionsTableContainer",
+            userIsDelAdmin : "#userIsDelAdmin",
+            userID : "#userID",
+            statusUserDdn : "#statusUserDdn",
+            fName : "#fName",
+            lName : "#lName",
+            email : "#email",
+            phone : "#phone",
+            addressLineFirst : "#addressLineFirst",
+            addressLineSecond : "#addressLineSecond",
+            userCity : "#userCity",
+            stateProvince : "#stateProvince",
+            zipPostalCode : "#zipPostalCode",
+            userCountryDddn : "#userCountryDddn"
         };
 
         var init = function () {
             populateDropDowns(statusUserDdn,statusUserDdnOptions,"statusUserDdn");
             populateDropDowns(userCountryDddn,userCountryDddnOptions,"userCountryDddn");
-            // populateDropDowns(pyDropdown,pyDropdownOptions,"pyDropdown");
             loadingInitialHbsTemplates();
             bindEvents();
-            populatingTable(cbp.usmrPageAddNew.usmrUserData.permissionsDataList);
-            //triggerAjaxRequest();
+            populatingTable(cbp.usmrPageAddNew.usmrUserData.permissions);
             setItalicsToThedefaultSelection();
         };
 
@@ -174,6 +185,16 @@ require(["modernizr",
             });
         };
 
+        var generateSelectedSites = function(){
+            selectedSites = [];
+            $(config.siteSelection).find("input[type='checkbox']").each(function(){
+                if($(this).prop('checked')==true){
+                    selectedSites.push($(this).data('siteId'));
+                }
+            });
+            return selectedSites;
+        };
+
         var triggerAjaxRequest = function () {
             var selectorCalendar = $(config.ordercalendar).find('span'), hiddenInputForToggleSwitch = $("#eftSearchToggle input[type='hidden']");
             $(config.displaySpinner).show();
@@ -200,8 +221,8 @@ require(["modernizr",
                         }
                     }
                 },
-                "b2bUnits": ["1234SH","567721SH","878878SH"],
-                "permissions": ["invoice","soa","account_balance"]
+                "b2bUnits": generateSelectedSites(),
+                "permissions": selectedPermissions
             };
 
             function successCallback(data) {
@@ -240,7 +261,7 @@ require(["modernizr",
                 "data-parsley-errors-container" : "#permission-errorMsg-holder"
             });
 
-            $('#table tr td checkbox').each(function(index,value){
+            $(config.permissionsTableContainer+' #table tr td checkbox').each(function(index,value){
                 $(this).attr("name","s-s-c-"+index);
             });
         };
@@ -253,7 +274,7 @@ require(["modernizr",
                 "data-parsley-errors-container" : "#message-holder"
             });
 
-            $('#table tr td checkbox').each(function(index,value){
+            $(config.permissionsTableContainer +' #table tr td checkbox').each(function(index,value){
                 $(this).attr("name","d-s-c-"+index);
             });
         };
@@ -307,7 +328,7 @@ require(["modernizr",
         };
 
         var populatingTable = function (dataList) {
-           $('#table').bootstrapTable({
+           $(config.permissionsTableContainer+' #table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
                 iconsPrefix: 'fa',
@@ -317,10 +338,13 @@ require(["modernizr",
                 responsive: false,
                 responsiveBreakPoint: 768,
                 responsiveClass: "bootstrap-table-cardview",
+                onLoadSuccess : function(row){
+                    console.log("row >>>",row);
+                    $(config.permissionsTableContainer+" #table").bootstrapTable("check", 0);
+                },
                 onCheck: function (row, $element) {
                     // enable button
                     selectedPermissions.push(row.uid);
-                    enablePrintDownloadButtons();
                 },
                 onCheckAll: function (rows) {
                     // enable button
@@ -329,10 +353,6 @@ require(["modernizr",
 
                     for (var i = 0; i < len; i++) {
                         selectedPermissions.push(rows[i].uid);
-                    }
-
-                    if (rows.length) {
-                        enablePrintDownloadButtons();
                     }
                 },
                 onUncheck: function (row, $element) {
@@ -373,6 +393,13 @@ require(["modernizr",
             });
 
             addingParseLeyValidationToTable();
+
+            dataList.map(function(val,index){
+                console.log("val.checked >>>,index >>>>",val.checked,index);
+                if(val.checked==true){
+                    $(config.permissionsTableContainer+" #table").bootstrapTable("check", index);
+                }
+            });
         };
 
         return {
@@ -436,10 +463,7 @@ require(["modernizr",
 
         leftPaneExpandCollapse.init();
 
-        cbp.usmrPageAddNew.showSoldTo = true;
-
         cbp.usmrPageAddNew.usmrUserData = usmrUserData;
-        cbp.usmrPageAddNew.soldToOptions = soldToOptions;
 
         if (usmrUserData.permissionsDataList === undefined || usmrUserData.permissionsDataList === null) {
             cbp.usmrPageAddNew.usmrUserData.permissionsDataList = [];
