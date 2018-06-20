@@ -254,14 +254,21 @@ require(["modernizr",
         };
 
         var addingParseLeyValidationToTable = function(){
-            $(config.permissionsTableContainer+' #table tr td input[type="checkbox"]').eq(0).attr({
+            $(config.permissionsTableContainer+' #table tr input[type="checkbox"]').eq(0).attr({
                 "data-parsley-multiple" : "s-s-c", 
                 "data-parsley-required-message" : cbp.usmrPageAddNew.globalVars.errorMessagesPermissions ,
                 "required" : "", 
                 "data-parsley-errors-container" : "#permission-errorMsg-holder"
             });
 
-            $(config.permissionsTableContainer+' #table tr td input[type="checkbox"]').each(function(index,value){
+            $(config.permissionsTableContainer+' #table tr input[type="checkbox"]').each(function(){
+                $(this).attr({
+                    "data-parsley-multiple" : "s-s-c",
+                    "required" : ""
+                });
+            });
+
+            $(config.permissionsTableContainer+' #table tr input[type="checkbox"]').each(function(index,value){
                 $(this).attr("name","s-s-c-"+index);
             });
         };
@@ -272,6 +279,13 @@ require(["modernizr",
                 "data-parsley-required-message" : cbp.usmrPageAddNew.globalVars.errorMessagesSoldToShipTo ,
                 "required" : "", 
                 "data-parsley-errors-container" : "#message-holder"
+            });
+
+            $(config.searchDetailContainer+' input[type="checkbox"]').each(function(){
+                $(this).attr({
+                    "data-parsley-multiple" : "d-s-c",
+                    "required" : ""
+                });
             });
 
             $(config.permissionsTableContainer +' #table tr td input[type="checkbox"]').each(function(index,value){
@@ -332,8 +346,47 @@ require(["modernizr",
             $(document).on('click', config.userIsDelAdmin, function(event) {
                 $(event.target).prop('checked')==true ? 
                 ($(config.siteSelection).find("input[type='checkbox']").attr('disabled',true),
-                $(config.siteSelection).find("input[type='checkbox']").prop('checked',false))
-                :$(config.siteSelection).find("input[type='checkbox']").attr('disabled',false)
+                $(config.siteSelection).find("input[type='checkbox']").prop('checked',true),
+                $(config.soldToicon).addClass('disabled'),
+                populatePermissions())
+                :($(config.siteSelection).find("input[type='checkbox']").prop('checked',false),
+                $(config.siteSelection).find("input[type='checkbox']").attr('disabled',false),
+                $(config.soldToicon).removeClass('disabled'))
+            });
+
+            $(document).on('click', config.shiptoListContainer+" input[type='checkbox']", function(event) {
+                console.log("soldToSelectorCheckbox >>>",$(event.target).closest('.soldToSelectorCheckbox').hide());
+            });
+        };
+
+        var populatePermissions = function(){
+            $(config.displaySpinner).show();
+            $(config.permissionsTableContainer+' #table').bootstrapTable('destroy');
+            var postData = {};
+            function successCallback(data) {
+                $(config.displaySpinner).hide();
+                cbp.usmrPageAddNew.usmrUserData.permissions = data.permissions;
+                console.log("cbp.usmrPageAddNew.usmrUserData.permissions >>>",cbp.usmrPageAddNew.usmrUserData.permissions);
+                populatingTable(cbp.usmrPageAddNew.usmrUserData.permissions);
+                leftPaneExpandCollapse.resetSearchFormHeight();
+            }
+
+            function errorCallback() {
+                $(config.displaySpinner).hide();
+                $(config.searchDetailContainer).show();
+                $(config.ccsSummaryContainer).show();
+                console.log("error");
+            }
+
+            $.ajax({
+                type: cbp.usmrPageAddNew.globalUrl.method,
+                headers: {'CSRFToken':CSRFToken},
+                data: JSON.stringify(postData),
+                contentType:"application/json",
+                dataType:"json",
+                url: cbp.usmrPageAddNew.globalUrl.loadPermissions,
+                success: successCallback,
+                error: errorCallback
             });
         };
 

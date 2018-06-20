@@ -1,16 +1,15 @@
 {
-  "fromDate": "22-03-2015",
-  "toDate": "29-08-2016",
-  "currency": "USD",
-  "payer" : "7901220, DISMACOR S.A. K 16 NRO 20-56, BUCARAMANGA, Colombia",
-  "soldTo" : "7901220, DISMACOR S.A. K 16 NRO 20-56, BUCARAMANGA, Colombia",
-  "region" : "America",
-  "language" : "English",
-  "permissionsDataList": [{
-      "permission" : "1099 Report",
-      "desc" : "Provides functionality for Customers to view and download their 1099 Report."
-  }],
-  "resultCount": 1,
-  "multipleSoldTo": false,
-  "sort": null
+  "permissions": [
+    {
+        "uid": "123",
+        "name": "1099 Report Test",
+        "description": "Persmissions description for 1099 Report, Test Test Test Test Test Test",
+        "checked": false
+    },
+    {
+        "uid": "456",
+        "name": "Invoice Test",
+        "description": "Persmissions description for invoices, Test Test Test Test Test Test",
+        "checked": true
+    }]
 }
