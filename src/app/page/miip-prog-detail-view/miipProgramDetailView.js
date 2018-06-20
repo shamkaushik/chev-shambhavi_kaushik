@@ -1,3 +1,7 @@
+var goToInvoice = function(invoice){
+    console.log(invoice);
+}
+
 require(["modernizr",
     "jquery",
     "bootstrap",
@@ -62,21 +66,20 @@ require(["modernizr",
 
         var generatingOptions = function(data){
             globalSortList = [{
+                key: "salesMonth-desc",
+                value: cbp.miipPrgDetailPage.globalVars.salesMonthDesc
+            },{
                 key: "salesMonth-asc",
                 value: cbp.miipPrgDetailPage.globalVars.salesMonthAsc
             },
             {
-                key: "salesMonth-desc",
-                value: cbp.miipPrgDetailPage.globalVars.salesMonthDesc
+                key: "paymentProcessingDate-desc",
+                value: cbp.miipPrgDetailPage.globalVars.paymentProcessingDateDesc
             },
             {
                 key: "paymentProcessingDate-asc",
                 value: cbp.miipPrgDetailPage.globalVars.paymentProcessingDateAsc
-            },
-            {
-                key: "paymentProcessingDate-desc",
-                value: cbp.miipPrgDetailPage.globalVars.paymentProcessingDateDesc
-            }];
+            },];
 
         var sortListMap = globalSortList.reduce(function (data, globalSortList) {
             data[globalSortList.key] = globalSortList;
@@ -168,7 +171,7 @@ require(["modernizr",
                             width:"10%",
                             formatter: function LinkFormatter(value, row, index) {
                               if(value && value !="null"){
-                                  return "<a href='#' class='js-prg-billingDoc'>" + value + "</a>";
+                                  return "<a href='#' class='js-prg-billingDoc' onclick='goToInvoice("+value+")'>" + value + "</a>";
                               }
                             }
                         }];

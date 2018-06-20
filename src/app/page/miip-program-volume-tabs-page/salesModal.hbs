@@ -22,13 +22,19 @@
                               <input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control pull-left xs-mr-5 sales-popup-input-text-small sales-month text-right" placeholder="MM" maxlength="2" >
                               <input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control sales-popup-input-text-medium sales-year text-right" placeholder="YYYY" maxlength="4">
                             </td>
-                              <td><input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
-                                class="form-control sales-popup-input-text-large js-quantity-input rul-quantity text-right"></td>
-                              <td><input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
-                                  class="form-control sales-popup-input-text-large js-quantity-input mul-quantity text-right"></td>
-                              <td><input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
-                                  class="form-control sales-popup-input-text-large js-quantity-input pul-quantity text-right"></td>
-                              <td class="text-right"><span class="total-volume total-volume-field-style xs-mr-10"></span></td>
+                            <td>
+                                <input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                class="form-control sales-popup-input-text-large js-quantity-input rul-quantity add-sales-qty text-right">
+                            </td>
+                            <td>
+                                <input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                class="form-control sales-popup-input-text-large js-quantity-input mul-quantity add-sales-qty text-right">
+                            </td>
+                            <td>
+                                <input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                class="form-control sales-popup-input-text-large js-quantity-input pul-quantity add-sales-qty text-right">
+                            </td>
+                            <td class="text-right"><span class="total-volume total-volume-field-style xs-mr-10"></span></td>
                         </tr>
                     </tbody>
                 </table>

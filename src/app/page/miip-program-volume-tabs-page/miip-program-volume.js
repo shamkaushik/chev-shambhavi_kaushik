@@ -76,7 +76,8 @@ require(["modernizr",
             salesYear: ".sales-year",
             quantityInput: ".js-quantity-input",
             totalVolume: ".total-volume",
-            saveFailure: ".js-save-failure"
+            saveFailure: ".js-save-failure",
+            addSalesQty: ".add-sales-qty"
         };
 
         var srtByDdn = {
@@ -88,6 +89,14 @@ require(["modernizr",
                 key: "status-desc",
                 value: "Status, Z to A",
                 id: 'status'
+            },{
+                key: "program-asc",
+                value: "Program, A to Z",
+                id: 'program'
+            }, {
+                key: "program-desc",
+                value: "Program, Z to A",
+                id: 'program'
             }],
             label: "Sort by",
             //title: cbp.ohPage.globalVars.docDateAsc,
@@ -479,12 +488,12 @@ require(["modernizr",
                     sortable: true,
                     //class: 'numberIcon',
                     formatter: function(row, value) {
-                        var salesDate = new Date(row);
-                        console.log(salesDate);
-                        var month = calendarMonths[salesDate.getMonth()];
-                        console.log('month',salesDate.getMonth());
-                        var year = salesDate.getFullYear();
-                        return "<a href='#' class='js-volume-anchor sales-month' data-sales-month='" + row + "'>" + month + " " + year + "</a>";
+                        var salesDate = moment.utc(row).format('MM/YYYY');
+                        //var salesDate = new Date(row);
+                        //var month = calendarMonths[salesDate.getUTCMonth()];
+                        //var year = salesDate.getUTCFullYear();
+                        //return "<a href='#' class='js-volume-anchor sales-month' data-sales-month='" + row + "'>" + month + "/" + year + "</a>";
+                        return "<a href='#' class='js-volume-anchor sales-month' data-sales-month='" + row + "'>" + salesDate + "</a>";
                     }
                 }, {
                     field: 'rul',
@@ -513,13 +522,13 @@ require(["modernizr",
                         }
                     }
                 }, {
-                    field: 'reason',
-                    title: 'Reason',
-                    width: '20%'
-                }, {
                     field: 'status',
                     title: 'Status',
                     sortable: true
+                },{
+                    field: 'reason',
+                    title: 'Reason',
+                    width: '20%'
                 }],
                 data: volumeTableData
             });
@@ -568,6 +577,7 @@ require(["modernizr",
             });
             //calculating the total volume for dispute and disputed popup
             $(document).on('focusout', config.actualVol, function(event) {
+                console.log('dispute entered');
                 rulValue = $(this).hasClass("rul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : rulValue = 0) : rulValue;
                 mulValue = $(this).hasClass("mul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : mulValue = 0) : mulValue;
                 pulValue = $(this).hasClass("pul-val") ? ($(this).val() ? parseFloat(event.currentTarget.value) : pulValue = 0) : pulValue;
@@ -575,8 +585,22 @@ require(["modernizr",
                 $(config.totalValue).text(calculatedTotalValue.toString());
             });
 
+            //allow max-length 10
+            $(document).on('keypress', config.actualVol, function(event) {
+                if(event.currentTarget.value.length > 9){
+                    return false;
+                }
+            });
+
+            $(document).on('keypress', config.addSalesQty, function(event) {
+                if(event.currentTarget.value.length > 9){
+                    return false;
+                }
+            });
+
             //calculating the total volume for sales popup
             $(document).on("focusout", config.quantityInput, function(e) {
+                console.log('sales entered');
                 var sum = 0;
                 $(config.quantityInput).each(function() {
                     sum += Number($(this).val());

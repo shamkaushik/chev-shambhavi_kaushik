@@ -304,9 +304,25 @@ require(["modernizr",
                             titleTooltip: cbp.miipSite.globalVars.site,
                             width: "40%",
                             sortable: true,
-                            class: 'col-md-6',
+                            class: 'col-md-6 numberIcon',
+                            sorter: function(a, b) {
+                                if (a !== null && b !== null) {
+                                   a = parseFloat(a.replace(/[,.]+/g,""));
+                                    b = parseFloat(b.replace(/[,.]+/g,""));
+                                }
+        
+                                if (a < b) {
+                                    return -1;
+                                }
+                                if (a > b) {
+                                    return 1;
+                                }
+                                return 0;
+                            },
                             formatter: function LinkFormatter(value, row, index) {
+                                console.log(row);
                                 return "<a href='#' class='js-eft-NoticeNumber'>" + value + "</a>";
+                                //return "<a href='#' class='js-eft-NoticeNumber'>" + row.businessLocationId + "</a>";
                             }
                         },
                         {
@@ -352,7 +368,7 @@ require(["modernizr",
             data[columnsList.field] = columnsList;
             return data;
             }, {});
-            var orderKey = [ "site", "volumeDiscrepancy", "thruput", "rentFlag", "brand", "businessConsultant", "siteZone"]
+            var orderKey = ["site", "volumeDiscrepancy", "thruput", "rentFlag", "brand", "businessConsultant", "siteZone"]
 
             var requestedCol = [];
             for(var i = 0; i< orderKey.length; i++){
@@ -393,11 +409,12 @@ require(["modernizr",
             $('#table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'site',
-                iconsPrefix: 'fa',
                 sortable: true,
-                parentContainer: ".js-bottom-detail",
+                sortOrder: 'desc',
+                sortName: 'businessLocationId',
                 sortByDropdownId: "#sortByDdn",
+                iconsPrefix: 'fa',
+                parentContainer: ".js-bottom-detail",
                 responsive: true,
                 responsiveBreakPoint: 768,
                 responsiveClass: "bootstrap-table-cardview",

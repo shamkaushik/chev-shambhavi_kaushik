@@ -48,6 +48,10 @@ require(["modernizr",
             });
         };
 
+        var getResultRows = function(){
+            return cbp.miipVolumeDetailPage.miipVolumeDetailResponse.rows.length;
+        }
+
         var generatingColumns = function(columnsDataList){
           var receivedOrderKey = Object.keys(columnsDataList).filter(function(key){
             if(columnsDataList[key]){
@@ -60,8 +64,8 @@ require(["modernizr",
                 },
                 {
                   field: 'salesDate',
-                  title: cbp.miipVolumeDetailPage.globalVars.salesDate,
-                  titleTooltip: cbp.miipVolumeDetailPage.globalVars.salesDate,
+                  title: cbp.miipVolumeDetailPage.globalVars.salesDate + " (" + getResultRows() + " " + cbp.miipVolumeDetailPage.globalVars.days + ")",
+                  titleTooltip: cbp.miipVolumeDetailPage.globalVars.salesDate + " (" + getResultRows() + " " + cbp.miipVolumeDetailPage.globalVars.days + ")",
                 },
                 {
                   field: 'rul',
@@ -79,6 +83,7 @@ require(["modernizr",
                   title: cbp.miipVolumeDetailPage.globalVars.pul,
                   titleTooltip: cbp.miipVolumeDetailPage.globalVars.pul,
                   align: 'right',
+                  width: '25%'
                 },
                 {
                   field: 'total',
