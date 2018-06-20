@@ -1,0 +1,179 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css' />
+    <link href='/assets/css/app-na.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <div class='body-wrapper'>
+        <main>
+            <header class="main-header main-header-md js-header" style="">
+            </header>
+        </main>
+        <section class='main-container'>
+            <div class="content-box add-new-mr-company">
+                <div class="row">
+                    <div class="col-sm-15 col-xs-15">
+                        <h2 class='page-title'>add new marketer retailer company</h2>
+                    </div>
+                </div>
+                <div class='row xs-m-0 position-relative'>
+                    <div class="overlay-wrapper">
+                    </div>
+                    <div class='col-md-24 col-lg-24 right-pane'>
+                        <div class='top-summary js-add-new-mr-company-summary'>
+                        </div>
+                        <div class='bottom-detail js-bottom-detail md-p-0 xs-pt-15'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+
+            var addNewMrCompanyResponse = {
+                "availableSites": [
+                  {
+                    "uid": "uid",
+                    "displayName": "201154 - Redwood Oil Co, 39103 Highway 299",
+                    "assigned": true,
+                    "associatedB2BUnit": null
+                  },
+                  {
+                    "uid": "uid",
+                    "displayName": "201964 - Redwood Oil Co Inc, 4925 Sonoma Hwy",
+                    "assigned": true,
+                    "associatedB2BUnit": null
+                  },
+                  {
+                    "uid": "uid",
+                    "displayName": "202125 - Redwood Oil Co., 830 Redwood Dr",
+                    "assigned": true,
+                    "associatedB2BUnit": null
+                  },
+                  {
+                    "uid": "uid",
+                    "displayName": "4027815 - Redwood Oil Co Inc, Fob4 Richmond-Bulk",
+                    "assigned": true,
+                    "associatedB2BUnit": null
+                  },
+                  {
+                    "uid": "uid",
+                    "displayName": "4176766 - Redwood Oil Co Inc, 455 Yolanda Ave",
+                    "assigned": true,
+                    "associatedB2BUnit": null
+                  },
+                  {
+                    "uid": "uid",
+                    "displayName": "7591364 - Williams Tank Line Inc.",
+                    "assigned": true,
+                    "associatedB2BUnit": null
+                  },
+                  {
+                    "uid": "uid",
+                    "displayName": "201154 - Redwood Oil Co, 39103 Highway 299",
+                    "assigned": true,
+                    "associatedB2BUnit": null
+                  }
+                ],
+                "soldToDropDown": [
+                  {
+                    "uid": "uid",
+                    "displayName": "test displayName"
+                  },
+                  {
+                    "uid": "uid",
+                    "displayName": "test displayName1"
+                  },
+                  {
+                    "uid": "uid",
+                    "displayName": "test displayName2"
+                  },
+                  {
+                    "uid": "uid",
+                    "displayName": "test displayName3"
+                  }
+
+                ],
+                "status": [
+                  {
+                    "displayName": "test status name",
+                    "value": true
+                  },
+                  {
+                    "displayName": "test status name1",
+                    "value": true
+                  },
+                  {
+                    "displayName": "test status name2",
+                    "value": true
+                  },
+                  {
+                    "displayName": "test status name3",
+                    "value": true
+                  }]
+              };
+            var srtByDdn = {
+                "options": [],
+                label: "Sort By",
+                labelClass: "xs-mr-5",
+                name: "sortByDdn",
+                display: "displayInline"
+            };
+
+            var  addNewMrColumnMapping = {
+                "site" :"test"
+            };
+
+            var cbp = {
+                "staticBasePath": "/",
+                "addNewMrComapnyPage": {
+                    "globalUrl": {
+                      "returnToCompanyMgtUrl" : "/usmr/usmr.html"
+                    },
+                    "parentSoldToDropdown": {
+                      "options":[],
+                      "label": "Parent Sold To",
+                      "title": "",
+                      "name": "parentSoldToDdn",
+                      "showOptions": 10,
+                      "singleOption": true
+                    },
+                    "statusDropDown" : {
+                      "options":[],
+                      "label": "Status",
+                      "title": "",
+                      "name": "statusDdn",
+                      "showOptions": 10,
+                      "singleOption": true
+                    },
+                    "globalVars": {
+                      "companyMgtReturnView" : "return to company management",
+                        "mrDetailsHeading": "marketer retailer details",
+                        "soldtoLabel" : "Parent Sold To",
+                        "mrCompanyName1Label" : "Marketer Retailer Company Name 1",
+                        "mrCompanyName2Label" : "Marketer Retailer Company Name 2",
+                        "siteAsc" : "Site, Ascending",
+                        "siteDesc" : "Site, Descending",
+                    }
+                }
+            }
+
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="add-new-mr-company.js"></script>
+        <footer id="footer" class="js-footer">
+        </footer>
+    </div>
+</body>
+
+</html>
