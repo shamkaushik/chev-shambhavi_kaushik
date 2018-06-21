@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-xs-24">
+        <span class="sub-heading">{{globalVars.priceNoticesSummaryTitle}}</span>
+        <a href="javascript:void(0)" class="pull-right set-as-default">
+            <i class="fa fa-star-o"></i>
+            Set as Default View
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-24">
+        <div class="row xs-mt-10">           
+            <div class="col-md-6 col-xs-24 md-pb-0 xs-pb-10 detail-view hidden">
+                 <span>
+                    <strong>{{priceNoticesSummary.accountText}}</strong>
+                </span>                
+                <br/>
+                <span id="eftSearchSoldTo">{{priceNoticesTableResponse.accountValue}}</span>                
+            </div>
+            <div class="col-md-6 col-xs-24 md-pb-0 xs-pb-10">
+                <span>
+                    <strong>{{priceNoticesSummary.publishedDateText}}</strong>
+                </span>                
+                <br/>
+                <span id="eftSearchSoldTo">{{priceNoticesTableResponse.publishedDateValue}}</span>
+            </div>
+            <div class="col-md-6 col-xs-24 md-pb-0 xs-pb-10 detail-view hidden">
+                <span>
+                    <strong>{{priceNoticesSummary.priceNoticeType}}</strong>
+                </span>
+                <br/>
+                <span id="eftSearchPayer">{{priceNoticesTableResponse.priceNoticeTypeValue}}</span>
+            </div>
+        </div>
+    </div>
+    {{#if eftSearchResponse.fromDate}}
+    <div class="col-md-24 col-xs-24 md-pb-0 xs-pb-10">
+        <br/>
+        <span id="eftSearchDateRange">{{globalVars.summaryfromAndToVar}}</span>
+    </div>
+    {{/if}}
+</div>
