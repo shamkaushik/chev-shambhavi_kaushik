@@ -1,0 +1,158 @@
+{
+    "mrCompanySearchViewData": {
+    "leftSearchPanel": {
+        "soldToDropDown": [
+        {
+                "uid": "80i20a",
+                "displayName": " 123 Main Street, Anytown CA 94583"
+            }, {
+                "uid": "0911",
+                "displayName": " Anytown CA 94583 899"
+            }, {
+                "uid": "017624612",
+                "displayName": "0176224612 -ABC Marketers Distribution, "
+            }, {
+                "uid": "134113",
+                "displayName": "ABC Marketers Distribut 94583"
+            }
+        ],
+        "statusDropDown": [
+            {
+                "displayName": "name",
+                "value": true
+            }
+        ],
+        "associatedSitesDropDown": [
+            {
+                "uid": "Site one",
+                "displayName": "Site one",
+                "inGracePeriod": false,
+                "businessLocationData": null
+            },
+            {
+                "uid" : "Site two",
+                "displayName": "Site two",
+                "inGracePeriod": false,
+                "businessLocationData": null
+            },
+            {
+                "uid" : "Site two",
+                "displayName": "Site two",
+                "inGracePeriod": false,
+                "businessLocationData": null
+            }
+
+            
+        ]
+    },
+    "searchResults": {
+        "header": {
+            "soldTo": "soldTo",
+            "shipTo": null,
+            "site": null,
+            "payer": null,
+            "assignedSites": [
+                "sites"
+            ],
+            "status":	"ALL"
+        },
+        "companyList": [
+            {
+                "companyName": "name",
+                "companyUID": "uid",
+                "assignedSites": [
+                    "sites"
+                ],
+                "status": "Active"
+            }
+        ]
+    }
+},
+"userSearchViewData": {
+    "leftSearchPanel": {
+        "soldToDropDown": [
+            {
+                "uid": "0676334614",
+                "displayName": "0676334614, ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+            }, {
+                "uid": "0912234461",
+                "displayName": "ZXY Marketers Distribution, 123 Main Street, Anytown CA 94583 899"
+            }, {
+                "uid": "0176224612",
+                "displayName": "0176224612 -ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 0176224612"
+            }, {
+                "uid": "0116134113",
+                "displayName": "ABC Marketers Distribution, 123 Main Street, 0116134113 Anytown CA 94583"
+            }
+        ],
+        "statusDropDown": [
+            {
+                "uid":"Active",
+                "displayName":"Active"
+            },
+            {
+                "uid":"Inactive",
+                "displayName":"Inactive"
+            }
+        ],
+        "permissionsDropDown": [{
+            "key": "Adjustments",
+            "value": "Adjustments"
+        }, {
+            "key": "Cancellation",
+            "value": "Cancellation"
+        }
+        ]
+    },
+    "searchResults": {
+        "header": {
+            "soldTo": "SoldTo",
+            "shipTo": null,
+            "site": null,
+            "payer": null,
+            "status": "ALL",
+            "permissions": [
+                "permission"
+            ]
+        },
+        "usersList": [
+        {
+                    "name":"Alex Lewis",
+                    "userId":"reit-lewis",
+                    "email":"reit-lewis@cja.com",
+                    "phone": "1234567890",
+                    "status": "Active",
+                    "role":"Customer",
+                    "admin": true
+                },
+                {
+                    "name":"Chris Van Daley",
+                    "userId":"cvandaley",
+                    "email":"16",
+                    "phone": "1234567890",
+                    "status": "Active",
+                    "role":"Customer",
+                    "admin": true
+                },
+                {
+                    "name":"Debbie Klemm",
+                    "userId":"0.13",
+                    "email":"29",
+                    "phone": "1234567890",
+                    "status": "Inactive",
+                    "role":"Customer",
+                    "admin": true
+                },
+                {
+                    "name":"Zebbiaoka Klemm",
+                    "userId":"0.13",
+                    "email":"29",
+                    "phone": "1234567890",
+                    "status": "Inactive",
+                    "role":"Customer",
+                    "admin": true
+                }
+        ]
+    }
+}
+}

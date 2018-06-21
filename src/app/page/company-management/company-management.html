@@ -1,0 +1,445 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='/assets/css/custom-bootstrap.css' rel='stylesheet' type='text/css'/>
+    <link href='/assets/css/app-na.css' rel='stylesheet' type='text/css'/>
+</head>
+
+<body>
+    <div class='body-wrapper'>
+      <main>
+          <header class="main-header main-header-md js-header" style="">
+          </header>
+      </main>
+      <section class='main-container'>
+        <div class="content-box page-company-management">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class='page-title'>company management</h2>
+                </div>
+            </div>
+            <div class='row xs-m-0 position-relative'>
+                <div class="overlay-wrapper">
+                </div>
+                <div class="col-md-24"> 
+                        <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#home">users</a></li>
+                                <li><a data-toggle="tab" class="companyhide" href="#mrCompany">marketer retailer company</a></li>
+                              </ul>
+                              
+                              <div class="tab-content">
+                                <div id="home" class="tab-pane fade in active">
+                                     <div class='col-md-5 xs-mt-15 left-pane hidden-md search hidden-print'>
+                            <div class='search-content'>
+                                <div class='sub-heading-thin hidden-sm hidden-xs'>
+                                    search
+                                    <span class='fa fa-close visible-md-inline'></span>
+                                </div>
+                                <div class='sub-heading-thin hidden-lg hidden-md toggle-search-mobile'>
+                                    <span class='fa fa-sliders'></span> search
+                                    <span class='fa fa-chevron-down pull-right'></span>
+                                </div>
+                                <div class='search-form xs-mt-10 js-search-form'>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <div class='col-md-23 col-lg-19 right-pane xs-mt-15'>
+                                <div class='top-summary js-volume-summary' style="min-height:50px;">
+                                </div>
+                                <div class='bottom-detail js-bottom-detail'>
+                                    </div>
+                        </div>
+                        
+                                 </div>
+                                 
+                                <div id="mrCompany" class="tab-pane fade">
+                                        <div class='col-md-5 xs-mt-15 left-pane hidden-md search hidden-print'>
+                                                <div class='search-content'>
+                                                    <div class='sub-heading-thin hidden-sm hidden-xs'>
+                                                        search
+                                                        <span class='fa fa-close visible-md-inline'></span>
+                                                    </div>
+                                                    <div class='sub-heading-thin hidden-lg hidden-md toggle-search-mobile'>
+                                                        <span class='fa fa-sliders'></span> search
+                                                        <span class='fa fa-chevron-down pull-right'></span>
+                                                    </div>
+                                                    <div class='search-form xs-mt-10 js-marketer-retailer-search-form'>
+                                                    </div>
+                                                </div>
+                                               
+                                            </div>        
+                                            <div class='col-md-23 col-lg-19 right-pane xs-mt-15'>
+                                                    <div class='top-summary js-mrCompany-summary' style="min-height:50px;">
+                                                    </div>
+                                                    <div class='bottom-detail js-retailer-rankings'>
+                                                        </div>
+                                            </div>                        
+                                </div>
+                              </div>
+                            </div>
+                  </div>
+                  </div>
+                
+                
+            </div>
+        </div>
+    </section>
+        
+        <script type="text/javascript">
+        var showMRCompanyTab =true;
+            
+          var cmData=  {
+	"mrCompanySearchViewData": {
+		"leftSearchPanel": {
+			"soldToDropDown": [
+            {
+                    "uid": "80i20a",
+                    "displayName": " 123 Main Street, Anytown CA 94583"
+                }, {
+                    "uid": "0911",
+                    "displayName": " Anytown CA 94583 899"
+                }, {
+                    "uid": "017624612",
+                    "displayName": "0176224612 -ABC Marketers Distribution, "
+                }, {
+                    "uid": "134113",
+                    "displayName": "ABC Marketers Distribut 94583"
+                }
+			],
+			"statusDropDown": [
+				{
+					"displayName": "Active",
+					"value": true
+                },
+                {
+                    "displayName": "Inactive",
+					"value": true 
+                }
+			],
+			"associatedSitesDropDown": [
+				{
+                    "uid": "Site one",
+                    "displayName": "Site one",
+					"inGracePeriod": false,
+					"businessLocationData": null
+                },
+                {
+                    "uid" : "Site two",
+                    "displayName": "Site two",
+					"inGracePeriod": false,
+					"businessLocationData": null
+                },
+                {
+                    "uid" : "Site two",
+                    "displayName": "Site two",
+					"inGracePeriod": false,
+					"businessLocationData": null
+                },
+
+                
+			]
+		},
+		"searchResults": {
+			"header": {
+				"soldTo": "soldTo",
+				"shipTo": null,
+				"site": null,
+				"payer": null,
+				"assignedSites": [
+					"sites"
+				],
+				"status":	"ALL"
+			},
+			"companyList": [
+                                {
+                                    "companyName": "Atallah Bastson",
+                                    "companyUID": "1234",
+                                    "assignedSites": [
+                                                        "site1,site2,site3,site4"
+                                                    ],
+                                    "status": "Active"
+                                },
+                                {
+                                    "companyName": "Blah Blah",
+                                    "companyUID": "1234",
+                                    "assignedSites": [
+                                                        "site1,site2,site1891"
+                                                    ],
+                                    "status": "Inactive"
+                                },
+                                {
+                                    "companyName": "Yuoamow",
+                                    "companyUID": "1234",
+                                    "assignedSites": [
+                                                        "site1,site21891"
+                                                    ],
+                                    "status": "Active"
+                                }
+                            ],
+            "companyRowColumn":{
+                                    "companyName": "name",
+                                    "companyUID": "uid",
+                                    "assignedSites": [
+                                                        "sites"
+                                                    ],
+                                    "status": "Active"
+                                }
+                    }
+              },
+	"userSearchViewData": {
+		"leftSearchPanel": {
+			"soldToDropDown": [
+				{
+                    "uid": "0676334614",
+                    "displayName": "0676334614, ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
+                }, {
+                    "uid": "0912234461",
+                    "displayName": "ZXY Marketers Distribution, 123 Main Street, Anytown CA 94583 899"
+                }, {
+                    "uid": "0176224612",
+                    "displayName": "0176224612 -ABC Marketers Distribution, 123 Main Street, Anytown CA 94583 0176224612"
+                }, {
+                    "uid": "0116134113",
+                    "displayName": "ABC Marketers Distribution, 123 Main Street, 0116134113 Anytown CA 94583"
+                }
+			],
+			"statusDropDown": [
+                {
+					"displayName": "Active",
+					"value": true
+                },
+                {
+                    "displayName": "Inactive",
+					"value": true 
+                }
+			],
+			"permissionsDropDown": [{
+                "uid": "Adjustments",
+                "name": "Adjustments"
+            }, {
+                "uid": "Cancellation",
+                "name": "Cancellation"
+            }
+			]
+		},
+		"searchResults": {
+			"header": {
+				"soldTo": "SoldTo",
+				"shipTo": null,
+				"site": null,
+				"payer": null,
+				"status": "ALL",
+				"permissions": [
+					"permission"
+				]
+			},
+			"usersList": [
+            {
+                        "name":"Alex Lewis",
+                        "userId":"reit-lewis",
+                        "email":"reit-lewis@cja.com",
+                        "phone": "1234567890",
+                        "status": "Active",
+                        "role":"Customer",
+                        "admin": true
+                    },
+                    {
+                        "name":"Chris Van Daley",
+                        "userId":"cvandaley",
+                        "email":"16",
+                        "phone": "1234567890",
+                        "status": "Active",
+                        "role":"Customer",
+                        "admin": true
+                    },
+                    {
+                        "name":"Debbie Klemm",
+                        "userId":"0.13",
+                        "email":"29",
+                        "phone": "1234567890",
+                        "status": "Inactive",
+                        "role":"Customer",
+                        "admin": true
+                    },
+                    {
+                        "name":"Zebbiaoka Klemm",
+                        "userId":"0.13",
+                        "email":"29",
+                        "phone": "1234567890",
+                        "status": "Inactive",
+                        "role":"Customer",
+                        "admin": true
+                    }
+            ],
+            userRowColumn:{
+                        "name":"ihiim",
+                        "userId":"0ifd",
+                        "email":"uuiin",
+                        "phone": "yuknjk ",
+                        "status": "uoji",
+                        "role":"iojinn",
+                        "admin": true
+            }
+            
+		}
+	}
+}
+
+            var cbp = {
+                
+
+                "staticBasePath": "/",
+                "cmPage": {
+                    "soldToDropDown": {
+                        "options": [],
+                        "label": "Sold To",
+                        //"title": "Select Location",
+                        "title": "",
+                        "name": "soldToSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": false
+                    },
+                    "parentSoldToDropDown": {
+                        "options": [],
+                        "label": " Parent Sold To",
+                        //"title": "Select Location",
+                        "title": "",
+                        "name": "parentSoldToSelectDdn",
+                        "showOptions": 10,
+                        "singleOption": false
+                    },
+                    "statusDropDown":{
+                        "options":[],
+                        "label":"Status",
+                        "showOptions":10,
+                        "name":"statusSelectDdn"
+                    },
+                    "mrstatusDropDown":{
+                        "options":[],
+                        "label":"Status",
+                        "showOptions":10,
+                        "name":"mrStatusSelectDdn"
+                    },
+
+                    "assignedSitesDropdown": {
+                        "options": [],
+                        "singleOption":false,
+                        "label": "Assigned Sites",
+                        "name": "assignedSitesDdn",
+                        "showOptions": 8,
+                        "assignedSitesAvailable":true,
+                        "multiple": true,
+                        "selectAll": true,
+                        "selectAllText": "All Types",
+                        "deselectAllText": "false",
+                        "title": "All Types"
+                    },
+                    "permissionsDropdown": {
+                        "options": cmData.userSearchViewData.leftSearchPanel.permissionsDropDown,
+                        "label": "Permissions",
+                        "name": "permissionsDdn",
+                        "showOptions": 8,
+                        "multiple": true,
+                        "singleOption":false,
+                        "selectAll": true,
+                        "selectAllText": "All Types",
+                        "deselectAllText": "false",
+                        "title": "All Types"
+                    },
+                    "globalUrl": {
+                        "searchResultsURL": "/assets/json/companyManagementSearchResults.json",
+                        "method" : "GET"
+                    },
+                    "globalVars": {
+                        "mrCompanySummary":"marketer retailer company summary",
+                        "addMrCompany":"Add New Marketer Retailer Company",
+                        "mrCompanyResultCount":"Marketer Retailer Companie(s) found",
+                        "userResultCount":"User(s) found",
+                        "companyName":"Marketer Retailer Company",
+                        "parentSoldTo":"Parent Sold To",
+                        "assignedSites":"Assigned Sites",
+                        "mrCompany":"Marketer Retailer Company",
+                        "sortBy":"Sort by",
+                        "companyNameAsc":"Marketer Retailer Company, A to Z",
+                        "companyNameDesc":"Marketer Retailer Company, Z to A",
+                        "assignedSitesAsc":"Assigned Sites, Ascending",
+                        "assignedSitesDesc":"Assigned Sites, Descending",
+                        "userIdDesc":"User ID, Descending",
+                        "userIdAsc":"User ID, Ascending",
+                        "emailAsc":"E-mail Address, Ascending",
+                        "emailDesc":"E-mail Address, Descending",
+                        "roleAsc":"Role, Ascending",
+                        "roleDesc":"Role, Descending",
+                        "phoneAsc":"Phone #, Ascending",
+                        "phoneDesc":"Phone #, Descending",
+                        "nameAsc":"Name, A to Z",
+                        "nameDesc":"Name, Z to A",
+                        "statusAsc": "Status, A to Z ",
+                        "statusDesc": "Status, Z to A",
+                        "addUser":"Add New User",
+                        "phoneNumber":"Phone #",
+                        "role":"Role",
+                        "status":"Status",
+                        "permissions":"Permissions",
+                        "userId": "User ID",
+                        "userSummary": "user summary",
+                        "soldTo":"Sold To",
+                        "status":"Status",
+                        "permissions":"Permissions",
+                        "name":"Name",
+                        "emailAddress": "E-mail Address",
+                        "reportText":"This is an unofficial national report which ranks Marketers and retailers by the number of credit card submittals across all of their Accounts and Facilities.",
+                        "currentYear":"2018",
+                        "allTb":"All",
+                        "searchTxt": "Search",
+                        "reportSummary": "station report card",
+                        "volDetail": "volume detail",
+                        "marketer": "Marketer",
+                        "retailer":"Retailer",
+                        "averageSubmittals":"Average Submittals",
+                        "totalApprovals":"Total Approvals",
+                        "nationwideRankings":"Nationwide Rankings",
+                        "selectDdn": {
+                            "noneSelectedText": "Nothing selected",
+                            "noneResultsText": "No results for {0}",
+                            "selectAllText": "Select All",
+                            "deselectAllText": "Deselect All",
+                            "itemSelected": "{0} item selected",
+                            "itemSelected1": "{0} items selected",
+                            "limitReached": "Limit reached ({n} item max)",
+                            "limitReached1": "Limit reached ({n} items max)",
+                            "groupLimit": "Group limit reached ({n} item max)",
+                            "groupLimit1": "Group limit reached ({n} items max)"
+                        },
+                        "tableLocales": {
+                            "loadingMessage": "Loading, please wait...",
+                            "recordsPerPage": "{0} rows per page",
+                            "showingRows": "Showing {0} to {1} of {2} rows",
+                            "search": "search",
+                            "noMatches": "No products found. Please change your search",
+                            "paginationSwitch": "Hide/Show pagination",
+                            "refresh": "Refresh",
+                            "toggle": "Toggle",
+                            "columns": "Columns",
+                            "allRows": "All"
+                        }
+                    }
+                }
+            }
+        </script>
+        <script src="//localhost:35729/livereload.js" type="text/javascript"></script>
+        <script src="/assets/js/requirejs.js"></script>
+        <script src="/assets/js/require_config.js"></script>
+        <script src="/app/components/header/header.js"></script>
+        <script src="/app/components/headerFooter/headerFooter.js"></script>
+        <script src="company-management.js"></script>
+        <footer id="footer" class="js-footer hidden-print">
+        </footer>
+    </div>
+</body>
+
+</html>

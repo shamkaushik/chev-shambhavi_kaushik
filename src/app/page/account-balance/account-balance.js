@@ -1,24 +1,29 @@
+
 require(["modernizr",
     "jquery",
     "bootstrap",
     "handlebars",
+    "bootstrap-select",
     "bootstrap-table",
     "bootstrap-dialog",
     "text!app/page/account-balance/productSummary.hbs",
     "text!app/page/account-balance/topSummary.hbs"
-], function(modernizr, $, bootstrap, Handlebars, bootstrapTable, bootstrapDialog, _productSummaryHBS, _topSummaryHBS) {
+], function(modernizr, $, bootstrap, Handlebars,bootstrapSelect, bootstrapTable, bootstrapDialog, _productSummaryHBS, _topSummaryHBS) {
     
     var compiledproductSummary = Handlebars.compile(_productSummaryHBS);
     var compiledtopSummary = Handlebars.compile(_topSummaryHBS);
+    
     var accountBalancePage = (function(){
         var config = {
             displaySpinner: ".overlay-wrapper",
             topSummary:'.js-top-summary',
             productSummary:".js-product-summary",
         }
-        var init = function(){        	
+        var init = function(){    
+              	
             loadingInitialHbsTemplates();
             populatingTable(cbp.accountBalancePage.CBPOrderForm);
+           
         }
         var loadingInitialHbsTemplates = function() {
             loadingDynamicHbsTemplates();
@@ -28,6 +33,7 @@ require(["modernizr",
             $(config.topSummary).html(compiledtopSummary(cbp.accountBalancePage));
             $(config.productSummary).html(compiledproductSummary(cbp.accountBalancePage));
           }
+        
         var populatingTable = function(data){
                 $('#table').bootstrapTable({
                     classes: 'table table-no-bordered',
@@ -68,6 +74,7 @@ require(["modernizr",
                         init: init
                     };
     })();
+   
     
     $(document).ready(function() {
         $.fn.bootstrapTable.locales = {

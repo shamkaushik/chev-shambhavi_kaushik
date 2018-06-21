@@ -45,20 +45,21 @@
                             "account":"uhdfuiweh",
                             "accountBalance":"gyewyg"
                         },
-                "balances": [{
-                        "account": "212047 - Redwood Oil Company, Inc., 7716 Old Redwood Hwy ",
-                        "accountBalance": "0.0"
-                    },
-                    {
-                        "account": "212047 - Redwood Oil Company, Inc., 7716 Old Redwood Hwy ",
-                        "accountBalance": "16,918,900.0"
-                    },
-                    {
-                        "account": "212047 - Redwood Oil Company, Inc., 7716 Old Redwood Hwy ",
-                        "accountBalance": "24,901.96"
-                    },
-                ],
-                    "effectiveDate":"January 4, 2018",
+                "balances": "",
+                // [{
+                //         "account": "212047 - Redwood Oil Company, Inc., 7716 Old Redwood Hwy ",
+                //         "accountBalance": "0.0"
+                //     },
+                //     {
+                //         "account": "212047 - Redwood Oil Company, Inc., 7716 Old Redwood Hwy ",
+                //         "accountBalance": "16,918,900.0"
+                //     },
+                //     {
+                //         "account": "212047 - Redwood Oil Company, Inc., 7716 Old Redwood Hwy ",
+                //         "accountBalance": "24,901.96"
+                //     },
+                // ],
+                    "effectiveDate":"",
                     "effectiveTime":"02:00:10 PT"    
             }
             var cbp = {
@@ -78,12 +79,24 @@
                         "accountBalance":"Account Balance",
                         "effectiveDate": "Effective Date",
                         "effectiveTime": "Effective Time",
+                        "selectDdn": {
+                            "noneSelectedText": "Nothing selected",
+                            "noneResultsText": "No results for {0}",
+                            "selectAllText": "Select All",
+                            "deselectAllText": "Deselect All",
+                            "itemSelected": "{0} item selected",
+                            "itemSelected1": "{0} items selected",
+                            "limitReached": "Limit reached ({n} item max)",
+                            "limitReached1": "Limit reached ({n} items max)",
+                            "groupLimit": "Group limit reached ({n} item max)",
+                            "groupLimit1": "Group limit reached ({n} items max)"
+                        },
                         "tableLocales": {
                             "loadingMessage": "Loading, please wait...",
                             "recordsPerPage": "{0} rows per page",
                             "showingRows": "Showing {0} to {1} of {2} rows",
                             "search": "Search",
-                            "noMatches": "No invoices found. Please change your search",
+                            "noMatches": "No accounts found.",
                             "paginationSwitch": "Hide/Show pagination",
                             "refresh": "Refresh",
                             "toggle": "Toggle",
