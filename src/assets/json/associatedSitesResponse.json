@@ -1,0 +1,56 @@
+[
+  {
+    "uid": "uid",
+    "displayName": "name1",
+    "assigned": true,
+    "associatedB2BUnit": null
+  },
+  {
+    "uid": "uid",
+    "displayName": "name2",
+    "assigned": true,
+    "associatedB2BUnit": null
+  },
+  {
+    "uid": "uid",
+    "displayName": "201154 - Redwood Oil Co, 39103 Highway 299",
+    "assigned": true,
+    "associatedB2BUnit": null
+  },
+  {
+    "uid": "uid",
+    "displayName": "201964 - Redwood Oil Co Inc, 4925 Sonoma Hwy",
+    "assigned": true,
+    "associatedB2BUnit": null
+  },
+  {
+    "uid": "uid",
+    "displayName": "202125 - Redwood Oil Co., 830 Redwood Dr",
+    "assigned": true,
+    "associatedB2BUnit": null
+  },
+  {
+    "uid": "uid",
+    "displayName": "4027815 - Redwood Oil Co Inc, Fob4 Richmond-Bulk",
+    "assigned": true,
+    "associatedB2BUnit": null
+  },
+  {
+    "uid": "uid",
+    "displayName": "4176766 - Redwood Oil Co Inc, 455 Yolanda Ave",
+    "assigned": true,
+    "associatedB2BUnit": null
+  },
+  {
+    "uid": "uid",
+    "displayName": "7591364 - Williams Tank Line Inc.",
+    "assigned": true,
+    "associatedB2BUnit": null
+  },
+  {
+    "uid": "uid",
+    "displayName": "201154 - Redwood Oil Co, 39103 Highway 299",
+    "assigned": true,
+    "associatedB2BUnit": null
+  }
+]
