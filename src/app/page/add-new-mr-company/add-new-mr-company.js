@@ -2,13 +2,14 @@ require(["modernizr",
     "jquery",
     "bootstrap",
     "handlebars",
+    "parsley",
     "bootstrap-select",
     "bootstrap-table",
     "text!app/components/dropdown/_defaultDdn.hbs",
     "text!app/page/add-new-mr-company/add-new-mr-company-summary.hbs",
     "text!app/page/add-new-mr-company/bottomDetail.hbs"
 
-], function (modernizr, $, bootstrap, Handlebars, bootstrapSelect, bootstrapTable, _defaultDdnHBS, _addNewMrCompanySummaryHBS, _bottomDetailHBS) {
+], function (modernizr, $, bootstrap, Handlebars, parsley, bootstrapSelect, bootstrapTable, _defaultDdnHBS, _addNewMrCompanySummaryHBS, _bottomDetailHBS) {
 
     var parentSoldToDdnOptions = [], statusDdnOptions = [], selectedSites = [];
     // Compiling HBS templates
@@ -71,7 +72,7 @@ require(["modernizr",
         var populateDropDowns = function(dropDownList,dropDownListOptions,dropDownName){
           for (var i = 0; i < dropDownList.length; i++) {
             var obj = {};
-            obj["key"] = dropDownList[i].uid;
+            obj["key"]  = dropDownName === "parentSoldToDropdown" ? dropDownList[i].uid : dropDownList[i].value;
             obj["value"] = dropDownList[i].displayName;
             dropDownListOptions.push(obj);
           }
@@ -153,18 +154,31 @@ require(["modernizr",
           });
 
           $(document).on('click',config.addNewMarketerRetailerBtn ,function(e) {
-            var postData = setPayload();
-            $.when(triggerAjaxRequest(postData,cbp.addNewMrComapnyPage.globalUrl.method, cbp.addNewMrComapnyPage.globalUrl.saveNewMrCompanyUrl)).then(function(result) {
-              $(config.displaySpinner).hide();
-            });
+            validateForm();
+            if ($('#form').parsley().isValid()) {
+              var postData = setPayload();
+              $.when(triggerAjaxRequest(postData,cbp.addNewMrComapnyPage.globalUrl.method, cbp.addNewMrComapnyPage.globalUrl.saveNewMrCompanyUrl)).then(function(result) {
+                $(config.displaySpinner).hide();
+              });
+            }
           });
 
           $(document).on('click',config.resetButton ,function(e) {
             resetPage();
           });
 
+          $(document).on('focusout', $('.mr-company-input') ,function(e) {
+            validateForm(e.target);
+          });
+
         };
 
+        var validateForm = function(element) {
+          if(element)
+            $(element).parsley().validate();
+          else
+            $('#form').parsley().validate();
+        };
         var getAssociatedSites = function () {
           var postData = {};
           postData.parentSoldTo  =  $(config.parentSoldToDdn).val() === null ? "null" : $(config.parentSoldToDdn).val().toString();
@@ -185,11 +199,13 @@ require(["modernizr",
           companyInfoObj.lastName =  $('.company-name2').val();
           payLoad.companyInfo = companyInfoObj;
           payLoad.b2bUnits = selectedSites;
+          console.log(payLoad);
           return payLoad;
         };
 
         var resetPage = function () {
-          document.getElementById("addMrCompanyForm").reset();
+          addNewMrCompanyPage.init();
+          $(config.dropDownCommon).selectpicker('refresh');
         };
 
         var populatingTable = function (availableSites) {
