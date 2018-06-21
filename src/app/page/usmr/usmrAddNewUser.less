@@ -201,6 +201,11 @@
 		&.active{
 			display:block;
 		}
+		&.disabled{
+			color: #dbdcdd;
+			cursor: not-allowed;
+			pointer-events: none;
+		}
 	}
 
 	.iconContainerForRow{
@@ -249,12 +254,18 @@
 	.parsley-errors-list{
 		margin: 0px;
 		padding: 0px;
-		li.parsley-required{
+		li.parsley-required,li.parsley-type{
 			list-style-type: none;
 			margin: 0px;
 			padding: 0;
 			list-style-type: none;
 			color: @brand-danger;
+		}
+	}
+
+	.returnToMRLink{
+		a{
+			color: @brand-primary;
 		}
 	}
 }

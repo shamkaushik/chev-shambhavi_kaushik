@@ -1,31 +1,31 @@
 <div class="col-xs-24">
-  <div class="row tableContainer">
+  <div class="row tableContainer siteSelection">
       <div class="col-xs-24 md-mb-15 xs-mb-15">
-        <span class="sub-heading">{{globalVars.asSoldToShiptos}}</span>
+        <span class="sub-heading">{{globalVars.ascSoldToShiptos}}</span>
       </div>
       <div class="col-xs-24">
         <div class="row soldToHeader">
             <div class="col-md-1 hidden-xs hidden-sm">&nbsp;</div>
-            <div class="col-md-22 col-xs-24">Sold To</div>
+            <div class="col-md-22 col-xs-24">{{globalVars.soldToCaption}}</div>
         </div>
         <div class="row">
-          {{#each soldToOptions}}
+          {{#each usmrUserData.availableSites}}
             <div class="row rowIterator">
               <div class="col-md-1 col-xs-1 iconContainerForRow md-mr-5 xs-mr-20">
                   <div class="col-md-4 fa fa-chevron-down soldToicon down active md-ml-10 xs-ml-10" data-index="{{@index}}"></div>
                   <div class="col-md-4 fa fa-chevron-up soldToicon up md-ml-10 xs-ml-10" data-index="{{@index}}"></div>
               </div>
               <div class="col-md-20 col-xs-21">
-                <div class="checkbox soldToSelectorCheckbox">{{globalVars.errorMessagesSoldToShipTo}}
-                  <input type="checkbox" name="soldtoSelctor" id="soldtoSelctor-{{this.uid}}" data-soldToId="{{this.uid}}" name="d-s-c-{{this.uid}}" data-parsley-multiple="d-s-c" data-parsley-required-message="{{globalVars.errorMessagesSoldToShipTo}}" required data-parsley-errors-container="#message-holder"/>
+                <div class="checkbox soldToSelectorCheckbox">
+                  <input type="checkbox" name="soldtoSelctor" {{#if this.assigned}} checked {{/if}} id="soldtoSelctor-{{this.uid}}" data-siteId="{{this.uid}}" name="d-s-c-{{this.uid}}" data-parsley-multiple="d-s-c" data-parsley-required-message="{{globalVars.errorMessagesSoldToShipTo}}" required data-parsley-errors-container="#message-holder"/>
                   <label for="soldtoSelctor-{{this.uid}}">{{this.displayName}}</label>
                 </div>
                 <div class="row shiptoListContainer md-mt-10 xs-mt-10 md-mb-10 xs-mb-10 hide shiptoContainer-{{@index}}">
-                  <label class="md-mr-15 xs-mr-10 md-mb-5 xs-mb-5">Associates Ship Tos</label>
-                  {{#each this.associatedShiptos}}
+                  <label class="md-mr-15 xs-mr-10 md-mb-5 xs-mb-5">{{../globalVars.ascShiptoCaption}}</label>
+                  {{#each this.associatedB2BUnit}}
                   <div class="col-xs-24 shipToIterator">
                     <div class="checkbox shipToSelectorCheckbox">
-                      <input type="checkbox" name="shipTotoSelctor" id="shipTotoSelctor-{{this.uid}}" name="d-s-c-{{this.uid}}" data-parsley-multiple="d-s-c" data-shipToId="{{this.uid}}"/>
+                      <input type="checkbox" name="shipTotoSelctor" {{#if this.assigned}} checked {{/if}} id="shipTotoSelctor-{{this.uid}}" name="d-s-c-{{this.uid}}" data-parsley-multiple="d-s-c" data-siteId="{{this.uid}}"/>
                       <label for="shipTotoSelctor-{{this.uid}}">{{this.displayName}}</label>
                     </div>
                   </div>
