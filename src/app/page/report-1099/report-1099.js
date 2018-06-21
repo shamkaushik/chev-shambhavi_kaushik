@@ -1,15 +1,26 @@
-require(["modernizr",
-    "jquery",
-    "bootstrap",
-    "handlebars",
-    "bootstrap-select",
-    "bootstrap-table",
-    "text!app/components/dropdown/_defaultDdn.hbs",
-    "text!app/page/report-1099/searchForm.hbs",
-    "text!app/page/report-1099/bottomDetail.hbs",
-    "text!app/page/report-1099/reportSummary.hbs",
+/*
+const $ = require("jquery");
+const bootstrap = require("bootstrap");
+const Handlebars= require("handlebars");
 
-], function(modernizr, $, bootstrap, Handlebars, bootstrapSelect, bootstrapTable, _defaultDdnHBS, _searchFormHBS, _bottomDetailHBS, _reportSummaryHBS) {
+$(document).on('click', function(){
+    alert('Clicked');
+});
+*/
+
+const modernizr = require("modernizr");
+const $ = require("jquery");
+const bootstrap = require("bootstrap");
+const Handlebars= require("handlebars");
+const bootstrapTable = require("bootstrap-table");
+const bootstrapSelect = require("bootstrap-select");
+
+/*
+const _defaultDdnHBS = require("./app/components/dropdown/_defaultDdn.hbs");
+const _searchFormHBSs= require("./app/page/report-1099/searchForm.hbs");
+const _bottomDetailHBS = require("./app/page/report-1099/bottomDetail.hbs");
+const _reportSummaryHBS = require("./app/page/report-1099/reportSummary.hbs");
+*/
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
@@ -560,4 +571,3 @@ require(["modernizr",
         report1099page.init();
         leftPaneExpandCollapse.init();
     });
-});
