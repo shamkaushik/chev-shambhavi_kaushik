@@ -6,3 +6,5 @@ out/**
 *.jsp
 *.server
 *.zip
+package-lock.json
+package.json

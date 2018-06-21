@@ -363,8 +363,10 @@ require(["modernizr",
             $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
             $(config.sortByDdnContainer).find(config.dropDownCommon).selectpicker('refresh');
             enableMobileDefaultDropDown();
+            console.log("sortDdnOptions",sortDdnOptions);
         };
-
+         
+        
 
         var populatingCalendarComponent = function () {
         	moment.updateLocale('en',{weekdaysShort:cbp.invoicesPage.weekdaysShort});
@@ -625,6 +627,7 @@ require(["modernizr",
         }
       
         return optionDropdown;
+        console.log("optionDropdown",optionDropdown);
         }
 
         var updateOptions =function(selector,shipToOptions){
