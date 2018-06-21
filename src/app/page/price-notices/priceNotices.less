@@ -1,4 +1,4 @@
-.usmr-page-add-new-user{
+.price-notices-page {
 	.page-title {
 		text-transform: none;
 	}
@@ -113,13 +113,10 @@
 				> tr {
 					> td {
 						> div:first-child {
-							// display: none !important;
-							background: none !important;
-							color: #383838 !important;
-							border: 0px !important; 
+							display: none !important;
 						}
 						> div:nth-child(2) {
-							// display: none !important;
+							display: none !important;
 						}
 						> div:nth-child(3) {
 							background-color: @brand-primary !important;
@@ -163,8 +160,62 @@
 		}
 	}
 
+	#eftSearchToggle{
+		margin-left: 4px;
+		label{
+			margin:0px !important;
+			width: 0px !important;
+			height: 0px !important;
+			display: none !important;
+		}
+	}
+
+	.toggleForEFTSerachForm {
+		.btn-default{
+			background: #dbdcdd;
+			color: #383838;
+			&:hover{
+				background: #dbdcdd;
+			}
+		}
+
+		&.btn-group {
+			.btn{
+				padding: 6px 14px;
+			}
+		}
+	}
+
+	.borderEFTToogle{
+		border-top: 1px solid #DCDDDE;
+		border-bottom: 1px solid #DCDDDE;
+	}
+
 	.hidden{
 		display: none !important;
+	}
+
+	#calendar{
+		width: auto !important;
+	}
+
+	.js-search-dateRange{
+		label{
+			display: none;
+		}
+		margin-bottom: 0px; 
+		&.form-group{
+			margin-bottom: 0px;
+		}
+	}
+
+	.toggleForEFTSerachForm{
+		.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+			border-right:1px solid #ededed;
+		}
+		.btn:not(:first-child):not(:last-child):not(.dropdown-toggle){
+			border-right:1px solid #ededed;
+		}
 	}
 
 	span.italics{
@@ -172,146 +223,24 @@
 		font-style: italic;
 	}
 
-	.js-py-ddn{
-		width:145px;
-    }
-    
-    .userForm{
-        input[type="text"].inputBoxShort{
-            width:176px;
-        }
-    }
-
-    .js-userStatus-ddn,.js-userCountry-ddn{
-        width: 176px;
-	}
-	
-	.soldToHeader{
-		 background-color: #009dd9;
-		 height: 36px;
-		 color:#FFFFFF;
-		 line-height: 36px;
+	span#eftSearchDateRange{
+		color: #009dd9;
+		font-style: italic;
 	}
 
-	.soldToicon{
-		display:none;
-		margin-top: 12px;
-		color: #8c8f93;
-		cursor: pointer;
-		&.active{
-			display:block;
-		}
-		&.disabled{
-			color: #dbdcdd;
-			cursor: not-allowed;
-			pointer-events: none;
-		}
+	.redDanger{
+		border: 1px solid @brand-danger;
+		background-color: @brand-danger-light;
 	}
+}
 
-	.iconContainerForRow{
-		min-height: 36px;
-	}
-
-	bold{
-		font-weight: bold;
-	}
-
-	.rowIterator{
-		&:nth-child(even){
-			background-color: #f2f2f2;
-		}
-	}
-
-	.permissionsCaption{
-		background-color: @state-info-bg;
-		padding: 15px 10px;
-	}
-
-	.clear{
-		clear: both;
-		display: block;
-	}
-
-	.defaultLoadIcon{
-		position: relative;
-		top:-1px;
-		img{
-			width: 12px;			
-		}
-	}
-
-	.setToDefaultPermsBtn{
-		cursor: pointer;
-	}
-
-	
-	.error-msg{
-		padding: 0;
-		list-style-type: none;
-		color: @brand-danger;
-	}
-
-	.parsley-errors-list{
-		margin: 0px;
-		padding: 0px;
-		li.parsley-required,li.parsley-type{
-			list-style-type: none;
-			margin: 0px;
-			padding: 0;
-			list-style-type: none;
-			color: @brand-danger;
-		}
-	}
-
-	.returnToMRLink{
-		a{
-			color: @brand-primary;
+@media (min-width: @screen-md-max) {
+	.eftSearch-page {
+		.bottom-detail {
+			.eftFound{
+			}
 		}
 	}
 }
 
-@media (max-width: @screen-sm-max) {
-	.soldToSelectorCheckbox{
-		label {
-			&::before{
-				margin-right: 5px;
-			}
-		}
-	}
-
-	.shipToSelectorCheckbox{
-		label {
-			&::before{
-				margin-right: 5px;
-			}
-		}
-	}
-
-	.returnToMRLink{
-		text-align: center;
-	}
-
-	.buttonsForAddingResetUser{
-		text-align: center;
-	}
-}
-
-
-@media (min-width: @screen-md-min) {
-	.soldToSelectorCheckbox{
-		label {
-			&::before{
-				margin-right: 15px;
-			}
-		}
-	}
-
-	.shipToSelectorCheckbox{
-		label {
-			&::before{
-				margin-right: 15px;
-			}
-		}
-	}
-}
 

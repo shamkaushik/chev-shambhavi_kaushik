@@ -26,6 +26,7 @@
                     <div class="overlay-wrapper">
                     </div>
                     <div class='col-md-24 col-lg-24 right-pane'>
+                        <form class="form-horizontal" id="addNewUserForm" role="form" data-parsley-validate>
                         <div class='top-summary js-usmr-userForm'>
                         </div>
                         <div class='bottom-detail js-bottom-detail'>
@@ -64,31 +65,81 @@
             var allEftFlow = "false"; //invoicesAttention
 
             var usmrUserData = {
-                "fromDate": "22-03-2015",
-                "toDate": "29-08-2016",
-                "currency": "USD",
-                "payer" : "7901220, DISMACOR S.A. K 16 NRO 20-56, BUCARAMANGA, Colombia",
-                "soldTo" : "7901220, DISMACOR S.A. K 16 NRO 20-56, BUCARAMANGA, Colombia",
-                "region" : "America",
-                "language" : "English",
-                "permissionsDataList": [{
-                    "permission" : "1099 Report",
-                    "desc" : "Provides functionality for Customers to view and download their 1099 Report."
-                }],
-                "ccsSearchDataListMapping" : {
-                    "status" : "EFT_EFTSTATUS_COLOUMN",
-                    "checkbox" : "EFT_EFTCHECKBOX_COLOUMN",
-                    "eftNoticeNumber":"EFT_EFTNO_COLOUMN",
-                    "noticeDate":"EFT_EFTDATE_COLOUMN",
-                    "accountNumber":"EFT_EFTACCOUNTNUMBER_COLOUMN",
-                    "settlementDate":"EFT_EFTSETTLEMENTDATE_COLOUMN",
-                    "total": "EFT_EFTTOTAL_COLOUMN",
-                    "eftNoticeNumberId": "EFT_EFTNOTICENO_COLOUMN",
-                    "displayTotal": "EFT_EFTDISPLAYTOTAL_COLOUMN"
+                "userInfo": {
+                    "delegatedAdmin": false,
+                    "preferredLanguage": "English",
+                    "businessRegion": "North America",
+                    "uid": "test1234",
+                    "active": true,
+                    "firstName": "Test",
+                    "lastName": "Test",
+                    "email": "test@test.com",
+                    "contactNumber": 12345,
+                    "defaultAddress": {
+                        "line1": "test",
+                        "line2": "test",
+                        "town": "test",
+                        "freetextregion": "test",
+                        "postalCode": 12345,
+                        "country": {
+                            "isoCode": "US"
+                        }
+                    }
                 },
-                "resultCount": 1,
-                "multipleSoldTo": false,
-                "sort": null
+                "availableSites": [
+                    {
+                        "uid": "0676334613",
+                        "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
+                        "assigned": false,
+                        "associatedB2BUnit": [
+                            {
+                                "uid": "0676334615",
+                                "displayName": "XYZ Marketers Distribution, 123 Main Street, Anytown CA 94583",
+                                "assigned": false,
+                                "associatedB2BUnit": null
+                            },
+                            {
+                                "uid": "0912234461000",
+                                "displayName": "EFG Marketers Distribution, 123 Main Street, Anytown CA 94583",
+                                "assigned": false,
+                                "associatedB2BUnit": null
+                            }
+                        ]
+                    },
+                    {
+                        "uid": "0176224612",
+                        "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
+                        "assigned": true,
+                        "associatedB2BUnit": [
+                            {
+                                "uid": "01762246120001",
+                                "displayName": "HIK Marketers Distribution, 123 Main Street, Anytown CA 94583",
+                                "assigned": true,
+                                "associatedB2BUnit": null
+                            },
+                            {
+                                "uid": "011613411323",
+                                "displayName": "LMN Marketers Distribution, 123 Main Street, Anytown CA 94583",
+                                "assigned": true,
+                                "associatedB2BUnit": null
+                            }
+                        ]
+                    }
+                ],
+                "permissions": [
+                    {
+                        "uid": "123",
+                        "name": "1099 Report",
+                        "description": "Persmissions description for 1099 Report, Test Test Test Test Test Test",
+                        "checked": true
+                    },
+                    {
+                        "uid": "456",
+                        "name": "Invoice",
+                        "description": "Persmissions description for invoices, Test Test Test Test Test Test",
+                        "checked": false
+                    }
+                ]
             };
 
             var maxResults = 500;
@@ -97,51 +148,11 @@
 
             var CSRFToken = "";
 
-             var soldToDropdown = [{
-                "uid": "0676334614",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }, {
-                "uid": "0912234461",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }, {
-                "uid": "0176224612",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }, {
-                "uid": "0116134113",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }];
-
-            var siteDropdown = [{
-                "uid": "0676334614",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                "isInGracePeriod" : true
-            }, {
-                "uid": "0912234461",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }, {
-                "uid": "0176224612",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }, {
-                "uid": "0116134113",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583"
-            }];
-
-            var pyDropdown = [{
-                "uid": "2017",
-                "displayName": "2017"
-            }, {
-                "uid": "2018",
-                "displayName": "2018"
-            }, {
-                "uid": "2019",
-                "displayName": "2019"
-            }];
-
             var statusUserDdn = [{
-                "uid" : "active",
+                "uid" : true,
                 "displayName" : "Active"
             },{
-                "uid" : "inactive",
+                "uid" : false,
                 "displayName" : "Inactive"
             }];
 
@@ -151,76 +162,6 @@
             },{
                 "uid" : "TST",
                 "displayName" : "Test Country"
-            }];
-
-            var soldToOptions = [{
-                "uid": "0676334613",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                "associatedShiptos": [{
-                            "uid": "0676334615",
-                            "displayName": "XYZ Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                            "isInGracePeriod" : true
-                        }, {
-                            "uid": "0912234461000",
-                            "displayName": "EFG Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "01762246120001",
-                            "displayName": "HIK Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "011613411323",
-                            "displayName": "LMN Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }]
-            }, {
-                "uid": "0912234461",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                "associatedShiptos": [{
-                            "uid": "0676334615",
-                            "displayName": "XYZ Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                            "isInGracePeriod" : true
-                        }, {
-                            "uid": "0912234461000",
-                            "displayName": "EFG Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "01762246120001",
-                            "displayName": "HIK Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "011613411323",
-                            "displayName": "LMN Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }]
-            }, {
-                "uid": "0176224612",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                "associatedShiptos": [{
-                            "uid": "0676334615",
-                            "displayName": "XYZ Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                            "isInGracePeriod" : true
-                        }, {
-                            "uid": "0912234461000",
-                            "displayName": "EFG Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "01762246120001",
-                            "displayName": "HIK Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "011613411323",
-                            "displayName": "LMN Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }]
-            }, {
-                "uid": "0116134113",
-                "displayName": "ABC Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                "associatedShiptos": [{
-                            "uid": "0676334615",
-                            "displayName": "XYZ Marketers Distribution, 123 Main Street, Anytown CA 94583",
-                            "isInGracePeriod" : true
-                        }, {
-                            "uid": "0912234461000",
-                            "displayName": "EFG Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "0176224612000",
-                            "displayName": "HIK Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }, {
-                            "uid": "0116134113",
-                            "displayName": "LMN Marketers Distribution, 123 Main Street, Anytown CA 94583"
-                        }]
             }];
 
             var maxResultText = '<div>{0} EFTs matching your search were found in the system.</div>' +
@@ -250,17 +191,10 @@
                         "showOptions": 10,
                         "singleOption": true
                     },
-                    "pyDropdown": {
-                        "options": [],
-                        "label": "Program Year",
-                        "title": "",
-                        "name": "pyDropdownSelector",
-                        "showOptions": 10,
-                        "singleOption": true
-                    },
                     "globalUrl": {
                         "eftSearchPostURL": "/assets/json/permissionMR.json",
                         "ccsFetchSiteURL" : "/assets/json/permissionMR.json",
+                        "loadPermissions" : "/assets/json/permissionMR.json",
                         "returnURL" : "#",
                         "method": "GET"
                     },
@@ -282,7 +216,9 @@
                         "stateProvince" : "State / Province",
                         "zipPostalCode" : "Zip/Postal Code",
                         "country" : "Country",
-                        "asSoldToShiptos" : "associated sold to/ship to",
+                        "ascSoldToShiptos" : "associated sold to/ship to",
+                        "soldToCaption" : "Sold To",
+                        "ascShiptoCaption":"Associated Ship Tos",
                         "permissonCaption" : "Permission",
                         "descCaption" : "Description",
                         "permissonsSectionCaption" : "permissions",
@@ -290,6 +226,9 @@
                         "linkForReturnTOMRList" : "return to company management",
                         "resetButton" : "Reset",
                         "createNewUser" : "Create New User",
+                        "errorMessagesSoldToShipTo" : "Please select atleast one Site to proceed",
+                        "errorMessagesPermissions" : "Please select atleast one permission to proceed",
+                        "emptyErrorMessage" : "This value cannot be left empty",
                         "selectDdn": {
                             "noneSelectedText": "Nothing selected",
                             "noneResultsText": "No results for {0}",
@@ -307,7 +246,7 @@
                             "recordsPerPage": "{0} rows per page",
                             "showingRows": "Showing {0} to {1} of {2} rows",
                             "search": "Search",
-                            "noMatches": "<div class='alert alert-danger'><span class='alert-message'>No EFTs found. Please change your search</span></div>",
+                            "noMatches": "<div class='alert alert-danger'><span class='alert-message'>No Permissions Found</span></div>",
                             "paginationSwitch": "Hide/Show pagination",
                             "refresh": "Refresh",
                             "toggle": "Toggle",

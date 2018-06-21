@@ -4,6 +4,7 @@ require(["modernizr",
     "handlebars",
     "moment",
     "calendar",
+    "parsley",
     "bootstrap-select",
     "bootstrap-table",
     "toggleSwitch",
@@ -14,11 +15,11 @@ require(["modernizr",
     "text!app/page/usmr/bottomDetail.hbs",
     "text!app/page/usmr/permissionsSelection.hbs"
 
-], function (modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _addNewUserForm, _bottomDetailHBS, _permissionsSelection) {
+], function (modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, calendar, parsley, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _addNewUserForm, _bottomDetailHBS, _permissionsSelection) {
 
     var statusUserDdnOptions = [],userCountryDddnOptions = [],siteDropdownOptions = [],pyDropdownOptions = [], eftObj = {},startDateDT = '',endDateDT = '';
 
-    var selectedEFTs = [],selectedProduct = [],selectedEftStatus = [];
+    var selectedPermissions = [],selectedSites = [];
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
@@ -70,13 +71,6 @@ require(["modernizr",
         };
 
         var populateDropDowns = function(dropDownList,dropDownListOptions,dropDownName){
-            if (dropDownList.length > 1) {
-                var obj = {};
-                obj["key"] = "all";
-                obj["value"] = cbp.usmrPageAddNew.globalVars.allAccount;
-                dropDownListOptions.push(obj);
-            }
-
             for (var i = 0; i < dropDownList.length; i++) {
                 var obj = {};
                 obj["key"] = dropDownList[i].uid;
@@ -89,6 +83,19 @@ require(["modernizr",
             cbp.usmrPageAddNew[dropDownName].searchable = true;
         };
 
+        var triggerParselyFormValidation = function(el) {
+            if(el){
+                $(el).parsley().on('field:success', function() {
+                }).on('field:error', function(field) {
+                    field.$element.context.nextElementSibling.classList.add("error-msg");
+                }).validate();
+            }else{
+                $(config.addNewUserForm).parsley().on('form:success', function() {
+                }).on('field:error', function(field) {
+                }).validate();
+            }
+        };
+
         var config = {
             addNewUserFormContainer: ".js-usmr-userForm",
             statusUserDdnContainer : ".js-userStatus-ddn",
@@ -96,30 +103,40 @@ require(["modernizr",
             soldToicon : ".soldToicon",
             searchDetailContainer: ".js-bottom-detail",
             shiptoListContainer : ".shiptoListContainer",
-            sortByDdnContainer: ".js-sortbyDdn",
             dropDownCommon: ".selectpicker",
             searchButton: "#ccsSearchBtn",
             tabelRow: "#table tbody tr",
-            downloadBtn: ".js-downloadBtn",
-            soldToDropdownSelector: "#soldToDropdownSelector",
-            siteDropdownSelector: "#siteDropdownSelector",
-            pyDropdownSelector: "#pyDropdownSelector",
-            sortByDdn: "#sortByDdn",
             displaySpinner: ".overlay-wrapper",
             dropdownSelect: ".dropdown-menu .toggle-select",
             squareUnchecked: "fa-square-o",
             squareChecked: "fa-check-square-o",
-            downloadIcon: ".iconsPrintDownload",
-            permissionSelection: ".js-permission-selection"
+            permissionSelection: ".js-permission-selection",
+            formInput: "#addNewUserForm .input-element",
+            createNewUserForm: "#createNewUserForm",
+            permissionsTableContainer: ".permissionsTableContainer",
+            userIsDelAdmin : "#userIsDelAdmin",
+            userID : "#userID",
+            statusUserDdn : "#statusUserDdn",
+            fName : "#fName",
+            lName : "#lName",
+            email : "#email",
+            phone : "#phone",
+            addressLineFirst : "#addressLineFirst",
+            addressLineSecond : "#addressLineSecond",
+            userCity : "#userCity",
+            stateProvince : "#stateProvince",
+            zipPostalCode : "#zipPostalCode",
+            userCountryDddn : "#userCountryDddn",
+            addNewUserForm : "#addNewUserForm",
+            siteSelection : ".siteSelection"
         };
 
         var init = function () {
             populateDropDowns(statusUserDdn,statusUserDdnOptions,"statusUserDdn");
             populateDropDowns(userCountryDddn,userCountryDddnOptions,"userCountryDddn");
-            // populateDropDowns(pyDropdown,pyDropdownOptions,"pyDropdown");
             loadingInitialHbsTemplates();
             bindEvents();
-            triggerAjaxRequest();
+            populatingTable(cbp.usmrPageAddNew.usmrUserData.permissions);
             setItalicsToThedefaultSelection();
         };
 
@@ -150,6 +167,7 @@ require(["modernizr",
             $(config.countryUserDdnContainer).html(compiledDefaultDdn(cbp.usmrPageAddNew.userCountryDddn));
             $(config.dropDownCommon).selectpicker('refresh');
             enableMobileDefaultDropDown();
+            addingParseLeyValidationToSite();
         };
 
         var enableMobileDefaultDropDown = function () {
@@ -167,51 +185,51 @@ require(["modernizr",
             });
         };
 
-        var downloadBtnSelected = function () {
-            $('#eftForm #selectedEFTs').val(selectedEFTs.toString());
-            for (var i = 0; len = selectedEFTs.length, i < len; i++) {
-                $(".iconsPrintDownload[data-eftNoticeNumberId='" + selectedEFTs[i] + "']").addClass("success-icon");
-            }
-            $("#eftForm").submit();
+        var generateSelectedSites = function(){
+            selectedSites = [];
+            $(config.siteSelection).find("input[type='checkbox']").each(function(){
+                if($(this).prop('checked')==true){
+                    selectedSites.push($(this).data('siteid'));
+                }
+            });
+            return selectedSites;
         };
 
         var triggerAjaxRequest = function () {
             var selectorCalendar = $(config.ordercalendar).find('span'), hiddenInputForToggleSwitch = $("#eftSearchToggle input[type='hidden']");
             $(config.displaySpinner).show();
-            $(config.ccsSummaryContainer).hide();
-            $(config.searchDetailContainer).hide();
 
             leftPaneExpandCollapse.hideSearchBar();
 
-            var postData = {};
-            postData.account = $(config.accountDdn).val();
-
-            postData.soldTo = $(config.soldToDropdown).val();
-
-            /* end DSLEC-120*/
-
-            if ($(config.accountDdn).val() != 'all') {
-                cbp.usmrPageAddNew.showSoldTo = false;
-            } else {
-                cbp.usmrPageAddNew.showSoldTo = true;
-            }
+            var postData = {
+                "userInfo": {
+                    "delegatedAdmin": $(config.userIsDelAdmin).prop('checked')==true ? true : false,
+                    "uid": $(config.userID).val(),
+                    "active": $(config.statusUserDdn).val(),
+                    "firstName": $(config.fName).val(),
+                    "lastName": $(config.lName).val(),
+                    "email": $(config.email).val(),
+                    "contactNumber": $(config.phone).val(),
+                    "defaultAddress": {
+                        "line1": $(config.addressLineFirst).val(),
+                        "line2": $(config.addressLineSecond).val(),
+                        "town": $(config.userCity).val(),
+                        "freetextregion": $(config.stateProvince).val(),
+                        "postalCode": $(config.zipPostalCode).val(),
+                        "country": {
+                            "isoCode": $(config.userCountryDddn).val()
+                        }
+                    }
+                },
+                "b2bUnits": generateSelectedSites(),
+                "permissions": selectedPermissions
+            };
 
             function successCallback(data) {
                 $(config.displaySpinner).hide();
                 $(config.searchDetailContainer).show();
                 $(config.ccsSummaryContainer).show();
                 cbp.usmrPageAddNew.usmrUserData = data;
-
-                if (cbp.usmrPageAddNew.usmrUserData.resultCount === undefined || cbp.usmrPageAddNew.usmrUserData.resultCount === null) {
-                    cbp.usmrPageAddNew.usmrUserData.resultCount = 0;
-                }
-
-                if (cbp.usmrPageAddNew.usmrUserData.eftSearchDataList === undefined || cbp.usmrPageAddNew.usmrUserData.eftSearchDataList === null) {
-                    cbp.usmrPageAddNew.usmrUserData.eftSearchDataList = [];
-                }
-
-                loadingDynamicHbsTemplates();
-                populatingTable(cbp.usmrPageAddNew.usmrUserData.permissionsDataList);
                 leftPaneExpandCollapse.resetSearchFormHeight();
             }
 
@@ -235,17 +253,44 @@ require(["modernizr",
 
         };
 
-        var downloadForm = function (eftNoticeNumberId) {
-            var loc = $("#contextPath").val();
-            var formTemplate = "<form id='downloadForm' method='POST' action='" + loc + "/eft/eftCSV'><input type='hidden' name='selectedEFTs' value='" + eftNoticeNumberId + "'/><input name='CSRFToken' id='CSRFToken' type='hidden' value='" + CSRFToken + "'/></form>";
-            $(formTemplate).appendTo("body").submit().remove();
+        var addingParseLeyValidationToTable = function(){
+            $(config.permissionsTableContainer+' #table tr input[type="checkbox"]').eq(0).attr({
+                "data-parsley-multiple" : "s-s-c", 
+                "data-parsley-required-message" : cbp.usmrPageAddNew.globalVars.errorMessagesPermissions ,
+                "required" : "", 
+                "data-parsley-errors-container" : "#permission-errorMsg-holder"
+            });
+
+            $(config.permissionsTableContainer+' #table tr input[type="checkbox"]').each(function(){
+                $(this).attr({
+                    "data-parsley-multiple" : "s-s-c",
+                    "required" : ""
+                });
+            });
+
+            $(config.permissionsTableContainer+' #table tr input[type="checkbox"]').each(function(index,value){
+                $(this).attr("name","s-s-c-"+index);
+            });
         };
 
-        var enablePrintDownloadButtons = function () {
-            $(config.downloadBtn).removeClass("disabled");
-        };
-        var disablePrintDownloadButtons = function () {
-            $(config.downloadBtn).addClass("disabled");
+        var addingParseLeyValidationToSite = function(){
+            $(config.searchDetailContainer+' input[type="checkbox"]').eq(0).attr({
+                "data-parsley-multiple" : "d-s-c", 
+                "data-parsley-required-message" : cbp.usmrPageAddNew.globalVars.errorMessagesSoldToShipTo ,
+                "required" : "", 
+                "data-parsley-errors-container" : "#message-holder"
+            });
+
+            $(config.searchDetailContainer+' input[type="checkbox"]').each(function(){
+                $(this).attr({
+                    "data-parsley-multiple" : "d-s-c",
+                    "required" : ""
+                });
+            });
+
+            $(config.permissionsTableContainer +' #table tr td input[type="checkbox"]').each(function(index,value){
+                $(this).attr("name","d-s-c-"+index);
+            });
         };
 
         var bindEvents = function () {
@@ -258,40 +303,6 @@ require(["modernizr",
               }
             });
 
-            $(document).on("click", config.eftNoticeLink, function(e){
-                // e.preventDefault();
-                // console.log("In Link CLick >>>");
-                // var eftNoticeUid = $(e.target).attr('data-uid');
-                // eftObj.account = $("#accountSelectDdn").val();
-                // if($.trim($(config.searchInputEft).val()).length!=0){
-                //     $("#eftSearchToggle input[type='hidden']").val() == 2 ?
-                //            eftObj.eftNoticeNumber = $(config.searchInputEft).val()
-                //     : eftObj.invoiceNumber = $(config.searchInputEft).val();
-                // }
-                // eftObj.downloadStatus = $("#downloadStatus").val();
-                // eftObj.printStatus = $("#printStatus").val();
-                // eftObj.startDate = cbp.usmrPageAddNew.dateRange.startDate.format(cbp.usmrPageAddNew.dateRange.format);
-                // eftObj.endDate = cbp.usmrPageAddNew.dateRange.endDate.format(cbp.usmrPageAddNew.dateRange.format);
-                // console.log("eft Object >>>",eftObj);
-                // localStorage.setItem("eftObj", JSON.stringify(eftObj));
-                // $('#eftDetailsForm #eftNoticeid').val(eftNoticeUid);
-                // $('#eftDetailsForm').submit();
-              });
-
-            $(document).on('click', config.downloadIcon, function (evnt) {
-                var isInternalUser = $("#isInternalUser").val();
-                if (isInternalUser != "true" && inASMSession !== "true")
-                    $(evnt.target).addClass("success-icon");
-                downloadForm($(evnt.target).attr("data-eftNoticeNumberId"));
-            });
-
-            //Search button functionality
-            $(config.searchButton).on("click", function (e) {
-                selectedEFTs = [];
-                triggerAjaxRequest();
-            });
-
-
             var validatefields = config.eftNoticeNumber + "," + config.invoiceNumber + "";
 
             $(document).on('keypress', validatefields, function (e) {
@@ -302,18 +313,6 @@ require(["modernizr",
                 }
                 e.preventDefault();
                 return false;
-            });
-
-            $(document).on("click", config.downloadBtn, function(){
-                downloadBtnSelected();
-            });
-
-            $(document).on('click',config.daterangepickerContainer+' .ranges ul li',function(){
-                setItalicsToThedefaultSelection();
-            });
-
-            $(document).on('change',config.soldToDropdownSelector,function(){
-                populateSite($(config.soldToDropdownSelector).val());
             });
 
             $(document).on('click',config.soldToicon,function(e){
@@ -331,19 +330,45 @@ require(["modernizr",
                     $('.shiptoContainer-'+$(this).data('index')).addClass('hide');
                 }
             });
+
+            $(document).on('focusout', config.formInput, function(event) {
+                triggerParselyFormValidation(event.target);
+            });
+
+            $(document).on('click', config.createNewUserForm, function(event) {
+                event.preventDefault();
+                triggerParselyFormValidation();
+                if ($(config.addNewUserForm).parsley().isValid()) {
+                    triggerAjaxRequest();
+                }
+            });
+
+            $(document).on('click', config.userIsDelAdmin, function(event) {
+                $(event.target).prop('checked')==true ? 
+                ($(config.siteSelection).find("input[type='checkbox']").attr('disabled',true),
+                $(config.siteSelection).find("input[type='checkbox']").prop('checked',true),
+                $(config.soldToicon).addClass('disabled'),
+                populatePermissions())
+                :($(config.siteSelection).find("input[type='checkbox']").prop('checked',false),
+                $(config.siteSelection).find("input[type='checkbox']").attr('disabled',false),
+                $(config.soldToicon).removeClass('disabled'))
+            });
+
+            $(document).on('click', config.shiptoListContainer+" input[type='checkbox']", function(event) {
+                console.log("soldToSelectorCheckbox >>>",$(event.target).closest('.soldToSelectorCheckbox').hide());
+            });
         };
 
-        var populateSite = function(soldto){
-            siteDropdownOptions = [];
+        var populatePermissions = function(){
+            $(config.displaySpinner).show();
+            $(config.permissionsTableContainer+' #table').bootstrapTable('destroy');
+            var postData = {};
             function successCallback(data) {
                 $(config.displaySpinner).hide();
+                cbp.usmrPageAddNew.usmrUserData.permissions = data.permissions;
+                console.log("cbp.usmrPageAddNew.usmrUserData.permissions >>>",cbp.usmrPageAddNew.usmrUserData.permissions);
+                populatingTable(cbp.usmrPageAddNew.usmrUserData.permissions);
                 leftPaneExpandCollapse.resetSearchFormHeight();
-                populateDropDowns(data.siteDropdown,siteDropdownOptions,"siteDropdown");
-                $(config.siteDdnContainer).html(compiledDefaultDdn(cbp.usmrPageAddNew.siteDropdown));
-                //Refresh dropdown at initial dispaly after loading templates
-                $(config.dropDownCommon).selectpicker('refresh');
-                enableMobileDefaultDropDown();
-                setItalicsToThedefaultSelection();
             }
 
             function errorCallback() {
@@ -356,18 +381,17 @@ require(["modernizr",
             $.ajax({
                 type: cbp.usmrPageAddNew.globalUrl.method,
                 headers: {'CSRFToken':CSRFToken},
-               	data: {
-                    'soldToNumber' : soldto
-                },
+                data: JSON.stringify(postData),
+                contentType:"application/json",
                 dataType:"json",
-                url: cbp.usmrPageAddNew.globalUrl.ccsFetchSiteURL,
+                url: cbp.usmrPageAddNew.globalUrl.loadPermissions,
                 success: successCallback,
                 error: errorCallback
             });
         };
 
         var populatingTable = function (dataList) {
-           $('#table').bootstrapTable({
+           $(config.permissionsTableContainer+' #table').bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
                 iconsPrefix: 'fa',
@@ -379,59 +403,52 @@ require(["modernizr",
                 responsiveClass: "bootstrap-table-cardview",
                 onCheck: function (row, $element) {
                     // enable button
-                    selectedEFTs.push(row.eftNoticeNumberId);
-                    enablePrintDownloadButtons();
+                    selectedPermissions.push(row.uid);
                 },
                 onCheckAll: function (rows) {
-                    // enable button
-                    selectedEFTs = [];
+                    selectedPermissions = [];
                     var len = rows.length;
 
                     for (var i = 0; i < len; i++) {
-                        selectedEFTs.push(rows[i].eftNoticeNumberId);
-                    }
-
-                    if (rows.length) {
-                        enablePrintDownloadButtons();
+                        selectedPermissions.push(rows[i].uid);
                     }
                 },
                 onUncheck: function (row, $element) {
                     // write logic..as not sure if all unselected
-                    var index = selectedEFTs.indexOf(row.eftNoticeNumberId);
+                    var index = selectedPermissions.indexOf(row.uid);
 
                     if (index > -1) {
-                        selectedEFTs.splice(index, 1);
+                        selectedPermissions.splice(index, 1);
                     }
-
-                    if (!($(config.tabelRow).hasClass('selected'))) {
-                        disablePrintDownloadButtons();
-                    }
-
                 },
                 onUncheckAll: function (rows) {
-                    //disable button
-                    selectedEFTs = [];
-                    disablePrintDownloadButtons();
-
+                    selectedPermissions = [];
                 },
                 columns: [{
                     field: 'checkbox',
                     checkbox: true,
-                    class: 'fa'
+                    class: 'fa',
                 }, {
-                    field: 'permission',
+                    field: 'name',
                     title: cbp.usmrPageAddNew.globalVars.permissonCaption,
                     titleTooltip: cbp.usmrPageAddNew.globalVars.permissonCaption,
                     class: 'text-nowrap col-md-4',
                 },{
-                    field: 'desc',
+                    field: 'description',
                     title: cbp.usmrPageAddNew.globalVars.descCaption,
                     titleTooltip: cbp.usmrPageAddNew.globalVars.descCaption,
-                    class: 'numberIcon col-md-15'
+                    class: 'numberIcon col-md-18'
                 }],
                 data: dataList
             });
 
+            addingParseLeyValidationToTable();
+            dataList.map(function(val,index){
+                if(val.checked==true){
+                    $(config.permissionsTableContainer+" #table .bs-checkbox").find('[data-index="'+index+'"]').trigger('click');
+                    $(config.permissionsTableContainer+" #table").bootstrapTable("check", index);
+                }
+            });
         };
 
         return {
@@ -495,10 +512,7 @@ require(["modernizr",
 
         leftPaneExpandCollapse.init();
 
-        cbp.usmrPageAddNew.showSoldTo = true;
-
         cbp.usmrPageAddNew.usmrUserData = usmrUserData;
-        cbp.usmrPageAddNew.soldToOptions = soldToOptions;
 
         if (usmrUserData.permissionsDataList === undefined || usmrUserData.permissionsDataList === null) {
             cbp.usmrPageAddNew.usmrUserData.permissionsDataList = [];
