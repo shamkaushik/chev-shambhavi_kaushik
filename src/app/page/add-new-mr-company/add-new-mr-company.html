@@ -18,13 +18,14 @@
             <div class="content-box add-new-mr-company">
                 <div class="row">
                     <div class="col-sm-15 col-xs-15">
-                        <h2 class='page-title'>add new marketer retailer company</h2>
+                        <h2 class='page-title venu'>add new marketer retailer company</h2>
                     </div>
                 </div>
                 <div class='row xs-m-0 position-relative'>
                     <div class="overlay-wrapper">
                     </div>
                     <div class='col-md-24 col-lg-24 right-pane'>
+                      <form class="form-horizontal" id="addMrCompanyForm" role="form" data-parsley-validate>
                         <div class='top-summary js-add-new-mr-company-summary'>
                         </div>
                         <div class='bottom-detail js-bottom-detail md-p-0 xs-pt-15'>
@@ -39,43 +40,43 @@
             var addNewMrCompanyResponse = {
                 "availableSites": [
                   {
-                    "uid": "uid",
+                    "uid": "1234SH",
                     "displayName": "201154 - Redwood Oil Co, 39103 Highway 299",
                     "assigned": true,
                     "associatedB2BUnit": null
                   },
                   {
-                    "uid": "uid",
+                    "uid": "567721SH",
                     "displayName": "201964 - Redwood Oil Co Inc, 4925 Sonoma Hwy",
                     "assigned": true,
                     "associatedB2BUnit": null
                   },
                   {
-                    "uid": "uid",
+                    "uid": "878878SH",
                     "displayName": "202125 - Redwood Oil Co., 830 Redwood Dr",
                     "assigned": true,
                     "associatedB2BUnit": null
                   },
                   {
-                    "uid": "uid",
+                    "uid": "1234",
                     "displayName": "4027815 - Redwood Oil Co Inc, Fob4 Richmond-Bulk",
                     "assigned": true,
                     "associatedB2BUnit": null
                   },
                   {
-                    "uid": "uid",
+                    "uid": "43323",
                     "displayName": "4176766 - Redwood Oil Co Inc, 455 Yolanda Ave",
                     "assigned": true,
                     "associatedB2BUnit": null
                   },
                   {
-                    "uid": "uid",
+                    "uid": "545453",
                     "displayName": "7591364 - Williams Tank Line Inc.",
                     "assigned": true,
                     "associatedB2BUnit": null
                   },
                   {
-                    "uid": "uid",
+                    "uid": "234234",
                     "displayName": "201154 - Redwood Oil Co, 39103 Highway 299",
                     "assigned": true,
                     "associatedB2BUnit": null
@@ -83,40 +84,33 @@
                 ],
                 "soldToDropDown": [
                   {
-                    "uid": "uid",
+                    "uid": "324523432",
                     "displayName": "test displayName"
                   },
                   {
-                    "uid": "uid",
+                    "uid": "42312312",
                     "displayName": "test displayName1"
                   },
                   {
-                    "uid": "uid",
+                    "uid": "3432432",
                     "displayName": "test displayName2"
                   },
                   {
-                    "uid": "uid",
+                    "uid": "4234234",
                     "displayName": "test displayName3"
                   }
 
                 ],
                 "status": [
                   {
-                    "displayName": "test status name",
+                    "displayName": "Active",
                     "value": true
                   },
                   {
-                    "displayName": "test status name1",
-                    "value": true
-                  },
-                  {
-                    "displayName": "test status name2",
-                    "value": true
-                  },
-                  {
-                    "displayName": "test status name3",
-                    "value": true
-                  }]
+                    "displayName": "In Active",
+                    "value": false
+                  }
+                ]
               };
             var srtByDdn = {
                 "options": [],
@@ -134,11 +128,14 @@
                 "staticBasePath": "/",
                 "addNewMrComapnyPage": {
                     "globalUrl": {
-                      "returnToCompanyMgtUrl" : "/usmr/usmr.html"
+                      "returnToCompanyMgtUrl" : "/usmr/usmr.html",
+                      "associatedSiteUrl" : "/assets/json/associatedSitesResponse.json",
+                      "saveNewMrCompanyUrl" : "/assets/json/addNewVolumeResponse.json",
+                      "method" : 'GET'
                     },
                     "parentSoldToDropdown": {
                       "options":[],
-                      "label": "Parent Sold To",
+                      "label": "Parentmethod Sold To",
                       "title": "",
                       "name": "parentSoldToDdn",
                       "showOptions": 10,
@@ -153,13 +150,17 @@
                       "singleOption": true
                     },
                     "globalVars": {
+                      "csrfToken" : "${CSRFToken.token}",
                       "companyMgtReturnView" : "return to company management",
-                        "mrDetailsHeading": "marketer retailer details",
-                        "soldtoLabel" : "Parent Sold To",
-                        "mrCompanyName1Label" : "Marketer Retailer Company Name 1",
-                        "mrCompanyName2Label" : "Marketer Retailer Company Name 2",
-                        "siteAsc" : "Site, Ascending",
-                        "siteDesc" : "Site, Descending",
+                      "mrDetailsHeading": "marketer retailer details",
+                      "tableHeading": "associated sites",
+                      "soldtoLabel" : "Parent Sold To",
+                      "mrCompanyName1Label" : "Marketer Retailer Company Name 1",
+                      "mrCompanyName2Label" : "Marketer Retailer Company Name 2",
+                      "siteAsc" : "Site, Ascending",
+                      "siteDesc" : "Site, Descending",
+                      "resetButton" : "Reset",
+                      "createNewMarketerRetailer":"Create Marketer Retailer"
                     }
                 }
             }
