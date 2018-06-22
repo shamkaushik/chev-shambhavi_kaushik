@@ -38,32 +38,12 @@
                 </div>
             </div>
         </section>
-        <input type="hidden" id="contextPath" value="/sf/businessPoint/en/USD">
-        <input type="hidden" id="isInternalUser" value="false">
-        <form id="eftDetailsForm" action="/app/page/order-details/order-details.html" method="get" target="_blank">
-            <input type="hidden" name="eftNoticeNumberId" id="eftNoticeNumberId">
-        </form>
-        <!-- form for invoice pdf -->
-        <form id="eftSearchPDFForm" action="/eftSearch/eftSearchPDF" method="post" target="_blank">
-            <input type="hidden" name="eftNoticeNumberId" id="eftNoticeNumberId">
-            <input type="hidden" name="eftPrint" id="eftPrint">
-        </form>
-
-        <form id="eftForm" method="POST" action="/sf/eftSearch/eftCSV">
-            <input name="selectedEFTs" id="selectedEFTs" type="hidden">
-        </form>
-
-        <form id="eftNoticeForm" action="${request.getContextPath()}/EftDetails/results" method="POST">
-           <input type="hidden" name="eftNoticeid" id="eftNoticeid" />
-        </form>
 
         <script type="text/javascript">
             var inASMSession = "false";
 
             var internalUser = false;
-
-            var allEftFlow = "false"; //invoicesAttention
-
+            var usmrCurrency = "USD";
             var usmrUserData = {
                 "userInfo": {
                     "delegatedAdmin": false,
@@ -142,10 +122,6 @@
                 ]
             };
 
-            var maxResults = 500;
-            
-            var eftSearchCurrency = "USD";
-
             var CSRFToken = "";
 
             var statusUserDdn = [{
@@ -163,14 +139,6 @@
                 "uid" : "TST",
                 "displayName" : "Test Country"
             }];
-
-            var maxResultText = '<div>{0} EFTs matching your search were found in the system.</div>' +
-                '<div>Please refine your search to return less than 500 results.</div><br>' +
-                '<div><b>Suggestions:</b></div>' +
-                '<ul>' +
-                '<li>Enter additional search criteria.</li>' +
-                '<li>Select a shorter date range.</li>' +
-                '</ul>';
 
             var cbp = {
                 "staticBasePath": "/",
@@ -192,7 +160,6 @@
                         "singleOption": true
                     },
                     "globalUrl": {
-                        "eftSearchPostURL": "/assets/json/permissionMR.json",
                         "ccsFetchSiteURL" : "/assets/json/permissionMR.json",
                         "loadPermissions" : "/assets/json/permissionMR.json",
                         "returnURL" : "#",

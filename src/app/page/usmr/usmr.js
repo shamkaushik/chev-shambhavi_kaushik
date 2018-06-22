@@ -2,74 +2,28 @@ require(["modernizr",
     "jquery",
     "bootstrap",
     "handlebars",
-    "moment",
-    "calendar",
     "parsley",
     "bootstrap-select",
     "bootstrap-table",
-    "toggleSwitch",
-    "text!app/components/calendar/_calendar.hbs",
     "text!app/components/dropdown/_defaultDdn.hbs",
-    "text!app/page/usmr/searchForm.hbs",
     "text!app/page/usmr/addNewUserForm.hbs",
     "text!app/page/usmr/bottomDetail.hbs",
     "text!app/page/usmr/permissionsSelection.hbs"
 
-], function (modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, calendar, parsley, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _addNewUserForm, _bottomDetailHBS, _permissionsSelection) {
+], function (modernizr, $, bootstrap, Handlebars, parsley, bootstrapSelect, bootstrapTable, _defaultDdnHBS, _addNewUserForm, _bottomDetailHBS, _permissionsSelection) {
 
-    var statusUserDdnOptions = [],userCountryDddnOptions = [],siteDropdownOptions = [],pyDropdownOptions = [], eftObj = {},startDateDT = '',endDateDT = '';
+    var statusUserDdnOptions = [],userCountryDddnOptions = [],siteDropdownOptions = [],pyDropdownOptions = [];
 
     var selectedPermissions = [],selectedSites = [];
 
     //Compiling HBS templates
     var compiledDefaultDdn = Handlebars.compile(_defaultDdnHBS);
-    var compiledsearchDate = Handlebars.compile(_calendarHBS);
-    var compiledsearchForm = Handlebars.compile(_searchFormHBS);
     var compiledUserForm = Handlebars.compile(_addNewUserForm);
     var compiledBottomDetail = Handlebars.compile(_bottomDetailHBS);
     var compiledPermissionsSelection = Handlebars.compile(_permissionsSelection);
 
     var usmrPageAddNew = (function () {
         var startDate, endDate;
-        var srtByDdn = {
-            "options": [{
-                    key: "eftNoticeNumber-asc",
-                    value: cbp.usmrPageAddNew.globalVars.eftNoticeNumberAsc
-            }, {
-                    key: "eftNoticeNumber-desc",
-                    value: cbp.usmrPageAddNew.globalVars.eftNoticeNumberDesc
-            },{
-                    key: "noticeDate-desc",
-                    value: cbp.usmrPageAddNew.globalVars.noticeDateAsc
-            }, {
-                    key: "noticeDate-asc",
-                    value: cbp.usmrPageAddNew.globalVars.noticeDateDesc
-            }, {
-                    key: "accountNumber-asc",
-                    value: cbp.usmrPageAddNew.globalVars.accountNumberAsc
-            }, {
-                    key: "accountNumber-desc",
-                    value: cbp.usmrPageAddNew.globalVars.accountNumberDesc
-            }, {
-                    key: "settlementDate-asc",
-                    value: cbp.usmrPageAddNew.globalVars.settlementDateAsc
-            }, {
-                    key: "settlementDate-desc",
-                    value: cbp.usmrPageAddNew.globalVars.settlementDateDesc
-            }, {
-                    key: "total-asc",
-                    value: cbp.usmrPageAddNew.globalVars.totaltb  + " (" + eftSearchCurrency + "), " +  cbp.usmrPageAddNew.globalVars.ascLabel
-            }, {
-                    key: "total-desc",
-                    value: cbp.usmrPageAddNew.globalVars.totaltb + " (" + eftSearchCurrency + "), " + cbp.usmrPageAddNew.globalVars.descLabel
-            }
-          ],
-            label: cbp.usmrPageAddNew.globalVars.sortBy,
-            labelClass: "xs-mr-5",
-            name: "sortByDdn",
-            display: "displayInline"
-        };
-
         var populateDropDowns = function(dropDownList,dropDownListOptions,dropDownName){
             for (var i = 0; i < dropDownList.length; i++) {
                 var obj = {};
@@ -136,19 +90,10 @@ require(["modernizr",
             loadingInitialHbsTemplates();
             bindEvents();
             populatingTable(cbp.usmrPageAddNew.usmrUserData.permissions);
-            setItalicsToThedefaultSelection();
-        };
-
-        var setItalicsToThedefaultSelection = function(){
-            var selectorDopdown=$('.search-content').find('button span.filter-option'),selectorCalendar = $(config.ordercalendar).find('span');
-            selectorDopdown.each(function(){
-                $.trim($(this).text()).toLowerCase()==cbp.usmrPageAddNew.globalVars.allAccount.toLowerCase() ? $(this).addClass('italics') : $(this).removeClass('italics');
-            });
         };
 
         var loadingInitialHbsTemplates = function () {
             //Appending handlebar templates to HTML
-            $(config.searchFormContainer).html(compiledsearchForm(cbp.usmrPageAddNew));
             $(config.siteDdnContainer).html(compiledDefaultDdn(cbp.usmrPageAddNew.siteDropdown));
             $(config.pyDdnContainer).html(compiledDefaultDdn(cbp.usmrPageAddNew.pyDropdown));
             loadingDynamicHbsTemplates();
@@ -174,14 +119,6 @@ require(["modernizr",
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
                 $(config.dropDownCommon).selectpicker('mobile');
             }
-
-            $(config.searchFormContainer).find('select.selectpicker').on('changed.bs.select change', function (e) {
-                setItalicsToThedefaultSelection();
-            });
-
-            $(config.searchFormContainer).find('select.selectpicker').on('changed.bs.select change', function (e) {
-                setItalicsToThedefaultSelection();
-            });
         };
 
         var generateSelectedSites = function(){
@@ -195,11 +132,8 @@ require(["modernizr",
         };
 
         var triggerAjaxRequest = function () {
-            var selectorCalendar = $(config.ordercalendar).find('span'), hiddenInputForToggleSwitch = $("#eftSearchToggle input[type='hidden']");
             $(config.displaySpinner).show();
-
             leftPaneExpandCollapse.hideSearchBar();
-
             var postData = {
                 "userInfo": {
                     "delegatedAdmin": $(config.userIsDelAdmin).prop('checked')==true ? true : false,
@@ -226,16 +160,11 @@ require(["modernizr",
 
             function successCallback(data) {
                 $(config.displaySpinner).hide();
-                $(config.searchDetailContainer).show();
-                $(config.ccsSummaryContainer).show();
                 cbp.usmrPageAddNew.usmrUserData = data;
-                leftPaneExpandCollapse.resetSearchFormHeight();
             }
 
             function errorCallback() {
                 $(config.displaySpinner).hide();
-                $(config.searchDetailContainer).show();
-                $(config.ccsSummaryContainer).show();
                 console.log("error");
             }
 
@@ -245,7 +174,7 @@ require(["modernizr",
                 data: JSON.stringify(postData),
                 contentType:"application/json",
                 dataType:"json",
-                url: cbp.usmrPageAddNew.globalUrl.eftSearchPostURL,
+                url: cbp.usmrPageAddNew.globalUrl.ccsFetchSiteURL,
                 success: successCallback,
                 error: errorCallback
             });
@@ -293,27 +222,6 @@ require(["modernizr",
         };
 
         var bindEvents = function () {
-            $(document).on("click","input[type='checkbox']", function(event){
-              if($(config.tabelRow).hasClass('selected')){
-                $(config.downloadBtn).removeClass("disabled");
-              }
-              else{
-                $(config.downloadBtn).addClass("disabled");
-              }
-            });
-
-            var validatefields = config.eftNoticeNumber + "," + config.invoiceNumber + "";
-
-            $(document).on('keypress', validatefields, function (e) {
-                var regex = /^[0-9]+$/;
-                var str = String.fromCharCode(e.which);
-                if (str.match(regex)) {
-                    return true;
-                }
-                e.preventDefault();
-                return false;
-            });
-
             $(document).on('click',config.soldToicon,function(e){
                 if($(this).hasClass('down')==true){
                     $(config.soldToicon+".down").addClass('active');
@@ -365,9 +273,7 @@ require(["modernizr",
             function successCallback(data) {
                 $(config.displaySpinner).hide();
                 cbp.usmrPageAddNew.usmrUserData.permissions = data.permissions;
-                console.log("cbp.usmrPageAddNew.usmrUserData.permissions >>>",cbp.usmrPageAddNew.usmrUserData.permissions);
                 populatingTable(cbp.usmrPageAddNew.usmrUserData.permissions);
-                leftPaneExpandCollapse.resetSearchFormHeight();
             }
 
             function errorCallback() {
@@ -396,7 +302,6 @@ require(["modernizr",
                 iconsPrefix: 'fa',
                 sortable: true,
                 parentContainer: ".js-permission-selection",
-                sortByDropdownId: "#sortByDdn",
                 responsive: false,
                 responsiveBreakPoint: 768,
                 responsiveClass: "bootstrap-table-cardview",
