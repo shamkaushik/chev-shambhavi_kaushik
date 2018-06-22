@@ -38,6 +38,7 @@ require(["modernizr",
 
         var init = function () {
           populateDropDowns(addNewMrCompanyResponse.soldToDropDown,parentSoldToDdnOptions,"parentSoldToDropdown");
+          setStatusLabel(addNewMrCompanyResponse.status);
           loadingInitialHbsTemplates();
           bindEvents();
           populatingTable(addNewMrCompanyResponse.availableSites);
@@ -47,6 +48,10 @@ require(["modernizr",
           loadingDynamicHbsTemplates();
           $(config.displaySpinner).hide();
           $(config.parentSoldToDropdownContainer).html(compiledDefaultDdn(cbp.addNewMrComapnyPage.parentSoldToDropdown));
+        };
+
+        var setStatusLabel = function (value) {
+          cbp.addNewMrComapnyPage.status = value;
         };
 
         var loadingDynamicHbsTemplates = function () {
@@ -150,11 +155,10 @@ require(["modernizr",
             var atleastOneSiteSelected = isAtleastOneSiteSelected();
             validateForm();
             if ($('#form').parsley().isValid() && atleastOneSiteSelected) {
+              console.log("in form submit");
               var postData = setPayload();
-              $.when(triggerAjaxRequest(postData,cbp.addNewMrComapnyPage.globalUrl.method,
-                cbp.addNewMrComapnyPage.globalUrl.saveNewMrCompanyUrl)).then(function(result) {
-                $(config.displaySpinner).hide();
-              });
+              $('#addNewMrCompanyForm #addNewMrCompanyFormData').val(postData);
+              $('#addNewMrCompanyForm').submit();
             }
           });
 
@@ -203,12 +207,12 @@ require(["modernizr",
           var payLoad = {};
           var companyInfoObj = {};
           companyInfoObj.parentSoldTo  =  $(config.parentSoldToDdn).val() === null ? "null" : $(config.parentSoldToDdn).val().toString();
-          companyInfoObj.status = true;
+          companyInfoObj.status = cbp.addNewMrComapnyPage.status === 'Active' ? true : false
           companyInfoObj.firstName = $('.company-name1').val();
           companyInfoObj.lastName =  $('.company-name2').val();
           payLoad.companyInfo = companyInfoObj;
           payLoad.b2bUnits = selectedSites;
-          console.log(payLoad);
+          payLoad = JSON.stringify(payLoad);
           return payLoad;
         };
 
@@ -218,16 +222,11 @@ require(["modernizr",
 
         var openResetPageConfirmationPopup = function() {
           bootstrapDialog.closeAll()
-          var $textAndPic = $('<div class="row xs-pt-20 xs-pb-30"></div>');
-          $textAndPic.append('<div>');
-          $textAndPic.append('<div class="col-xs-2 text-center">' +
-          '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></div>' +
-          '<div class="col-xs-21 xs-pr-10 xs-pl-20 sm-pl-5 sm-pt-5">' + cbp.addNewMrComapnyPage.globalVars.resetPageConfirmation+'</span></div>');
           bootstrapDialog.show({
             title: cbp.addNewMrComapnyPage.globalVars.resetPageTitle,
             message: cbp.addNewMrComapnyPage.globalVars.resetPageConfirmation,
             buttons: [{
-              label: "cancel",
+              label: "Cancel",
               cssClass: 'btn-default xs-ml-10',
               action: function(dialogRef) {
                 dialogRef.close();
