@@ -100,16 +100,7 @@
                   }
 
                 ],
-                "status": [
-                  {
-                    "displayName": "Active",
-                    "value": true
-                  },
-                  {
-                    "displayName": "In Active",
-                    "value": false
-                  }
-                ]
+                "status": "Active"
               };
             var srtByDdn = {
                 "options": [],
@@ -134,17 +125,9 @@
                     },
                     "parentSoldToDropdown": {
                       "options":[],
-                      "label": "Parentmethod Sold To",
+                      "label": "Parent Sold To",
                       "title": "",
                       "name": "parentSoldToDdn",
-                      "showOptions": 10,
-                      "singleOption": true
-                    },
-                    "statusDropDown" : {
-                      "options":[],
-                      "label": "Status",
-                      "title": "",
-                      "name": "statusDdn",
                       "showOptions": 10,
                       "singleOption": true
                     },
@@ -156,12 +139,16 @@
                       "soldtoLabel" : "Parent Sold To",
                       "mrCompanyName1Label" : "Marketer Retailer Company Name 1",
                       "mrCompanyName2Label" : "Marketer Retailer Company Name 2",
+                      "statusLabel" : "Status",
                       "siteAsc" : "Site, Ascending",
                       "siteDesc" : "Site, Descending",
                       "resetButton" : "Reset",
                       "createNewMarketerRetailer":"Create Marketer Retailer",
                       "emptyErrorMessage" : "This is a required filed",
                       "errorMessagesPermissions" : "Please select atleast one permission to proceed",
+                      "resetPageConfirmation": "Are you sure you want to discard all changes?",
+                      "resetPageTitle": "Discard Changes",
+                      "siteSelectErrorMsg" : "Atleast 1 site should be selected to proceed"
                     }
                 }
             }

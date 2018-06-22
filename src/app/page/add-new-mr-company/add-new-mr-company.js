@@ -5,13 +5,14 @@ require(["modernizr",
     "parsley",
     "bootstrap-select",
     "bootstrap-table",
+    "bootstrap-dialog",
     "text!app/components/dropdown/_defaultDdn.hbs",
     "text!app/page/add-new-mr-company/add-new-mr-company-summary.hbs",
     "text!app/page/add-new-mr-company/bottomDetail.hbs"
 
-], function (modernizr, $, bootstrap, Handlebars, parsley, bootstrapSelect, bootstrapTable, _defaultDdnHBS, _addNewMrCompanySummaryHBS, _bottomDetailHBS) {
+], function (modernizr, $, bootstrap, Handlebars, parsley, bootstrapSelect, bootstrapTable, bootstrapDialog, _defaultDdnHBS, _addNewMrCompanySummaryHBS, _bottomDetailHBS) {
 
-    var parentSoldToDdnOptions = [], statusDdnOptions = [], selectedSites = [];
+    var parentSoldToDdnOptions = [], selectedSites = [];
     // Compiling HBS templates
     var compiledAddNewCompanySummary = Handlebars.compile(_addNewMrCompanySummaryHBS);
     var compiledBottomDetail = Handlebars.compile(_bottomDetailHBS);
@@ -28,9 +29,7 @@ require(["modernizr",
           sortByDdn: "#sortByDdn",
           sortByDdnContainer: ".js-sortbyDdn",
           parentSoldToDropdownContainer: '.js-parent-sold-to-dropDown',
-          statusDropDownContainer: '.js-status-dropDown',
           parentSoldToDdn: '#parentSoldToDdn',
-          statusDdn : "#statusDdn",
           associatedSitesTable: ".tableContainer",
           addNewMarketerRetailerBtn: ".js-btn-create-marketer",
           resetButton: '.js-reset-user-btn',
@@ -39,7 +38,6 @@ require(["modernizr",
 
         var init = function () {
           populateDropDowns(addNewMrCompanyResponse.soldToDropDown,parentSoldToDdnOptions,"parentSoldToDropdown");
-          populateDropDowns(addNewMrCompanyResponse.status,statusDdnOptions,"statusDropDown");
           loadingInitialHbsTemplates();
           bindEvents();
           populatingTable(addNewMrCompanyResponse.availableSites);
@@ -49,7 +47,6 @@ require(["modernizr",
           loadingDynamicHbsTemplates();
           $(config.displaySpinner).hide();
           $(config.parentSoldToDropdownContainer).html(compiledDefaultDdn(cbp.addNewMrComapnyPage.parentSoldToDropdown));
-          $(config.statusDropDownContainer).html(compiledDefaultDdn(cbp.addNewMrComapnyPage.statusDropDown));
         };
 
         var loadingDynamicHbsTemplates = function () {
@@ -145,19 +142,17 @@ require(["modernizr",
             window.location.href=cbp.addNewMrComapnyPage.globalUrl.returnToCompanyMgtUrl;
           });
 
-          $(document).on('change',config.statusDdn ,function(e) {
-            getAssociatedSites();
-          });
-
           $(document).on('change',config.parentSoldToDdn ,function(e) {
             getAssociatedSites();
           });
 
           $(document).on('click',config.addNewMarketerRetailerBtn ,function(e) {
+            var atleastOneSiteSelected = isAtleastOneSiteSelected();
             validateForm();
-            if ($('#form').parsley().isValid()) {
+            if ($('#form').parsley().isValid() && atleastOneSiteSelected) {
               var postData = setPayload();
-              $.when(triggerAjaxRequest(postData,cbp.addNewMrComapnyPage.globalUrl.method, cbp.addNewMrComapnyPage.globalUrl.saveNewMrCompanyUrl)).then(function(result) {
+              $.when(triggerAjaxRequest(postData,cbp.addNewMrComapnyPage.globalUrl.method,
+                cbp.addNewMrComapnyPage.globalUrl.saveNewMrCompanyUrl)).then(function(result) {
                 $(config.displaySpinner).hide();
               });
             }
@@ -173,17 +168,31 @@ require(["modernizr",
 
         };
 
+        var isAtleastOneSiteSelected = function () {
+          if(selectedSites.length<=0){
+            showErrorMessage(cbp.addNewMrComapnyPage.globalVars.siteSelectErrorMsg, $('.siteSelectedErrorMsg'), true);
+            return false;
+          }
+          return true;
+        }
+
+        var showErrorMessage = function(errorMsg, element, displayError) {
+            element.text(errorMsg);
+            displayError ? element.removeClass('hide') : element.addClass('hide');
+        };
+
         var validateForm = function(element) {
           if(element)
             $(element).parsley().validate();
           else
             $('#form').parsley().validate();
         };
+
         var getAssociatedSites = function () {
           var postData = {};
           postData.parentSoldTo  =  $(config.parentSoldToDdn).val() === null ? "null" : $(config.parentSoldToDdn).val().toString();
-          postData.status = $(config.statusDdn).val() === null ? "null" : $(config.statusDdn).val().toString();
-          $.when(triggerAjaxRequest(postData,cbp.addNewMrComapnyPage.globalUrl.method, cbp.addNewMrComapnyPage.globalUrl.associatedSiteUrl)).then(function(result) {
+          $.when(triggerAjaxRequest(postData,cbp.addNewMrComapnyPage.globalUrl.method,
+            cbp.addNewMrComapnyPage.globalUrl.associatedSiteUrl)).then(function(result) {
             $(config.displaySpinner).hide();
             $(config.associatedSitesTable+' #table').bootstrapTable('destroy');
             populatingTable(result);
@@ -194,7 +203,7 @@ require(["modernizr",
           var payLoad = {};
           var companyInfoObj = {};
           companyInfoObj.parentSoldTo  =  $(config.parentSoldToDdn).val() === null ? "null" : $(config.parentSoldToDdn).val().toString();
-          companyInfoObj.status = $(config.statusDdn).val() === null ? "null" : $(config.statusDdn).val().toString();
+          companyInfoObj.status = true;
           companyInfoObj.firstName = $('.company-name1').val();
           companyInfoObj.lastName =  $('.company-name2').val();
           payLoad.companyInfo = companyInfoObj;
@@ -204,9 +213,38 @@ require(["modernizr",
         };
 
         var resetPage = function () {
-          addNewMrCompanyPage.init();
-          $(config.dropDownCommon).selectpicker('refresh');
+          openResetPageConfirmationPopup();
         };
+
+        var openResetPageConfirmationPopup = function() {
+          bootstrapDialog.closeAll()
+          var $textAndPic = $('<div class="row xs-pt-20 xs-pb-30"></div>');
+          $textAndPic.append('<div>');
+          $textAndPic.append('<div class="col-xs-2 text-center">' +
+          '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></div>' +
+          '<div class="col-xs-21 xs-pr-10 xs-pl-20 sm-pl-5 sm-pt-5">' + cbp.addNewMrComapnyPage.globalVars.resetPageConfirmation+'</span></div>');
+          bootstrapDialog.show({
+            title: cbp.addNewMrComapnyPage.globalVars.resetPageTitle,
+            message: cbp.addNewMrComapnyPage.globalVars.resetPageConfirmation,
+            buttons: [{
+              label: "cancel",
+              cssClass: 'btn-default xs-ml-10',
+              action: function(dialogRef) {
+                dialogRef.close();
+              }
+            },{
+                label: cbp.addNewMrComapnyPage.globalVars.resetPageTitle,
+                cssClass: 'btn-primary xs-ml-10',
+                action: function(dialogRef) {
+                  bootstrapDialog.closeAll();
+                  addNewMrCompanyPage.init();
+                  $(config.dropDownCommon).selectpicker('refresh');
+                  $("html, body").animate({ scrollTop: 0 }, 500);
+                }
+            }]
+          });
+        };
+
 
         var populatingTable = function (availableSites) {
           $(config.sortByDdn).val("site-asc").selectpicker('refresh');
@@ -224,6 +262,7 @@ require(["modernizr",
             responsiveClass: "bootstrap-table-cardview",
             onCheck: function (row, $element) {
               selectedSites.push(row.uid);
+              showErrorMessage(cbp.addNewMrComapnyPage.globalVars.siteSelectErrorMsg, $('.siteSelectedErrorMsg'), false);
             },
             onCheckAll: function (rows) {
               selectedSites = [];
@@ -231,6 +270,7 @@ require(["modernizr",
               for (var i = 0; i < len; i++) {
                 selectedSites.push(rows[i].uid);
               }
+              showErrorMessage(cbp.addNewMrComapnyPage.globalVars.siteSelectErrorMsg, $('.siteSelectedErrorMsg'), false);
             },
             onUncheck: function (row, $element) {
               var index = selectedSites.indexOf(row.uid);
