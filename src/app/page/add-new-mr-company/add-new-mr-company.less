@@ -41,7 +41,7 @@
     margin: 0px;
     padding: 0;
     list-style-type: none;
-    color: #CB1530;
+    color: @brand-danger;
   }
 
   .sub-heading {
@@ -77,19 +77,12 @@
   }
 }
 
-@media (max-width: @screen-xs) {
-  .add-new-mr-company  {
-    .fixed-table-body  {
-      .card-view .title {
-        word-wrap: break-word;
-        width: 50% !important;
-        min-width: 40%;
-      }
-      .card-view .value {
-        width: 50% !important;
-      }
-    }
-  }
+.hide {
+  display: none;
+}
+
+.alert-message {
+  color: @brand-danger;
 }
 
 @media (max-width: @screen-xs) {
