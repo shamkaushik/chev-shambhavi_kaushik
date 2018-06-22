@@ -73,12 +73,11 @@ require(["modernizr",
         var populateDropDowns = function(dropDownList,dropDownListOptions,dropDownName){
             for (var i = 0; i < dropDownList.length; i++) {
                 var obj = {};
-                obj["key"] = dropDownList[i].uid;
-                obj["value"] = dropDownList[i].displayName;
+                obj["key"]  = dropDownName === "statusUserDdn" ? dropDownList[i].uid : dropDownList[i].isocode;
+                obj["value"]  = dropDownName === "statusUserDdn" ? dropDownList[i].displayName : dropDownList[i].name;
                 obj["isInGracePeriod"] = dropDownList[i].isInGracePeriod;
                 dropDownListOptions.push(obj);
             }
-
             cbp.usmrPageAddNew[dropDownName].options = dropDownListOptions;
             cbp.usmrPageAddNew[dropDownName].searchable = true;
         };
@@ -255,9 +254,9 @@ require(["modernizr",
 
         var addingParseLeyValidationToTable = function(){
             $(config.permissionsTableContainer+' #table tr input[type="checkbox"]').eq(0).attr({
-                "data-parsley-multiple" : "s-s-c", 
+                "data-parsley-multiple" : "s-s-c",
                 "data-parsley-required-message" : cbp.usmrPageAddNew.globalVars.errorMessagesPermissions ,
-                "required" : "", 
+                "required" : "",
                 "data-parsley-errors-container" : "#permission-errorMsg-holder"
             });
 
@@ -275,9 +274,9 @@ require(["modernizr",
 
         var addingParseLeyValidationToSite = function(){
             $(config.searchDetailContainer+' input[type="checkbox"]').eq(0).attr({
-                "data-parsley-multiple" : "d-s-c", 
+                "data-parsley-multiple" : "d-s-c",
                 "data-parsley-required-message" : cbp.usmrPageAddNew.globalVars.errorMessagesSoldToShipTo ,
-                "required" : "", 
+                "required" : "",
                 "data-parsley-errors-container" : "#message-holder"
             });
 
@@ -344,7 +343,7 @@ require(["modernizr",
             });
 
             $(document).on('click', config.userIsDelAdmin, function(event) {
-                $(event.target).prop('checked')==true ? 
+                $(event.target).prop('checked')==true ?
                 ($(config.siteSelection).find("input[type='checkbox']").attr('disabled',true),
                 $(config.siteSelection).find("input[type='checkbox']").prop('checked',true),
                 $(config.soldToicon).addClass('disabled'),

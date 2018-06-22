@@ -14,7 +14,7 @@ require(["modernizr",
     "text!app/page/price-notices/bottomDetail.hbs",
     "text!app/page/price-notices/searchAndViewTab.hbs"
 
-], function(modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _priceNoticesSummaryHBS, _bottomDetailHBS, _searchAndViewHBS) {
+], function (modernizr, $, bootstrap, Handlebars, moment, toggleSwitch, calendar, bootstrapSelect, bootstrapTable, _calendarHBS, _defaultDdnHBS, _searchFormHBS, _priceNoticesSummaryHBS, _bottomDetailHBS, _searchAndViewHBS) {
 
     var accountDropdownOptions = [],
         soldToDropdownOptions = [],
@@ -35,7 +35,7 @@ require(["modernizr",
     var compiledSearchAndView = Handlebars.compile(_searchAndViewHBS);
 
 
-    var priceNoticePage = (function() {
+    var priceNoticePage = (function () {
         var startDate, endDate;
 
         // var srtByDdn = {
@@ -81,7 +81,7 @@ require(["modernizr",
             }]
         };
 
-        var populateDropDowns = function(dropDownList, dropDownListOptions, dropDownName) {
+        var populateDropDowns = function (dropDownList, dropDownListOptions, dropDownName) {
             if (dropDownList.length > 1) {
                 var obj = {};
                 obj["key"] = "all";
@@ -144,12 +144,16 @@ require(["modernizr",
             typeView: ".type-view",
             detailView: ".detail-view",
             "detailSearchDateRange": ".js-search-detail-date-range",
-            priceNoticesTypeDdnId: "#priceNoticesTypeDdn",
-            searchViewTableId: "#priceNoticeType",
             searchViewParentContainer: ".js-bottom-detail",
+            searchViewTableId: "#priceNoticeType",
+            priceNoticesTypeDdnId: "#priceNoticesTypeDdn",
             priceNoticesTypeDefaultSortCol: "publishedDate",
             priceNoticesTypeDefaultSortOdr: "desc",
-            priceNoticesTypeDdnName: "priceNoticesTypeDdn"
+            priceNoticesTypeDdnName: "priceNoticesTypeDdn",
+            detailsDdnId: "#detailsDdn",
+            detailsDefaultSortCol: "publishedDate",
+            detailsDefaultSortOdr: "asc",
+            detailsDdnName: "detailsDdn"
         };
 
         var priceNoticesTypeSrtByDdn = {
@@ -178,7 +182,54 @@ require(["modernizr",
             display: "displayInline"
         };
 
-        var init = function() {
+        var detailsSrtByDdn = {
+            "options": [{
+                    key: "pricePointAccount-desc",
+                    value: cbp.priceNoticesPage.globalVars.pricePointAccountDesc
+                }, {
+                    key: "pricePointAccount-asc",
+                    value: cbp.priceNoticesPage.globalVars.pricePointAccountAsc
+                }, {
+                    key: "publishedDate-desc",
+                    value: cbp.priceNoticesPage.globalVars.publishedDateDesc
+                }, {
+                    key: "publishedDate-asc",
+                    value: cbp.priceNoticesPage.globalVars.publishedDateAsc
+                }, {
+                    key: "effectiveDate-desc",
+                    value: cbp.priceNoticesPage.globalVars.effectiveDateDesc
+                }, {
+                    key: "effectiveDate-asc",
+                    value: cbp.priceNoticesPage.globalVars.effectiveDateAsc
+                }, {
+                    key: "product-desc",
+                    value: cbp.priceNoticesPage.globalVars.productDesc
+                }, {
+                    key: "product-asc",
+                    value: cbp.priceNoticesPage.globalVars.productAsc
+                },
+                {
+                    key: "change-desc",
+                    value: cbp.priceNoticesPage.globalVars.changeDesc
+                },
+                {
+                    key: "change-asc",
+                    value: cbp.priceNoticesPage.globalVars.changeAsc
+                }, {
+                    key: "newPrice-desc",
+                    value: cbp.priceNoticesPage.globalVars.newPriceDesc
+                }, {
+                    key: "newPrice-asc",
+                    value: cbp.priceNoticesPage.globalVars.newPriceAsc
+                }
+            ],
+            label: cbp.priceNoticesPage.globalVars.sortBy,
+            labelClass: "xs-mr-5",
+            name: config.detailsDdnName,
+            display: "displayInline"
+        };
+
+        var init = function () {
             loadingInitialHbsTemplates();
 
             if (cbp.priceNoticesPage.accountDropdown["options"].length > 1) {
@@ -202,15 +253,15 @@ require(["modernizr",
             $(config.priceNoticeToggle + ' button').addClass('col-xs-12');
         };
 
-        var setItalicsToThedefaultSelection = function() {
+        var setItalicsToThedefaultSelection = function () {
             var selectorDopdown = $('.search-content').find('button span.filter-option'),
                 selectorCalendar = $(config.ordercalendar).find('span');
-            selectorDopdown.each(function() {
+            selectorDopdown.each(function () {
                 $.trim($(this).text()).toLowerCase() == cbp.priceNoticesPage.globalVars.allAccount.toLowerCase() ? $(this).addClass('italics') : $(this).removeClass('italics');
             });
         };
 
-        var loadingInitialHbsTemplates = function() {
+        var loadingInitialHbsTemplates = function () {
             //Appending handlebar templates to HTML
             $(config.searchAndViewContainer).html(compiledSearchAndView(cbp.priceNoticesPage));
             $(config.searchFormContainer).html(compiledsearchForm(cbp.priceNoticesPage));
@@ -237,7 +288,7 @@ require(["modernizr",
             $(config.displaySpinner).hide();
         };
 
-        var loadingDynamicHbsTemplates = function() {
+        var loadingDynamicHbsTemplates = function () {
             $(config.priceNoticesSummaryContainer).html(compiledeftSearchSummary(cbp.priceNoticesPage));
             $(config.searchDetailContainer).html(compiledBottomDetail(cbp.priceNoticesPage));
             $(config.sortByDdnContainer).html(compiledDefaultDdn(priceNoticesTypeSrtByDdn));
@@ -245,41 +296,41 @@ require(["modernizr",
             enableMobileDefaultDropDown();
         };
 
-        var enableMobileDefaultDropDown = function() {
+        var enableMobileDefaultDropDown = function () {
             //Enable mobile scrolling by calling $('.selectpicker').selectpicker('mobile'). This enables the device's native menu for select menus.
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
                 $(config.dropDownCommon).selectpicker('mobile');
             }
 
-            $(config.searchFormContainer).find('select.selectpicker').on('changed.bs.select change', function(e) {
+            $(config.searchFormContainer).find('select.selectpicker').on('changed.bs.select change', function (e) {
                 setItalicsToThedefaultSelection();
             });
 
-            $(config.searchFormContainer).find('select.selectpicker').on('changed.bs.select change', function(e) {
+            $(config.searchFormContainer).find('select.selectpicker').on('changed.bs.select change', function (e) {
                 setItalicsToThedefaultSelection();
             });
         };
 
 
-        var calleftSearchPDF = function(eftNoticeNumberId) {
+        var calleftSearchPDF = function (eftNoticeNumberId) {
             $("#eftSearchPDFForm").attr('target', '_blank');
             $('#eftSearchPDFForm #selectedEFTs').val(eftNoticeNumberId);
             $("#eftSearchPDFForm").submit();
         };
 
-        var calleftSearchPDFLink = function(eftNoticeNumberId) {
+        var calleftSearchPDFLink = function (eftNoticeNumberId) {
             $('#eftSearchPDFForm #eftNoticeNumberId').val(eftNoticeNumberId);
             $('#eftSearchPDFForm #eftPrint').val('false');
             $('#eftSearchPDFForm').submit();
         };
 
-        var goToOrderDetails = function(orderId) {
+        var goToOrderDetails = function (orderId) {
             $('#eftDetailsForm #eftNoticeNumberId').val(orderId);
             $('#eftDetailsForm #hybrisOrder').val(true);
             $('#eftDetailsForm').submit();
         };
 
-        var downloadBtnSelected = function() {
+        var downloadBtnSelected = function () {
             $('#eftForm #selectedEFTs').val(selectedEFTs.toString());
             for (var i = 0; len = selectedEFTs.length, i < len; i++) {
                 $(".iconsPrintDownload[data-eftNoticeNumberId='" + selectedEFTs[i] + "']").addClass("success-icon");
@@ -287,7 +338,7 @@ require(["modernizr",
             $("#eftForm").submit();
         };
 
-        var printPDFSelected = function() {
+        var printPDFSelected = function () {
             $('#eftSearchPDFForm #selectedEFTs').val(selectedEFTs.toString());
             $("#eftSearchPDFForm").attr('target', '_blank');
             if (inASMSession != true) {
@@ -298,7 +349,7 @@ require(["modernizr",
             $("#eftSearchPDFForm").submit();
         };
 
-        var populatingCalendarComponent = function() {
+        var populatingCalendarComponent = function () {
             function cb(start, end) {
                 startDate = start.format(cbp.priceNoticesPage.dateRange.format);
                 endDate = end.format(cbp.priceNoticesPage.dateRange.format);
@@ -345,18 +396,18 @@ require(["modernizr",
             }, cb);
         };
 
-        var triggerAjaxRequest = function() {
+        var triggerAjaxRequest = function () {
 
             var postData = {};
 
             function successCallback(data) {
-                populatingTable(cbp.priceNoticesPage.priceNoticesTableResponse.priceNoticeTypeDataList, 
-                                cbp.priceNoticesPage.priceNoticesTableResponse.priceNoticeTypeDataListMapping,
-                                config.priceNoticesTypeDdnId,
-                                config.searchViewTableId,
-                                config.searchViewParentContainer,
-                                config.priceNoticesTypeDefaultSortCol,
-                                config.priceNoticesTypeDefaultSortOdr);
+                populatingTable(cbp.priceNoticesPage.priceNoticesTableResponse.priceNoticeTypeDataList,
+                    cbp.priceNoticesPage.priceNoticesTableResponse.priceNoticeTypeDataListMapping,
+                    config.priceNoticesTypeDdnId,
+                    config.searchViewTableId,
+                    config.searchViewParentContainer,
+                    config.priceNoticesTypeDefaultSortCol,
+                    config.priceNoticesTypeDefaultSortOdr);
             }
 
             function errorCallback() {
@@ -365,7 +416,9 @@ require(["modernizr",
 
             $.ajax({
                 type: cbp.priceNoticesPage.globalUrl.method,
-                headers: { 'CSRFToken': CSRFToken },
+                headers: {
+                    'CSRFToken': CSRFToken
+                },
                 data: JSON.stringify(postData),
                 contentType: "application/json",
                 dataType: "json",
@@ -376,106 +429,106 @@ require(["modernizr",
 
         };
 
-        var downloadForm = function(eftNoticeNumberId) {
+        var downloadForm = function (eftNoticeNumberId) {
             var loc = $("#contextPath").val();
             var formTemplate = "<form id='downloadForm' method='POST' action='" + loc + "/eft/eftCSV'><input type='hidden' name='selectedEFTs' value='" + eftNoticeNumberId + "'/><input name='CSRFToken' id='CSRFToken' type='hidden' value='" + CSRFToken + "'/></form>";
             $(formTemplate).appendTo("body").submit().remove();
         };
 
-        var enablePrintDownloadButtons = function() {
+        var enablePrintDownloadButtons = function () {
             $(config.downloadBtn).removeClass("disabled");
             $(config.printBtn).removeClass("disabled");
         };
-        var disablePrintDownloadButtons = function() {
+        var disablePrintDownloadButtons = function () {
             $(config.downloadBtn).addClass("disabled");
             $(config.printBtn).addClass("disabled");
         };
 
-        var bindEvents = function() {
-            $(document).on("click", "input[type='checkbox']", function(event) {
-                if ($(config.tabelRow).hasClass('selected')) {
-                    $(config.downloadBtn).removeClass("disabled");
-                    $(config.printBtn).removeClass("disabled");
-                } else {
-                    $(config.downloadBtn).addClass("disabled");
-                    $(config.printBtn).addClass("disabled");
-                }
-            });
+        var bindEvents = function () {
+            // $(document).on("click", "input[type='checkbox']", function(event) {
+            //     if ($(config.tabelRow).hasClass('selected')) {
+            //         $(config.downloadBtn).removeClass("disabled");
+            //         $(config.printBtn).removeClass("disabled");
+            //     } else {
+            //         $(config.downloadBtn).addClass("disabled");
+            //         $(config.printBtn).addClass("disabled");
+            //     }
+            // });
 
-            $(document).on("click", config.eftNoticeLink, function(e) {
-                e.preventDefault();
-                var eftNoticeUid = $(e.target).attr('data-uid');
-                eftObj.account = $("#accountSelectDdn").val();
-                if ($.trim($(config.searchInputEft).val()).length != 0) {
-                    $("#priceNoticeToggle input[type='hidden']").val() == 2 ?
-                        eftObj.eftNoticeNumber = $(config.searchInputEft).val() :
-                        eftObj.invoiceNumber = $(config.searchInputEft).val();
-                } else {
-                    eftObj.downloadStatus = $("#downloadStatus").val();
-                    eftObj.printStatus = $("#printStatus").val();
-                }
-                eftObj.startDate = cbp.priceNoticesPage.dateRange.startDate.format(cbp.priceNoticesPage.dateRange.format);
-                eftObj.endDate = cbp.priceNoticesPage.dateRange.endDate.format(cbp.priceNoticesPage.dateRange.format);
-                localStorage.setItem("eftObj", JSON.stringify(eftObj));
-                $('#eftDetailsForm #eftNoticeid').val(eftNoticeUid);
-                $('#eftDetailsForm').submit();
-            });
+            // $(document).on("click", config.eftNoticeLink, function(e) {
+            //     e.preventDefault();
+            //     var eftNoticeUid = $(e.target).attr('data-uid');
+            //     eftObj.account = $("#accountSelectDdn").val();
+            //     if ($.trim($(config.searchInputEft).val()).length != 0) {
+            //         $("#priceNoticeToggle input[type='hidden']").val() == 2 ?
+            //             eftObj.eftNoticeNumber = $(config.searchInputEft).val() :
+            //             eftObj.invoiceNumber = $(config.searchInputEft).val();
+            //     } else {
+            //         eftObj.downloadStatus = $("#downloadStatus").val();
+            //         eftObj.printStatus = $("#printStatus").val();
+            //     }
+            //     eftObj.startDate = cbp.priceNoticesPage.dateRange.startDate.format(cbp.priceNoticesPage.dateRange.format);
+            //     eftObj.endDate = cbp.priceNoticesPage.dateRange.endDate.format(cbp.priceNoticesPage.dateRange.format);
+            //     localStorage.setItem("eftObj", JSON.stringify(eftObj));
+            //     $('#eftDetailsForm #eftNoticeid').val(eftNoticeUid);
+            //     $('#eftDetailsForm').submit();
+            // });
 
-            $(document).on('click', config.downloadIcon, function(evnt) {
-                var isInternalUser = $("#isInternalUser").val();
-                if (isInternalUser != "true" && inASMSession !== "true")
-                    $(evnt.target).addClass("success-icon");
-                downloadForm($(evnt.target).attr("data-eftNoticeNumberId"));
-            });
+            // $(document).on('click', config.downloadIcon, function(evnt) {
+            //     var isInternalUser = $("#isInternalUser").val();
+            //     if (isInternalUser != "true" && inASMSession !== "true")
+            //         $(evnt.target).addClass("success-icon");
+            //     downloadForm($(evnt.target).attr("data-eftNoticeNumberId"));
+            // });
 
-            $(document).on('click', config.printIcon, function(evnt) {
-                if (inASMSession !== true) {
-                    $(this).addClass("success-icon");
-                }
+            // $(document).on('click', config.printIcon, function(evnt) {
+            //     if (inASMSession !== true) {
+            //         $(this).addClass("success-icon");
+            //     }
 
-                calleftSearchPDF($(evnt.target).attr("data-eftNoticeNumberId"));
-            });
+            //     calleftSearchPDF($(evnt.target).attr("data-eftNoticeNumberId"));
+            // });
 
             //Search button functionality
-            $(config.searchButton).on("click", function(e) {
-                selectedEFTs = [];
-                if ($("#priceNoticeToggle input[type='hidden']").val() == 2) {
-                    if ($.trim($(config.searchInputEft).val()).length <= 0) {
-                        $(config.advancedInputsContainer).removeClass('hide');
-                        $(config.advancedInputsContainer).find('span.alert-message').text(cbp.priceNoticesPage.globalVars.eftNumberVoidError);
-                        $(config.searchInputEft).addClass('redDanger');
-                        return;
-                    }
-                } else if ($("#priceNoticeToggle input[type='hidden']").val() == 3) {
-                    if ($.trim($(config.searchInputEft).val()).length <= 0) {
-                        $(config.advancedInputsContainer).removeClass('hide');
-                        $(config.advancedInputsContainer).find('span.alert-message').text(cbp.priceNoticesPage.globalVars.invoiceVoidError);
-                        $(config.searchInputEft).addClass('redDanger');
-                        return;
-                    }
-                }
-                $(config.advancedInputsContainer).addClass('hide');
-                $(config.searchInputEft).removeClass('redDanger');
-                // triggerAjaxRequest();
-            });
+            // $(config.searchButton).on("click", function(e) {
+            //     selectedEFTs = [];
+            //     if ($("#priceNoticeToggle input[type='hidden']").val() == 2) {
+            //         if ($.trim($(config.searchInputEft).val()).length <= 0) {
+            //             $(config.advancedInputsContainer).removeClass('hide');
+            //             $(config.advancedInputsContainer).find('span.alert-message').text(cbp.priceNoticesPage.globalVars.eftNumberVoidError);
+            //             $(config.searchInputEft).addClass('redDanger');
+            //             return;
+            //         }
+            //     } else if ($("#priceNoticeToggle input[type='hidden']").val() == 3) {
+            //         if ($.trim($(config.searchInputEft).val()).length <= 0) {
+            //             $(config.advancedInputsContainer).removeClass('hide');
+            //             $(config.advancedInputsContainer).find('span.alert-message').text(cbp.priceNoticesPage.globalVars.invoiceVoidError);
+            //             $(config.searchInputEft).addClass('redDanger');
+            //             return;
+            //         }
+            //     }
+            //     $(config.advancedInputsContainer).addClass('hide');
+            //     $(config.searchInputEft).removeClass('redDanger');
+            //     // triggerAjaxRequest();
+            // });
 
-            var valueOnSubmit = '.js-search-form input' + "," + config.printStatusContainer + "," +
-                config.accountDdnContainer + "," +
-                config.downloadStatusContainer + "," + config.dateRangeContainer + "";
+            // var valueOnSubmit = '.js-search-form input' + "," + config.printStatusContainer + "," +
+            //     config.accountDdnContainer + "," +
+            //     config.downloadStatusContainer + "," + config.dateRangeContainer + "";
 
 
-            $(document).on('keypress', valueOnSubmit, function(e) {
-                if (e.which == 13) {
-                    e.preventDefault();
-                    $("#eftSearchBtn").trigger("click");
-                }
-            });
+            // $(document).on('keypress', valueOnSubmit, function(e) {
+            //     if (e.which == 13) {
+            //         e.preventDefault();
+            //         $("#eftSearchBtn").trigger("click");
+            //     }
+            // });
 
 
 
             var validatefields = config.eftNoticeNumber + "," + config.invoiceNumber + "";
 
-            $(document).on('keypress', validatefields, function(e) {
+            $(document).on('keypress', validatefields, function (e) {
                 var regex = /^[0-9]+$/;
                 var str = String.fromCharCode(e.which);
                 if (str.match(regex)) {
@@ -485,11 +538,20 @@ require(["modernizr",
                 return false;
             });
 
-            $(document).on("click", ".search-form .toggleSwitch#priceNoticeToggle button.btn-primary", function() {
+            $(document).on("click", ".search-form .toggleSwitch#priceNoticeToggle button.btn-primary", function () {
                 $(".search-form").addClass("show");
             });
 
-            $(document).on('click', config.priceNoticeToggle + ' button', function() {
+            $(document).on('click', config.priceNoticeToggle + ' button', function () {
+                alert("sduivhusdiv");
+                populatingTable(cbp.priceNoticesPage.priceNoticesTableResponse.detailsDataList,
+                                cbp.priceNoticesPage.priceNoticesTableResponse.detailsDataListMapping,
+                                config.detailsDdnId,
+                                config.searchViewTableId,
+                                config.searchViewParentContainer,
+                                config.detailsDefaultSortCol,
+                                config.detailsDefaultSortOdr);
+                $(config.sortByDdnContainer).html(compiledDefaultDdn(detailsSrtByDdn));
                 $(config.searchInputEft).val('');
                 if ($(this).val() == 2) {
                     $(config.typeView).addClass('hidden');
@@ -503,21 +565,21 @@ require(["modernizr",
 
 
 
-            $(document).on('click', config.daterangepickerContainer + ' .ranges ul li', function() {
+            $(document).on('click', config.daterangepickerContainer + ' .ranges ul li', function () {
                 setItalicsToThedefaultSelection();
             });
 
 
 
-            $(document).on('keyup', config.searchInputEft, function(e) {
+            $(document).on('keyup', config.searchInputEft, function (e) {
                 $(".alert-danger").addClass("hide");
                 $(e.target).removeClass('redDanger');
             });
         };
 
 
-        var generatingColumns = function(columnsDataList) {
-            var receivedOrderKey = Object.keys(columnsDataList).filter(function(key) {
+        var generatingColumns = function (columnsDataList) {
+            var receivedOrderKey = Object.keys(columnsDataList).filter(function (key) {
                 if (columnsDataList[key]) {
                     return columnsDataList[key];
                 }
@@ -569,7 +631,7 @@ require(["modernizr",
                 }
             ];
 
-            var columnsListMap = columnsList.reduce(function(data, columnsList) {
+            var columnsListMap = columnsList.reduce(function (data, columnsList) {
                 data[columnsList.field] = columnsList;
                 return data;
             }, {});
@@ -589,7 +651,7 @@ require(["modernizr",
             return requestedCol;
         };
 
-        var populatingTable = function(tableData, columnsDataList, sortByDropdownId,tableId,parentContainer,defaultSortCol,defaultSortOdr) {
+        var populatingTable = function (tableData, columnsDataList, sortByDropdownId, tableId, parentContainer, defaultSortCol, defaultSortOdr) {
 
             $(tableId).bootstrapTable({
                 classes: 'table table-no-bordered',
@@ -612,16 +674,16 @@ require(["modernizr",
         };
     })();
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         //Localization setup for dropdown & table
         $.fn.selectpicker.defaults = {
             noneSelectedText: cbp.priceNoticesPage.globalVars.selectDdn.noneSelectedText,
             noneResultsText: cbp.priceNoticesPage.globalVars.selectDdn.noneResultsText,
-            countSelectedText: function(numSelected, numTotal) {
+            countSelectedText: function (numSelected, numTotal) {
                 return (numSelected == 1) ? cbp.priceNoticesPage.globalVars.selectDdn.itemSelected : cbp.priceNoticesPage.globalVars.selectDdn.itemSelected1;
             },
-            maxOptionsText: function(numAll, numGroup) {
+            maxOptionsText: function (numAll, numGroup) {
                 return [
                     (numAll == 1) ? cbp.priceNoticesPage.globalVars.selectDdn.limitReached : cbp.priceNoticesPage.globalVars.selectDdn.limitReached1,
                     (numGroup == 1) ? cbp.priceNoticesPage.globalVars.selectDdn.groupLimit : cbp.priceNoticesPage.globalVars.selectDdn.groupLimit1

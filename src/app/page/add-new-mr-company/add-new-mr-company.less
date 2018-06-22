@@ -1,0 +1,97 @@
+.add-new-mr-company {
+  .fixed-table-container{
+    .bs-checkbox{
+      .th-inner{
+        padding: 0 0 !important;
+      }
+    }
+    tbody{
+      .selected td{
+      background-color: transparent;
+      }
+      td{
+        &.bs-checkbox.fa{
+          margin-left: 10px;
+          padding-top: 5px !important;
+          font-size: 16px;
+        }
+      }
+      tr.bg-danger{
+        background-color: #F7E8E9 !important;
+      }
+    }
+    thead{
+      tr{
+        background-color: @brand-primary;
+        th.bs-checkbox.fa{
+          width: 55px!important;
+          input[type="checkbox"]:before{
+            font-size: 16px;
+            color:#fff;
+          }
+        }
+      }
+    }
+  }
+  input.parsley-error {
+    border: 1px solid red;
+  }
+
+  .parsley-errors-list {
+    margin: 0px;
+    padding: 0;
+    list-style-type: none;
+    color: @brand-danger;
+  }
+
+  .sub-heading {
+    font-weight: normal;
+  }
+  .page-title {
+    text-transform: none;
+  }
+  .mr-company-input {
+    width: 75%;
+  }
+  .company-mgt-return-view {
+    color: @brand-primary;
+  }
+  .amount-paid-column {
+    padding-right: 200px !important;
+  }
+  input[type="checkbox"] {
+     -webkit-appearance:none;/* Hides the default checkbox style */
+     &:focus{
+       outline:none;
+     }
+     &:before {
+      text-align:center;
+      content: '\f096';
+     }
+     &:checked{
+       &::before{
+         color: @brand-primary;
+         content: '\f046';
+       }
+    }
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.alert-message {
+  color: @brand-danger;
+}
+
+@media (max-width: @screen-xs) {
+  .add-new-mr-company  {
+    .js-sortbyDdn.form-group {
+      float: right !important;
+      .bootstrap-select {
+        width: auto !important;
+      }
+    }
+  }
+}

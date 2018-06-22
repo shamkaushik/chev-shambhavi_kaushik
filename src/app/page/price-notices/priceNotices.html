@@ -92,15 +92,41 @@
                     "publishedDate": "20-02-2015",
                     "effectiveDate": "28-07-2016",
                     "priceNoticeType": "Marketer Price Notice West Other"
-                }, {
+                }, 
+                {
                     "publishedDate": "22-03-2015",
                     "effectiveDate": "29-08-2016",
                     "priceNoticeType": "Marketer Price Notice West"
+                }],
+                "detailsDataList": [{
+                    "pricePointAccount": "8269555 - PHOE - jRx",
+                    "publishedDate": "20-02-2015",
+                    "effectiveDate": "28-07-2016",
+                    "product": "Lorem Ipsum Dolerum Policit 10.12%",
+                    "change": "+1.124460",
+                    "newPrice": "2.151060"
+                }, 
+                {
+                    "pricePointAccount": "5269555 - PHOE - jRx",
+                    "publishedDate": "22-03-2015",
+                    "effectiveDate": "29-08-2016",
+                    "product": "CT M CR3 10.0%",
+                    "change": "-1.124460",
+                    "newPrice": "7.151060"
+                    
                 }],
                 "priceNoticeTypeDataListMapping": {
                     "publishedDate": "Published Date",
                     "effectiveDate": "Effective Date",
                     "priceNoticeType": "Price Notice Type"
+                },
+                "detailsDataListMapping": {
+                    "pricePointAccount": "pricePointAccount",
+                    "publishedDate": "Published Date",
+                    "effectiveDate": "Effective Date",
+                    "product": "product",
+                    "change": "change",
+                    "newPrice": "newPrice"
                 },
                 // "priceNoticeTypeDataListMapping":[  
                 //     {  
@@ -274,13 +300,21 @@
                         "accountNumbertb": "Account",
                         "settlementDatetb": "Settlement Date",
                         "totaltb": "Notice Total",
-
+                        
+                        "pricePointAccountDesc":"Price Point Account,Descending",
+                        "pricePointAccountAsc":"Price Point Account,Ascending",
                         "publishedDateAsc": "Published Date, Newest to Oldest",
                         "publishedDateDesc": "Published Date, Oldest to Newest",
                         "effectiveDateAsc": "Effective Date, Newest to Oldest",
                         "effectiveDateDesc": "Effective Date, Oldest to Newest",
                         "priceNoticeTypeAsc": "Price Notice Type A-Z",
                         "priceNoticeTypeDesc": "Price Notice Type Z-A",
+                        "productDesc": "Product,Type Z-A",
+                        "productAsc": "Product,Type A-Z",
+                        "changeDesc": "Changes,Descending",
+                        "changeAsc": "Changes,Ascending",
+                        "newPriceDesc": "New Price,Descending",
+                        "newPriceDesc": "New Price,Ascending",
 
                         "totalAsc": "Total, Ascending",
                         "totalDesc": "Total, Descending",

@@ -1,0 +1,36 @@
+<div class="row  bg-summary topSummaryLeftSection">
+    <div class="col-xs-24">
+        <span class="sub-heading">{{globalVars.mrDetailsHeading}}</span>
+    </div>
+</div>
+<div class="row md-mt-10">
+    <div class="col-md-7 col-xs-24 md-pb-0 md-pt-0 xs-pt-10">
+        <div class="js-parent-sold-to-dropDown form-group">
+        </div>
+    </div>
+</div>
+<form id="form" parsley-validate>
+<div class="row">
+    <div class="col-md-4 col-xs-24 md-pb-0 xs-pb-10">
+        <label><strong>{{globalVars.mrCompanyName1Label}}</strong></label>
+        <br/>
+         <input type="text" class="mr-company-input company-name1 form-control inputBoxShort input-element" data-parsley-required-message="{{globalVars.emptyErrorMessage}}" data-parsley-required="" data-parsley-trigger="focusout"/>
+    </div>
+    <div class="col-md-4 col-xs-24 md-pb-0 xs-pb-10">
+      <label><strong>{{globalVars.mrCompanyName2Label}}</strong></label>
+      <br/>
+      <input type="text" class="form-control inputBoxShort input-element mr-company-input company-name2" data-parsley-required-message="{{globalVars.emptyErrorMessage}}" data-parsley-required="" data-parsley-trigger="focusout"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3 col-xs-24 md-mr-40 md-pb-0 md-pt-10">
+      <span>
+          <strong>{{globalVars.statusLabel}}</strong>
+      </span>
+      <br/>
+      <span id="status">
+        Active
+      </span>
+    </div>
+</div>
