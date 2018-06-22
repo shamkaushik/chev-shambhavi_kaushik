@@ -38,31 +38,31 @@ require(["modernizr",
     var priceNoticePage = (function() {
         var startDate, endDate;
 
-        var srtByDdn = {
-            "options": [{
-                key: "publishDate-desc",
-                value: cbp.priceNoticesPage.globalVars.publishedDateDesc
-            }, {
-                key: "publishDate-asc",
-                value: cbp.priceNoticesPage.globalVars.publishedDateAsc
-            }, {
-                key: "effectiveDate-desc",
-                value: cbp.priceNoticesPage.globalVars.effectiveDateDesc
-            }, {
-                key: "effectiveDate-asc",
-                value: cbp.priceNoticesPage.globalVars.effectiveDateAsc
-            }, {
-                key: "priceNoticeType-desc",
-                value: cbp.priceNoticesPage.globalVars.priceNoticeTypeDesc
-            }, {
-                key: "priceNoticeType-asc",
-                value: cbp.priceNoticesPage.globalVars.priceNoticeTypeAsc
-            }],
-            label: cbp.priceNoticesPage.globalVars.sortBy,
-            labelClass: "xs-mr-5",
-            name: "sortByDdn",
-            display: "displayInline"
-        };
+        // var srtByDdn = {
+        //     "options": [{
+        //         key: "publishDate-desc",
+        //         value: cbp.priceNoticesPage.globalVars.publishedDateDesc
+        //     }, {
+        //         key: "publishDate-asc",
+        //         value: cbp.priceNoticesPage.globalVars.publishedDateAsc
+        //     }, {
+        //         key: "effectiveDate-desc",
+        //         value: cbp.priceNoticesPage.globalVars.effectiveDateDesc
+        //     }, {
+        //         key: "effectiveDate-asc",
+        //         value: cbp.priceNoticesPage.globalVars.effectiveDateAsc
+        //     }, {
+        //         key: "priceNoticeType-desc",
+        //         value: cbp.priceNoticesPage.globalVars.priceNoticeTypeDesc
+        //     }, {
+        //         key: "priceNoticeType-asc",
+        //         value: cbp.priceNoticesPage.globalVars.priceNoticeTypeAsc
+        //     }],
+        //     label: cbp.priceNoticesPage.globalVars.sortBy,
+        //     labelClass: "xs-mr-5",
+        //     name: config.priceNoticesTypeDdnName,
+        //     display: "displayInline"
+        // };
 
         var toggleSwitchConfig = {
             name: "switch",
@@ -143,7 +143,39 @@ require(["modernizr",
             searchAndViewContainer: ".js-search-and-view",
             typeView: ".type-view",
             detailView: ".detail-view",
-            "detailSearchDateRange": ".js-search-detail-date-range"
+            "detailSearchDateRange": ".js-search-detail-date-range",
+            priceNoticesTypeDdnId: "#priceNoticesTypeDdn",
+            searchViewTableId: "#priceNoticeType",
+            searchViewParentContainer: ".js-bottom-detail",
+            priceNoticesTypeDefaultSortCol: "publishedDate",
+            priceNoticesTypeDefaultSortOdr: "desc",
+            priceNoticesTypeDdnName: "priceNoticesTypeDdn"
+        };
+
+        var priceNoticesTypeSrtByDdn = {
+            "options": [{
+                key: "publishedDate-desc",
+                value: cbp.priceNoticesPage.globalVars.publishedDateDesc
+            }, {
+                key: "publishedDate-asc",
+                value: cbp.priceNoticesPage.globalVars.publishedDateAsc
+            }, {
+                key: "effectiveDate-desc",
+                value: cbp.priceNoticesPage.globalVars.effectiveDateDesc
+            }, {
+                key: "effectiveDate-asc",
+                value: cbp.priceNoticesPage.globalVars.effectiveDateAsc
+            }, {
+                key: "priceNoticeType-desc",
+                value: cbp.priceNoticesPage.globalVars.priceNoticeTypeDesc
+            }, {
+                key: "priceNoticeType-asc",
+                value: cbp.priceNoticesPage.globalVars.priceNoticeTypeAsc
+            }],
+            label: cbp.priceNoticesPage.globalVars.sortBy,
+            labelClass: "xs-mr-5",
+            name: config.priceNoticesTypeDdnName,
+            display: "displayInline"
         };
 
         var init = function() {
@@ -208,7 +240,7 @@ require(["modernizr",
         var loadingDynamicHbsTemplates = function() {
             $(config.priceNoticesSummaryContainer).html(compiledeftSearchSummary(cbp.priceNoticesPage));
             $(config.searchDetailContainer).html(compiledBottomDetail(cbp.priceNoticesPage));
-            $(config.sortByDdnContainer).html(compiledDefaultDdn(srtByDdn));
+            $(config.sortByDdnContainer).html(compiledDefaultDdn(priceNoticesTypeSrtByDdn));
             $(config.sortByDdnContainer).find(config.dropDownCommon).selectpicker('refresh');
             enableMobileDefaultDropDown();
         };
@@ -318,8 +350,13 @@ require(["modernizr",
             var postData = {};
 
             function successCallback(data) {
-                console.log("Success Callback");
-                populatingTable(cbp.priceNoticesPage.priceNoticesTableResponse.priceNoticeTypeDataList, cbp.priceNoticesPage.priceNoticesTableResponse.priceNoticeTypeDataListMapping);
+                populatingTable(cbp.priceNoticesPage.priceNoticesTableResponse.priceNoticeTypeDataList, 
+                                cbp.priceNoticesPage.priceNoticesTableResponse.priceNoticeTypeDataListMapping,
+                                config.priceNoticesTypeDdnId,
+                                config.searchViewTableId,
+                                config.searchViewParentContainer,
+                                config.priceNoticesTypeDefaultSortCol,
+                                config.priceNoticesTypeDefaultSortOdr);
             }
 
             function errorCallback() {
@@ -367,7 +404,6 @@ require(["modernizr",
 
             $(document).on("click", config.eftNoticeLink, function(e) {
                 e.preventDefault();
-                console.log("In Link CLick >>>");
                 var eftNoticeUid = $(e.target).attr('data-uid');
                 eftObj.account = $("#accountSelectDdn").val();
                 if ($.trim($(config.searchInputEft).val()).length != 0) {
@@ -380,7 +416,6 @@ require(["modernizr",
                 }
                 eftObj.startDate = cbp.priceNoticesPage.dateRange.startDate.format(cbp.priceNoticesPage.dateRange.format);
                 eftObj.endDate = cbp.priceNoticesPage.dateRange.endDate.format(cbp.priceNoticesPage.dateRange.format);
-                console.log("eft Object >>>", eftObj);
                 localStorage.setItem("eftObj", JSON.stringify(eftObj));
                 $('#eftDetailsForm #eftNoticeid').val(eftNoticeUid);
                 $('#eftDetailsForm').submit();
@@ -455,7 +490,6 @@ require(["modernizr",
             });
 
             $(document).on('click', config.priceNoticeToggle + ' button', function() {
-                console.log('value: ', $(this).val());
                 $(config.searchInputEft).val('');
                 if ($(this).val() == 2) {
                     $(config.typeView).addClass('hidden');
@@ -483,13 +517,12 @@ require(["modernizr",
 
 
         var generatingColumns = function(columnsDataList) {
-            console.log("columnsDataList >>>", columnsDataList);
             var receivedOrderKey = Object.keys(columnsDataList).filter(function(key) {
                 if (columnsDataList[key]) {
                     return columnsDataList[key];
                 }
             });
-            console.log("receivedOrderKey:", receivedOrderKey);
+
             var columnsList = [{
                     field: 'publishedDate',
                     title: columnsDataList.publishedDate,
@@ -553,26 +586,25 @@ require(["modernizr",
                 }
 
             }
-            console.log("requestedCol >>>", requestedCol);
             return requestedCol;
         };
 
-        var populatingTable = function(priceNoticeTypeDataList, columnsDataList) {
+        var populatingTable = function(tableData, columnsDataList, sortByDropdownId,tableId,parentContainer,defaultSortCol,defaultSortOdr) {
 
-            $('#priceNoticeType').bootstrapTable({
+            $(tableId).bootstrapTable({
                 classes: 'table table-no-bordered',
                 striped: true,
-                sortName: 'publishedDate',
-                sortOrder: 'desc',
+                sortName: defaultSortCol,
+                sortOrder: defaultSortOdr,
                 iconsPrefix: 'fa',
                 sortable: true,
-                parentContainer: ".js-bottom-detail",
-                sortByDropdownId: "#sortByDdn",
+                parentContainer: parentContainer,
+                sortByDropdownId: sortByDropdownId,
                 responsive: true,
                 responsiveBreakPoint: 768,
                 responsiveClass: "bootstrap-table-cardview",
                 columns: generatingColumns(columnsDataList),
-                data: priceNoticeTypeDataList
+                data: tableData
             });
         };
         return {
